@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { SiTelegram, SiBitcoin, SiEthereum } from "react-icons/si";
 import { motion } from "framer-motion";
+import logoImage from "@assets/6953A815-94C2-4614-85E2-19D7F729A661_1768635529517.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -47,12 +48,10 @@ function Header() {
       className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border"
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-md bg-primary flex items-center justify-center">
-            <Coins className="w-5 h-5 text-primary-foreground" />
-          </div>
+        <a href="/" className="flex items-center gap-2" data-testid="link-header-logo">
+          <img src={logoImage} alt="KriptoEcer" className="w-9 h-9 rounded-md" />
           <span className="text-lg font-bold tracking-tight">KriptoEcer</span>
-        </div>
+        </a>
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Button asChild data-testid="button-header-cta">
@@ -91,6 +90,7 @@ function HeroSection() {
           <motion.h1
             variants={fadeInUp}
             className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6"
+            data-testid="text-hero-title"
           >
             Beli Crypto Eceran{" "}
             <span className="text-primary">dalam Hitungan Detik</span>
@@ -224,8 +224,8 @@ function FeaturesSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <Badge variant="secondary" className="mb-4">Fitur Unggulan</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+          <Badge variant="secondary" className="mb-4" data-testid="badge-features">Fitur Unggulan</Badge>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="text-features-title">
             Mengapa Memilih KriptoEcer?
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -296,8 +296,8 @@ function HowItWorksSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <Badge variant="secondary" className="mb-4">Cara Kerja</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+          <Badge variant="secondary" className="mb-4" data-testid="badge-how-it-works">Cara Kerja</Badge>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="text-how-it-works-title">
             4 Langkah Mudah untuk Memulai
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -372,8 +372,8 @@ function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <Badge variant="secondary" className="mb-4">FAQ</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+          <Badge variant="secondary" className="mb-4" data-testid="badge-faq">FAQ</Badge>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="text-faq-title">
             Pertanyaan yang Sering Diajukan
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -423,7 +423,7 @@ function CTASection() {
           
           <div className="relative p-8 sm:p-12 md:p-16 text-center">
             <Clock className="w-12 h-12 text-primary-foreground/80 mx-auto mb-6" />
-            <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground mb-4" data-testid="text-cta-title">
               Siap Memulai Perjalanan Crypto Anda?
             </h2>
             <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8 text-lg">
@@ -433,7 +433,7 @@ function CTASection() {
             <Button
               size="lg"
               variant="secondary"
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              className="bg-primary-foreground text-primary"
               asChild
               data-testid="button-cta-start"
             >
@@ -455,14 +455,12 @@ function Footer() {
     <footer className="py-8 border-t border-border">
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
-              <Coins className="w-4 h-4 text-primary-foreground" />
-            </div>
+          <a href="/" className="flex items-center gap-2" data-testid="link-footer-logo">
+            <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
             <span className="font-semibold">KriptoEcer</span>
-          </div>
+          </a>
           
-          <p className="text-sm text-muted-foreground text-center">
+          <p className="text-sm text-muted-foreground text-center" data-testid="text-footer-copyright">
             &copy; {new Date().getFullYear()} KriptoEcer. All rights reserved.
           </p>
           
