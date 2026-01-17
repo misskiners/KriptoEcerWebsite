@@ -74,7 +74,7 @@ function Header() {
 
 function HeroSection() {
   return (
-    <section className="relative pt-32 pb-24 overflow-hidden min-h-screen flex items-center">
+    <section className="relative pt-28 pb-12 overflow-hidden min-h-[85vh] flex items-center">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
       <BlockchainGrid />
       <FloatingCoins />
@@ -208,7 +208,7 @@ function HeroSection() {
 
 function LiveTransactionsSection() {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-16 relative overflow-hidden">
       <BlockchainGrid />
       <div className="container mx-auto px-4 relative">
         <div className="max-w-5xl mx-auto">
