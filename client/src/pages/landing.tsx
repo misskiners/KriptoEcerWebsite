@@ -30,7 +30,6 @@ const logoImage = "/favicon.png";
 import { FloatingCoins } from "@/components/animations/floating-coins";
 import { BlockchainGrid } from "@/components/animations/blockchain-grid";
 import { TransactionFeed } from "@/components/animations/transaction-feed";
-import { BotSimulation } from "@/components/animations/bot-simulation";
 import { BotAnimation } from "@/components/animations/bot-animation";
 
 const fadeInUp = {
@@ -228,7 +227,7 @@ function LiveTransactionsSection() {
                 <p className="text-muted-foreground mt-2">Simulasikan pengalaman membeli crypto di KriptoEcer</p>
               </div>
               
-              <BotSimulation />
+              <BotAnimation />
             </motion.div>
 
             <motion.div
