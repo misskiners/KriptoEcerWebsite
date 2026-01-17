@@ -215,7 +215,7 @@ function LiveTransactionsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-lg mx-auto"
+          className="max-w-md mx-auto"
         >
           <div className="text-center mb-6">
             <Badge variant="secondary" className="mb-3" data-testid="badge-live">
@@ -226,8 +226,20 @@ function LiveTransactionsSection() {
               Live Activity
             </Badge>
             <h2 className="text-2xl font-bold" data-testid="text-live-title">Transaksi Terbaru</h2>
+            <p className="text-sm text-muted-foreground mt-2">
+              Aktivitas pembelian crypto secara real-time
+            </p>
           </div>
-          <Card className="bg-card/80 backdrop-blur">
+          
+          <Card className="bg-card/90 backdrop-blur border-primary/20 shadow-lg shadow-primary/5">
+            <div className="bg-gradient-to-r from-primary/10 to-primary/5 px-4 py-2 border-b border-border/50 rounded-t-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                <span className="ml-2 text-xs text-muted-foreground font-mono">telegram://kriptoecerbot</span>
+              </div>
+            </div>
             <CardContent className="p-4">
               <TransactionFeed />
             </CardContent>
