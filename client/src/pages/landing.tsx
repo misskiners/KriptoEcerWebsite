@@ -30,6 +30,7 @@ const logoImage = "/favicon.png";
 import { FloatingCoins } from "@/components/animations/floating-coins";
 import { BlockchainGrid } from "@/components/animations/blockchain-grid";
 import { TransactionFeed } from "@/components/animations/transaction-feed";
+import { BotSimulation } from "@/components/animations/bot-simulation";
 import { BotAnimation } from "@/components/animations/bot-animation";
 
 const fadeInUp = {
@@ -219,21 +220,15 @@ function LiveTransactionsSection() {
               viewport={{ once: true }}
             >
               <div className="mb-6">
-                <Badge variant="secondary" className="mb-4" data-testid="badge-live">
-                  <span className="relative flex h-2 w-2 mr-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  Live
+                <Badge variant="secondary" className="mb-4" data-testid="badge-demo">
+                  <Bot className="w-3 h-3 mr-2" />
+                  Demo Interaktif
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl font-bold" data-testid="text-live-title">Aktivitas Terbaru</h2>
+                <h2 className="text-3xl sm:text-4xl font-bold" data-testid="text-live-title">Coba Langsung!</h2>
+                <p className="text-muted-foreground mt-2">Simulasikan pengalaman membeli crypto di KriptoEcer</p>
               </div>
               
-              <Card className="bg-card/90 backdrop-blur border-border shadow-lg">
-                <CardContent className="p-4">
-                  <TransactionFeed />
-                </CardContent>
-              </Card>
+              <BotSimulation />
             </motion.div>
 
             <motion.div
