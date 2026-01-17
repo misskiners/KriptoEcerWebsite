@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 import { SiTelegram, SiBitcoin, SiEthereum } from "react-icons/si";
 import { motion } from "framer-motion";
-import logoImage from "@assets/6953A815-94C2-4614-85E2-19D7F729A661_1768635529517.png";
+const logoImage = "/favicon.png";
 import { FloatingCoins } from "@/components/animations/floating-coins";
 import { BlockchainGrid } from "@/components/animations/blockchain-grid";
 import { TransactionFeed } from "@/components/animations/transaction-feed";
@@ -208,29 +208,29 @@ function HeroSection() {
 
 function LiveTransactionsSection() {
   return (
-    <section className="py-16 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden">
       <BlockchainGrid />
       <div className="container mx-auto px-4 relative">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="mb-4">
-                <Badge variant="secondary" className="mb-2" data-testid="badge-live">
+              <div className="mb-6">
+                <Badge variant="secondary" className="mb-4" data-testid="badge-live">
                   <span className="relative flex h-2 w-2 mr-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
                   Live
                 </Badge>
-                <h2 className="text-2xl font-bold" data-testid="text-live-title">Aktivitas Terbaru</h2>
+                <h2 className="text-3xl sm:text-4xl font-bold" data-testid="text-live-title">Aktivitas Terbaru</h2>
               </div>
               
               <Card className="bg-card/90 backdrop-blur border-border shadow-lg">
-                <CardContent className="p-3">
+                <CardContent className="p-4">
                   <TransactionFeed />
                 </CardContent>
               </Card>
@@ -240,42 +240,42 @@ function LiveTransactionsSection() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-6"
+              className="space-y-8"
             >
               <div>
-                <h3 className="text-2xl font-bold mb-2">Kenapa Ramai?</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-3">Kenapa Ramai?</h3>
+                <p className="text-base text-muted-foreground">
                   Ribuan pengguna sudah membuktikan kemudahan bertransaksi crypto di KriptoEcer.
                 </p>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Zap className="w-5 h-5 text-primary" />
+              <div className="space-y-5">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Zap className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium">Proses Instan</p>
+                    <p className="font-semibold text-base">Proses Instan</p>
                     <p className="text-sm text-muted-foreground">Transaksi selesai dalam detik</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Wallet className="w-5 h-5 text-primary" />
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Wallet className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium">Mulai Rp 10.000</p>
+                    <p className="font-semibold text-base">Mulai Rp 10.000</p>
                     <p className="text-sm text-muted-foreground">Modal kecil, untung besar</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-primary" />
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Shield className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium">Aman & Terpercaya</p>
+                    <p className="font-semibold text-base">Aman & Terpercaya</p>
                     <p className="text-sm text-muted-foreground">Sistem otomatis 24/7</p>
                   </div>
                 </div>
@@ -288,12 +288,12 @@ function LiveTransactionsSection() {
                 </a>
               </Button>
 
-              <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1">
+              <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">
+                <span className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500" />
                   10K+ Transaksi
                 </span>
-                <span className="flex items-center gap-1">
+                <span className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500" />
                   5K+ Pengguna
                 </span>
@@ -347,13 +347,13 @@ function FeaturesSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
           <Badge variant="secondary" className="mb-4" data-testid="badge-features">Fitur Unggulan</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="text-features-title">
             Mengapa Memilih KriptoEcer?
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
             Solusi terbaik untuk membeli cryptocurrency dengan nominal kecil secara praktis dan aman.
           </p>
         </motion.div>
@@ -373,7 +373,7 @@ function FeaturesSection() {
                     <feature.icon className="w-6 h-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -433,13 +433,13 @@ function HowItWorksSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
           <Badge variant="secondary" className="mb-4" data-testid="badge-how-it-works">Cara Kerja</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="text-how-it-works-title">
             4 Langkah Mudah untuk Memulai
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
             Proses yang simpel dan bisa dilakukan siapa saja, bahkan pemula sekalipun.
           </p>
         </motion.div>
@@ -458,14 +458,14 @@ function HowItWorksSection() {
                 <CardContent className="p-6 pt-8 text-center relative">
                   <StepNumber number={step.number} delay={index * 0.1} />
                   <motion.div
-                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mx-auto mb-4 border border-primary/20"
+                    className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mx-auto mb-4 border border-primary/20"
                     whileHover={{ scale: 1.05, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <step.icon className="w-8 h-8 text-primary" />
+                    <step.icon className="w-7 h-7 text-primary" />
                   </motion.div>
                   <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm">{step.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
                 </CardContent>
               </Card>
               
@@ -524,13 +524,13 @@ function FAQSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
           <Badge variant="secondary" className="mb-4" data-testid="badge-faq">FAQ</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="text-faq-title">
             Pertanyaan yang Sering Diajukan
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
             Temukan jawaban untuk pertanyaan umum seputar KriptoEcer.
           </p>
         </motion.div>
