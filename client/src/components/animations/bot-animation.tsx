@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle2, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -43,16 +43,7 @@ export function BotAnimation() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState<CryptoKey>('SOL');
   const [selectedAmount, setSelectedAmount] = useState(100000);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const messageIdRef = useRef(2);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  const [messageId, setMessageId] = useState(2);
 
   const formatRupiah = (num: number) => {
     return new Intl.NumberFormat('id-ID').format(num);
@@ -70,9 +61,10 @@ export function BotAnimation() {
   const simulateTransaction = async (coin: CryptoKey, amount: number) => {
     if (isProcessing) return;
     setIsProcessing(true);
+    let id = messageId;
 
     const userMessage: Message = {
-      id: messageIdRef.current++,
+      id: id++,
       type: 'user',
       text: `Beli ${coin} Rp${formatRupiah(amount)}`
     };
@@ -81,7 +73,7 @@ export function BotAnimation() {
     await new Promise(r => setTimeout(r, 800));
 
     const receivedMessage: Message = {
-      id: messageIdRef.current++,
+      id: id++,
       type: 'bot',
       text: 'Pesanan diterima...'
     };
@@ -90,7 +82,7 @@ export function BotAnimation() {
     await new Promise(r => setTimeout(r, 1200));
 
     const successMessage: Message = {
-      id: messageIdRef.current++,
+      id: id++,
       type: 'success',
       text: 'Transaksi berhasil!'
     };
@@ -100,18 +92,19 @@ export function BotAnimation() {
 
     const cryptoAmount = calculateCrypto(coin, amount);
     const cryptoMessage: Message = {
-      id: messageIdRef.current++,
+      id: id++,
       type: 'crypto',
       text: `${cryptoAmount} ${coin} → Wallet Anda`
     };
     setMessages(prev => [...prev, cryptoMessage]);
 
+    setMessageId(id);
     setIsProcessing(false);
   };
 
   const resetSimulation = () => {
     setMessages([{ id: 1, type: 'bot', text: 'Selamat datang di KriptoEcer!' }]);
-    messageIdRef.current = 2;
+    setMessageId(2);
   };
 
   return (
@@ -174,7 +167,6 @@ export function BotAnimation() {
               </motion.div>
             ))}
           </AnimatePresence>
-          <div ref={messagesEndRef} />
         </div>
 
         <div className="p-3 border-t border-border bg-muted/30 space-y-2">
