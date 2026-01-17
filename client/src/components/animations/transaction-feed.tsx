@@ -13,7 +13,7 @@ const cryptoOptions = [
 
 const amounts = ["Rp 15.000", "Rp 25.000", "Rp 50.000", "Rp 75.000", "Rp 100.000", "Rp 150.000", "Rp 200.000", "Rp 250.000"];
 const userPrefixes = ["user", "trader", "crypto", "buyer", "indo", "new", "btc", "eth"];
-const timestamps = ["now", "1s ago", "3s ago", "5s ago", "8s ago"];
+const timestamps = ["baru", "1d lalu", "3d lalu", "5d lalu", "8d lalu"];
 
 interface Transaction {
   id: number;
@@ -36,7 +36,7 @@ function generateTransaction(id: number, isNew: boolean = false): Transaction {
     user: generateUser(),
     amount: amounts[Math.floor(Math.random() * amounts.length)],
     crypto: cryptoOptions[Math.floor(Math.random() * cryptoOptions.length)],
-    timestamp: isNew ? "now" : timestamps[Math.floor(Math.random() * timestamps.length)],
+    timestamp: isNew ? "baru" : timestamps[Math.floor(Math.random() * timestamps.length)],
     isNew,
   };
 }
@@ -81,7 +81,7 @@ export function TransactionFeed() {
         </div>
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Clock className="w-3 h-3" />
-          <span>live</span>
+          <span>langsung</span>
         </div>
       </div>
       
@@ -133,7 +133,7 @@ export function TransactionFeed() {
               </div>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span className="text-[10px] text-muted-foreground">
-                  bought
+                  beli
                 </span>
                 <span className="text-[10px] px-1 py-0.5 rounded bg-muted/50 text-foreground/80 font-medium">
                   {tx.crypto.symbol}
@@ -158,7 +158,7 @@ export function TransactionFeed() {
         transition={{ delay: 0.5 }}
       >
         <p className="text-[10px] text-muted-foreground/60">
-          // join thousands of users...
+          // gabung ribuan pengguna lainnya...
         </p>
       </motion.div>
     </div>
