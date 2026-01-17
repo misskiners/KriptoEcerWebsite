@@ -296,7 +296,7 @@ function LiveTransactionsSection() {
                   className="flex items-center gap-2 hover:text-primary transition-colors"
                   data-testid="link-tx-log"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  <TrendingUp className="w-4 h-4 text-green-500" />
                   Log Transaksi Onchain
                 </a>
                 <a 
@@ -306,7 +306,7 @@ function LiveTransactionsSection() {
                   className="flex items-center gap-2 hover:text-primary transition-colors"
                   data-testid="link-join-channel"
                 >
-                  <Users className="w-4 h-4 text-primary" />
+                  <SiTelegram className="w-4 h-4 text-[#0088cc]" />
                   Join Channel
                 </a>
               </div>
@@ -678,7 +678,7 @@ function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <SiTelegram className="w-4 h-4 text-[#0088cc]" />
+                <TrendingUp className="w-4 h-4 text-green-500" />
                 <a href="https://t.me/kriptoecerchannel" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                   Log Transaksi
                 </a>
