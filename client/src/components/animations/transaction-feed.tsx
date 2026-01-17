@@ -22,6 +22,7 @@ interface Transaction {
   crypto: typeof cryptoOptions[0];
   timestamp: string;
   isNew: boolean;
+  action: "beli" | "jual";
 }
 
 function generateUser(): string {
@@ -38,6 +39,7 @@ function generateTransaction(id: number, isNew: boolean = false): Transaction {
     crypto: cryptoOptions[Math.floor(Math.random() * cryptoOptions.length)],
     timestamp: isNew ? "baru" : timestamps[Math.floor(Math.random() * timestamps.length)],
     isNew,
+    action: Math.random() > 0.3 ? "beli" : "jual",
   };
 }
 
@@ -132,8 +134,8 @@ export function TransactionFeed() {
                 </span>
               </div>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="text-[10px] text-muted-foreground">
-                  beli
+                <span className={`text-[10px] ${tx.action === "jual" ? "text-red-400" : "text-green-400"}`}>
+                  {tx.action}
                 </span>
                 <span className="text-[10px] px-1 py-0.5 rounded bg-muted/50 text-foreground/80 font-medium">
                   {tx.crypto.symbol}
