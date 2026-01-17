@@ -587,6 +587,22 @@ function CTASection() {
           <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/80" />
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
           
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <SiBitcoin className="absolute top-4 left-[5%] w-6 h-6 text-primary-foreground/10" />
+            <SiEthereum className="absolute top-8 left-[15%] w-10 h-10 text-primary-foreground/8" />
+            <SiBitcoin className="absolute bottom-6 left-[8%] w-14 h-14 text-primary-foreground/6" />
+            <SiEthereum className="absolute top-12 left-[25%] w-8 h-8 text-primary-foreground/10" />
+            <SiBitcoin className="absolute bottom-10 left-[20%] w-5 h-5 text-primary-foreground/12" />
+            <SiEthereum className="absolute top-6 right-[5%] w-12 h-12 text-primary-foreground/8" />
+            <SiBitcoin className="absolute top-16 right-[15%] w-7 h-7 text-primary-foreground/10" />
+            <SiEthereum className="absolute bottom-4 right-[10%] w-16 h-16 text-primary-foreground/5" />
+            <SiBitcoin className="absolute bottom-12 right-[22%] w-9 h-9 text-primary-foreground/8" />
+            <SiEthereum className="absolute top-4 right-[30%] w-5 h-5 text-primary-foreground/12" />
+            <SiBitcoin className="absolute bottom-8 left-[35%] w-6 h-6 text-primary-foreground/10" />
+            <SiEthereum className="absolute top-10 left-[40%] w-4 h-4 text-primary-foreground/15" />
+            <SiBitcoin className="absolute bottom-6 right-[35%] w-8 h-8 text-primary-foreground/8" />
+          </div>
+          
           <div className="relative p-8 sm:p-12 md:p-16 text-center">
             <Clock className="w-12 h-12 text-primary-foreground/80 mx-auto mb-6" />
             <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground mb-4" data-testid="text-cta-title">
