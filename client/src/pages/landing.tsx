@@ -606,24 +606,85 @@ function CTASection() {
 
 function Footer() {
   return (
-    <footer className="py-8 border-t border-border">
+    <footer className="py-12 bg-muted/30 border-t border-border">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2" data-testid="link-footer-logo">
-            <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
-            <span className="font-semibold">KriptoEcer</span>
-          </a>
-          
-          <p className="text-sm text-muted-foreground text-center" data-testid="text-footer-copyright">
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
+          <div>
+            <a href="/" className="flex items-center gap-2 mb-4" data-testid="link-footer-logo">
+              <img src={logoImage} alt="KriptoEcer" className="w-10 h-10 rounded-lg" />
+              <span className="font-bold text-lg">KriptoEcer</span>
+            </a>
+            <p className="text-sm text-muted-foreground mb-4">
+              Platform jual beli crypto eceran via Telegram. Mudah, cepat, dan aman untuk semua orang.
+            </p>
+            <div className="flex items-center gap-3">
+              <a 
+                href="https://t.me/kriptoecerbot" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-[#0088cc] flex items-center justify-center hover:opacity-80 transition-opacity"
+                data-testid="link-footer-telegram"
+              >
+                <SiTelegram className="w-5 h-5 text-white" />
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-4">Menu</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <a href="#fitur" className="hover:text-foreground transition-colors">Fitur</a>
+              </li>
+              <li>
+                <a href="#cara-kerja" className="hover:text-foreground transition-colors">Cara Kerja</a>
+              </li>
+              <li>
+                <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
+              </li>
+              <li>
+                <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                  Buka Bot
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-4">Kontak</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2">
+                <SiTelegram className="w-4 h-4 text-[#0088cc]" />
+                <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                  @kriptoecerbot
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Globe className="w-4 h-4 text-primary" />
+                <span>Indonesia</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-primary" />
+                <span>24/7 Online</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-muted-foreground" data-testid="text-footer-copyright">
             &copy; {new Date().getFullYear()} KriptoEcer. All rights reserved.
           </p>
-          
-          <Button variant="ghost" size="sm" asChild data-testid="button-footer-telegram">
-            <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
-              <SiTelegram className="w-4 h-4 mr-2" />
-              @kriptoecerbot
-            </a>
-          </Button>
+          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <Shield className="w-3 h-3" />
+              Aman & Terpercaya
+            </span>
+            <span className="flex items-center gap-1">
+              <Zap className="w-3 h-3" />
+              Proses Instan
+            </span>
+          </div>
         </div>
       </div>
     </footer>
