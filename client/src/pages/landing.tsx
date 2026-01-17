@@ -208,31 +208,99 @@ function HeroSection() {
 
 function LiveTransactionsSection() {
   return (
-    <section className="py-12 relative overflow-hidden">
+    <section className="py-16 relative overflow-hidden">
+      <BlockchainGrid />
       <div className="container mx-auto px-4 relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-sm mx-auto"
-        >
-          <div className="text-center mb-4">
-            <Badge variant="secondary" className="mb-2" data-testid="badge-live">
-              <span className="relative flex h-2 w-2 mr-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              Live
-            </Badge>
-            <h2 className="text-xl font-bold" data-testid="text-live-title">Aktivitas Terbaru</h2>
+        <div className="max-w-4xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="mb-4">
+                <Badge variant="secondary" className="mb-2" data-testid="badge-live">
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  Live
+                </Badge>
+                <h2 className="text-2xl font-bold" data-testid="text-live-title">Aktivitas Terbaru</h2>
+              </div>
+              
+              <Card className="bg-card/90 backdrop-blur border-border shadow-lg">
+                <CardContent className="p-3">
+                  <TransactionFeed />
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <div>
+                <h3 className="text-2xl font-bold mb-2">Kenapa Ramai?</h3>
+                <p className="text-muted-foreground">
+                  Ribuan pengguna sudah membuktikan kemudahan bertransaksi crypto di KriptoEcer.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium">Proses Instan</p>
+                    <p className="text-sm text-muted-foreground">Transaksi selesai dalam detik</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Wallet className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium">Mulai Rp 10.000</p>
+                    <p className="text-sm text-muted-foreground">Modal kecil, untung besar</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium">Aman & Terpercaya</p>
+                    <p className="text-sm text-muted-foreground">Sistem otomatis 24/7</p>
+                  </div>
+                </div>
+              </div>
+
+              <Button size="lg" className="w-full" asChild data-testid="button-live-cta">
+                <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
+                  <SiTelegram className="w-5 h-5 mr-2" />
+                  Mulai Trading Sekarang
+                </a>
+              </Button>
+
+              <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  10K+ Transaksi
+                </span>
+                <span className="flex items-center gap-1">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  5K+ Pengguna
+                </span>
+              </div>
+            </motion.div>
           </div>
-          
-          <Card className="bg-card/90 backdrop-blur border-border shadow-lg">
-            <CardContent className="p-3">
-              <TransactionFeed />
-            </CardContent>
-          </Card>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
