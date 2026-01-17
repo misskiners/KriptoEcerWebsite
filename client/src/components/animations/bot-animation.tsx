@@ -84,17 +84,27 @@ export function BotAnimation() {
           </motion.div>
         </div>
 
-        <div className="p-3 border-t border-border bg-muted/30">
-          <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-background border border-border">
+        <a
+          href="https://t.me/kriptoecerbot"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block p-3 border-t border-border bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer"
+          data-testid="link-bot-chat"
+        >
+          <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-background border border-border hover:border-primary/50 transition-colors">
             <span className="text-sm text-muted-foreground flex-1">Ketik pesan...</span>
             <motion.div
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
+              className="bg-primary rounded-full p-1.5"
             >
-              <Send className="w-4 h-4 text-primary" />
+              <Send className="w-3 h-3 text-primary-foreground" />
             </motion.div>
           </div>
-        </div>
+          <p className="text-[10px] text-center text-muted-foreground mt-2">
+            Klik untuk membuka bot di Telegram
+          </p>
+        </a>
       </motion.div>
 
       <motion.div
