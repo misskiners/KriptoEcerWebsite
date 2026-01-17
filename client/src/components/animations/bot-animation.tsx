@@ -131,7 +131,7 @@ export function BotAnimation() {
           </a>
         </div>
 
-        <div className="p-4 space-y-3 h-48 overflow-y-auto" data-testid="chat-messages">
+        <div className="p-4 space-y-3 h-48 overflow-y-auto scrollbar-hide" data-testid="chat-messages">
           <AnimatePresence>
             {messages.map((msg) => (
               <motion.div
