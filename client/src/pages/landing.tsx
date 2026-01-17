@@ -288,15 +288,27 @@ function LiveTransactionsSection() {
                 </a>
               </Button>
 
-              <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">
-                <span className="flex items-center gap-2">
+              <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground flex-wrap">
+                <a 
+                  href="https://t.me/kriptoecerchannel" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-primary transition-colors"
+                  data-testid="link-tx-log"
+                >
                   <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  10K+ Transaksi
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  5K+ Pengguna
-                </span>
+                  Log Transaksi Onchain
+                </a>
+                <a 
+                  href="https://t.me/kriptoecerofficial" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-primary transition-colors"
+                  data-testid="link-join-channel"
+                >
+                  <Users className="w-4 h-4 text-primary" />
+                  Join Channel
+                </a>
               </div>
             </motion.div>
           </div>
@@ -651,7 +663,7 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Kontak</h4>
+            <h4 className="font-semibold mb-4">Kontak & Channel</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <SiTelegram className="w-4 h-4 text-[#0088cc]" />
@@ -660,8 +672,16 @@ function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <Globe className="w-4 h-4 text-primary" />
-                <span>Indonesia</span>
+                <SiTelegram className="w-4 h-4 text-[#0088cc]" />
+                <a href="https://t.me/kriptoecerofficial" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                  Channel Resmi
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <SiTelegram className="w-4 h-4 text-[#0088cc]" />
+                <a href="https://t.me/kriptoecerchannel" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                  Log Transaksi
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-primary" />
