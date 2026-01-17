@@ -21,10 +21,16 @@ import {
   MessageCircle,
   Coins,
   Send,
+  Users,
+  Globe,
 } from "lucide-react";
 import { SiTelegram, SiBitcoin, SiEthereum } from "react-icons/si";
 import { motion } from "framer-motion";
 import logoImage from "@assets/6953A815-94C2-4614-85E2-19D7F729A661_1768635529517.png";
+import { FloatingCoins } from "@/components/animations/floating-coins";
+import { BlockchainGrid } from "@/components/animations/blockchain-grid";
+import { TransactionFeed } from "@/components/animations/transaction-feed";
+import { BotAnimation } from "@/components/animations/bot-animation";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -68,111 +74,162 @@ function Header() {
 
 function HeroSection() {
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
+    <section className="relative pt-32 pb-24 overflow-hidden min-h-screen flex items-center">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-      <div className="absolute top-20 left-1/4 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-      <div className="absolute top-40 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      <BlockchainGrid />
+      <FloatingCoins />
+      
+      <motion.div
+        className="absolute top-20 left-1/4 w-72 h-72 bg-primary/30 rounded-full blur-3xl"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute top-40 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
+        animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-20 left-1/3 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.3, 0.1] }}
+        transition={{ duration: 12, repeat: Infinity }}
+      />
       
       <div className="container mx-auto px-4 relative">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={staggerChildren}
+          >
+            <motion.div variants={fadeInUp}>
+              <Badge variant="secondary" className="mb-6" data-testid="badge-hero">
+                <Zap className="w-3 h-3 mr-1" />
+                Bot Telegram Crypto #1 Indonesia
+              </Badge>
+            </motion.div>
+
+            <motion.h1
+              variants={fadeInUp}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
+              data-testid="text-hero-title"
+            >
+              Beli Crypto Eceran{" "}
+              <span className="text-primary relative">
+                dalam Hitungan Detik
+                <motion.span
+                  className="absolute -bottom-2 left-0 w-full h-1 bg-primary/50 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 1, duration: 0.8 }}
+                />
+              </span>
+            </motion.h1>
+
+            <motion.p
+              variants={fadeInUp}
+              className="text-lg sm:text-xl text-muted-foreground max-w-xl mb-8"
+            >
+              Transaksi cryptocurrency dengan nominal kecil, proses otomatis, dan tanpa ribet.
+              Langsung dari Telegram favorit Anda.
+            </motion.p>
+
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row items-start gap-4"
+            >
+              <Button size="lg" asChild data-testid="button-hero-start">
+                <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
+                  <SiTelegram className="w-5 h-5 mr-2" />
+                  Buka Bot Telegram
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" asChild data-testid="button-hero-learn">
+                <a href="#cara-kerja">
+                  Pelajari Lebih Lanjut
+                </a>
+              </Button>
+            </motion.div>
+
+            <motion.div
+              variants={fadeInUp}
+              className="mt-10 grid grid-cols-3 gap-4"
+            >
+              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border">
+                <motion.p
+                  className="text-2xl sm:text-3xl font-bold text-primary"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.2 }}
+                >
+                  10K+
+                </motion.p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Transaksi</p>
+              </div>
+              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border">
+                <motion.p
+                  className="text-2xl sm:text-3xl font-bold text-primary"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.4 }}
+                >
+                  5K+
+                </motion.p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Pengguna</p>
+              </div>
+              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border">
+                <motion.p
+                  className="text-2xl sm:text-3xl font-bold text-primary"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.6 }}
+                >
+                  24/7
+                </motion.p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Online</p>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="hidden lg:block"
+          >
+            <BotAnimation />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LiveTransactionsSection() {
+  return (
+    <section className="py-16 bg-muted/20 relative overflow-hidden">
+      <BlockchainGrid />
+      <div className="container mx-auto px-4 relative">
         <motion.div
-          initial="initial"
-          animate="animate"
-          variants={staggerChildren}
-          className="max-w-4xl mx-auto text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-lg mx-auto"
         >
-          <motion.div variants={fadeInUp}>
-            <Badge variant="secondary" className="mb-6">
-              <Zap className="w-3 h-3 mr-1" />
-              Bot Telegram Crypto #1 Indonesia
+          <div className="text-center mb-6">
+            <Badge variant="secondary" className="mb-3" data-testid="badge-live">
+              <span className="relative flex h-2 w-2 mr-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              Live Activity
             </Badge>
-          </motion.div>
-
-          <motion.h1
-            variants={fadeInUp}
-            className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6"
-            data-testid="text-hero-title"
-          >
-            Beli Crypto Eceran{" "}
-            <span className="text-primary">dalam Hitungan Detik</span>
-          </motion.h1>
-
-          <motion.p
-            variants={fadeInUp}
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-8"
-          >
-            Transaksi cryptocurrency dengan nominal kecil, proses otomatis, dan tanpa ribet.
-            Langsung dari Telegram favorit Anda.
-          </motion.p>
-
-          <motion.div
-            variants={fadeInUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Button size="lg" asChild data-testid="button-hero-start">
-              <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
-                <SiTelegram className="w-5 h-5 mr-2" />
-                Buka Bot Telegram
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild data-testid="button-hero-learn">
-              <a href="#cara-kerja">
-                Pelajari Lebih Lanjut
-              </a>
-            </Button>
-          </motion.div>
-
-          <motion.div
-            variants={fadeInUp}
-            className="mt-12 flex flex-wrap items-center justify-center gap-6"
-          >
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <CheckCircle2 className="w-4 h-4 text-primary" />
-              <span className="text-sm">Transaksi Otomatis</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <CheckCircle2 className="w-4 h-4 text-primary" />
-              <span className="text-sm">Minimum Rp10.000</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <CheckCircle2 className="w-4 h-4 text-primary" />
-              <span className="text-sm">Proses Cepat</span>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-16 max-w-lg mx-auto"
-        >
-          <Card className="relative overflow-hidden bg-card/50 backdrop-blur">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
-            <CardContent className="p-6 relative">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Bot className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <p className="font-semibold">KriptoEcer Bot</p>
-                  <p className="text-sm text-muted-foreground">@kriptoecerbot</p>
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="bg-muted/50 rounded-lg p-3">
-                  <p className="text-sm">Selamat datang di KriptoEcer!</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Beli crypto dengan nominal kecil dalam hitungan detik.
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <SiBitcoin className="w-5 h-5 text-orange-500" />
-                  <SiEthereum className="w-5 h-5 text-blue-500" />
-                  <span className="text-sm text-muted-foreground">+ banyak coin lainnya</span>
-                </div>
-              </div>
+            <h2 className="text-2xl font-bold" data-testid="text-live-title">Transaksi Terbaru</h2>
+          </div>
+          <Card className="bg-card/80 backdrop-blur">
+            <CardContent className="p-4">
+              <TransactionFeed />
             </CardContent>
           </Card>
         </motion.div>
@@ -286,6 +343,20 @@ const steps = [
   },
 ];
 
+function StepNumber({ number, delay }: { number: string; delay: number }) {
+  return (
+    <motion.div
+      className="absolute -top-3 -right-3 w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg"
+      initial={{ scale: 0, rotate: -180 }}
+      whileInView={{ scale: 1, rotate: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: delay + 0.2, type: "spring", stiffness: 200 }}
+    >
+      <span className="text-lg font-bold text-primary-foreground">{number}</span>
+    </motion.div>
+  );
+}
+
 function HowItWorksSection() {
   return (
     <section id="cara-kerja" className="py-20">
@@ -305,7 +376,7 @@ function HowItWorksSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
@@ -315,18 +386,33 @@ function HowItWorksSection() {
               transition={{ delay: index * 0.1 }}
               className="relative"
             >
-              <Card className="h-full">
-                <CardContent className="p-6 text-center">
-                  <span className="text-5xl font-bold text-primary/20 absolute top-4 right-4">
-                    {step.number}
-                  </span>
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <step.icon className="w-7 h-7 text-primary" />
-                  </div>
+              <Card className="h-full overflow-visible hover-elevate">
+                <CardContent className="p-6 pt-8 text-center relative">
+                  <StepNumber number={step.number} delay={index * 0.1} />
+                  <motion.div
+                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mx-auto mb-4 border border-primary/20"
+                    whileHover={{ scale: 1.05, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <step.icon className="w-8 h-8 text-primary" />
+                  </motion.div>
                   <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
                   <p className="text-muted-foreground text-sm">{step.description}</p>
                 </CardContent>
               </Card>
+              
+              {index < steps.length - 1 && (
+                <div className="hidden lg:block absolute top-1/2 -right-4 w-8 z-10">
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 + 0.3 }}
+                  >
+                    <ArrowRight className="w-6 h-6 text-primary/50" />
+                  </motion.div>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
@@ -482,6 +568,7 @@ export default function Landing() {
       <Header />
       <main>
         <HeroSection />
+        <LiveTransactionsSection />
         <FeaturesSection />
         <HowItWorksSection />
         <FAQSection />
