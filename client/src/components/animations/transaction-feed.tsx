@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { CheckCircle2, Clock, Terminal } from "lucide-react";
 import { SiBitcoin, SiEthereum, SiLitecoin, SiDogecoin, SiTether } from "react-icons/si";
@@ -87,22 +87,19 @@ export function TransactionFeed() {
         </div>
       </div>
       
-      <div className="min-h-[320px]">
-        <AnimatePresence mode="popLayout" initial={false}>
+      <div className="space-y-1.5">
           {transactions.map((tx, index) => (
             <motion.div
               key={tx.id}
-              initial={{ opacity: 0, height: 0 }}
+              initial={false}
               animate={{ 
-                opacity: 1 - (index * 0.1), 
-                height: "auto",
+                opacity: 1 - (index * 0.08),
               }}
-              exit={{ opacity: 0, height: 0 }}
               transition={{ 
-                duration: 0.3,
+                duration: 0.4,
                 ease: "easeOut",
               }}
-            className={`relative flex items-center gap-3 p-2.5 mb-1.5 rounded-lg text-xs ${
+            className={`relative flex items-center gap-3 p-2.5 h-[52px] rounded-lg text-xs transition-colors duration-300 ${
               tx.isNew 
                 ? "bg-primary/10 border border-primary/30" 
                 : "bg-muted/20 border border-transparent"
@@ -150,7 +147,6 @@ export function TransactionFeed() {
             </div>
           </motion.div>
         ))}
-        </AnimatePresence>
       </div>
       
       <motion.div 
