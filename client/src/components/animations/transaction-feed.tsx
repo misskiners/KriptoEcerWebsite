@@ -1,14 +1,26 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { CheckCircle2, Clock, Terminal } from "lucide-react";
-import { SiBitcoin, SiEthereum, SiLitecoin, SiDogecoin, SiTether } from "react-icons/si";
+import { CheckCircle2, Clock, Terminal, Coins } from "lucide-react";
+import { SiBitcoin, SiEthereum, SiLitecoin, SiDogecoin, SiTether, SiSolana, SiBinance, SiTon } from "react-icons/si";
+
+function TrxIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    </svg>
+  );
+}
 
 const cryptoOptions = [
   { name: "Bitcoin", symbol: "BTC", Icon: SiBitcoin, color: "text-orange-500", bg: "bg-orange-500/10" },
   { name: "Ethereum", symbol: "ETH", Icon: SiEthereum, color: "text-blue-400", bg: "bg-blue-400/10" },
-  { name: "Litecoin", symbol: "LTC", Icon: SiLitecoin, color: "text-gray-400", bg: "bg-gray-400/10" },
-  { name: "Dogecoin", symbol: "DOGE", Icon: SiDogecoin, color: "text-yellow-500", bg: "bg-yellow-500/10" },
   { name: "USDT", symbol: "USDT", Icon: SiTether, color: "text-green-500", bg: "bg-green-500/10" },
+  { name: "Solana", symbol: "SOL", Icon: SiSolana, color: "text-purple-500", bg: "bg-purple-500/10" },
+  { name: "Tron", symbol: "TRX", Icon: TrxIcon, color: "text-red-500", bg: "bg-red-500/10" },
+  { name: "BNB", symbol: "BNB", Icon: SiBinance, color: "text-yellow-500", bg: "bg-yellow-500/10" },
+  { name: "Toncoin", symbol: "TON", Icon: SiTon, color: "text-sky-500", bg: "bg-sky-500/10" },
+  { name: "Litecoin", symbol: "LTC", Icon: SiLitecoin, color: "text-gray-400", bg: "bg-gray-400/10" },
+  { name: "Dogecoin", symbol: "DOGE", Icon: SiDogecoin, color: "text-amber-500", bg: "bg-amber-500/10" },
 ];
 
 const amounts = ["Rp 15.000", "Rp 25.000", "Rp 50.000", "Rp 75.000", "Rp 100.000", "Rp 150.000", "Rp 200.000", "Rp 250.000"];
