@@ -87,23 +87,22 @@ export function TransactionFeed() {
         </div>
       </div>
       
-      <AnimatePresence mode="sync">
-        {transactions.map((tx, index) => (
-          <motion.div
-            key={tx.id}
-            layout
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ 
-              opacity: 1 - (index * 0.12), 
-              y: 0,
-            }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ 
-              duration: 0.5,
-              ease: [0.25, 0.46, 0.45, 0.94],
-              layout: { duration: 0.4, ease: "easeInOut" }
-            }}
-            className={`relative flex items-center gap-3 p-2.5 rounded-lg text-xs ${
+      <div className="min-h-[320px]">
+        <AnimatePresence mode="popLayout" initial={false}>
+          {transactions.map((tx, index) => (
+            <motion.div
+              key={tx.id}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ 
+                opacity: 1 - (index * 0.1), 
+                height: "auto",
+              }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ 
+                duration: 0.3,
+                ease: "easeOut",
+              }}
+            className={`relative flex items-center gap-3 p-2.5 mb-1.5 rounded-lg text-xs ${
               tx.isNew 
                 ? "bg-primary/10 border border-primary/30" 
                 : "bg-muted/20 border border-transparent"
@@ -151,7 +150,8 @@ export function TransactionFeed() {
             </div>
           </motion.div>
         ))}
-      </AnimatePresence>
+        </AnimatePresence>
+      </div>
       
       <motion.div 
         className="text-center pt-3 mt-2 border-t border-border/30"
