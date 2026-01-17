@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle2, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -44,6 +44,13 @@ export function BotAnimation() {
   const [selectedCoin, setSelectedCoin] = useState<CryptoKey>('SOL');
   const [selectedAmount, setSelectedAmount] = useState(100000);
   const [messageId, setMessageId] = useState(2);
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  };
 
   const formatRupiah = (num: number) => {
     return new Intl.NumberFormat('id-ID').format(num);
@@ -97,6 +104,7 @@ export function BotAnimation() {
       text: `${cryptoAmount} ${coin} → Wallet Anda`
     };
     setMessages(prev => [...prev, cryptoMessage]);
+    setTimeout(scrollToBottom, 100);
 
     setMessageId(id);
     setIsProcessing(false);
@@ -131,7 +139,7 @@ export function BotAnimation() {
           </a>
         </div>
 
-        <div className="p-4 space-y-3 h-48 overflow-y-auto scrollbar-gold" data-testid="chat-messages">
+        <div ref={chatRef} className="p-4 space-y-3 h-48 overflow-y-auto scrollbar-gold" data-testid="chat-messages">
           <AnimatePresence>
             {messages.map((msg) => (
               <motion.div
