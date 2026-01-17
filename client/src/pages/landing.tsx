@@ -208,84 +208,31 @@ function HeroSection() {
 
 function LiveTransactionsSection() {
   return (
-    <section className="py-16 bg-muted/20 relative overflow-hidden">
-      <BlockchainGrid />
+    <section className="py-12 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
-        <div className="text-center mb-8">
-          <Badge variant="secondary" className="mb-3" data-testid="badge-live">
-            <span className="relative flex h-2 w-2 mr-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-            Live Activity
-          </Badge>
-          <h2 className="text-2xl font-bold" data-testid="text-live-title">Transaksi Terbaru</h2>
-          <p className="text-sm text-muted-foreground mt-2">
-            Aktivitas jual beli crypto secara real-time
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="hidden lg:flex flex-col justify-center space-y-6"
-          >
-            <div className="text-right">
-              <p className="text-4xl font-bold text-primary">Rp 2.5M+</p>
-              <p className="text-sm text-muted-foreground">Volume hari ini</p>
-            </div>
-            <div className="text-right">
-              <p className="text-4xl font-bold text-primary">127</p>
-              <p className="text-sm text-muted-foreground">Transaksi sukses</p>
-            </div>
-            <div className="text-right">
-              <p className="text-4xl font-bold text-primary">99.8%</p>
-              <p className="text-sm text-muted-foreground">Tingkat keberhasilan</p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <Card className="bg-card/90 backdrop-blur border-primary/20 shadow-lg shadow-primary/5">
-              <div className="bg-gradient-to-r from-primary/10 to-primary/5 px-4 py-2 border-b border-border/50 rounded-t-lg">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-                  <span className="ml-2 text-xs text-muted-foreground font-mono">telegram://kriptoecerbot</span>
-                </div>
-              </div>
-              <CardContent className="p-4">
-                <TransactionFeed />
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="hidden lg:flex flex-col justify-center space-y-6"
-          >
-            <div>
-              <p className="text-4xl font-bold text-primary">5</p>
-              <p className="text-sm text-muted-foreground">Crypto tersedia</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">Rp 10K</p>
-              <p className="text-sm text-muted-foreground">Minimal transaksi</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">&lt;1 menit</p>
-              <p className="text-sm text-muted-foreground">Waktu proses</p>
-            </div>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-sm mx-auto"
+        >
+          <div className="text-center mb-4">
+            <Badge variant="secondary" className="mb-2" data-testid="badge-live">
+              <span className="relative flex h-2 w-2 mr-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              Live
+            </Badge>
+            <h2 className="text-xl font-bold" data-testid="text-live-title">Aktivitas Terbaru</h2>
+          </div>
+          
+          <Card className="bg-card/90 backdrop-blur border-border shadow-lg">
+            <CardContent className="p-3">
+              <TransactionFeed />
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </section>
   );
