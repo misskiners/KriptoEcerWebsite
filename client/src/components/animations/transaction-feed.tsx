@@ -12,15 +12,20 @@ function TrxIcon({ className }: { className?: string }) {
 }
 
 const cryptoOptions = [
+  { name: "Solana", symbol: "SOL", Icon: SiSolana, color: "text-purple-500", bg: "bg-purple-500/10" },
+  { name: "Solana", symbol: "SOL", Icon: SiSolana, color: "text-purple-500", bg: "bg-purple-500/10" },
+  { name: "BNB", symbol: "BNB", Icon: SiBinance, color: "text-yellow-500", bg: "bg-yellow-500/10" },
+  { name: "BNB", symbol: "BNB", Icon: SiBinance, color: "text-yellow-500", bg: "bg-yellow-500/10" },
+  { name: "USDC", symbol: "USDC", Icon: SiTether, color: "text-blue-500", bg: "bg-blue-500/10" },
+  { name: "USDC", symbol: "USDC", Icon: SiTether, color: "text-blue-500", bg: "bg-blue-500/10" },
+  { name: "USDT", symbol: "USDT", Icon: SiTether, color: "text-green-500", bg: "bg-green-500/10" },
+  { name: "USDT", symbol: "USDT", Icon: SiTether, color: "text-green-500", bg: "bg-green-500/10" },
+  { name: "Tron", symbol: "TRX", Icon: TrxIcon, color: "text-red-500", bg: "bg-red-500/10" },
+  { name: "Tron", symbol: "TRX", Icon: TrxIcon, color: "text-red-500", bg: "bg-red-500/10" },
   { name: "Bitcoin", symbol: "BTC", Icon: SiBitcoin, color: "text-orange-500", bg: "bg-orange-500/10" },
   { name: "Ethereum", symbol: "ETH", Icon: SiEthereum, color: "text-blue-400", bg: "bg-blue-400/10" },
-  { name: "USDT", symbol: "USDT", Icon: SiTether, color: "text-green-500", bg: "bg-green-500/10" },
-  { name: "Solana", symbol: "SOL", Icon: SiSolana, color: "text-purple-500", bg: "bg-purple-500/10" },
-  { name: "Tron", symbol: "TRX", Icon: TrxIcon, color: "text-red-500", bg: "bg-red-500/10" },
-  { name: "BNB", symbol: "BNB", Icon: SiBinance, color: "text-yellow-500", bg: "bg-yellow-500/10" },
   { name: "Toncoin", symbol: "TON", Icon: SiTon, color: "text-sky-500", bg: "bg-sky-500/10" },
   { name: "Litecoin", symbol: "LTC", Icon: SiLitecoin, color: "text-gray-400", bg: "bg-gray-400/10" },
-  { name: "Dogecoin", symbol: "DOGE", Icon: SiDogecoin, color: "text-amber-500", bg: "bg-amber-500/10" },
 ];
 
 const amounts = ["Rp 15.000", "Rp 25.000", "Rp 50.000", "Rp 75.000", "Rp 100.000", "Rp 150.000", "Rp 200.000", "Rp 250.000"];
