@@ -30,12 +30,12 @@ const cryptoOptions = [
 
 const amounts = ["Rp 15.000", "Rp 25.000", "Rp 50.000", "Rp 75.000", "Rp 100.000", "Rp 150.000", "Rp 200.000", "Rp 250.000"];
 const userNames = [
-  "andi_w", "budi_s", "citra_m", "dedi_p", "eko_r", "fitri_n", "galih_k", "hendra_j",
-  "irfan_a", "joko_t", "kevin_l", "lina_h", "mario_d", "nina_f", "oscar_b", "putri_a",
-  "reza_m", "sinta_w", "tommy_c", "umi_k", "vina_s", "wawan_g", "yudi_h", "zara_n",
-  "arif_88", "bayu_21", "cahya_99", "dewi_07", "fajar_id", "gilang_jkt", "hani_bdg", "indra_sby",
-  "jaya_99", "kiki_22", "leo_id", "mega_08", "nanda_jr", "ogi_ptr", "pras_id", "rina_23",
-  "surya_id", "tika_w", "udin_88", "vera_m", "widi_k", "xena_99", "yoga_ptr", "zaki_id"
+  "andiwijaya", "budisantoso", "citramaya", "dediptr", "ekorhmn", "fitrinadya", "galihkrsn", "hendrajy",
+  "irfan.a", "joko.t", "kevin.l", "lina.h", "mario.d", "nina.f", "oscar.b", "putri.a",
+  "reza88", "sinta21", "tommy99", "umi07", "vina22", "wawan08", "yudi77", "zara23",
+  "arif_jkt", "bayu_bdg", "cahya_sby", "dewi_mlg", "fajar_id", "gilang.ptr", "hani.krsn", "indra.w",
+  "jayakusuma", "kikirahma", "leonardi", "megaputri", "nandajr", "ogiprima", "prasetyo", "rinandr",
+  "suryaadi", "tikawidya", "udinmks", "veramega", "widiarto", "xenaptra", "yogaptr", "zakiid"
 ];
 const timestamps = ["baru", "1d lalu", "3d lalu", "5d lalu", "8d lalu"];
 
