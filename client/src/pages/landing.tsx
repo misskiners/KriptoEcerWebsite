@@ -62,7 +62,7 @@ function Header() {
           <ThemeToggle />
           <Button asChild data-testid="button-header-cta">
             <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
-              <SiTelegram className="w-4 h-4 mr-1.5" />
+              <Bot className="w-4 h-4 mr-1.5" />
               Start Bot
             </a>
           </Button>
