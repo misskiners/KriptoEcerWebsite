@@ -29,7 +29,14 @@ const cryptoOptions = [
 ];
 
 const amounts = ["Rp 15.000", "Rp 25.000", "Rp 50.000", "Rp 75.000", "Rp 100.000", "Rp 150.000", "Rp 200.000", "Rp 250.000"];
-const userPrefixes = ["user", "trader", "crypto", "buyer", "indo", "new", "btc", "eth"];
+const userNames = [
+  "andi_w", "budi_s", "citra_m", "dedi_p", "eko_r", "fitri_n", "galih_k", "hendra_j",
+  "irfan_a", "joko_t", "kevin_l", "lina_h", "mario_d", "nina_f", "oscar_b", "putri_a",
+  "reza_m", "sinta_w", "tommy_c", "umi_k", "vina_s", "wawan_g", "yudi_h", "zara_n",
+  "arif_88", "bayu_21", "cahya_99", "dewi_07", "fajar_id", "gilang_jkt", "hani_bdg", "indra_sby",
+  "jaya_99", "kiki_22", "leo_id", "mega_08", "nanda_jr", "ogi_ptr", "pras_id", "rina_23",
+  "surya_id", "tika_w", "udin_88", "vera_m", "widi_k", "xena_99", "yoga_ptr", "zaki_id"
+];
 const timestamps = ["baru", "1d lalu", "3d lalu", "5d lalu", "8d lalu"];
 
 interface Transaction {
@@ -43,9 +50,7 @@ interface Transaction {
 }
 
 function generateUser(): string {
-  const prefix = userPrefixes[Math.floor(Math.random() * userPrefixes.length)];
-  const suffix = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
-  return `${prefix}_${suffix}`;
+  return userNames[Math.floor(Math.random() * userNames.length)];
 }
 
 function generateTransaction(id: number, isNew: boolean = false): Transaction {
