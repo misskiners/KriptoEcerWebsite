@@ -284,7 +284,7 @@ function LiveTransactionsSection() {
               <Button size="lg" className="w-full" asChild data-testid="button-live-cta">
                 <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
                   <SiTelegram className="w-5 h-5 mr-2" />
-                  Mulai Trading Sekarang
+                  Mulai Beli Crypto
                 </a>
               </Button>
 
