@@ -679,7 +679,7 @@ function Footer() {
             <h4 className="font-semibold mb-4">Kontak & Channel</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
-                <SiTelegram className="w-4 h-4 text-[#0088cc]" />
+                <Bot className="w-4 h-4 text-primary" />
                 <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                   @kriptoecerbot
                 </a>
