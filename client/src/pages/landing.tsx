@@ -588,22 +588,16 @@ function CTASection() {
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
           
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <SiSolana className="absolute top-4 left-[5%] w-6 h-6 text-black opacity-10" />
-            <SiBinance className="absolute top-8 left-[12%] w-10 h-10 text-black opacity-10" />
-            <SiBitcoin className="absolute bottom-6 left-[8%] w-14 h-14 text-black opacity-[0.06]" />
-            <SiTether className="absolute top-12 left-[22%] w-8 h-8 text-black opacity-10" />
-            <SiEthereum className="absolute bottom-10 left-[18%] w-5 h-5 text-black opacity-[0.12]" />
-            <SiSolana className="absolute top-6 right-[5%] w-12 h-12 text-black opacity-[0.08]" />
-            <SiLitecoin className="absolute top-16 right-[12%] w-7 h-7 text-black opacity-10" />
-            <SiBinance className="absolute bottom-4 right-[8%] w-16 h-16 text-black opacity-[0.05]" />
-            <SiDogecoin className="absolute bottom-12 right-[18%] w-9 h-9 text-black opacity-[0.08]" />
-            <SiTether className="absolute top-4 right-[25%] w-5 h-5 text-black opacity-[0.12]" />
-            <SiBitcoin className="absolute bottom-8 left-[32%] w-6 h-6 text-black opacity-10" />
-            <SiEthereum className="absolute top-10 left-[38%] w-4 h-4 text-black opacity-[0.15]" />
-            <SiSolana className="absolute bottom-6 right-[32%] w-8 h-8 text-black opacity-[0.08]" />
-            <SiBinance className="absolute top-8 right-[38%] w-6 h-6 text-black opacity-10" />
-            <SiLitecoin className="absolute bottom-14 left-[45%] w-5 h-5 text-black opacity-[0.12]" />
-            <SiDogecoin className="absolute top-6 left-[48%] w-7 h-7 text-black opacity-[0.08]" />
+            <SiSolana className="absolute top-4 left-[5%] w-5 md:w-6 h-5 md:h-6 text-black opacity-10" />
+            <SiBinance className="absolute top-8 left-[15%] w-7 md:w-10 h-7 md:h-10 text-black opacity-10" />
+            <SiBitcoin className="absolute bottom-6 left-[8%] w-10 md:w-14 h-10 md:h-14 text-black opacity-[0.06]" />
+            <SiTether className="absolute top-12 left-[28%] w-6 md:w-8 h-6 md:h-8 text-black opacity-10" />
+            <SiEthereum className="absolute bottom-10 left-[22%] w-4 md:w-5 h-4 md:h-5 text-black opacity-[0.12]" />
+            <SiSolana className="absolute top-6 right-[5%] w-9 md:w-12 h-9 md:h-12 text-black opacity-[0.08]" />
+            <SiLitecoin className="absolute top-16 right-[15%] w-5 md:w-7 h-5 md:h-7 text-black opacity-10" />
+            <SiBinance className="absolute bottom-4 right-[8%] w-12 md:w-16 h-12 md:h-16 text-black opacity-[0.05]" />
+            <SiDogecoin className="absolute bottom-12 right-[22%] w-7 md:w-9 h-7 md:h-9 text-black opacity-[0.08]" />
+            <SiTether className="absolute top-4 right-[30%] w-4 md:w-5 h-4 md:h-5 text-black opacity-[0.12]" />
           </div>
           
           <div className="relative p-8 sm:p-12 md:p-16 text-center">
