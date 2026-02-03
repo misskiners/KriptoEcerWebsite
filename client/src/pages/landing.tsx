@@ -55,8 +55,8 @@ function Header() {
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
         <a href="/" className="flex items-center gap-2" data-testid="link-header-logo">
-          <img src={logoImage} alt="KriptoEcer" className="w-9 h-9 rounded-md" />
-          <span className="text-lg font-bold tracking-tight">KriptoEcer</span>
+          <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
+          <span className="text-base font-bold tracking-tight">KriptoEcer</span>
         </a>
         <div className="flex items-center gap-2">
           <ThemeToggle />
