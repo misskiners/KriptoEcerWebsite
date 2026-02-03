@@ -6,6 +6,7 @@ KriptoEcer is a web application that serves as a landing page for a Telegram bot
 
 ## Recent Changes
 
+- **February 2026**: Added legal pages (Terms of Service, Privacy Policy) with footer links
 - **January 2026**: Created landing page with Hero, Features, How It Works, FAQ, and CTA sections
 - Added dark/light theme toggle with gold/amber color scheme
 - Integrated custom KriptoEcer logo and favicon
