@@ -642,18 +642,7 @@ function Footer() {
             <p className="text-sm text-muted-foreground mb-4">
               Platform jual beli crypto eceran via Telegram. Mudah, cepat, dan aman untuk semua orang.
             </p>
-            <div className="flex items-center gap-3">
-              <a 
-                href="https://t.me/kriptoecerbot" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-[#0088cc] flex items-center justify-center hover:opacity-80 transition-opacity"
-                data-testid="link-footer-telegram"
-              >
-                <SiTelegram className="w-5 h-5 text-white" />
-              </a>
             </div>
-          </div>
 
           <div>
             <h4 className="font-semibold mb-4">Menu</h4>
