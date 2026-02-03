@@ -636,8 +636,8 @@ function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
             <a href="/" className="flex items-center gap-2 mb-4" data-testid="link-footer-logo">
-              <img src={logoImage} alt="KriptoEcer" className="w-10 h-10 rounded-lg" />
-              <span className="font-bold text-lg">KriptoEcer</span>
+              <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
+              <span className="font-bold text-base">KriptoEcer</span>
             </a>
             <p className="text-sm text-muted-foreground mb-4">
               Platform jual beli crypto eceran via Telegram. Mudah, cepat, dan aman untuk semua orang.
