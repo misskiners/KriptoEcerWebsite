@@ -165,7 +165,7 @@ function HeroSection() {
                 >
                   &lt;30dtk
                 </motion.p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Respons Bot</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Proses Transaksi</p>
               </div>
               <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border">
                 <motion.p
