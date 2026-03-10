@@ -1,9 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
+import { useEffect } from "react";
 const logoImage = "/favicon.png";
 
 export default function Privacy() {
+  useEffect(() => {
+    document.title = "Kebijakan Privasi | KriptoEcer";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", "Kebijakan privasi KriptoEcer — bagaimana kami mengumpulkan, menggunakan, dan melindungi data pribadi pengguna layanan bot Telegram kami.");
+    return () => { document.title = "KriptoEcer - Beli & Jual Crypto Eceran Mulai Rp10.000 via Telegram"; };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">

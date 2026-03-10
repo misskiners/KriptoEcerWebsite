@@ -24,8 +24,9 @@ import {
   Users,
   Globe,
 } from "lucide-react";
-import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin } from "react-icons/si";
-import { motion } from "framer-motion";
+import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiInstagram, SiX } from "react-icons/si";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 const logoImage = "/favicon.png";
 import { FloatingCoins } from "@/components/animations/floating-coins";
 import { BlockchainGrid } from "@/components/animations/blockchain-grid";
@@ -45,6 +46,48 @@ const staggerChildren = {
     },
   },
 };
+
+function AnimatedCounter({
+  target,
+  suffix = "",
+  prefix = "",
+  duration = 2,
+  formatK = false,
+}: {
+  target: number;
+  suffix?: string;
+  prefix?: string;
+  duration?: number;
+  formatK?: boolean;
+}) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!isInView) return;
+    const startTime = performance.now();
+    const totalDuration = duration * 1000;
+
+    const step = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / totalDuration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+
+    requestAnimationFrame(step);
+  }, [isInView, target, duration]);
+
+  const display = formatK && count >= 1000 ? `${(count / 1000).toFixed(0)}K` : count.toLocaleString("id-ID");
+
+  return (
+    <span ref={ref} data-testid="animated-counter">
+      {prefix}{display}{suffix}
+    </span>
+  );
+}
 
 function Header() {
   return (
@@ -156,7 +199,7 @@ function HeroSection() {
               variants={fadeInUp}
               className="mt-10 grid grid-cols-3 gap-4"
             >
-              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border">
+              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border" data-testid="stat-speed">
                 <motion.p
                   className="text-2xl sm:text-3xl font-bold text-primary"
                   initial={{ opacity: 0, scale: 0.5 }}
@@ -167,27 +210,27 @@ function HeroSection() {
                 </motion.p>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">Proses Transaksi</p>
               </div>
-              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border">
+              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border" data-testid="stat-transactions">
                 <motion.p
                   className="text-2xl sm:text-3xl font-bold text-primary"
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.4 }}
                 >
-                  10K+
+                  <AnimatedCounter target={10000} formatK suffix="+" duration={2.5} />
                 </motion.p>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">Transaksi Sukses</p>
               </div>
-              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border">
+              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border" data-testid="stat-users">
                 <motion.p
                   className="text-2xl sm:text-3xl font-bold text-primary"
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.6 }}
                 >
-                  24/7
+                  <AnimatedCounter target={5000} formatK suffix="+" duration={2} />
                 </motion.p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Non-Stop</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Pengguna Aktif</p>
               </div>
             </motion.div>
           </motion.div>
@@ -617,19 +660,33 @@ function CTASection() {
               Gabung 5000+ pengguna yang sudah membuktikan. Tanpa download app, tanpa KYC ribet.
               Langsung beli Bitcoin, Ethereum, USDT dari Telegram sekarang!
             </p>
-            <Button
-              size="lg"
-              variant="secondary"
-              className="bg-primary-foreground text-primary"
-              asChild
-              data-testid="button-cta-start"
-            >
-              <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
-                <SiTelegram className="w-5 h-5 mr-2" />
-                Buka KriptoEcer Bot
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </a>
-            </Button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="bg-primary-foreground text-primary"
+                asChild
+                data-testid="button-cta-start"
+              >
+                <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
+                  <SiTelegram className="w-5 h-5 mr-2" />
+                  Buka KriptoEcer Bot
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"
+                asChild
+                data-testid="button-cta-channel"
+              >
+                <a href="https://t.me/kriptoecerofficial" target="_blank" rel="noopener noreferrer">
+                  <SiTelegram className="w-5 h-5 mr-2" />
+                  Gabung Channel Resmi
+                </a>
+              </Button>
+            </div>
           </div>
         </motion.div>
       </div>
@@ -703,6 +760,18 @@ function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-2">
+                <SiInstagram className="w-4 h-4 text-pink-500" />
+                <a href="https://instagram.com/kriptoecer" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                  @kriptoecer
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <SiX className="w-4 h-4" />
+                <a href="https://x.com/kriptoecer" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                  @kriptoecer
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-primary" />
                 <span>24/7 Online</span>
               </li>
@@ -710,19 +779,25 @@ function Footer() {
           </div>
         </div>
 
-        <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground" data-testid="text-footer-copyright">
-            &copy; {new Date().getFullYear()} KriptoEcer. All rights reserved.
+        <div className="pt-6 border-t border-border">
+          <p className="text-xs text-muted-foreground/70 mb-4 leading-relaxed">
+            <Shield className="w-3 h-3 inline mr-1 mb-0.5" />
+            <strong>Disclaimer Risiko:</strong> Investasi cryptocurrency mengandung risiko tinggi dan nilai aset dapat berfluktuasi secara signifikan. KriptoEcer hanya menyediakan layanan pertukaran, bukan merupakan saran investasi. Pastikan Anda memahami risiko sebelum melakukan transaksi.
           </p>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1">
-              <Shield className="w-3 h-3" />
-              Aman & Terpercaya
-            </span>
-            <span className="flex items-center gap-1">
-              <Zap className="w-3 h-3" />
-              Proses Instan
-            </span>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground" data-testid="text-footer-copyright">
+              &copy; {new Date().getFullYear()} KriptoEcer. All rights reserved.
+            </p>
+            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <Shield className="w-3 h-3" />
+                Aman & Terpercaya
+              </span>
+              <span className="flex items-center gap-1">
+                <Zap className="w-3 h-3" />
+                Proses Instan
+              </span>
+            </div>
           </div>
         </div>
       </div>
