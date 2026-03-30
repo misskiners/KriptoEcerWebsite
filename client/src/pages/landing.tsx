@@ -148,7 +148,7 @@ function HeroSection() {
             <motion.div variants={fadeInUp}>
               <Badge variant="secondary" className="mb-6" data-testid="badge-hero">
                 <Zap className="w-3 h-3 mr-1" />
-                Bot Jual Beli Crypto Tercepat di Indonesia
+                Bot Kripto Otomatis 24/7 via Telegram
               </Badge>
             </motion.div>
 
@@ -159,7 +159,7 @@ function HeroSection() {
             >
               Beli & Jual Crypto{" "}
               <span className="text-primary relative">
-                Cuma 30 Detik!
+                Otomatis via Telegram!
                 <motion.span
                   className="absolute -bottom-2 left-0 w-full h-1 bg-primary/50 rounded-full"
                   initial={{ scaleX: 0 }}
@@ -173,8 +173,8 @@ function HeroSection() {
               variants={fadeInUp}
               className="text-lg sm:text-xl text-muted-foreground max-w-xl mb-8"
             >
-              Beli Bitcoin, Ethereum, USDT mulai Rp10.000. Respons bot super cepat, 
-              transaksi otomatis 24/7, tanpa verifikasi KYC ribet. Langsung via Telegram!
+              Beli Bitcoin, Ethereum, USDT mulai Rp10.000. Bot merespons dalam hitungan detik,
+              deposit otomatis via QRIS, VA, PayPal & KriptoBot. Tanpa KYC, langsung via Telegram!
             </motion.p>
 
             <motion.div
@@ -208,7 +208,7 @@ function HeroSection() {
                 >
                   &lt;30dtk
                 </motion.p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Proses Transaksi</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Respons Bot</p>
               </div>
               <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border" data-testid="stat-transactions">
                 <motion.p
@@ -288,7 +288,7 @@ function LiveTransactionsSection() {
               <div>
                 <h3 className="text-2xl font-bold mb-3">Kenapa Ribuan Orang Pilih KriptoEcer?</h3>
                 <p className="text-base text-muted-foreground">
-                  Beda dari exchange lain yang ribet dan lambat. KriptoEcer didesain untuk kecepatan dan kemudahan.
+                  Beda dari exchange konvensional yang ribet. KriptoEcer didesain untuk kemudahan dan otomatisasi penuh.
                 </p>
               </div>
 
@@ -308,8 +308,8 @@ function LiveTransactionsSection() {
                     <Wallet className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="font-semibold text-base">Tanpa Minimum Ribet</p>
-                    <p className="text-sm text-muted-foreground">Mulai Rp10.000, tanpa deposit minimal jutaan</p>
+                    <p className="font-semibold text-base">Mulai Rp10.000, Tanpa Ribet</p>
+                    <p className="text-sm text-muted-foreground">Tidak perlu deposit minimal jutaan rupiah seperti exchange besar</p>
                   </div>
                 </div>
 
@@ -364,33 +364,33 @@ function LiveTransactionsSection() {
 const features = [
   {
     icon: Zap,
-    title: "Respons Bot < 30 Detik",
-    description: "Bot merespon perintah Anda dalam hitungan detik. Tidak seperti exchange lain yang lambat dan sering maintenance.",
+    title: "Respons Bot Super Cepat",
+    description: "Bot merespons perintah Anda dalam hitungan detik, bukan menit. Siap melayani kapan saja tanpa jeda.",
   },
   {
     icon: Wallet,
-    title: "Beli Crypto Mulai Rp10.000",
-    description: "Tanpa minimum deposit jutaan rupiah. Cocok untuk beli fee gas, top up wallet, atau investasi kecil-kecilan.",
+    title: "Mulai dari Rp10.000 Saja",
+    description: "Tidak perlu deposit jutaan rupiah. Cocok untuk beli fee gas, top up wallet, atau mulai investasi kecil-kecilan.",
   },
   {
     icon: Shield,
-    title: "Transaksi Aman & Terenkripsi",
-    description: "Sistem otomatis dengan enkripsi end-to-end. Semua transaksi tercatat di blockchain dan bisa diverifikasi.",
+    title: "Transaksi Aman & Tercatat",
+    description: "Sistem otomatis penuh. Semua transaksi tercatat di blockchain dan bisa diverifikasi kapan saja.",
   },
   {
     icon: Bot,
-    title: "100% Otomatis Tanpa Admin",
-    description: "Proses sendiri tanpa tunggu admin online. Bot bekerja 24/7 non-stop, termasuk hari libur dan malam hari.",
+    title: "Fully Otomatis, 24/7 Non-Stop",
+    description: "Proses berjalan sendiri tanpa perlu tunggu admin. Bot aktif terus termasuk hari libur dan tengah malam.",
   },
   {
     icon: CreditCard,
-    title: "Bayar Pakai QRIS, Bank, E-Wallet",
-    description: "Dukung semua metode: BCA, Mandiri, BRI, BNI, OVO, GoPay, Dana, ShopeePay, dan QRIS semua bank.",
+    title: "Deposit Otomatis 4 Metode",
+    description: "QRIS semua bank, Virtual Account, PayPal, dan KriptoBot Telegram. Deposit dikonfirmasi otomatis, tidak perlu chat admin.",
   },
   {
     icon: TrendingUp,
-    title: "Rate Harga Transparan",
-    description: "Harga real-time dari market. Tidak ada hidden fee atau markup berlebihan seperti exchange konvensional.",
+    title: "Harga Real-Time dari Market",
+    description: "Rate diambil langsung dari pasar kripto. Spread transparan, tidak ada biaya tersembunyi di luar yang tertera.",
   },
 ];
 
@@ -406,10 +406,10 @@ function FeaturesSection() {
         >
           <Badge variant="secondary" className="mb-4" data-testid="badge-features">Keunggulan KriptoEcer</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="text-features-title">
-            Beda dari Exchange Lain, Lebih Cepat & Simpel
+            Beda dari Exchange Lain — Lebih Simpel & Otomatis
           </h2>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-            Tidak perlu download app, tidak perlu verifikasi KYC berhari-hari. Langsung beli crypto dari Telegram dalam hitungan menit.
+            Tidak perlu download app, tidak perlu KYC berhari-hari. Langsung beli crypto dari Telegram dengan bot yang merespons dalam detik.
           </p>
         </motion.div>
 
@@ -456,13 +456,13 @@ const steps = [
     number: "03",
     icon: CreditCard,
     title: "Deposit Saldo",
-    description: "Top up mulai Rp10.000 via QRIS, transfer bank, atau e-wallet. Saldo masuk instan!",
+    description: "Top up mulai Rp10.000 via QRIS, VA, PayPal, atau KriptoBot Telegram. Konfirmasi otomatis, tidak perlu chat admin.",
   },
   {
     number: "04",
     icon: Coins,
     title: "Beli atau Jual Crypto",
-    description: "Pilih crypto, masukkan nominal, konfirmasi. Crypto langsung dikirim ke wallet dalam hitungan menit!",
+    description: "Pilih crypto, masukkan nominal, konfirmasi. Crypto dikirim ke wallet Anda dalam beberapa menit.",
   },
 ];
 
@@ -563,19 +563,19 @@ const faqs = [
   },
   {
     question: "Metode pembayaran apa saja yang diterima?",
-    answer: "Lengkap! Transfer bank (BCA, Mandiri, BRI, BNI, dll), e-wallet (OVO, GoPay, Dana, ShopeePay), QRIS semua bank, dan virtual account.",
+    answer: "Ada 4 metode deposit yang semuanya otomatis: QRIS semua bank, Virtual Account (VA), PayPal, dan KriptoBot Telegram. Tidak perlu konfirmasi manual ke admin — sistem langsung memproses setelah pembayaran masuk.",
   },
   {
     question: "Berapa lama proses transaksi di KriptoEcer?",
-    answer: "Super cepat! Bot merespon dalam hitungan detik. Setelah pembayaran dikonfirmasi, crypto langsung dikirim ke wallet Anda dalam 1-5 menit.",
+    answer: "Bot merespons dalam hitungan detik setelah Anda kirim perintah. Konfirmasi deposit berjalan otomatis. Setelah saldo aktif, crypto dikirim ke wallet Anda dalam beberapa menit tergantung kondisi jaringan blockchain.",
   },
   {
     question: "Apakah KriptoEcer aman dan terpercaya?",
-    answer: "100% aman. Sistem full otomatis dengan enkripsi. Semua transaksi tercatat di blockchain dan bisa diverifikasi. Sudah dipercaya ribuan pengguna dengan 10.000+ transaksi sukses.",
+    answer: "Sistem berjalan penuh otomatis tanpa intervensi manual. Semua transaksi tercatat di blockchain dan bisa diverifikasi secara publik. Sudah digunakan ribuan pengguna dengan lebih dari 10.000 transaksi yang bisa dicek di log onchain kami.",
   },
   {
     question: "Apa bedanya KriptoEcer dengan exchange seperti Indodax atau Tokocrypto?",
-    answer: "KriptoEcer lebih simpel dan cepat: tanpa download app, tanpa KYC, minimal beli lebih rendah (Rp10.000), dan proses instan via Telegram. Cocok untuk yang butuh beli crypto cepat tanpa ribet.",
+    answer: "KriptoEcer lebih simpel: tanpa download app, tanpa KYC, minimal beli lebih rendah (Rp10.000), dan semua proses berjalan otomatis via Telegram. Cocok untuk yang butuh beli crypto tanpa ribet pendaftaran panjang.",
   },
 ];
 
@@ -654,11 +654,11 @@ function CTASection() {
           <div className="relative p-8 sm:p-12 md:p-16 text-center">
             <Clock className="w-12 h-12 text-primary-foreground/80 mx-auto mb-6" />
             <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground mb-4" data-testid="text-cta-title">
-              Mau Beli Crypto Sekarang? Cuma 30 Detik!
+              Mulai Beli Crypto Sekarang, Langsung dari Telegram!
             </h2>
             <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8 text-lg">
-              Gabung 5000+ pengguna yang sudah membuktikan. Tanpa download app, tanpa KYC ribet.
-              Langsung beli Bitcoin, Ethereum, USDT dari Telegram sekarang!
+              Bergabung dengan 5.000+ pengguna yang sudah bertransaksi. Tanpa download app, tanpa KYC ribet.
+              Deposit otomatis, bot merespons dalam detik.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
@@ -705,7 +705,7 @@ function Footer() {
               <span className="font-bold text-base">KriptoEcer</span>
             </a>
             <p className="text-sm text-muted-foreground mb-4">
-              Bot Telegram jual beli crypto tercepat di Indonesia. Beli Bitcoin, Ethereum, USDT mulai Rp10.000. Tanpa KYC, respons cepat, 24/7 online.
+              Bot Telegram jual beli crypto otomatis di Indonesia. Beli Bitcoin, Ethereum, USDT mulai Rp10.000. Tanpa KYC, deposit otomatis, aktif 24/7.
             </p>
             </div>
 
