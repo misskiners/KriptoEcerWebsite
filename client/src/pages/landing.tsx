@@ -24,7 +24,7 @@ import {
   Users,
   Globe,
 } from "lucide-react";
-import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiInstagram, SiX } from "react-icons/si";
+import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX } from "react-icons/si";
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 const logoImage = "/favicon.png";
@@ -748,12 +748,6 @@ function Footer() {
             <h4 className="font-semibold mb-4">Kontak & Channel</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
-                <Bot className="w-4 h-4 text-primary" />
-                <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  @kriptoecerbot
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
                 <SiTelegram className="w-4 h-4 text-[#0088cc]" />
                 <a href="https://t.me/kriptoecerofficial" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                   Channel Resmi
@@ -766,20 +760,10 @@ function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <SiInstagram className="w-4 h-4 text-pink-500" />
-                <a href="https://instagram.com/kriptoecer" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  @kriptoecer
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
                 <SiX className="w-4 h-4" />
                 <a href="https://x.com/kriptoecer" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                   @kriptoecer
                 </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-primary" />
-                <span>24/7 Online</span>
               </li>
             </ul>
           </div>
