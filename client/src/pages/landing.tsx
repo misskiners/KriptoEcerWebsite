@@ -197,19 +197,8 @@ function HeroSection() {
 
             <motion.div
               variants={fadeInUp}
-              className="mt-10 grid grid-cols-3 gap-4"
+              className="mt-10 grid grid-cols-2 gap-4"
             >
-              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border" data-testid="stat-speed">
-                <motion.p
-                  className="text-2xl sm:text-3xl font-bold text-primary"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.2 }}
-                >
-                  &lt;30dtk
-                </motion.p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Respons Bot</p>
-              </div>
               <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border" data-testid="stat-transactions">
                 <motion.p
                   className="text-2xl sm:text-3xl font-bold text-primary"
