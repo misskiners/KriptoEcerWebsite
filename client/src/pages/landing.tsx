@@ -299,7 +299,7 @@ function LiveTransactionsSection() {
                   </div>
                   <div>
                     <p className="font-semibold text-base">Respons Super Cepat</p>
-                    <p className="text-sm text-muted-foreground">Bot merespon dalam hitungan detik, bukan menit</p>
+                    <p className="text-sm text-muted-foreground">Bot merespons cepat, langsung kasih instruksi transaksi</p>
                   </div>
                 </div>
 
@@ -350,7 +350,7 @@ function LiveTransactionsSection() {
                   data-testid="link-join-channel"
                 >
                   <SiTelegram className="w-4 h-4 text-[#0088cc]" />
-                  Join Channel
+                  Gabung Channel
                 </a>
               </div>
             </motion.div>
@@ -365,21 +365,21 @@ const features = [
   {
     icon: Zap,
     title: "Respons Bot Super Cepat",
-    description: "Bot merespons perintah Anda dalam hitungan detik, bukan menit. Siap melayani kapan saja tanpa jeda.",
+    description: "Bot langsung merespons dan kasih instruksi transaksi. Tidak ada antrian, tidak ada menunggu admin online.",
   },
   {
     icon: Wallet,
     title: "Mulai dari Rp10.000 Saja",
-    description: "Tidak perlu deposit jutaan rupiah. Cocok untuk beli fee gas, top up wallet, atau mulai investasi kecil-kecilan.",
+    description: "Tidak perlu deposit jutaan rupiah. Beli sejumlah yang dibutuhkan, kapan saja — tanpa batas minimum yang ribet.",
   },
   {
     icon: Shield,
     title: "Transaksi Aman & Tercatat",
-    description: "Sistem otomatis penuh. Semua transaksi tercatat di blockchain dan bisa diverifikasi kapan saja.",
+    description: "Semua transaksi tercatat di blockchain dan bisa diverifikasi kapan saja oleh siapa saja secara publik.",
   },
   {
     icon: Bot,
-    title: "Fully Otomatis, 24/7 Non-Stop",
+    title: "Otomatis Penuh, 24 Jam Sehari",
     description: "Proses berjalan sendiri tanpa perlu tunggu admin. Bot aktif terus termasuk hari libur dan tengah malam.",
   },
   {
@@ -390,7 +390,7 @@ const features = [
   {
     icon: TrendingUp,
     title: "Harga Real-Time dari Market",
-    description: "Rate diambil langsung dari pasar kripto. Spread transparan, tidak ada biaya tersembunyi di luar yang tertera.",
+    description: "Rate diambil langsung dari pasar kripto. Harga yang tampil sudah final — tidak ada biaya tersembunyi.",
   },
 ];
 
@@ -450,7 +450,7 @@ const steps = [
     number: "02",
     icon: Send,
     title: "Tekan /start",
-    description: "Ketik /start dan bot akan langsung merespon. Ikuti menu yang muncul, super mudah!",
+    description: "Ketik /start, bot langsung merespons dengan menu pilihan. Pilih beli atau jual, ikuti instruksinya.",
   },
   {
     number: "03",
@@ -462,7 +462,7 @@ const steps = [
     number: "04",
     icon: Coins,
     title: "Beli atau Jual Crypto",
-    description: "Pilih crypto, masukkan nominal, konfirmasi. Crypto dikirim ke wallet Anda dalam beberapa menit.",
+    description: "Pilih crypto, masukkan nominal, konfirmasi. Crypto langsung diproses dan dikirim ke wallet tujuan.",
   },
 ];
 
@@ -547,7 +547,7 @@ function HowItWorksSection() {
 const faqs = [
   {
     question: "Apa itu KriptoEcer dan bagaimana cara kerjanya?",
-    answer: "KriptoEcer adalah bot Telegram untuk jual beli cryptocurrency dengan nominal kecil (eceran). Cukup chat bot @kriptoecerbot, top up saldo, lalu beli atau jual crypto. Proses 100% otomatis tanpa perlu tunggu admin.",
+    answer: "KriptoEcer adalah bot Telegram untuk jual beli cryptocurrency dengan nominal kecil (eceran). Cukup chat bot @kriptoecerbot, top up saldo, lalu beli atau jual crypto. Semua proses otomatis tanpa perlu tunggu admin.",
   },
   {
     question: "Berapa minimal beli crypto di KriptoEcer?",
@@ -555,7 +555,7 @@ const faqs = [
   },
   {
     question: "Apakah perlu KYC atau verifikasi identitas?",
-    answer: "Tidak perlu! Anda bisa langsung pakai tanpa upload KTP, selfie, atau verifikasi ribet. Cukup punya akun Telegram dan langsung bisa transaksi.",
+    answer: "Tidak perlu! Langsung pakai tanpa upload KTP, selfie, atau verifikasi ribet. Cukup punya akun Telegram dan langsung bisa transaksi.",
   },
   {
     question: "Crypto apa saja yang bisa dibeli di KriptoEcer?",
@@ -567,7 +567,7 @@ const faqs = [
   },
   {
     question: "Berapa lama proses transaksi di KriptoEcer?",
-    answer: "Bot merespons dalam hitungan detik setelah Anda kirim perintah. Konfirmasi deposit berjalan otomatis. Setelah saldo aktif, crypto dikirim ke wallet Anda dalam beberapa menit tergantung kondisi jaringan blockchain.",
+    answer: "Bot merespons cepat setelah perintah dikirim. Konfirmasi deposit berjalan otomatis. Setelah saldo aktif, crypto diproses dan dikirim ke wallet dalam beberapa menit tergantung kondisi jaringan blockchain.",
   },
   {
     question: "Apakah KriptoEcer aman dan terpercaya?",
