@@ -101,7 +101,7 @@ export function BotAnimation() {
     const cryptoMessage: Message = {
       id: id++,
       type: 'crypto',
-      text: `${cryptoAmount} ${coin} → Wallet Anda`
+      text: `${cryptoAmount} ${coin} → wallet kamu`
     };
     setMessages(prev => [...prev, cryptoMessage]);
     setTimeout(scrollToBottom, 100);

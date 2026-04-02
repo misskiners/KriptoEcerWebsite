@@ -13,14 +13,9 @@ function TrxIcon({ className }: { className?: string }) {
 
 const cryptoOptions = [
   { name: "Solana", symbol: "SOL", Icon: SiSolana, color: "text-purple-500", bg: "bg-purple-500/10" },
-  { name: "Solana", symbol: "SOL", Icon: SiSolana, color: "text-purple-500", bg: "bg-purple-500/10" },
-  { name: "BNB", symbol: "BNB", Icon: SiBinance, color: "text-yellow-500", bg: "bg-yellow-500/10" },
   { name: "BNB", symbol: "BNB", Icon: SiBinance, color: "text-yellow-500", bg: "bg-yellow-500/10" },
   { name: "USDC", symbol: "USDC", Icon: SiTether, color: "text-blue-500", bg: "bg-blue-500/10" },
-  { name: "USDC", symbol: "USDC", Icon: SiTether, color: "text-blue-500", bg: "bg-blue-500/10" },
   { name: "USDT", symbol: "USDT", Icon: SiTether, color: "text-green-500", bg: "bg-green-500/10" },
-  { name: "USDT", symbol: "USDT", Icon: SiTether, color: "text-green-500", bg: "bg-green-500/10" },
-  { name: "Tron", symbol: "TRX", Icon: TrxIcon, color: "text-red-500", bg: "bg-red-500/10" },
   { name: "Tron", symbol: "TRX", Icon: TrxIcon, color: "text-red-500", bg: "bg-red-500/10" },
   { name: "Bitcoin", symbol: "BTC", Icon: SiBitcoin, color: "text-orange-500", bg: "bg-orange-500/10" },
   { name: "Ethereum", symbol: "ETH", Icon: SiEthereum, color: "text-blue-400", bg: "bg-blue-400/10" },

@@ -53,12 +53,14 @@ function AnimatedCounter({
   prefix = "",
   duration = 2,
   formatK = false,
+  delay = 0,
 }: {
   target: number;
   suffix?: string;
   prefix?: string;
   duration?: number;
   formatK?: boolean;
+  delay?: number;
 }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
@@ -66,19 +68,23 @@ function AnimatedCounter({
 
   useEffect(() => {
     if (!isInView) return;
-    const startTime = performance.now();
-    const totalDuration = duration * 1000;
+    const timeout = setTimeout(() => {
+      const startTime = performance.now();
+      const totalDuration = duration * 1000;
 
-    const step = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / totalDuration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
-    };
+      const step = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / totalDuration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setCount(Math.floor(eased * target));
+        if (progress < 1) requestAnimationFrame(step);
+      };
 
-    requestAnimationFrame(step);
-  }, [isInView, target, duration]);
+      requestAnimationFrame(step);
+    }, delay * 1000);
+
+    return () => clearTimeout(timeout);
+  }, [isInView, target, duration, delay]);
 
   const display = formatK && count >= 1000 ? `${(count / 1000).toFixed(0)}K` : count.toLocaleString("id-ID");
 
@@ -217,7 +223,7 @@ function HeroSection() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.4 }}
                 >
-                  <AnimatedCounter target={10000} formatK suffix="+" duration={2.5} />
+                  <AnimatedCounter target={10000} formatK suffix="+" duration={2.5} delay={1.4} />
                 </motion.p>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">Transaksi Sukses</p>
               </div>
@@ -228,7 +234,7 @@ function HeroSection() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.6 }}
                 >
-                  <AnimatedCounter target={5000} formatK suffix="+" duration={2} />
+                  <AnimatedCounter target={5000} formatK suffix="+" duration={2} delay={1.6} />
                 </motion.p>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">Pengguna Aktif</p>
               </div>
