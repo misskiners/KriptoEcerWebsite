@@ -674,18 +674,6 @@ function CTASection() {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </a>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"
-                asChild
-                data-testid="button-cta-channel"
-              >
-                <a href="https://t.me/kriptoecerofficial" target="_blank" rel="noopener noreferrer">
-                  <SiTelegram className="w-5 h-5 mr-2" />
-                  Gabung Channel Resmi
-                </a>
-              </Button>
             </div>
           </div>
         </motion.div>
