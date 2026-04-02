@@ -212,7 +212,7 @@ function HeroSection() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.2 }}
                 >
-                  1ms
+                  <AnimatedCounter target={100} suffix="ms" duration={1.5} delay={1.2} />
                 </motion.p>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">Respons Bot</p>
               </div>
