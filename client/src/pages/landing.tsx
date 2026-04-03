@@ -180,7 +180,7 @@ function HeroSection() {
               className="text-lg sm:text-xl text-muted-foreground max-w-xl mb-8"
             >
               Top up fee gas, beli meme coin, atau diversifikasi crypto mulai Rp10.000 — tanpa KYC, tanpa download app.
-              Deposit otomatis via QRIS, VA, PayPal & CryptoBot. Langsung chat, tidak perlu daftar.
+              Deposit otomatis via QRIS, VA, PayPal & CryptoBot. Daftar cepat via Telegram, langsung transaksi.
             </motion.p>
 
             <motion.div
@@ -501,7 +501,7 @@ function HowItWorksSection() {
             4 Langkah, Selesai dalam 5 Menit
           </h2>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-            Tidak perlu ribet daftar exchange, verifikasi KYC, atau tunggu berhari-hari. Langsung pakai!
+            Tidak perlu daftar di exchange besar, verifikasi KYC, atau tunggu berhari-hari. Di KriptoEcer, daftar cukup lewat Telegram.
           </p>
         </motion.div>
 
@@ -565,7 +565,7 @@ const faqs = [
   },
   {
     question: "Apakah perlu KYC atau verifikasi identitas?",
-    answer: "Tidak perlu! Langsung pakai tanpa upload KTP, selfie, atau verifikasi ribet. Cukup punya akun Telegram dan langsung bisa transaksi.",
+    answer: "Tidak perlu! KriptoEcer tidak meminta KTP, selfie, atau verifikasi identitas apapun. Cukup daftar via bot Telegram @kriptoecerbot dan langsung bisa transaksi.",
   },
   {
     question: "Crypto dan meme coin apa saja yang tersedia?",
@@ -581,7 +581,7 @@ const faqs = [
   },
   {
     question: "Apa bedanya KriptoEcer dengan exchange seperti Indodax atau Tokocrypto?",
-    answer: "KriptoEcer bukan exchange — ini bot untuk beli eceran dengan cepat. Tanpa download app, tanpa KYC, minimal beli Rp10.000, dan semua berjalan otomatis via Telegram. Ideal untuk top up fee gas atau beli meme coin tanpa daftar panjang.",
+    answer: "KriptoEcer bukan exchange — ini bot untuk beli eceran dengan cepat. Tanpa download app, tanpa KYC, minimal beli Rp10.000, dan semua berjalan otomatis via Telegram. Ideal untuk top up fee gas atau beli meme coin tanpa prosedur panjang.",
   },
 ];
 
@@ -663,7 +663,7 @@ function CTASection() {
               Mulai Beli Crypto Sekarang, Langsung dari Telegram!
             </h2>
             <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8 text-lg">
-              Mau top up fee gas, beli meme coin, atau sekadar coba crypto pertama kali — mulai dari Rp10.000 tanpa daftar, tanpa KYC. Ribuan trader Indonesia sudah pakai KriptoEcer.
+              Mau top up fee gas, beli meme coin, atau sekadar coba crypto pertama kali — mulai dari Rp10.000, tanpa KYC, tanpa ribet. Ribuan trader Indonesia sudah pakai KriptoEcer.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
