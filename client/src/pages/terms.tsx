@@ -113,7 +113,7 @@ export default function Terms() {
           "QRIS — tersedia untuk semua bank dan dompet digital yang mendukung standar QRIS.",
           "Virtual Account (VA) — transfer bank ke nomor VA yang digenerate otomatis oleh sistem.",
           "PayPal — untuk pengguna yang lebih familiar dengan metode internasional.",
-          "KriptoBot Telegram — deposit menggunakan saldo crypto dari bot kripto lain yang terintegrasi.",
+          "CryptoBot Telegram — deposit menggunakan saldo crypto dari bot kripto lain yang terintegrasi.",
         ]} />
         <p>
           Konfirmasi deposit berjalan secara otomatis setelah pembayaran berhasil diverifikasi oleh sistem 

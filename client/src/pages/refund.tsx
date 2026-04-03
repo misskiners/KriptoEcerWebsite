@@ -49,7 +49,7 @@ export default function Refund() {
         </p>
         <p><strong>a. Deposit Terbayar Tapi Saldo Tidak Masuk</strong></p>
         <p>
-          Jika kamu sudah melakukan pembayaran deposit (via QRIS, VA, PayPal, atau KriptoBot Telegram) 
+          Jika kamu sudah melakukan pembayaran deposit (via QRIS, VA, PayPal, atau CryptoBot Telegram) 
           namun saldo tidak masuk ke akun bot dalam waktu 30 menit sejak pembayaran berhasil, kamu 
           berhak mengajukan klaim. Dalam kasus ini, kami akan menyelidiki dan jika terbukti ada 
           masalah teknis di sistem kami, dana akan dikembalikan atau dikreditkan ke saldo akun kamu.
@@ -82,7 +82,7 @@ export default function Refund() {
         <LegalList items={[
           "Hubungi kami melalui @kriptoecerbot dan pilih menu bantuan/support, atau kirim pesan langsung ke channel resmi @kriptoecerofficial.",
           "Jelaskan masalah yang kamu alami secara detail — tanggal dan waktu transaksi, jumlah yang dibayarkan, dan metode pembayaran yang digunakan.",
-          "Lampirkan bukti pembayaran yang valid — screenshot konfirmasi QRIS, bukti transfer VA, bukti pembayaran PayPal, atau bukti transaksi KriptoBot.",
+          "Lampirkan bukti pembayaran yang valid — screenshot konfirmasi QRIS, bukti transfer VA, bukti pembayaran PayPal, atau bukti transaksi CryptoBot.",
           "Sertakan ID transaksi jika tersedia di dalam bot.",
           "Tim kami akan memverifikasi klaim dalam waktu 1-3 hari kerja.",
         ]} />

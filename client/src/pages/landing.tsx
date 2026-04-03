@@ -180,7 +180,7 @@ function HeroSection() {
               className="text-lg sm:text-xl text-muted-foreground max-w-xl mb-8"
             >
               Top up fee gas, beli meme coin, atau diversifikasi crypto mulai Rp10.000 — tanpa KYC, tanpa download app.
-              Deposit otomatis via QRIS, VA, PayPal & KriptoBot. Langsung chat, tidak perlu daftar.
+              Deposit otomatis via QRIS, VA, PayPal & CryptoBot. Langsung chat, tidak perlu daftar.
             </motion.p>
 
             <motion.div
@@ -391,7 +391,7 @@ const features = [
   {
     icon: CreditCard,
     title: "Deposit Otomatis 4 Metode",
-    description: "QRIS semua bank, Virtual Account, PayPal, dan KriptoBot Telegram. Deposit dikonfirmasi otomatis, tidak perlu chat admin.",
+    description: "QRIS semua bank, Virtual Account, PayPal, dan CryptoBot Telegram. Deposit dikonfirmasi otomatis, tidak perlu chat admin.",
   },
   {
     icon: TrendingUp,
@@ -462,7 +462,7 @@ const steps = [
     number: "03",
     icon: CreditCard,
     title: "Deposit Saldo",
-    description: "Top up mulai Rp10.000 via QRIS, VA, PayPal, atau KriptoBot Telegram. Konfirmasi otomatis, tidak perlu chat admin.",
+    description: "Top up mulai Rp10.000 via QRIS, VA, PayPal, atau CryptoBot Telegram. Konfirmasi otomatis, tidak perlu chat admin.",
   },
   {
     number: "04",
@@ -573,7 +573,7 @@ const faqs = [
   },
   {
     question: "Metode pembayaran apa saja yang diterima?",
-    answer: "Ada 4 metode deposit yang semuanya otomatis: QRIS semua bank, Virtual Account (VA), PayPal, dan KriptoBot Telegram. Tidak perlu konfirmasi manual ke admin — sistem langsung memproses setelah pembayaran masuk.",
+    answer: "Ada 4 metode deposit yang semuanya otomatis: QRIS semua bank, Virtual Account (VA), PayPal, dan CryptoBot Telegram. Tidak perlu konfirmasi manual ke admin — sistem langsung memproses setelah pembayaran masuk.",
   },
   {
     question: "Berapa lama proses transaksi di KriptoEcer?",
