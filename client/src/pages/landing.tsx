@@ -154,7 +154,7 @@ function HeroSection() {
             <motion.div variants={fadeInUp}>
               <Badge variant="secondary" className="mb-6" data-testid="badge-hero">
                 <Zap className="w-3 h-3 mr-1" />
-                Bot Kripto Otomatis 24/7 via Telegram
+                Jual Beli Crypto Eceran via Telegram
               </Badge>
             </motion.div>
 
@@ -179,8 +179,8 @@ function HeroSection() {
               variants={fadeInUp}
               className="text-lg sm:text-xl text-muted-foreground max-w-xl mb-8"
             >
-              Beli Bitcoin, Ethereum, USDT mulai Rp10.000. Bot merespons dalam hitungan detik,
-              deposit otomatis via QRIS, VA, PayPal & KriptoBot. Tanpa KYC, langsung via Telegram!
+              Top up fee gas, beli meme coin, atau diversifikasi crypto mulai Rp10.000 — tanpa KYC, tanpa download app.
+              Deposit otomatis via QRIS, VA, PayPal & KriptoBot. Langsung chat, tidak perlu daftar.
             </motion.p>
 
             <motion.div
@@ -376,7 +376,7 @@ const features = [
   {
     icon: Wallet,
     title: "Mulai dari Rp10.000 Saja",
-    description: "Tidak perlu deposit jutaan rupiah. Beli sejumlah yang dibutuhkan, kapan saja — tanpa batas minimum yang ribet.",
+    description: "Pas buat top up fee gas (TRX, SOL, BNB), beli meme coin baru, atau sekadar coba coin tanpa harus deposit besar ke exchange.",
   },
   {
     icon: Shield,
@@ -415,7 +415,7 @@ function FeaturesSection() {
             Beda dari Exchange Lain — Lebih Simpel & Otomatis
           </h2>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-            Tidak perlu download app, tidak perlu KYC berhari-hari. Langsung beli crypto dari Telegram dengan bot yang merespons dalam detik.
+            Dari trader meme coin sampai yang butuh fee gas — KriptoEcer dirancang untuk beli crypto eceran tanpa ribet, langsung dari Telegram.
           </p>
         </motion.div>
 
@@ -552,20 +552,24 @@ function HowItWorksSection() {
 
 const faqs = [
   {
-    question: "Apa itu KriptoEcer dan bagaimana cara kerjanya?",
-    answer: "KriptoEcer adalah bot Telegram untuk jual beli cryptocurrency dengan nominal kecil (eceran). Cukup chat bot @kriptoecerbot, top up saldo, lalu beli atau jual crypto. Semua proses otomatis tanpa perlu tunggu admin.",
+    question: "Apa itu KriptoEcer dan siapa yang cocok pakainya?",
+    answer: "KriptoEcer adalah bot Telegram untuk jual beli crypto eceran mulai Rp10.000. Cocok untuk trader yang butuh top up fee gas (TRX, SOL, BNB), beli meme coin tanpa ribet, atau coba coin baru dengan modal kecil. Semua proses otomatis — cukup chat bot, tidak perlu tunggu admin.",
   },
   {
     question: "Berapa minimal beli crypto di KriptoEcer?",
-    answer: "Minimal pembelian mulai dari Rp10.000 saja! Jauh lebih rendah dari exchange besar yang biasanya minta deposit ratusan ribu sampai jutaan rupiah.",
+    answer: "Minimal pembelian mulai dari Rp10.000. Jauh lebih rendah dari exchange besar yang biasanya minta deposit ratusan ribu sampai jutaan rupiah. Cocok buat yang butuh beli crypto dalam jumlah kecil untuk keperluan spesifik.",
+  },
+  {
+    question: "Bisa beli crypto untuk bayar fee gas transaksi blockchain?",
+    answer: "Bisa. Ini salah satu use case utama KriptoEcer — beli TRX untuk fee gas di jaringan Tron, BNB untuk BSC, SOL untuk Solana, atau ETH untuk Ethereum, semua mulai dari nominal kecil tanpa harus buka exchange besar.",
   },
   {
     question: "Apakah perlu KYC atau verifikasi identitas?",
     answer: "Tidak perlu! Langsung pakai tanpa upload KTP, selfie, atau verifikasi ribet. Cukup punya akun Telegram dan langsung bisa transaksi.",
   },
   {
-    question: "Crypto apa saja yang bisa dibeli di KriptoEcer?",
-    answer: "Tersedia Bitcoin (BTC), Ethereum (ETH), USDT, BNB, Solana (SOL), Litecoin (LTC), Dogecoin (DOGE), dan berbagai altcoin populer lainnya. Cek bot untuk daftar lengkap terbaru.",
+    question: "Crypto dan meme coin apa saja yang tersedia?",
+    answer: "Tersedia Bitcoin (BTC), Ethereum (ETH), USDT, BNB, Solana (SOL), TRX, Litecoin (LTC), Dogecoin (DOGE), dan berbagai altcoin serta meme coin populer lainnya. Cek bot @kriptoecerbot untuk daftar lengkap terbaru.",
   },
   {
     question: "Metode pembayaran apa saja yang diterima?",
@@ -576,12 +580,8 @@ const faqs = [
     answer: "Bot merespons cepat setelah perintah dikirim. Konfirmasi deposit berjalan otomatis. Setelah saldo aktif, crypto diproses dan dikirim ke wallet dalam beberapa menit tergantung kondisi jaringan blockchain.",
   },
   {
-    question: "Apakah KriptoEcer aman dan terpercaya?",
-    answer: "Sistem berjalan penuh otomatis tanpa intervensi manual. Semua transaksi tercatat di blockchain dan bisa diverifikasi secara publik. Sudah digunakan ribuan pengguna dengan lebih dari 10.000 transaksi yang bisa dicek di log onchain kami.",
-  },
-  {
     question: "Apa bedanya KriptoEcer dengan exchange seperti Indodax atau Tokocrypto?",
-    answer: "KriptoEcer lebih simpel: tanpa download app, tanpa KYC, minimal beli lebih rendah (Rp10.000), dan semua proses berjalan otomatis via Telegram. Cocok untuk yang butuh beli crypto tanpa ribet pendaftaran panjang.",
+    answer: "KriptoEcer bukan exchange — ini bot untuk beli eceran dengan cepat. Tanpa download app, tanpa KYC, minimal beli Rp10.000, dan semua berjalan otomatis via Telegram. Ideal untuk top up fee gas atau beli meme coin tanpa daftar panjang.",
   },
 ];
 
@@ -663,8 +663,7 @@ function CTASection() {
               Mulai Beli Crypto Sekarang, Langsung dari Telegram!
             </h2>
             <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8 text-lg">
-              Bergabung dengan 5.000+ pengguna yang sudah bertransaksi. Tanpa download app, tanpa KYC ribet.
-              Deposit otomatis, bot merespons dalam detik.
+              Mau top up fee gas, beli meme coin, atau sekadar coba crypto pertama kali — mulai dari Rp10.000 tanpa daftar, tanpa KYC. Ribuan trader Indonesia sudah pakai KriptoEcer.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
