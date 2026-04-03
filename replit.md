@@ -6,7 +6,9 @@ KriptoEcer is a web application that serves as a landing page for a Telegram bot
 
 ## Recent Changes
 
-- **February 2026**: Added legal pages (Terms of Service, Privacy Policy) with footer links
+- **April 2026**: Major UI upgrade — mouse parallax hero orbs, glassmorphism feature cards, canvas-confetti CTA button, ParticleNetwork replacing BlockchainGrid everywhere, interactive 4-tab DepositSection (QRIS/VA/PayPal/CryptoBot), upgraded BotAnimation with typing indicator (bouncing dots), timestamps, read receipts, coin+amount selectors, and Reset Demo
+- **March 2026**: Legal pages audit — removed Instagram from all contact sections, added Lucide icons per legal page, per-page OG meta tags via LegalLayout, corrected "tanpa daftar" → "daftar cepat via Telegram" messaging
+- **February 2026**: Added legal pages (Terms of Service, Privacy Policy, Risk Disclosure, Refund Policy) with footer links
 - **January 2026**: Created landing page with Hero, Features, How It Works, FAQ, and CTA sections
 - Added dark/light theme toggle with gold/amber color scheme
 - Integrated custom KriptoEcer logo and favicon

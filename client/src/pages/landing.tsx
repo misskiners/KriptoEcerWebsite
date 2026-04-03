@@ -25,13 +25,15 @@ import {
   Globe,
 } from "lucide-react";
 import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX } from "react-icons/si";
-import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useEffect, useState, useCallback } from "react";
+import confetti from "canvas-confetti";
 const logoImage = "/favicon.png";
 import { FloatingCoins } from "@/components/animations/floating-coins";
-import { BlockchainGrid } from "@/components/animations/blockchain-grid";
+import { ParticleNetwork } from "@/components/animations/particle-network";
 import { TransactionFeed } from "@/components/animations/transaction-feed";
 import { BotAnimation } from "@/components/animations/bot-animation";
+import { DepositSection } from "@/components/deposit-section";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -122,24 +124,48 @@ function Header() {
 }
 
 function HeroSection() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 35, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 35, damping: 20 });
+
+  const orb1X = useTransform(springX, v => v * 0.025);
+  const orb1Y = useTransform(springY, v => v * 0.025);
+  const orb2X = useTransform(springX, v => -v * 0.018);
+  const orb2Y = useTransform(springY, v => -v * 0.018);
+  const orb3X = useTransform(springX, v => v * 0.012);
+  const orb3Y = useTransform(springY, v => v * 0.012);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left - rect.width / 2);
+    mouseY.set(e.clientY - rect.top - rect.height / 2);
+  }, [mouseX, mouseY]);
+
   return (
-    <section className="relative pt-28 pb-12 overflow-hidden min-h-[85vh] flex items-center">
+    <section
+      className="relative pt-28 pb-12 overflow-hidden min-h-[85vh] flex items-center"
+      onMouseMove={handleMouseMove}
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-      <BlockchainGrid />
+      <ParticleNetwork className="opacity-40" />
       <FloatingCoins />
       
       <motion.div
-        className="absolute top-20 left-1/4 w-72 h-72 bg-primary/30 rounded-full blur-3xl"
+        style={{ x: orb1X, y: orb1Y }}
+        className="absolute top-20 left-1/4 w-72 h-72 bg-primary/30 rounded-full blur-3xl pointer-events-none"
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 8, repeat: Infinity }}
       />
       <motion.div
-        className="absolute top-40 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
+        style={{ x: orb2X, y: orb2Y }}
+        className="absolute top-40 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none"
         animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
         transition={{ duration: 10, repeat: Infinity }}
       />
       <motion.div
-        className="absolute bottom-20 left-1/3 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"
+        style={{ x: orb3X, y: orb3Y }}
+        className="absolute bottom-20 left-1/3 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
         animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.3, 0.1] }}
         transition={{ duration: 12, repeat: Infinity }}
       />
@@ -258,7 +284,7 @@ function HeroSection() {
 function LiveTransactionsSection() {
   return (
     <section className="py-16 relative overflow-hidden">
-      <BlockchainGrid />
+      <ParticleNetwork className="opacity-20" />
       <div className="container mx-auto px-4 relative">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -427,16 +453,24 @@ function FeaturesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
+              className="group h-full"
             >
-              <Card className="h-full hover-elevate">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+              <div className="h-full rounded-xl p-6 relative overflow-hidden
+                bg-card/70 backdrop-blur-sm
+                border border-border hover:border-primary/40
+                shadow-sm hover:shadow-primary/10 hover:shadow-lg
+                transition-all duration-300 cursor-default">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/15 group-hover:border-primary/30 transition-colors duration-300">
                     <feature.icon className="w-6 h-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -632,6 +666,24 @@ function FAQSection() {
 }
 
 function CTASection() {
+  const fireConfetti = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const href = e.currentTarget.href;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (rect.left + rect.width / 2) / window.innerWidth;
+    const y = (rect.top + rect.height / 2) / window.innerHeight;
+    confetti({
+      particleCount: 90,
+      spread: 75,
+      origin: { x, y },
+      colors: ['#FBBA07', '#FFD700', '#FFA500', '#ffffff', '#F3BA2F', '#FCD34D'],
+      ticks: 200,
+      gravity: 1.1,
+      scalar: 0.9,
+    });
+    setTimeout(() => window.open(href, '_blank'), 500);
+  };
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
@@ -666,19 +718,20 @@ function CTASection() {
               Mau top up fee gas, beli meme coin, atau sekadar coba crypto pertama kali — mulai dari Rp10.000, tanpa KYC, tanpa ribet. Ribuan trader Indonesia sudah pakai KriptoEcer.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="bg-primary-foreground text-primary"
-                asChild
+              <motion.a
+                href="https://t.me/kriptoecerbot"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={fireConfetti}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary-foreground text-primary font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300"
                 data-testid="button-cta-start"
               >
-                <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
-                  <SiTelegram className="w-5 h-5 mr-2" />
-                  Buka KriptoEcer Bot
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </a>
-              </Button>
+                <SiTelegram className="w-5 h-5" />
+                Buka KriptoEcer Bot
+                <ArrowRight className="w-4 h-4" />
+              </motion.a>
             </div>
           </div>
         </motion.div>
@@ -796,6 +849,7 @@ export default function Landing() {
         <HeroSection />
         <LiveTransactionsSection />
         <FeaturesSection />
+        <DepositSection />
         <HowItWorksSection />
         <FAQSection />
         <CTASection />
