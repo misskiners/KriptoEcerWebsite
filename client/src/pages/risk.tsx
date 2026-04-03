@@ -1,11 +1,12 @@
 import { LegalLayout, LegalSection, LegalList } from "@/components/legal-layout";
 import { Shield } from "lucide-react";
+import { Link } from "wouter";
 
 export default function Risk() {
   return (
     <LegalLayout
       title="Pengungkapan Risiko"
-      description="Pahami risiko-risiko yang terkait dengan penggunaan layanan KriptoEcer sebelum melakukan transaksi cryptocurrency."
+      description="Pahami risiko jual beli crypto di KriptoEcer sebelum bertransaksi — volatilitas harga, risiko teknologi, regulasi, dan likuiditas dijelaskan secara transparan."
       lastUpdated="Maret 2026"
     >
       <section className="p-5 rounded-xl border border-yellow-500/30 bg-yellow-500/5">
@@ -143,6 +144,23 @@ export default function Risk() {
           KriptoEcer peduli dengan keberlanjutan penggunamu. Kami ingin kamu tetap bisa menikmati 
           layanan ini dalam jangka panjang — dan itu hanya mungkin kalau kamu berinvestasi dengan bijak.
         </p>
+        <p>
+          Untuk memahami hak dan kewajiban lebih lanjut, baca juga{" "}
+          <Link href="/terms" className="text-primary hover:underline">Syarat & Ketentuan</Link> dan{" "}
+          <Link href="/refund" className="text-primary hover:underline">Kebijakan Refund</Link> kami.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="9. Hubungi Kami">
+        <p>
+          Ada pertanyaan tentang risiko layanan ini, atau butuh klarifikasi sebelum mulai bertransaksi? 
+          Jangan ragu untuk menghubungi kami:
+        </p>
+        <LegalList items={[
+          "Bot Telegram: @kriptoecerbot — untuk pertanyaan terkait transaksi.",
+          "Channel Resmi: @kriptoecerofficial — untuk pengumuman dan informasi umum.",
+          "X (Twitter): @kriptoecer",
+        ]} />
       </LegalSection>
     </LegalLayout>
   );

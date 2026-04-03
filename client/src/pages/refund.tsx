@@ -4,7 +4,7 @@ export default function Refund() {
   return (
     <LegalLayout
       title="Kebijakan Refund"
-      description="Kebijakan pengembalian dana KriptoEcer — kapan refund bisa dilakukan dan bagaimana cara mengajukannya."
+      description="Kebijakan pengembalian dana KriptoEcer — kondisi deposit tidak masuk, kelebihan bayar, transaksi gagal, cara klaim, dan jangka waktu pengajuan refund."
       lastUpdated="Maret 2026"
     >
       <LegalSection title="1. Prinsip Dasar">
@@ -144,7 +144,6 @@ export default function Refund() {
         <LegalList items={[
           "Bot Telegram: @kriptoecerbot",
           "Channel Resmi: @kriptoecerofficial",
-          "Instagram: @kriptoecer",
           "X (Twitter): @kriptoecer",
         ]} />
         <p>

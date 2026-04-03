@@ -13,11 +13,19 @@ interface LegalLayoutProps {
 
 export function LegalLayout({ title, description, lastUpdated = "Maret 2026", children }: LegalLayoutProps) {
   useEffect(() => {
-    document.title = `${title} | KriptoEcer`;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute("content", description);
+    const pageTitle = `${title} | KriptoEcer`;
+    document.title = pageTitle;
+    const setMeta = (selector: string, attr: string, value: string) => {
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute(attr, value);
+    };
+    setMeta('meta[name="description"]', "content", description);
+    setMeta('meta[property="og:title"]', "content", pageTitle);
+    setMeta('meta[property="og:description"]', "content", description);
+    setMeta('meta[name="twitter:title"]', "content", pageTitle);
+    setMeta('meta[name="twitter:description"]', "content", description);
     return () => {
-      document.title = "KriptoEcer - Beli & Jual Crypto Otomatis via Telegram";
+      document.title = "KriptoEcer - Beli & Jual Crypto Eceran Mulai Rp10.000 via Telegram";
     };
   }, [title, description]);
 

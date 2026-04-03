@@ -1,4 +1,5 @@
 import { LegalLayout, LegalSection, LegalList } from "@/components/legal-layout";
+import { Link } from "wouter";
 
 export default function Terms() {
   return (
@@ -126,7 +127,7 @@ export default function Terms() {
         </p>
         <p>
           Jika deposit sudah terbayar namun saldo tidak kunjung masuk dalam waktu yang wajar, segera hubungi 
-          kami dengan menyertakan bukti pembayaran. Lihat Kebijakan Refund kami untuk ketentuan lebih lanjut.
+          kami dengan menyertakan bukti pembayaran. Lihat <Link href="/refund" className="text-primary hover:underline">Kebijakan Refund</Link> kami untuk ketentuan lebih lanjut.
         </p>
       </LegalSection>
 
@@ -258,7 +259,6 @@ export default function Terms() {
         <LegalList items={[
           "Bot: @kriptoecerbot (untuk pertanyaan terkait transaksi)",
           "Channel Resmi: @kriptoecerofficial (untuk pengumuman dan info layanan)",
-          "Instagram: @kriptoecer",
           "X (Twitter): @kriptoecer",
         ]} />
         <p>

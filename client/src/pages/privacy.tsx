@@ -215,7 +215,6 @@ export default function Privacy() {
         <LegalList items={[
           "Bot Telegram: @kriptoecerbot — untuk pertanyaan terkait data transaksi kamu.",
           "Channel Resmi: @kriptoecerofficial — untuk pengumuman dan informasi umum.",
-          "Instagram: @kriptoecer",
           "X (Twitter): @kriptoecer",
         ]} />
         <p>
