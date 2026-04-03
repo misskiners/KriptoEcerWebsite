@@ -8,10 +8,11 @@ interface LegalLayoutProps {
   title: string;
   description: string;
   lastUpdated?: string;
+  icon?: React.ReactNode;
   children: React.ReactNode;
 }
 
-export function LegalLayout({ title, description, lastUpdated = "Maret 2026", children }: LegalLayoutProps) {
+export function LegalLayout({ title, description, lastUpdated = "Maret 2026", icon, children }: LegalLayoutProps) {
   useEffect(() => {
     const pageTitle = `${title} | KriptoEcer`;
     document.title = pageTitle;
@@ -48,6 +49,11 @@ export function LegalLayout({ title, description, lastUpdated = "Maret 2026", ch
 
       <main className="container mx-auto px-4 pt-28 pb-16 max-w-3xl">
         <div className="mb-10">
+          {icon && (
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-5">
+              {icon}
+            </div>
+          )}
           <h1 className="text-3xl sm:text-4xl font-bold mb-3">{title}</h1>
           <p className="text-sm text-muted-foreground">Terakhir diperbarui: {lastUpdated}</p>
         </div>

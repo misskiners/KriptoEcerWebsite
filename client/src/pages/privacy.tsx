@@ -1,4 +1,5 @@
 import { LegalLayout, LegalSection, LegalList } from "@/components/legal-layout";
+import { Lock } from "lucide-react";
 
 export default function Privacy() {
   return (
@@ -6,6 +7,7 @@ export default function Privacy() {
       title="Kebijakan Privasi"
       description="Kebijakan privasi KriptoEcer — bagaimana kami mengumpulkan, menggunakan, dan melindungi data pengguna layanan bot Telegram kripto kami."
       lastUpdated="Maret 2026"
+      icon={<Lock className="w-6 h-6" />}
     >
       <LegalSection title="1. Komitmen Kami terhadap Privasi">
         <p>

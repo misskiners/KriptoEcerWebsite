@@ -1,5 +1,5 @@
 import { LegalLayout, LegalSection, LegalList } from "@/components/legal-layout";
-import { Shield } from "lucide-react";
+import { Shield, AlertTriangle } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Risk() {
@@ -8,6 +8,7 @@ export default function Risk() {
       title="Pengungkapan Risiko"
       description="Pahami risiko jual beli crypto di KriptoEcer sebelum bertransaksi — volatilitas harga, risiko teknologi, regulasi, dan likuiditas dijelaskan secara transparan."
       lastUpdated="Maret 2026"
+      icon={<AlertTriangle className="w-6 h-6" />}
     >
       <section className="p-5 rounded-xl border border-yellow-500/30 bg-yellow-500/5">
         <div className="flex items-start gap-3">

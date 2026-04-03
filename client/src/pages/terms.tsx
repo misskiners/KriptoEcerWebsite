@@ -1,5 +1,6 @@
 import { LegalLayout, LegalSection, LegalList } from "@/components/legal-layout";
 import { Link } from "wouter";
+import { ScrollText } from "lucide-react";
 
 export default function Terms() {
   return (
@@ -7,6 +8,7 @@ export default function Terms() {
       title="Syarat dan Ketentuan"
       description="Baca syarat dan ketentuan penggunaan layanan KriptoEcer — bot Telegram jual beli cryptocurrency otomatis di Indonesia."
       lastUpdated="Maret 2026"
+      icon={<ScrollText className="w-6 h-6" />}
     >
       <LegalSection title="1. Pendahuluan">
         <p>

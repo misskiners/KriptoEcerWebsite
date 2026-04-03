@@ -1,4 +1,5 @@
 import { LegalLayout, LegalSection, LegalList } from "@/components/legal-layout";
+import { RotateCcw } from "lucide-react";
 
 export default function Refund() {
   return (
@@ -6,6 +7,7 @@ export default function Refund() {
       title="Kebijakan Refund"
       description="Kebijakan pengembalian dana KriptoEcer — kondisi deposit tidak masuk, kelebihan bayar, transaksi gagal, cara klaim, dan jangka waktu pengajuan refund."
       lastUpdated="Maret 2026"
+      icon={<RotateCcw className="w-6 h-6" />}
     >
       <LegalSection title="1. Prinsip Dasar">
         <p>
