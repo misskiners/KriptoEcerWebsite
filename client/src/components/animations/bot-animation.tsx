@@ -123,30 +123,95 @@ function FloatingNotification({ prices }: { prices: Record<string, number> }) {
 }
 
 /* ── Scrollable row with right-fade hint ── */
-function ScrollRow({ children }: { children: React.ReactNode }) {
-  const ref     = useRef<HTMLDivElement>(null);
-  const [atEnd, setAtEnd] = useState(false);
+const EDGE_ZONE = 28; // px from edge that triggers auto-scroll
+const MAX_SPEED = 5;  // px per frame at the very edge
 
-  const check = () => {
+function ScrollRow({ children }: { children: React.ReactNode }) {
+  const ref      = useRef<HTMLDivElement>(null);
+  const rafRef   = useRef<number | null>(null);
+  const dirRef   = useRef<number>(0); // -1 left, 0 none, 1 right
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd,   setAtEnd]   = useState(false);
+
+  const checkEdges = () => {
     const el = ref.current;
     if (!el) return;
+    setAtStart(el.scrollLeft <= 2);
     setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
   };
 
-  useEffect(() => { check(); }, [children]);
+  useEffect(() => { checkEdges(); }, [children]);
+
+  /* Auto-scroll loop */
+  const startLoop = () => {
+    if (rafRef.current !== null) return;
+    const loop = () => {
+      const el = ref.current;
+      if (el && dirRef.current !== 0) {
+        el.scrollLeft += dirRef.current;
+        checkEdges();
+      }
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+  };
+
+  const stopLoop = () => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    dirRef.current = 0;
+  };
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x    = e.clientX - rect.left;
+    const w    = rect.width;
+
+    if (x < EDGE_ZONE) {
+      const t = 1 - x / EDGE_ZONE;          // 0→1 as cursor approaches left edge
+      dirRef.current = -(t * MAX_SPEED);
+      startLoop();
+    } else if (x > w - EDGE_ZONE) {
+      const t = 1 - (w - x) / EDGE_ZONE;   // 0→1 as cursor approaches right edge
+      dirRef.current = t * MAX_SPEED;
+      startLoop();
+    } else {
+      dirRef.current = 0;
+    }
+  };
+
+  const onMouseLeave = () => stopLoop();
+
+  useEffect(() => () => stopLoop(), []);
 
   return (
     <div className="relative">
       <div
         ref={ref}
-        onScroll={check}
-        className="flex gap-1.5 overflow-x-auto"
+        onScroll={checkEdges}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        className="flex gap-1.5 overflow-x-auto cursor-ew-resize"
         style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
       >
         {children}
         <div className="w-2 flex-shrink-0" />
       </div>
-      {/* Fade hint when more content to the right */}
+      {/* Left fade — visible when scrolled past start */}
+      <AnimatePresence>
+        {!atStart && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="absolute left-0 top-0 bottom-0 w-6 pointer-events-none
+              bg-gradient-to-r from-[#0d1220] to-transparent"
+          />
+        )}
+      </AnimatePresence>
+      {/* Right fade — visible when more content to the right */}
       <AnimatePresence>
         {!atEnd && (
           <motion.div
