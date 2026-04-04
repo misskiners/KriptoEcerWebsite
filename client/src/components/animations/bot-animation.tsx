@@ -274,7 +274,6 @@ export function BotAnimation() {
   const handlePreset = (amount: number) => {
     setSelectedAmount(amount);
     setAmountInput(amount.toLocaleString("id-ID"));
-    inputRef.current?.focus({ preventScroll: true });
   };
 
   /* ── Simulate transaction ── */
