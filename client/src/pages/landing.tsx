@@ -1022,102 +1022,171 @@ function RecentArticlesSection() {
 }
 
 function Footer() {
-  return (
-    <footer className="py-12 bg-muted/30 border-t border-border">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <a href="/" className="flex items-center gap-2 mb-4" data-testid="link-footer-logo">
-              <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
-              <span className="font-bold text-base">KriptoEcer</span>
-            </a>
-            <p className="text-sm text-muted-foreground mb-4">
-              Bot Telegram jual beli crypto otomatis di Indonesia. Beli Bitcoin, Ethereum, USDT mulai Rp10.000. Tanpa KYC, deposit otomatis, aktif 24/7.
-            </p>
-            </div>
+  const STATS = [
+    { icon: Users,     label: "10rb+ Pengguna Aktif" },
+    { icon: TrendingUp,label: "Rp500Jt+ Total Transaksi" },
+    { icon: Zap,       label: "Proses < 5 Menit" },
+    { icon: Clock,     label: "Aktif 24/7" },
+  ] as const;
 
+  const NAV = [
+    { href: "#fitur",      label: "Fitur" },
+    { href: "#cara-kerja", label: "Cara Kerja" },
+    { href: "#deposit",    label: "Deposit" },
+    { href: "#faq",        label: "FAQ" },
+    { href: "/blog",       label: "Blog & Artikel" },
+  ] as const;
+
+  const LEGAL = [
+    { href: "/terms",   label: "Syarat & Ketentuan" },
+    { href: "/privacy", label: "Kebijakan Privasi" },
+    { href: "/risk",    label: "Pengungkapan Risiko" },
+    { href: "/refund",  label: "Kebijakan Refund" },
+  ] as const;
+
+  const COINS = [
+    { Icon: SiBitcoin,   color: "#F7931A", label: "BTC" },
+    { Icon: SiEthereum,  color: "#627EEA", label: "ETH" },
+    { Icon: SiSolana,    color: "#9945FF", label: "SOL" },
+    { Icon: SiTether,    color: "#26A17B", label: "USDT" },
+    { Icon: SiBinance,   color: "#F3BA2F", label: "BNB" },
+  ] as const;
+
+  return (
+    <footer className="relative bg-zinc-950 border-t border-white/[0.07] overflow-hidden">
+      {/* Dot-grid ambient */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }} />
+      {/* Amber glow top-left */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+
+      {/* ── Stats bar ── */}
+      <div className="relative border-b border-white/[0.06]">
+        <div className="container mx-auto px-4 py-3.5">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+            {STATS.map(({ icon: Icon, label }) => (
+              <div key={label} className="flex items-center gap-1.5">
+                <Icon className="w-3 h-3 text-primary/60 flex-shrink-0" />
+                <span className="text-[11px] text-white/40">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Main columns ── */}
+      <div className="relative container mx-auto px-4 pt-12 pb-8">
+        <div className="grid md:grid-cols-4 gap-10 mb-10">
+
+          {/* Brand */}
           <div>
-            <h4 className="font-semibold mb-4">Menu</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <a href="#fitur" className="hover:text-foreground transition-colors">Fitur</a>
-              </li>
-              <li>
-                <a href="#cara-kerja" className="hover:text-foreground transition-colors">Cara Kerja</a>
-              </li>
-              <li>
-                <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
-              </li>
-              <li>
-                <a href="/blog" className="hover:text-foreground transition-colors">Blog & Artikel</a>
-              </li>
-              <li>
-                <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  Buka Bot
-                </a>
-              </li>
-            </ul>
-            <h4 className="font-semibold mb-4 mt-6">Legal</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <a href="/terms" className="hover:text-foreground transition-colors">Syarat &amp; Ketentuan</a>
-              </li>
-              <li>
-                <a href="/privacy" className="hover:text-foreground transition-colors">Kebijakan Privasi</a>
-              </li>
-              <li>
-                <a href="/risk" className="hover:text-foreground transition-colors">Pengungkapan Risiko</a>
-              </li>
-              <li>
-                <a href="/refund" className="hover:text-foreground transition-colors">Kebijakan Refund</a>
-              </li>
+            <a href="/" className="flex items-center gap-2 mb-3" data-testid="link-footer-logo">
+              <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
+              <span className="font-bold text-base text-white">KriptoEcer</span>
+            </a>
+            <p className="text-[13px] text-white/40 mb-5 leading-relaxed">
+              Bot Telegram jual beli crypto otomatis. Mulai Rp10.000, tanpa KYC, deposit otomatis, aktif 24/7.
+            </p>
+            <div className="flex items-center gap-2 mb-4">
+              <a href="https://t.me/kriptoecerofficial" target="_blank" rel="noopener noreferrer"
+                data-testid="link-footer-telegram"
+                className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.07] hover:bg-[#0088cc]/20 text-white/40 hover:text-[#0088cc] transition-colors">
+                <SiTelegram className="w-3.5 h-3.5" />
+              </a>
+              <a href="https://x.com/kriptoecer" target="_blank" rel="noopener noreferrer"
+                data-testid="link-footer-x"
+                className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.07] hover:bg-white/[0.14] text-white/40 hover:text-white transition-colors">
+                <SiX className="w-3 h-3" />
+              </a>
+            </div>
+            <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer"
+              data-testid="link-footer-open-bot"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-black text-sm font-semibold hover:bg-primary/85 transition-colors">
+              <SiTelegram className="w-3.5 h-3.5" />
+              Buka Bot
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          {/* Navigasi */}
+          <div>
+            <h4 className="text-[11px] font-semibold text-white/35 uppercase tracking-widest mb-4">Navigasi</h4>
+            <ul className="space-y-3">
+              {NAV.map(({ href, label }) => (
+                <li key={label}>
+                  <a href={href} className="text-sm text-white/45 hover:text-white transition-colors">
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
+          {/* Legal */}
           <div>
-            <h4 className="font-semibold mb-4">Kontak & Channel</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex items-center gap-2">
-                <SiTelegram className="w-4 h-4 text-[#0088cc]" />
-                <a href="https://t.me/kriptoecerofficial" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  Channel Resmi
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-green-500" />
-                <a href="https://t.me/kriptoecerchannel" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  Log Transaksi
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <SiX className="w-4 h-4" />
-                <a href="https://x.com/kriptoecer" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  @kriptoecer
-                </a>
-              </li>
+            <h4 className="text-[11px] font-semibold text-white/35 uppercase tracking-widest mb-4">Legal</h4>
+            <ul className="space-y-3">
+              {LEGAL.map(({ href, label }) => (
+                <li key={label}>
+                  <a href={href} className="text-sm text-white/45 hover:text-white transition-colors">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Kontak & Channel */}
+          <div>
+            <h4 className="text-[11px] font-semibold text-white/35 uppercase tracking-widest mb-4">Kontak & Channel</h4>
+            <ul className="space-y-3">
+              {[
+                { href: "https://t.me/kriptoecerbot",      icon: SiTelegram,  iconColor: "text-[#0088cc]", bg: "bg-[#0088cc]/10", label: "@kriptoecerbot",      sub: "Mulai Transaksi" },
+                { href: "https://t.me/kriptoecerofficial", icon: SiTelegram,  iconColor: "text-[#0088cc]", bg: "bg-[#0088cc]/10", label: "@kriptoecerofficial", sub: "Channel Resmi" },
+                { href: "https://t.me/kriptoecerchannel",  icon: TrendingUp,  iconColor: "text-green-500", bg: "bg-green-500/10",  label: "Log Transaksi",       sub: "Live update" },
+                { href: "https://x.com/kriptoecer",        icon: SiX,         iconColor: "text-white/50",  bg: "bg-white/[0.07]", label: "@kriptoecer",         sub: "Update & Promo" },
+              ].map(({ href, icon: Icon, iconColor, bg, label, sub }) => (
+                <li key={label}>
+                  <a href={href} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 group">
+                    <div className={`w-7 h-7 rounded-lg ${bg} flex items-center justify-center flex-shrink-0`}>
+                      <Icon className={`w-3.5 h-3.5 ${iconColor}`} />
+                    </div>
+                    <div>
+                      <div className="text-[12px] font-medium text-white/60 group-hover:text-white transition-colors leading-tight">{label}</div>
+                      <div className="text-[11px] text-white/30 leading-tight">{sub}</div>
+                    </div>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        <div className="pt-6 border-t border-border">
-          <p className="text-xs text-muted-foreground/70 mb-4 leading-relaxed">
-            <Shield className="w-3 h-3 inline mr-1 mb-0.5" />
-            <strong>Disclaimer Risiko:</strong> Investasi cryptocurrency mengandung risiko tinggi dan nilai aset dapat berfluktuasi secara signifikan. KriptoEcer hanya menyediakan layanan pertukaran, bukan merupakan saran investasi. Pastikan Anda memahami risiko sebelum melakukan transaksi.
+        {/* Disclaimer */}
+        <div className="border-t border-white/[0.06] pt-6 mb-5">
+          <p className="text-[11px] text-white/25 leading-relaxed">
+            <Shield className="w-3 h-3 inline mr-1 mb-0.5 text-white/35" />
+            <strong className="text-white/35">Disclaimer Risiko:</strong>{" "}
+            Investasi cryptocurrency mengandung risiko tinggi dan nilai aset dapat berfluktuasi secara signifikan. KriptoEcer hanya menyediakan layanan pertukaran, bukan merupakan saran investasi. Pastikan Anda memahami risiko sebelum melakukan transaksi.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground" data-testid="text-footer-copyright">
-              &copy; {new Date().getFullYear()} KriptoEcer. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <Shield className="w-3 h-3" />
-                Aman & Terpercaya
-              </span>
-              <span className="flex items-center gap-1">
-                <Zap className="w-3 h-3" />
-                Proses Instan
-              </span>
-            </div>
+        </div>
+
+        {/* Copyright bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-white/25" data-testid="text-footer-copyright">
+            &copy; {new Date().getFullYear()} KriptoEcer. All rights reserved.
+          </p>
+          <div className="flex items-center gap-3">
+            {COINS.map(({ Icon, color, label }) => (
+              <div key={label} className="flex items-center gap-1">
+                <Icon style={{ color }} className="w-3 h-3 opacity-40" />
+                <span className="text-[10px] text-white/25">{label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
