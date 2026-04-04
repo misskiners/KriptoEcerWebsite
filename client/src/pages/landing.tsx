@@ -20,7 +20,7 @@ import {
   Users,
   Globe,
 } from "lucide-react";
-import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX } from "react-icons/si";
+import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX, SiWhatsapp } from "react-icons/si";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { articles as allArticles } from "@shared/articles";
@@ -1147,7 +1147,8 @@ function Footer() {
                 { href: "https://t.me/kriptoecerbot",      icon: SiTelegram,  iconColor: "text-[#0088cc]", bg: "bg-[#0088cc]/10", label: "@kriptoecerbot",      sub: "Mulai Transaksi" },
                 { href: "https://t.me/kriptoecerofficial", icon: SiTelegram,  iconColor: "text-[#0088cc]", bg: "bg-[#0088cc]/10", label: "@kriptoecerofficial", sub: "Channel Resmi" },
                 { href: "https://t.me/kriptoecerchannel",  icon: TrendingUp,  iconColor: "text-green-500", bg: "bg-green-500/10",  label: "Log Transaksi",       sub: "Live update" },
-                { href: "https://x.com/kriptoecer",        icon: SiX,         iconColor: "text-white/50",  bg: "bg-white/[0.07]", label: "@kriptoecer",         sub: "Update & Promo" },
+                { href: "https://x.com/kriptoecer",        icon: SiX,         iconColor: "text-white/50",  bg: "bg-white/[0.07]",  label: "@kriptoecer",         sub: "Update & Promo" },
+                { href: "https://wa.me/message/TROCGBTMIGOKB1", icon: SiWhatsapp, iconColor: "text-[#25D366]", bg: "bg-[#25D366]/10",  label: "WhatsApp CS",         sub: "Chat langsung" },
               ].map(({ href, icon: Icon, iconColor, bg, label, sub }) => (
                 <li key={label}>
                   <a href={href} target="_blank" rel="noopener noreferrer"
