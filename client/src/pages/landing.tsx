@@ -1066,7 +1066,7 @@ function Footer() {
       {/* ── Stats bar ── */}
       <div className="relative border-b border-white/[0.06]">
         <div className="container mx-auto px-4 py-3.5">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {STATS.map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-1.5">
                 <Icon className="w-3 h-3 text-primary/60 flex-shrink-0" />
@@ -1079,10 +1079,10 @@ function Footer() {
 
       {/* ── Main columns ── */}
       <div className="relative container mx-auto px-4 pt-12 pb-8">
-        <div className="grid md:grid-cols-4 gap-10 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 mb-10">
 
-          {/* Brand */}
-          <div>
+          {/* Brand — full width on mobile */}
+          <div className="col-span-2 md:col-span-1">
             <a href="/" className="flex items-center gap-2 mb-3" data-testid="link-footer-logo">
               <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
               <span className="font-bold text-base text-white">KriptoEcer</span>
@@ -1139,8 +1139,8 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Kontak & Channel */}
-          <div>
+          {/* Kontak & Channel — full width on mobile */}
+          <div className="col-span-2 md:col-span-1">
             <h4 className="text-[11px] font-semibold text-white/35 uppercase tracking-widest mb-4">Kontak & Channel</h4>
             <ul className="space-y-3">
               {[
