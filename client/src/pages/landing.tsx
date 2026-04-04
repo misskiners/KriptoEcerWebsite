@@ -1123,9 +1123,15 @@ function Footer() {
             <ul className="space-y-3">
               {NAV.map(({ href, label }) => (
                 <li key={label}>
-                  <Link href={href} className="text-sm text-white/45 hover:text-white transition-colors">
-                    {label}
-                  </Link>
+                  {href.startsWith("/") ? (
+                    <Link href={href} className="text-sm text-white/45 hover:text-white transition-colors">
+                      {label}
+                    </Link>
+                  ) : (
+                    <a href={href} className="text-sm text-white/45 hover:text-white transition-colors">
+                      {label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
