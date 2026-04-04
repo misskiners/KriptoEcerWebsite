@@ -1097,6 +1097,11 @@ function Footer() {
                 className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.07] hover:bg-[#0088cc]/20 text-white/40 hover:text-[#0088cc] transition-colors">
                 <SiTelegram className="w-3.5 h-3.5" />
               </a>
+              <a href="https://wa.me/message/TROCGBTMIGOKB1" target="_blank" rel="noopener noreferrer"
+                data-testid="link-footer-whatsapp"
+                className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.07] hover:bg-[#25D366]/20 text-white/40 hover:text-[#25D366] transition-colors">
+                <SiWhatsapp className="w-3.5 h-3.5" />
+              </a>
               <a href="https://x.com/kriptoecer" target="_blank" rel="noopener noreferrer"
                 data-testid="link-footer-x"
                 className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.07] hover:bg-white/[0.14] text-white/40 hover:text-white transition-colors">
