@@ -29,6 +29,8 @@ import { motion, useInView, useMotionValue, useSpring, useTransform } from "fram
 import { useRef, useEffect, useState, useCallback } from "react";
 import { articles as allArticles } from "@shared/articles";
 import confetti from "canvas-confetti";
+import { CryptoCalculator } from "@/components/crypto-calculator";
+import { FloatingTelegramButton } from "@/components/floating-telegram-button";
 const logoImage = "/favicon.png";
 import { FloatingCoins } from "@/components/animations/floating-coins";
 import { ParticleNetwork } from "@/components/animations/particle-network";
@@ -965,11 +967,13 @@ export default function Landing() {
         <FeaturesSection />
         <DepositSection />
         <HowItWorksSection />
+        <CryptoCalculator />
         <FAQSection />
         <RecentArticlesSection />
         <CTASection />
       </main>
       <Footer />
+      <FloatingTelegramButton />
     </div>
   );
 }
