@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, ArrowRight, Zap, AlertCircle } from "lucide-react";
+import { RefreshCw, ArrowRight, Zap, AlertCircle, X } from "lucide-react";
 import {
   SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiDogecoin,
 } from "react-icons/si";
@@ -158,11 +158,32 @@ export function CryptoCalculator() {
                   value={inputDisplay}
                   onChange={handleInput}
                   placeholder="10.000"
-                  className="w-full pl-12 pr-4 py-4 text-2xl font-bold bg-muted/50 border border-border rounded-xl
+                  className="w-full pl-12 pr-12 py-4 text-2xl font-bold bg-muted/50 border border-border rounded-xl
                     focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50
                     placeholder:text-muted-foreground/40 transition-all"
                   data-testid="input-calculator-amount"
                 />
+                <AnimatePresence>
+                  {inputDisplay && (
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.7 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.7 }}
+                      transition={{ duration: 0.15 }}
+                      onClick={() => {
+                        setInputDisplay("");
+                        inputRef.current?.focus();
+                      }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full
+                        bg-muted-foreground/15 hover:bg-muted-foreground/25
+                        flex items-center justify-center transition-colors"
+                      data-testid="button-calculator-clear"
+                      aria-label="Hapus nominal"
+                    >
+                      <X className="w-3.5 h-3.5 text-muted-foreground" />
+                    </motion.button>
+                  )}
+                </AnimatePresence>
               </div>
 
               <div className="flex gap-2 mb-5 flex-wrap">
