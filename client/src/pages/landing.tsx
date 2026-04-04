@@ -36,6 +36,8 @@ import { BotAnimation } from "@/components/animations/bot-animation";
 import { DepositSection } from "@/components/deposit-section";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { CryptoTicker } from "@/components/animations/crypto-ticker";
+import { BlockchainGrid } from "@/components/animations/blockchain-grid";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -146,7 +148,7 @@ function HeroSection() {
 
   return (
     <section
-      className="relative pt-28 pb-12 overflow-hidden min-h-[85vh] flex items-center"
+      className="relative pt-36 pb-12 overflow-hidden min-h-[85vh] flex items-center"
       onMouseMove={handleMouseMove}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
@@ -192,7 +194,7 @@ function HeroSection() {
               data-testid="text-hero-title"
             >
               Beli & Jual Crypto{" "}
-              <span className="text-primary relative">
+              <span className="text-shimmer relative">
                 Otomatis via Telegram!
                 <motion.span
                   className="absolute -bottom-2 left-0 w-full h-1 bg-primary/50 rounded-full"
@@ -216,13 +218,16 @@ function HeroSection() {
               className="flex flex-col sm:flex-row items-start gap-4"
             >
               <MagneticButton>
-                <Button size="lg" asChild data-testid="button-hero-start">
-                  <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
-                    <SiTelegram className="w-5 h-5 mr-2" />
-                    Buka Bot Telegram
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </a>
-                </Button>
+                <div className="relative">
+                  <div className="glow-pulse absolute inset-0 rounded-lg bg-primary/40 blur-md" />
+                  <Button size="lg" asChild data-testid="button-hero-start" className="relative">
+                    <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
+                      <SiTelegram className="w-5 h-5 mr-2" />
+                      Buka Bot Telegram
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </a>
+                  </Button>
+                </div>
               </MagneticButton>
               <MagneticButton>
                 <Button size="lg" variant="outline" asChild data-testid="button-hero-learn">
@@ -434,8 +439,9 @@ const features = [
 
 function FeaturesSection() {
   return (
-    <section id="fitur" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section id="fitur" className="py-20 bg-muted/30 relative overflow-hidden">
+      <BlockchainGrid />
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -856,6 +862,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <CryptoTicker />
       <main>
         <HeroSection />
         <LiveTransactionsSection />
