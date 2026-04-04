@@ -441,6 +441,9 @@ const features = [
 function FeaturesSection() {
   return (
     <section id="fitur" className="py-20 bg-muted/30 relative overflow-hidden">
+      {/* Gradient seam — atas dan bawah meleleh ke bg-background */}
+      <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
       <BlockchainGrid />
       <div className="container mx-auto px-4 relative">
         <motion.div
@@ -659,6 +662,8 @@ function FAQSection() {
     <section id="faq" className="py-20 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-muted/30 dark:bg-muted/20" />
+      {/* Gradient seam atas — meleleh dari bg-background */}
+      <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
       <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-primary/6 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-[360px] h-[360px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
 
@@ -920,8 +925,10 @@ function RecentArticlesSection() {
     .slice(0, 3);
 
   return (
-    <section className="py-20 bg-muted/20" id="blog">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-muted/20 relative overflow-hidden" id="blog">
+      {/* Gradient seam bawah — meleleh ke bg-background (CTA menyusul dengan white) */}
+      <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
+      <div className="container mx-auto px-4 relative z-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
