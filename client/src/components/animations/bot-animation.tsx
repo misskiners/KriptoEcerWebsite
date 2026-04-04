@@ -176,8 +176,9 @@ export function BotAnimation() {
   const [amountInput,  setAmountInput]  = useState("100.000");
   const [selectedAmount, setSelectedAmount] = useState(100_000);
   const [messageId, setMessageId] = useState(2);
-  const chatRef  = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const chatRef      = useRef<HTMLDivElement>(null);
+  const scrollEndRef = useRef<HTMLDivElement>(null);
+  const inputRef     = useRef<HTMLInputElement>(null);
 
   /* ── Fetch live prices ── */
   const fetchPrices = useCallback(async (showSpin = false) => {
@@ -201,7 +202,11 @@ export function BotAnimation() {
   }, [fetchPrices]);
 
   useEffect(() => {
-    if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    const el = scrollEndRef.current;
+    if (!el) return;
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "end" });
+    });
   }, [messages, isTyping]);
 
   /* ── Helpers ── */
@@ -364,6 +369,7 @@ export function BotAnimation() {
             </motion.div>
           )}
         </AnimatePresence>
+        <div ref={scrollEndRef} className="h-px" />
       </div>
 
       {/* Controls */}
