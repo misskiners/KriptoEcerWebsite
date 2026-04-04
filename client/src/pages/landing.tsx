@@ -34,6 +34,8 @@ import { ParticleNetwork } from "@/components/animations/particle-network";
 import { TransactionFeed } from "@/components/animations/transaction-feed";
 import { BotAnimation } from "@/components/animations/bot-animation";
 import { DepositSection } from "@/components/deposit-section";
+import { TiltCard } from "@/components/ui/tilt-card";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -213,18 +215,22 @@ function HeroSection() {
               variants={fadeInUp}
               className="flex flex-col sm:flex-row items-start gap-4"
             >
-              <Button size="lg" asChild data-testid="button-hero-start">
-                <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
-                  <SiTelegram className="w-5 h-5 mr-2" />
-                  Buka Bot Telegram
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" asChild data-testid="button-hero-learn">
-                <a href="#cara-kerja">
-                  Pelajari Lebih Lanjut
-                </a>
-              </Button>
+              <MagneticButton>
+                <Button size="lg" asChild data-testid="button-hero-start">
+                  <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
+                    <SiTelegram className="w-5 h-5 mr-2" />
+                    Buka Bot Telegram
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </a>
+                </Button>
+              </MagneticButton>
+              <MagneticButton>
+                <Button size="lg" variant="outline" asChild data-testid="button-hero-learn">
+                  <a href="#cara-kerja">
+                    Pelajari Lebih Lanjut
+                  </a>
+                </Button>
+              </MagneticButton>
             </motion.div>
 
             <motion.div
@@ -453,24 +459,25 @@ function FeaturesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -4 }}
               className="group h-full"
             >
-              <div className="h-full rounded-xl p-6 relative overflow-hidden
-                bg-card/70 backdrop-blur-sm
-                border border-border hover:border-primary/40
-                shadow-sm hover:shadow-primary/10 hover:shadow-lg
-                transition-all duration-300 cursor-default">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/15 group-hover:border-primary/30 transition-colors duration-300">
-                    <feature.icon className="w-6 h-6 text-primary" />
+              <TiltCard className="h-full">
+                <div className="h-full rounded-xl p-6 relative overflow-hidden
+                  bg-card/70 backdrop-blur-sm
+                  border border-border hover:border-primary/40
+                  shadow-sm hover:shadow-primary/10 hover:shadow-lg
+                  transition-all duration-300 cursor-default">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/15 group-hover:border-primary/30 transition-colors duration-300">
+                      <feature.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
                 </div>
-              </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>
@@ -549,20 +556,22 @@ function HowItWorksSection() {
               transition={{ delay: index * 0.1 }}
               className="relative"
             >
-              <Card className="h-full overflow-visible hover-elevate">
-                <CardContent className="p-6 pt-8 text-center relative">
-                  <StepNumber number={step.number} delay={index * 0.1} />
-                  <motion.div
-                    className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mx-auto mb-4 border border-primary/20"
-                    whileHover={{ scale: 1.05, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <step.icon className="w-7 h-7 text-primary" />
-                  </motion.div>
-                  <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
-                </CardContent>
-              </Card>
+              <TiltCard strength={8}>
+                <Card className="h-full overflow-visible">
+                  <CardContent className="p-6 pt-8 text-center relative">
+                    <StepNumber number={step.number} delay={index * 0.1} />
+                    <motion.div
+                      className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mx-auto mb-4 border border-primary/20"
+                      whileHover={{ scale: 1.05, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <step.icon className="w-7 h-7 text-primary" />
+                    </motion.div>
+                    <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                  </CardContent>
+                </Card>
+              </TiltCard>
               
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-1/2 -right-4 w-8 z-10">
@@ -718,20 +727,22 @@ function CTASection() {
               Mau top up fee gas, beli meme coin, atau sekadar coba crypto pertama kali — mulai dari Rp10.000, tanpa KYC, tanpa ribet. Ribuan trader Indonesia sudah pakai KriptoEcer.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.a
-                href="https://t.me/kriptoecerbot"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={fireConfetti}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary-foreground text-primary font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300"
-                data-testid="button-cta-start"
-              >
-                <SiTelegram className="w-5 h-5" />
-                Buka KriptoEcer Bot
-                <ArrowRight className="w-4 h-4" />
-              </motion.a>
+              <MagneticButton strength={0.25}>
+                <motion.a
+                  href="https://t.me/kriptoecerbot"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={fireConfetti}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary-foreground text-primary font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300"
+                  data-testid="button-cta-start"
+                >
+                  <SiTelegram className="w-5 h-5" />
+                  Buka KriptoEcer Bot
+                  <ArrowRight className="w-4 h-4" />
+                </motion.a>
+              </MagneticButton>
             </div>
           </div>
         </motion.div>
