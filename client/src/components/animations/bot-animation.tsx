@@ -204,7 +204,7 @@ export function BotAnimation() {
   ]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isTyping,     setIsTyping]     = useState(false);
-  const [selectedCoin, setSelectedCoin] = useState(COINS[0]);
+  const [selectedCoin, setSelectedCoin] = useState<typeof COINS[number]>(COINS[0]);
   const [amountInput,  setAmountInput]  = useState("100.000");
   const [selectedAmount, setSelectedAmount] = useState(100_000);
   const [messageId, setMessageId] = useState(2);
