@@ -4,9 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, ArrowRight, Zap, AlertCircle, X } from "lucide-react";
 import {
-  SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiDogecoin,
+  SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiDogecoin, SiTelegram,
 } from "react-icons/si";
-import { SiTelegram } from "react-icons/si";
 
 import { TrxIcon } from "@/components/icons/trx-icon";
 

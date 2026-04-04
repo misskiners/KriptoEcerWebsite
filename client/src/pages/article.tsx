@@ -8,7 +8,7 @@ import {
   BookOpen, Copy, Check, Share2,
 } from "lucide-react";
 import { SiTelegram, SiWhatsapp } from "react-icons/si";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { articles } from "@shared/articles";
 import type { Article } from "@shared/schema";
 import { SEO, SITE_URL } from "@/components/seo";
@@ -48,16 +48,20 @@ function ReadingProgressBar() {
 function ShareBar({ title }: { title: string }) {
   const [copied, setCopied] = useState(false);
   const [url, setUrl] = useState("");
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setUrl(window.location.href);
   }, []);
 
+  useEffect(() => () => { if (copyTimerRef.current) clearTimeout(copyTimerRef.current); }, []);
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      copyTimerRef.current = setTimeout(() => setCopied(false), 2500);
     } catch {}
   };
 
@@ -117,41 +121,39 @@ function RelatedArticles({ current }: { current: Article }) {
       </h3>
       <div className="grid sm:grid-cols-3 gap-4">
         {related.map((article, i) => (
-          <motion.a
-            key={article.id}
-            href={`/blog/${article.slug}`}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-            className="group block"
-            data-testid={`card-related-article-${article.id}`}
-          >
-            <Card className="h-full overflow-hidden border border-border hover:border-primary/30 hover:shadow-md transition-all duration-300">
-              <div className={`h-28 bg-gradient-to-br ${article.coverGradient} relative overflow-hidden`}>
-                <img
-                  src={`/images/blog/${article.slug}.png`}
-                  alt={article.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  onError={(e) => { e.currentTarget.style.display = "none"; }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-              </div>
-              <CardContent className="p-3">
-                <span className={`text-[10px] font-semibold uppercase tracking-wide ${categoryCardStyle[article.category] ?? "text-muted-foreground"}`}>
-                  {article.category}
-                </span>
-                <p className="text-sm font-semibold leading-snug mt-1 line-clamp-2 group-hover:text-primary transition-colors">
-                  {article.title}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1.5 flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  {article.readTime} menit
-                </p>
-              </CardContent>
-            </Card>
-          </motion.a>
+          <Link key={article.id} href={`/blog/${article.slug}`} className="group block" data-testid={`card-related-article-${article.id}`}>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08 }}
+            >
+              <Card className="h-full overflow-hidden border border-border hover:border-primary/30 hover:shadow-md transition-all duration-300">
+                <div className={`h-28 bg-gradient-to-br ${article.coverGradient} relative overflow-hidden`}>
+                  <img
+                    src={`/images/blog/${article.slug}.png`}
+                    alt={article.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+                <CardContent className="p-3">
+                  <span className={`text-[10px] font-semibold uppercase tracking-wide ${categoryCardStyle[article.category] ?? "text-muted-foreground"}`}>
+                    {article.category}
+                  </span>
+                  <p className="text-sm font-semibold leading-snug mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+                    {article.title}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1.5 flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {article.readTime} menit
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </Link>
         ))}
       </div>
     </div>
