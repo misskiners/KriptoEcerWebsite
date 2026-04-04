@@ -69,38 +69,43 @@ export function CryptoTicker() {
     return { ...coin, price, change, up };
   });
 
-  const items = [...tickers, ...tickers];
+  // Satu "strip" lengkap termasuk live indicator — harus identik agar -50% tepat
+  const renderStrip = (keyPrefix: string) => (
+    <>
+      {tickers.map((t, i) => {
+        const Icon = t.Icon;
+        return (
+          <span key={`${keyPrefix}-${i}`} className="inline-flex items-center gap-1.5 px-5 text-xs font-medium shrink-0">
+            <Icon className={`w-3.5 h-3.5 ${t.color}`} />
+            <span className="font-semibold text-foreground/80">{t.symbol}</span>
+            <span className="text-muted-foreground">{t.price}</span>
+            {t.price !== "—" && (
+              <span className={`flex items-center gap-0.5 ${t.up ? "text-green-500" : "text-red-500"}`}>
+                {t.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                {t.change}
+              </span>
+            )}
+            {loading && i === 0 && keyPrefix === "a" && (
+              <Loader2 className="w-3 h-3 animate-spin text-muted-foreground ml-1" />
+            )}
+            <span className="text-border ml-2">·</span>
+          </span>
+        );
+      })}
+      {lastUpdated && (
+        <span className="inline-flex items-center gap-1 px-4 text-xs text-muted-foreground/50 shrink-0">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+          Live · {lastUpdated.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
+        </span>
+      )}
+    </>
+  );
 
   return (
     <div className="fixed top-16 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border/60 overflow-hidden h-9">
       <div className="flex items-center h-full animate-marquee whitespace-nowrap">
-        {items.map((t, i) => {
-          const Icon = t.Icon;
-          return (
-            <span key={i} className="inline-flex items-center gap-1.5 px-5 text-xs font-medium shrink-0">
-              <Icon className={`w-3.5 h-3.5 ${t.color}`} />
-              <span className="font-semibold text-foreground/80">{t.symbol}</span>
-              <span className="text-muted-foreground">{t.price}</span>
-              {t.price !== "—" && (
-                <span className={`flex items-center gap-0.5 ${t.up ? "text-green-500" : "text-red-500"}`}>
-                  {t.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                  {t.change}
-                </span>
-              )}
-              {loading && i === 0 && (
-                <Loader2 className="w-3 h-3 animate-spin text-muted-foreground ml-1" />
-              )}
-              <span className="text-border ml-2">·</span>
-            </span>
-          );
-        })}
-
-        {lastUpdated && (
-          <span className="inline-flex items-center gap-1 px-4 text-xs text-muted-foreground/50 shrink-0">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
-            Live · {lastUpdated.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
-          </span>
-        )}
+        {renderStrip("a")}
+        {renderStrip("b")}
       </div>
     </div>
   );

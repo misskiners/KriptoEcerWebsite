@@ -171,6 +171,13 @@
   will-change: transform;
 }
 
+/* Lebih cepat di mobile — konten lebih sedikit yang terlihat per detik */
+@media (max-width: 640px) {
+  .animate-marquee {
+    animation-duration: 18s;
+  }
+}
+
 @keyframes shimmer-text {
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
