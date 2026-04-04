@@ -23,32 +23,6 @@ const COINS = [
 ] as const;
 
 type CoinId = typeof COINS[number]["id"];
-type CoinSymbol = typeof COINS[number]["symbol"];
-
-const COIN_BY_ID = Object.fromEntries(COINS.map(c => [c.id, c])) as Record<CoinId, typeof COINS[number]>;
-
-/* ── Live notification feed (similar style to transaction-feed) ── */
-const FEED_USERS = [
-  "arif_jkt", "bayu_bdg", "dewi_mlg", "fajar_id", "gilang_ptr",
-  "hani_krsn", "indra_w", "kiki_r", "mega_putri", "prasetyo",
-  "rina_ndr", "surya_adi", "angga_trade", "bg_crypto", "dinda_klmtn",
-];
-const FEED_AMOUNTS = [10_000, 25_000, 50_000, 75_000, 100_000, 150_000, 200_000];
-const FEED_AGO = ["baru saja", "12s lalu", "1m lalu", "3m lalu", "5m lalu"];
-
-function genNotif(prices: Record<string, number>) {
-  const coin   = COINS[Math.floor(Math.random() * COINS.length)];
-  const idr    = FEED_AMOUNTS[Math.floor(Math.random() * FEED_AMOUNTS.length)];
-  const price  = prices[coin.id] ?? coin.fallback;
-  const crypto = (idr / price).toFixed(price > 100_000_000 ? 8 : 4);
-  return {
-    user:   FEED_USERS[Math.floor(Math.random() * FEED_USERS.length)],
-    symbol: coin.symbol,
-    idr,
-    crypto,
-    ago:    FEED_AGO[Math.floor(Math.random() * FEED_AGO.length)],
-  };
-}
 
 interface Message {
   id:   number;
@@ -78,49 +52,6 @@ function TypingIndicator() {
   );
 }
 
-/* ── Live notification badge ── */
-function FloatingNotification({ prices }: { prices: Record<string, number> }) {
-  const [notif, setNotif] = useState(() => genNotif({}));
-  const [key,   setKey]   = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setNotif(genNotif(prices));
-      setKey(k => k + 1);
-    }, 3_500);
-    return () => clearInterval(t);
-  }, [prices]);
-
-  return (
-    <motion.div
-      className="absolute -top-4 -left-4 z-20 bg-card/95 backdrop-blur-md
-        border border-green-500/25 rounded-2xl px-3 py-2
-        shadow-xl shadow-black/20 min-w-[168px]"
-      initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-    >
-      <AnimatePresence mode="wait">
-        <motion.div key={key}
-          initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -5 }} transition={{ duration: 0.22 }}
-          className="flex items-center gap-2"
-        >
-          <span className="relative flex h-2 w-2 flex-shrink-0">
-            <span className="animate-ping absolute inset-0 rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-          </span>
-          <div className="min-w-0">
-            <p className="text-[11px] font-semibold leading-tight truncate">
-              {notif.user} beli {notif.symbol}
-            </p>
-            <p className="text-[10px] text-muted-foreground leading-tight">
-              Rp{notif.idr.toLocaleString("id-ID")} · {notif.ago}
-            </p>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-    </motion.div>
-  );
-}
 
 /* ── Scrollable row with right-fade hint ── */
 const EDGE_ZONE = 36;   // px from edge that activates scroll
@@ -322,10 +253,15 @@ export function BotAnimation() {
     if (p >= 1_000_000)     return `Rp${(p / 1_000_000).toFixed(2)}Jt`;
     return `Rp${formatIDR(Math.round(p))}`;
   };
-  const calcCrypto  = (coin: typeof COINS[number], idr: number) => {
+  const calcCrypto = (coin: typeof COINS[number], idr: number) => {
     const price = livePrice(coin);
-    const val   = idr / price;
-    return val < 0.00001 ? val.toExponential(4) : val.toFixed(price > 100_000_000 ? 8 : 4);
+    if (!price) return "0";
+    const val = idr / price;
+    if (val === 0) return "0";
+    // Decimal places to show 4–5 significant digits, no scientific notation
+    const mag      = Math.floor(Math.log10(Math.abs(val)));
+    const decimals = Math.min(Math.max(0, 4 - mag - 1), 10);
+    return val.toFixed(decimals).replace(/\.?0+$/, ""); // trim trailing zeros
   };
 
   /* ── Amount input ── */
@@ -593,22 +529,11 @@ export function BotAnimation() {
         )}
       </div>
 
-      {/* Footer */}
-      <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer"
-        data-testid="link-bot-chat"
-        className="block px-4 py-2.5 bg-[#0088cc]/10 hover:bg-[#0088cc]/18
-          border-t border-white/5 transition-colors text-center">
-        <p className="text-[11px] text-[#0088cc] font-semibold">
-          Klik untuk membuka bot di Telegram →
-        </p>
-      </a>
     </>
   );
 
   return (
     <div className="relative mx-auto w-full max-w-[340px]">
-      <FloatingNotification prices={prices} />
-
       {/* Glows */}
       <motion.div className="absolute -top-6 -right-6 w-24 h-24 bg-primary/25 rounded-full blur-2xl pointer-events-none"
         animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.85, 0.4] }}
