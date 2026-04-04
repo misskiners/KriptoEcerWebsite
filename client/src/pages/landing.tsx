@@ -69,11 +69,13 @@ function AnimatedCounter({
   delay?: number;
 }) {
   const [count, setCount] = useState(0);
-  const ref = useRef(null);
+  const [done, setDone] = useState(false);
+  const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (!isInView) return;
+    setDone(false);
     const timeout = setTimeout(() => {
       const startTime = performance.now();
       const totalDuration = duration * 1000;
@@ -81,9 +83,14 @@ function AnimatedCounter({
       const step = (currentTime: number) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / totalDuration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
+        // easeOutExpo — counting machine feel: fast start, decelerates dramatically
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
         setCount(Math.floor(eased * target));
-        if (progress < 1) requestAnimationFrame(step);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          setDone(true);
+        }
       };
 
       requestAnimationFrame(step);
@@ -92,12 +99,21 @@ function AnimatedCounter({
     return () => clearTimeout(timeout);
   }, [isInView, target, duration, delay]);
 
-  const display = formatK && count >= 1000 ? `${(count / 1000).toFixed(0)}K` : count.toLocaleString("id-ID");
+  let display: string;
+  if (formatK && count >= 1_000_000) display = `${(count / 1_000_000).toFixed(1)}Jt`;
+  else if (formatK && count >= 1000) display = `${(count / 1000).toFixed(0)}K`;
+  else display = count.toLocaleString("id-ID");
 
   return (
-    <span ref={ref} data-testid="animated-counter">
+    <motion.span
+      ref={ref}
+      data-testid="animated-counter"
+      animate={done ? { scale: [1, 1.07, 1] } : { scale: 1 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      style={{ display: "inline-block" }}
+    >
       {prefix}{display}{suffix}
-    </span>
+    </motion.span>
   );
 }
 
@@ -243,41 +259,40 @@ function HeroSection() {
 
             <motion.div
               variants={fadeInUp}
-              className="mt-10 grid grid-cols-3 gap-4"
+              className="mt-10 grid grid-cols-3 gap-3 sm:gap-4"
             >
-              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border" data-testid="stat-speed">
-                <motion.p
-                  className="text-2xl sm:text-3xl font-bold text-primary"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.2 }}
+              {([
+                { Icon: Zap,         label: "Respons Bot",       target: 100,   suffix: "ms", duration: 1.5, delay: 1.2, testId: "stat-speed",        accent: "text-amber-400", shimmer: "via-amber-400/30", hover: "hover:border-amber-400/25" },
+                { Icon: TrendingUp,  label: "Transaksi Sukses",  target: 50000, suffix: "+",  duration: 2.8, delay: 1.4, testId: "stat-transactions",  accent: "text-green-400",  shimmer: "via-green-400/30",  hover: "hover:border-green-400/25",  formatK: true },
+                { Icon: Users,       label: "Pengguna Aktif",    target: 18000, suffix: "+",  duration: 2.4, delay: 1.6, testId: "stat-users",         accent: "text-blue-400",   shimmer: "via-blue-400/30",   hover: "hover:border-blue-400/25",   formatK: true },
+              ] as const).map((stat) => (
+                <motion.div
+                  key={stat.testId}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: stat.delay, type: "spring", stiffness: 240, damping: 22 }}
+                  className={`group relative text-center p-3 sm:p-4 rounded-lg bg-card/50 backdrop-blur border border-border ${stat.hover} overflow-hidden transition-colors duration-300 cursor-default`}
+                  data-testid={stat.testId}
                 >
-                  <AnimatedCounter target={100} suffix="ms" duration={1.5} delay={1.2} />
-                </motion.p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Respons Bot</p>
-              </div>
-              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border" data-testid="stat-transactions">
-                <motion.p
-                  className="text-2xl sm:text-3xl font-bold text-primary"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.4 }}
-                >
-                  <AnimatedCounter target={10000} formatK suffix="+" duration={2.5} delay={1.4} />
-                </motion.p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Transaksi Sukses</p>
-              </div>
-              <div className="text-center p-4 rounded-lg bg-card/50 backdrop-blur border border-border" data-testid="stat-users">
-                <motion.p
-                  className="text-2xl sm:text-3xl font-bold text-primary"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.6 }}
-                >
-                  <AnimatedCounter target={5000} formatK suffix="+" duration={2} delay={1.6} />
-                </motion.p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Pengguna Aktif</p>
-              </div>
+                  {/* Garis shimmer di atas saat hover */}
+                  <div className={`absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent ${stat.shimmer} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                  {/* Icon */}
+                  <div className={`flex justify-center mb-1 ${stat.accent} opacity-40 group-hover:opacity-70 transition-opacity duration-300`}>
+                    <stat.Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  </div>
+                  {/* Angka */}
+                  <p className={`text-2xl sm:text-3xl font-bold ${stat.accent}`}>
+                    <AnimatedCounter
+                      target={stat.target}
+                      suffix={stat.suffix}
+                      duration={stat.duration}
+                      delay={stat.delay}
+                      formatK={"formatK" in stat ? stat.formatK : false}
+                    />
+                  </p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">{stat.label}</p>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
 
