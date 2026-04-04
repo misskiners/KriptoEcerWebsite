@@ -604,43 +604,65 @@ const faqs = [
   {
     question: "Apa itu KriptoEcer dan siapa yang cocok pakainya?",
     answer: "KriptoEcer adalah bot Telegram untuk jual beli crypto eceran mulai Rp10.000. Cocok untuk trader yang butuh top up fee gas (TRX, SOL, BNB), beli meme coin tanpa ribet, atau coba coin baru dengan modal kecil. Semua proses otomatis — cukup chat bot, tidak perlu tunggu admin.",
+    icon: Bot,
+    label: "Tentang Bot",
   },
   {
     question: "Berapa minimal beli crypto di KriptoEcer?",
     answer: "Minimal pembelian mulai dari Rp10.000. Jauh lebih rendah dari exchange besar yang biasanya minta deposit ratusan ribu sampai jutaan rupiah. Cocok buat yang butuh beli crypto dalam jumlah kecil untuk keperluan spesifik.",
+    icon: Coins,
+    label: "Minimal Beli",
   },
   {
     question: "Bisa beli crypto untuk bayar fee gas transaksi blockchain?",
     answer: "Bisa. Ini salah satu use case utama KriptoEcer — beli TRX untuk fee gas di jaringan Tron, BNB untuk BSC, SOL untuk Solana, atau ETH untuk Ethereum, semua mulai dari nominal kecil tanpa harus buka exchange besar.",
+    icon: Zap,
+    label: "Fee Gas",
   },
   {
     question: "Apakah perlu KYC atau verifikasi identitas?",
     answer: "Tidak perlu! KriptoEcer tidak meminta KTP, selfie, atau verifikasi identitas apapun. Cukup daftar via bot Telegram @kriptoecerbot dan langsung bisa transaksi.",
+    icon: Shield,
+    label: "KYC & Privasi",
   },
   {
     question: "Crypto dan meme coin apa saja yang tersedia?",
     answer: "Tersedia Bitcoin (BTC), Ethereum (ETH), USDT, BNB, Solana (SOL), TRX, Litecoin (LTC), Dogecoin (DOGE), dan berbagai altcoin serta meme coin populer lainnya. Cek bot @kriptoecerbot untuk daftar lengkap terbaru.",
+    icon: Globe,
+    label: "Aset Crypto",
   },
   {
     question: "Metode pembayaran apa saja yang diterima?",
     answer: "Ada 4 metode deposit yang semuanya otomatis: QRIS semua bank, Virtual Account (VA), PayPal, dan CryptoBot Telegram. Tidak perlu konfirmasi manual ke admin — sistem langsung memproses setelah pembayaran masuk.",
+    icon: CreditCard,
+    label: "Pembayaran",
   },
   {
     question: "Berapa lama proses transaksi di KriptoEcer?",
     answer: "Bot merespons cepat setelah perintah dikirim. Konfirmasi deposit berjalan otomatis. Setelah saldo aktif, crypto diproses dan dikirim ke wallet dalam beberapa menit tergantung kondisi jaringan blockchain.",
+    icon: Clock,
+    label: "Kecepatan",
   },
   {
     question: "Apa bedanya KriptoEcer dengan exchange seperti Indodax atau Tokocrypto?",
     answer: "KriptoEcer bukan exchange — ini bot untuk beli eceran dengan cepat. Tanpa download app, tanpa KYC, minimal beli Rp10.000, dan semua berjalan otomatis via Telegram. Ideal untuk top up fee gas atau beli meme coin tanpa prosedur panjang.",
+    icon: TrendingUp,
+    label: "vs Exchange",
   },
 ];
 
 function FAQSection() {
   const [selected, setSelected] = useState(0);
+  const ActiveIcon = faqs[selected].icon;
 
   return (
-    <section id="faq" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section id="faq" className="py-20 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-muted/30 dark:bg-muted/20" />
+      <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-primary/6 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-[360px] h-[360px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -656,7 +678,7 @@ function FAQSection() {
           </p>
         </motion.div>
 
-        {/* MOBILE: accordion dropdown klasik */}
+        {/* MOBILE: accordion dropdown klasik dengan icon */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -664,93 +686,143 @@ function FAQSection() {
           className="block lg:hidden max-w-3xl mx-auto"
         >
           <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger
-                  className="text-left text-sm"
-                  data-testid={`accordion-trigger-${i}`}
-                >
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-sm">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
+            {faqs.map((faq, i) => {
+              const Icon = faq.icon;
+              return (
+                <AccordionItem key={i} value={`item-${i}`}>
+                  <AccordionTrigger
+                    className="text-left text-sm gap-3"
+                    data-testid={`accordion-trigger-${i}`}
+                  >
+                    <span className="flex items-center gap-3 flex-1">
+                      <span className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                        <Icon className="w-3.5 h-3.5 text-primary" />
+                      </span>
+                      {faq.question}
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-sm pl-10">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
           </Accordion>
         </motion.div>
 
-        {/* DESKTOP: 2 kolom — pertanyaan kiri, jawaban kanan */}
+        {/* DESKTOP: 2 kolom */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="hidden lg:grid max-w-5xl mx-auto grid-cols-5 gap-6"
         >
-          {/* Pertanyaan di kiri */}
+          {/* Kiri: daftar pertanyaan */}
           <div className="col-span-2 space-y-1">
-            {faqs.map((faq, i) => (
-              <button
-                key={i}
-                onClick={() => setSelected(i)}
-                data-testid={`faq-btn-${i}`}
-                className={`w-full text-left flex items-start gap-2.5 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  selected === i
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`}
-              >
-                <ChevronRight
-                  className={`w-4 h-4 mt-0.5 shrink-0 transition-transform duration-200 ${selected === i ? "rotate-90 opacity-100" : "opacity-40"}`}
-                />
-                <span className="leading-snug">{faq.question}</span>
-              </button>
-            ))}
+            {faqs.map((faq, i) => {
+              const Icon = faq.icon;
+              const isActive = selected === i;
+              return (
+                <button
+                  key={i}
+                  onClick={() => setSelected(i)}
+                  data-testid={`faq-btn-${i}`}
+                  className={`w-full text-left flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  }`}
+                >
+                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-200 ${
+                    isActive ? "bg-white/20" : "bg-muted-foreground/10"
+                  }`}>
+                    <Icon className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="leading-snug flex-1">{faq.question}</span>
+                  {isActive && <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-70" />}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Panel jawaban di kanan — stretch mengikuti tinggi kolom pertanyaan */}
+          {/* Kanan: panel jawaban dengan amber gradient + watermark icon */}
           <div className="col-span-3 flex">
-            <div className="rounded-2xl border bg-card p-7 w-full flex flex-col">
-              {/* Nomor pertanyaan — selalu tampil, tidak fade */}
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-4xl font-black text-primary/10 leading-none select-none">
-                  {String(selected + 1).padStart(2, "0")}
-                </span>
-                <div className="h-px flex-1 bg-border" />
-                <span className="text-xs text-muted-foreground tabular-nums">
-                  {selected + 1} / {faqs.length}
-                </span>
-              </div>
+            <div className="relative rounded-2xl border w-full flex flex-col overflow-hidden bg-card">
 
+              {/* Amber gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/3 pointer-events-none" />
+
+              {/* Watermark icon — fade saat ganti */}
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
-                  key={selected}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="flex flex-col flex-1"
+                  key={`icon-${selected}`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.25 }}
+                  className="absolute bottom-5 right-5 pointer-events-none"
                 >
-                  <h3 className="font-semibold text-base mb-3 leading-snug" data-testid={`faq-question-${selected}`}>
-                    {faqs[selected].question}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed flex-1" data-testid={`faq-answer-${selected}`}>
-                    {faqs[selected].answer}
-                  </p>
-                  <div className="mt-6 pt-5 border-t border-border">
-                    <a
-                      href="https://t.me/kriptoecerbot"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-                    >
-                      <SiTelegram className="w-4 h-4" />
-                      Coba langsung di @kriptoecerbot
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
+                  <ActiveIcon className="w-36 h-36 text-primary/6" />
                 </motion.div>
               </AnimatePresence>
+
+              {/* Konten */}
+              <div className="relative p-7 flex flex-col h-full">
+                {/* Header — nomor + label kategori */}
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-5xl font-black text-primary/10 leading-none select-none tabular-nums">
+                    {String(selected + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex flex-col gap-1">
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={`label-${selected}`}
+                        initial={{ opacity: 0, x: -6 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 6 }}
+                        transition={{ duration: 0.15 }}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full w-fit"
+                      >
+                        <ActiveIcon className="w-3 h-3" />
+                        {faqs[selected].label}
+                      </motion.span>
+                    </AnimatePresence>
+                    <span className="text-xs text-muted-foreground">{selected + 1} dari {faqs.length} pertanyaan</span>
+                  </div>
+                  <div className="h-px flex-1 bg-border/60 ml-1" />
+                </div>
+
+                {/* Pertanyaan + jawaban */}
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={selected}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="flex flex-col flex-1"
+                  >
+                    <h3 className="font-semibold text-base mb-3 leading-snug" data-testid={`faq-question-${selected}`}>
+                      {faqs[selected].question}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed flex-1" data-testid={`faq-answer-${selected}`}>
+                      {faqs[selected].answer}
+                    </p>
+                    <div className="mt-6 pt-5 border-t border-border/60">
+                      <a
+                        href="https://t.me/kriptoecerbot"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                      >
+                        <SiTelegram className="w-4 h-4" />
+                        Coba langsung di @kriptoecerbot
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </motion.div>
