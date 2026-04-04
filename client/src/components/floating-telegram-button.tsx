@@ -1,91 +1,187 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SiTelegram } from "react-icons/si";
 import { X } from "lucide-react";
 
+type Side = "bottom-right" | "bottom-left" | "left" | "right";
+
+const BOT_SIZE = 64;
+const PEEK = 26;
+const HIDE = BOT_SIZE - PEEK;
+
+const MOBILE_SIDES: Side[] = ["bottom-right", "bottom-left", "left", "right"];
+
+function BotFace() {
+  return (
+    <svg width={BOT_SIZE} height={BOT_SIZE} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="30" fill="#F5B80A" />
+      <ellipse cx="25" cy="20" rx="10" ry="6" fill="white" fillOpacity="0.18" />
+      <rect x="30" y="0" width="4" height="12" rx="2" fill="#C17A00" />
+      <circle cx="32" cy="0" r="4.5" fill="#C17A00" />
+      <circle cx="31" cy="0" r="1.8" fill="white" fillOpacity="0.45" />
+      <circle cx="5" cy="32" r="5.5" fill="#C17A00" />
+      <circle cx="59" cy="32" r="5.5" fill="#C17A00" />
+      <circle cx="21" cy="28" r="9" fill="white" />
+      <circle cx="43" cy="28" r="9" fill="white" />
+      <circle cx="23" cy="29.5" r="4.5" fill="#111" />
+      <circle cx="45" cy="29.5" r="4.5" fill="#111" />
+      <circle cx="24.5" cy="27.5" r="1.8" fill="white" />
+      <circle cx="46.5" cy="27.5" r="1.8" fill="white" />
+      <path d="M21 41 Q32 49 43 41" stroke="#111" strokeWidth="3" strokeLinecap="round" fill="none" />
+      <circle cx="15" cy="38" r="5" fill="#FF9800" fillOpacity="0.3" />
+      <circle cx="49" cy="38" r="5" fill="#FF9800" fillOpacity="0.3" />
+    </svg>
+  );
+}
+
+function getSideProps(side: Side) {
+  switch (side) {
+    case "bottom-right":
+      return {
+        containerStyle: { bottom: 0, right: 20 } as React.CSSProperties,
+        peekOffset: { x: 0, y: HIDE },
+        hiddenOffset: { x: 0, y: BOT_SIZE + 20 },
+        bobAnimate: { y: [0, -10, 0] },
+        bubbleClass: "absolute bottom-[calc(100%+10px)] right-0 w-52",
+        bubbleOrigin: "bottom right",
+      };
+    case "bottom-left":
+      return {
+        containerStyle: { bottom: 0, left: 20 } as React.CSSProperties,
+        peekOffset: { x: 0, y: HIDE },
+        hiddenOffset: { x: 0, y: BOT_SIZE + 20 },
+        bobAnimate: { y: [0, -10, 0] },
+        bubbleClass: "absolute bottom-[calc(100%+10px)] left-0 w-52",
+        bubbleOrigin: "bottom left",
+      };
+    case "right":
+      return {
+        containerStyle: { right: 0, top: "38%" } as React.CSSProperties,
+        peekOffset: { x: HIDE, y: 0 },
+        hiddenOffset: { x: BOT_SIZE + 20, y: 0 },
+        bobAnimate: { x: [0, -10, 0] },
+        bubbleClass: "absolute right-[calc(100%+10px)] top-1/2 -translate-y-1/2 w-52",
+        bubbleOrigin: "center right",
+      };
+    case "left":
+      return {
+        containerStyle: { left: 0, top: "38%" } as React.CSSProperties,
+        peekOffset: { x: -HIDE, y: 0 },
+        hiddenOffset: { x: -(BOT_SIZE + 20), y: 0 },
+        bobAnimate: { x: [0, 10, 0] },
+        bubbleClass: "absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 w-52",
+        bubbleOrigin: "center left",
+      };
+  }
+}
+
 export function FloatingTelegramButton() {
-  const [visible, setVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [dismissed, setDismissed] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const [revealed, setRevealed] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);
+
+  const [side] = useState<Side>(() => {
+    if (typeof window === "undefined") return "bottom-right";
+    const isMobile = window.innerWidth < 768;
+    if (!isMobile) return "bottom-right";
+    return MOBILE_SIDES[Math.floor(Math.random() * MOBILE_SIDES.length)];
+  });
 
   useEffect(() => {
     const onScroll = () => {
-      if (!dismissed) setVisible(window.scrollY > 400);
+      if (!dismissed) setScrolled(window.scrollY > 400);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [dismissed]);
 
   useEffect(() => {
-    if (visible) {
-      const timer = setTimeout(() => setExpanded(true), 600);
-      return () => clearTimeout(timer);
-    } else {
-      setExpanded(false);
+    if (!scrolled || dismissed) {
+      setRevealed(false);
+      setShowBubble(false);
+      return;
     }
-  }, [visible]);
+    const t1 = setTimeout(() => setRevealed(true), 1800);
+    const t2 = setTimeout(() => setShowBubble(true), 2500);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, [scrolled, dismissed]);
 
   if (dismissed) return null;
 
+  const { containerStyle, peekOffset, hiddenOffset, bobAnimate, bubbleClass } = getSideProps(side);
+
   return (
     <AnimatePresence>
-      {visible && (
+      {scrolled && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.6, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.6, y: 20 }}
-          transition={{ type: "spring", stiffness: 350, damping: 28 }}
-          className="fixed bottom-6 right-5 z-50 flex items-center gap-2"
+          className="fixed z-50"
+          style={containerStyle}
+          initial={{ x: hiddenOffset.x, y: hiddenOffset.y, opacity: 0 }}
+          animate={{
+            x: revealed ? 0 : peekOffset.x,
+            y: revealed ? 0 : peekOffset.y,
+            opacity: 1,
+          }}
+          exit={{ x: hiddenOffset.x, y: hiddenOffset.y, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 220, damping: 24 }}
         >
-          <AnimatePresence>
-            {expanded && (
-              <motion.div
-                initial={{ opacity: 0, x: 20, scale: 0.9 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: 20, scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                className="relative flex items-center"
-              >
-                <div className="bg-card border border-border rounded-xl shadow-xl shadow-black/10 px-4 py-3 pr-10 max-w-[200px]">
-                  <div className="flex items-center gap-1.5 mb-0.5">
+          <div className="relative">
+            <motion.a
+              href="https://t.me/kriptoecerbot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block cursor-pointer"
+              data-testid="button-floating-telegram"
+              aria-label="Buka KriptoEcer Bot"
+              animate={!revealed ? bobAnimate : { x: 0, y: 0 }}
+              transition={
+                !revealed
+                  ? { duration: 1.6, repeat: Infinity, repeatDelay: 2.5, ease: "easeInOut" }
+                  : { duration: 0.2 }
+              }
+              whileHover={{ scale: 1.12 }}
+              whileTap={{ scale: 0.93 }}
+            >
+              <BotFace />
+            </motion.a>
+
+            <AnimatePresence>
+              {showBubble && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 26 }}
+                  className={`${bubbleClass} absolute bg-card border border-border rounded-2xl shadow-xl shadow-black/10 px-4 py-3`}
+                >
+                  <div className="flex items-center gap-1.5 mb-1">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                     </span>
                     <span className="text-xs font-semibold text-green-500">Bot Online</span>
                   </div>
-                  <p className="text-sm font-bold leading-tight">Beli crypto mulai Rp10.000!</p>
-                </div>
-
-                <button
-                  onClick={() => setDismissed(true)}
-                  className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
-                  data-testid="button-floating-dismiss"
-                  aria-label="Tutup"
-                >
-                  <X className="w-3 h-3 text-muted-foreground" />
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <motion.a
-            href="https://t.me/kriptoecerbot"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.93 }}
-            className="relative w-14 h-14 rounded-full bg-primary shadow-lg shadow-primary/40 flex items-center justify-center"
-            data-testid="button-floating-telegram"
-            aria-label="Buka KriptoEcer Bot"
-          >
-            <motion.span
-              className="absolute inset-0 rounded-full bg-primary"
-              animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <SiTelegram className="w-7 h-7 text-primary-foreground relative z-10" />
-          </motion.a>
+                  <p className="text-sm font-bold leading-snug mb-2">Beli crypto mulai Rp10.000!</p>
+                  <a
+                    href="https://t.me/kriptoecerbot"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-semibold text-primary hover:underline"
+                  >
+                    Buka Bot →
+                  </a>
+                  <button
+                    onClick={() => setDismissed(true)}
+                    className="absolute top-2 right-2 w-5 h-5 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+                    data-testid="button-floating-dismiss"
+                    aria-label="Tutup"
+                  >
+                    <X className="w-3 h-3 text-muted-foreground" />
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
