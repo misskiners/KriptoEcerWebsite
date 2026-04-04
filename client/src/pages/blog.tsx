@@ -1,13 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Clock, ArrowRight, Bot, BookOpen, ChevronLeft } from "lucide-react";
 import { SiTelegram } from "react-icons/si";
+import { articles } from "@shared/articles";
 import type { Article } from "@shared/schema";
 
 const logoImage = "/favicon.png";
@@ -66,7 +65,7 @@ function ArticleCard({ article, index }: { article: Article; index: number }) {
             </p>
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>{article.author}</span>
-              <span>{formatDate(article.publishedAt!)}</span>
+              <span>{formatDate(article.publishedAt)}</span>
             </div>
           </CardContent>
         </Card>
@@ -75,25 +74,7 @@ function ArticleCard({ article, index }: { article: Article; index: number }) {
   );
 }
 
-function SkeletonCard() {
-  return (
-    <Card className="h-full overflow-hidden">
-      <Skeleton className="h-40 w-full rounded-none" />
-      <CardContent className="p-5 space-y-3">
-        <Skeleton className="h-5 w-3/4" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-5/6" />
-        <Skeleton className="h-3 w-1/3 mt-4" />
-      </CardContent>
-    </Card>
-  );
-}
-
 export default function BlogPage() {
-  const { data: articles, isLoading } = useQuery<Article[]>({
-    queryKey: ["/api/articles"],
-  });
-
   return (
     <div className="min-h-screen bg-background">
       <motion.header
@@ -144,21 +125,11 @@ export default function BlogPage() {
             </p>
           </motion.div>
 
-          {isLoading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
-            </div>
-          ) : articles && articles.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {articles.map((article, i) => (
-                <ArticleCard key={article.id} article={article} index={i} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-20 text-muted-foreground">
-              Belum ada artikel. Cek lagi nanti!
-            </div>
-          )}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {articles.map((article, i) => (
+              <ArticleCard key={article.id} article={article} index={i} />
+            ))}
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -1,13 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "wouter";
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Clock, Bot, ChevronLeft, Calendar, ArrowRight, BookOpen } from "lucide-react";
 import { SiTelegram } from "react-icons/si";
-import type { Article } from "@shared/schema";
+import { articles } from "@shared/articles";
 
 const logoImage = "/favicon.png";
 
@@ -23,30 +20,9 @@ function formatDate(d: string | Date) {
   });
 }
 
-function ArticleSkeleton() {
-  return (
-    <div className="max-w-2xl mx-auto space-y-4 pt-8">
-      <Skeleton className="h-8 w-3/4" />
-      <Skeleton className="h-6 w-1/2" />
-      <Skeleton className="h-52 w-full rounded-xl" />
-      <Skeleton className="h-4 w-full" />
-      <Skeleton className="h-4 w-full" />
-      <Skeleton className="h-4 w-5/6" />
-    </div>
-  );
-}
-
 export default function ArticlePage() {
   const { slug } = useParams<{ slug: string }>();
-
-  const { data: article, isLoading, isError } = useQuery<Article>({
-    queryKey: ["/api/articles", slug],
-    queryFn: async () => {
-      const res = await fetch(`/api/articles/${slug}`);
-      if (!res.ok) throw new Error("Not found");
-      return res.json();
-    },
-  });
+  const article = articles.find((a) => a.slug === slug);
 
   const paragraphs = article?.content
     .split(/\n\n+/)
@@ -87,18 +63,14 @@ export default function ArticlePage() {
               </button>
             </Link>
 
-            {isLoading && <ArticleSkeleton />}
-
-            {isError && (
+            {!article ? (
               <div className="text-center py-20">
                 <p className="text-muted-foreground mb-4">Artikel tidak ditemukan.</p>
                 <Button asChild variant="outline">
                   <Link href="/blog">Lihat Semua Artikel</Link>
                 </Button>
               </div>
-            )}
-
-            {article && (
+            ) : (
               <motion.article
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -125,7 +97,7 @@ export default function ArticlePage() {
                   <div className="px-6 py-4 bg-muted/30 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                     <span className="flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5" />
-                      {formatDate(article.publishedAt!)}
+                      {formatDate(article.publishedAt)}
                     </span>
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5" />
@@ -141,7 +113,7 @@ export default function ArticlePage() {
 
                 <div className="space-y-5 text-base leading-relaxed">
                   {paragraphs.map((para, i) => (
-                    <p key={i} className="text-foreground/90">
+                    <p key={i} className={`text-foreground/90 ${para.match(/^[A-Z0-9].*\?$|^[A-Z][a-z]+ [A-Z]/) && para.length < 80 ? "font-semibold text-lg text-foreground mt-8 mb-2" : ""}`}>
                       {para}
                     </p>
                   ))}

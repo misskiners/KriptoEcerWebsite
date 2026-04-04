@@ -27,8 +27,7 @@ import {
 import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX } from "react-icons/si";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
-import type { Article } from "@shared/schema";
+import { articles as allArticles } from "@shared/articles";
 import confetti from "canvas-confetti";
 const logoImage = "/favicon.png";
 import { FloatingCoins } from "@/components/animations/floating-coins";
@@ -769,10 +768,7 @@ const categoryStyle: Record<string, string> = {
 };
 
 function RecentArticlesSection() {
-  const { data: articles } = useQuery<Article[]>({ queryKey: ["/api/articles"] });
-  const preview = articles?.slice(0, 3) ?? [];
-
-  if (!articles || articles.length === 0) return null;
+  const preview = allArticles.slice(0, 3);
 
   return (
     <section className="py-20 bg-muted/20" id="blog">

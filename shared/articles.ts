@@ -1,4 +1,4 @@
-import type { Article } from "@shared/schema";
+import type { Article } from "./schema";
 
 export const articles: Article[] = [
   {
