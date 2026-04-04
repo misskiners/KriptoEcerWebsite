@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
 import { useEffect } from "react";
 const logoImage = "/favicon.png";
@@ -38,12 +36,6 @@ export function LegalLayout({ title, description, lastUpdated = "Maret 2026", ic
             <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
             <span className="text-base font-bold tracking-tight">KriptoEcer</span>
           </Link>
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Kembali
-            </Link>
-          </Button>
         </div>
       </header>
 
