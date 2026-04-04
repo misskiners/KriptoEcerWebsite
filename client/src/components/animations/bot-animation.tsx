@@ -130,11 +130,18 @@ const LERP     = 0.12;  // smoothing factor (lower = smoother but slower respons
 function ScrollRow({ children }: { children: React.ReactNode }) {
   const ref       = useRef<HTMLDivElement>(null);
   const rafRef    = useRef<number | null>(null);
-  const velRef    = useRef(0);    // current smooth velocity
-  const targetRef = useRef(0);   // desired velocity set by mouse position
+  const velRef    = useRef(0);
+  const targetRef = useRef(0);
+
+  /* drag state */
+  const dragging      = useRef(false);
+  const dragStartX    = useRef(0);
+  const dragStartLeft = useRef(0);
+  const dragMoved     = useRef(0);   // total px moved — used to cancel click if drag
 
   const [atStart, setAtStart] = useState(true);
   const [atEnd,   setAtEnd]   = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const checkEdges = () => {
     const el = ref.current;
@@ -145,34 +152,38 @@ function ScrollRow({ children }: { children: React.ReactNode }) {
 
   useEffect(() => { checkEdges(); }, [children]);
 
-  /* Continuous rAF loop — always running while mounted */
+  /* Continuous rAF loop — smooth velocity lerp */
   useEffect(() => {
     const loop = () => {
-      // Lerp velocity towards target for smooth acceleration/deceleration
-      velRef.current += (targetRef.current - velRef.current) * LERP;
-
-      const el = ref.current;
-      if (el && Math.abs(velRef.current) > 0.15) {
-        el.scrollLeft += velRef.current;
-        checkEdges();
+      if (!dragging.current) {
+        velRef.current += (targetRef.current - velRef.current) * LERP;
+        const el = ref.current;
+        if (el && Math.abs(velRef.current) > 0.15) {
+          el.scrollLeft += velRef.current;
+          checkEdges();
+        }
       }
       rafRef.current = requestAnimationFrame(loop);
     };
     rafRef.current = requestAnimationFrame(loop);
-    return () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-    };
+    return () => { if (rafRef.current !== null) cancelAnimationFrame(rafRef.current); };
   }, []);
 
+  /* ── Mouse edge-hover (desktop) ── */
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (dragging.current) {
+      /* drag-scroll */
+      const dx = e.clientX - dragStartX.current;
+      dragMoved.current = Math.abs(dx);
+      if (ref.current) { ref.current.scrollLeft = dragStartLeft.current - dx; checkEdges(); }
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const x    = e.clientX - rect.left;
-    const w    = rect.width;
-
+    const x = e.clientX - rect.left;
+    const w = rect.width;
     if (x < EDGE_ZONE) {
-      // Ease: starts slow, gets faster toward edge — use easeIn curve
       const t = 1 - x / EDGE_ZONE;
       targetRef.current = -(t * t * MAX_SPEED);
     } else if (x > w - EDGE_ZONE) {
@@ -183,7 +194,30 @@ function ScrollRow({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const onMouseLeave = () => { targetRef.current = 0; };
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    dragging.current    = true;
+    dragStartX.current  = e.clientX;
+    dragStartLeft.current = ref.current?.scrollLeft ?? 0;
+    dragMoved.current   = 0;
+    targetRef.current   = 0;
+    setIsDragging(true);
+  };
+
+  const onMouseUp = () => {
+    dragging.current = false;
+    setIsDragging(false);
+  };
+
+  const onMouseLeave = () => {
+    dragging.current = false;
+    setIsDragging(false);
+    targetRef.current = 0;
+  };
+
+  /* Prevent click on child buttons if user dragged >4px */
+  const onClickCapture = (e: React.MouseEvent) => {
+    if (dragMoved.current > 4) e.stopPropagation();
+  };
 
   useEffect(() => () => { targetRef.current = 0; }, []);
 
@@ -193,8 +227,11 @@ function ScrollRow({ children }: { children: React.ReactNode }) {
         ref={ref}
         onScroll={checkEdges}
         onMouseMove={onMouseMove}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
         onMouseLeave={onMouseLeave}
-        className="flex gap-1.5 overflow-x-auto cursor-ew-resize"
+        onClickCapture={onClickCapture}
+        className={`flex gap-1.5 overflow-x-auto select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
         style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
       >
         {children}
