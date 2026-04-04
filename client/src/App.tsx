@@ -1,6 +1,6 @@
 import { Switch, Route, useLocation } from "wouter";
 import { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -28,26 +28,23 @@ function Router() {
   return (
     <>
       <ScrollToTop />
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={location}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.18, ease: "easeOut" }}
-        >
-          <Switch>
-            <Route path="/" component={Landing} />
-            <Route path="/blog" component={BlogPage} />
-            <Route path="/blog/:slug" component={ArticlePage} />
-            <Route path="/terms" component={Terms} />
-            <Route path="/privacy" component={Privacy} />
-            <Route path="/risk" component={Risk} />
-            <Route path="/refund" component={Refund} />
-            <Route component={NotFound} />
-          </Switch>
-        </motion.div>
-      </AnimatePresence>
+      <motion.div
+        key={location}
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+      >
+        <Switch>
+          <Route path="/" component={Landing} />
+          <Route path="/blog" component={BlogPage} />
+          <Route path="/blog/:slug" component={ArticlePage} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/risk" component={Risk} />
+          <Route path="/refund" component={Refund} />
+          <Route component={NotFound} />
+        </Switch>
+      </motion.div>
     </>
   );
 }
