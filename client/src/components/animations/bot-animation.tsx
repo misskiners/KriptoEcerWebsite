@@ -208,9 +208,10 @@ export function BotAnimation() {
   const [amountInput,  setAmountInput]  = useState("100.000");
   const [selectedAmount, setSelectedAmount] = useState(100_000);
   const [messageId, setMessageId] = useState(2);
-  const chatDesktopRef = useRef<HTMLDivElement>(null);
-  const chatMobileRef  = useRef<HTMLDivElement>(null);
-  const inputRef       = useRef<HTMLInputElement>(null);
+  const chatDesktopRef  = useRef<HTMLDivElement>(null);
+  const chatMobileRef   = useRef<HTMLDivElement>(null);
+  const inputRef        = useRef<HTMLInputElement>(null);
+  const priceRetryRef   = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const scrollChats = () => {
     for (const ref of [chatDesktopRef, chatMobileRef]) {
@@ -222,6 +223,7 @@ export function BotAnimation() {
   /* ── Fetch live prices ── */
   const fetchPrices = useCallback(async (showSpin = false) => {
     if (showSpin) setRefreshing(true);
+    if (priceRetryRef.current) { clearTimeout(priceRetryRef.current); priceRetryRef.current = null; }
     try {
       const res = await fetch("/api/prices", { cache: "no-store" });
       if (!res.ok) throw new Error();
@@ -230,14 +232,19 @@ export function BotAnimation() {
       COINS.forEach(c => { if (data[c.id]?.idr) map[c.id] = data[c.id].idr; });
       setPrices(map);
       setLastUpdated(new Date());
-    } catch { /* use fallbacks */ }
+    } catch {
+      priceRetryRef.current = setTimeout(() => fetchPrices(), 5_000);
+    }
     finally { setLoading(false); setRefreshing(false); }
   }, []);
 
   useEffect(() => {
     fetchPrices();
     const t = setInterval(() => fetchPrices(), 60_000);
-    return () => clearInterval(t);
+    return () => {
+      clearInterval(t);
+      if (priceRetryRef.current) clearTimeout(priceRetryRef.current);
+    };
   }, [fetchPrices]);
 
   useEffect(() => {

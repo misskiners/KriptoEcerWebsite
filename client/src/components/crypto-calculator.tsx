@@ -47,7 +47,8 @@ export function CryptoCalculator() {
   const [error, setError] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [refreshing, setRefreshing] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef    = useRef<HTMLInputElement>(null);
+  const retryRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const rawValue = Number(inputDisplay.replace(/\D/g, "")) || 0;
   const price = prices[selectedCoin.id] ?? 0;
@@ -57,6 +58,7 @@ export function CryptoCalculator() {
 
   async function fetchPrices(showRefreshing = false) {
     if (showRefreshing) setRefreshing(true);
+    if (retryRef.current) { clearTimeout(retryRef.current); retryRef.current = null; }
     try {
       const res = await fetch("/api/prices", { cache: "no-store" });
       if (!res.ok) throw new Error();
@@ -68,6 +70,7 @@ export function CryptoCalculator() {
       setError(false);
     } catch {
       setError(true);
+      retryRef.current = setTimeout(() => fetchPrices(), 5_000);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -77,7 +80,10 @@ export function CryptoCalculator() {
   useEffect(() => {
     fetchPrices();
     const interval = setInterval(() => fetchPrices(), 60_000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (retryRef.current) clearTimeout(retryRef.current);
+    };
   }, []);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {

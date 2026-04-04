@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin } from "react-icons/si";
 import { TrendingUp, TrendingDown, Loader2 } from "lucide-react";
 import { TrxIcon } from "@/components/icons/trx-icon";
@@ -34,8 +34,10 @@ export function CryptoTicker() {
   const [prices, setPrices] = useState<PricesMap | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const retryRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   async function fetchPrices() {
+    if (retryRef.current) { clearTimeout(retryRef.current); retryRef.current = null; }
     try {
       const res = await fetch("/api/prices", { cache: "no-store" });
       if (!res.ok) throw new Error("API error");
@@ -43,6 +45,7 @@ export function CryptoTicker() {
       setPrices(data);
       setLastUpdated(new Date());
     } catch {
+      retryRef.current = setTimeout(fetchPrices, 5_000);
     } finally {
       setLoading(false);
     }
@@ -51,7 +54,10 @@ export function CryptoTicker() {
   useEffect(() => {
     fetchPrices();
     const interval = setInterval(fetchPrices, REFRESH_INTERVAL);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (retryRef.current) clearTimeout(retryRef.current);
+    };
   }, []);
 
   const tickers = COIN_CONFIG.map((coin) => {
