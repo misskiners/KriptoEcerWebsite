@@ -75,27 +75,28 @@ export function CryptoTicker() {
     <>
       {tickers.map((t, i) => {
         const Icon = t.Icon;
+        const hasData = t.price !== "—";
         return (
           <span key={`${keyPrefix}-${i}`} className="inline-flex items-center gap-1.5 px-5 text-xs font-medium shrink-0">
             <Icon className={`w-3.5 h-3.5 ${t.color}`} />
             <span className="font-semibold text-foreground/80">{t.symbol}</span>
             <span className="text-muted-foreground">{t.price}</span>
-            {t.price !== "—" && (
-              <span className={`flex items-center gap-0.5 ${t.up ? "text-green-500" : "text-red-500"}`}>
-                {t.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                {t.change}
-              </span>
-            )}
+            {/* Always render — invisible saat data belum ada agar DOM stabil & animasi tidak restart */}
+            <span className={`flex items-center gap-0.5 ${t.up ? "text-green-500" : "text-red-500"} ${hasData ? "" : "invisible"}`}>
+              {t.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+              <span>{t.change}</span>
+            </span>
             <span className="text-border ml-2">·</span>
           </span>
         );
       })}
-      {lastUpdated && (
-        <span className="inline-flex items-center gap-1 px-4 text-xs text-muted-foreground/50 shrink-0">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
-          Live · {lastUpdated.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
-        </span>
-      )}
+      {/* Always render live indicator — invisible saat belum ada data agar DOM stabil */}
+      <span className={`inline-flex items-center gap-1 px-4 text-xs text-muted-foreground/50 shrink-0 ${lastUpdated ? "" : "invisible"}`}>
+        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+        Live · {lastUpdated
+          ? lastUpdated.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+          : "--:--"}
+      </span>
     </>
   );
 
