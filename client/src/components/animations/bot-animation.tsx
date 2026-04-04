@@ -3,12 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle2, Coins, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiTelegram, SiBitcoin, SiSolana, SiBinance, SiTether } from "react-icons/si";
-
-const TrxIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm0 2.18l8.09 4.67L12 11.52 3.91 6.85 12 2.18zM3.5 8.35l7.5 4.33v8.64L3.5 17V8.35zm9.5 12.97v-8.64l7.5-4.33V17l-7.5 4.32z"/>
-  </svg>
-);
+import { TrxIcon } from "@/components/icons/trx-icon";
 
 const UsdcIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>

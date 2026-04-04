@@ -8,11 +8,7 @@ import {
 } from "react-icons/si";
 import { SiTelegram } from "react-icons/si";
 
-const TrxIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 64 64" fill="currentColor" className={className}>
-    <path d="M61.55 19.28c-3-2.77-7.15-4.92-10.13-7.09L22.76.15a2.18 2.18 0 00-1.27-.15H20a1.86 1.86 0 00-.68.35 1.14 1.14 0 00-.24.18l-.08.11L.55 26.12a2.08 2.08 0 00.33 2.78l27.35 26.74a2.08 2.08 0 002.82 0l30.48-33.68a2.08 2.08 0 000-2.68zM22.8 7.62l23.64 10-15.86 9.8zm-4.16 1.52v18.77l-8.12-8zm12 23.75l-21.08-20.59 8.84-11.51z" />
-  </svg>
-);
+import { TrxIcon } from "@/components/icons/trx-icon";
 
 const COINS = [
   { id: "solana",       symbol: "SOL",  name: "Solana",   Icon: SiSolana,   color: "text-purple-500", bg: "bg-purple-500/10 border-purple-500/30", decimals: 4 },
