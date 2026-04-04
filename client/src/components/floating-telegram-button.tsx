@@ -4,100 +4,106 @@ import { X } from "lucide-react";
 
 type Side = "bottom-right" | "bottom-left";
 
-/* Bot visual constants */
-const BOT_W  = 68;
-const BOT_H  = 96;
-const PEEK   = 64;   // how many px are visible when peeking
-const HIDE   = BOT_H - PEEK;  // 32px hidden below fold
+const BOT_W  = 64;
+const BOT_H  = 72;
+const PEEK   = 46;           // eyes + top of head visible
+const HIDE   = BOT_H - PEEK; // 26px below fold
 
 const MOBILE_SIDES: Side[] = ["bottom-right", "bottom-left"];
 
 /* ─────────────────────────────────────────────────────────────────────
-   BotCharacter — kawaii round-head bot peeking from the bottom edge.
-   Hands are two clean mitten-shapes right at the fold line.
+   BotFace — compact round-rect robot that peeks from the bottom.
+   Design language: flat, clean, tech-cute. No gimmicky hands.
+   Key: big glowing eyes carry all the personality.
 ───────────────────────────────────────────────────────────────────── */
-function BotCharacter() {
+function BotFace() {
   return (
     <svg
       width={BOT_W}
       height={BOT_H}
-      viewBox="0 0 68 96"
+      viewBox="0 0 64 72"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <radialGradient id="faceGrad" cx="40%" cy="30%" r="70%">
-          <stop offset="0%"   stopColor="#FFE04A" />
-          <stop offset="100%" stopColor="#F09000" />
+        {/* Body gradient — amber brand colour */}
+        <radialGradient id="body" cx="38%" cy="22%" r="72%">
+          <stop offset="0%"   stopColor="#FFE04D" />
+          <stop offset="100%" stopColor="#E89000" />
         </radialGradient>
-        <radialGradient id="handGrad" cx="40%" cy="25%" r="70%">
-          <stop offset="0%"   stopColor="#FFD030" />
-          <stop offset="100%" stopColor="#D97C00" />
+
+        {/* Left-eye glow */}
+        <radialGradient id="elg" cx="40%" cy="38%" r="60%">
+          <stop offset="0%"   stopColor="#60F4FF" />
+          <stop offset="55%"  stopColor="#18AAEE" />
+          <stop offset="100%" stopColor="#0066CC" />
         </radialGradient>
+
+        {/* Right-eye glow — same */}
+        <radialGradient id="erg" cx="40%" cy="38%" r="60%">
+          <stop offset="0%"   stopColor="#60F4FF" />
+          <stop offset="55%"  stopColor="#18AAEE" />
+          <stop offset="100%" stopColor="#0066CC" />
+        </radialGradient>
+
+        {/* Soft shadow under the head */}
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+          <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#0004" />
+        </filter>
       </defs>
 
-      {/* ── Antenna ─────────────────────────────────────── */}
-      <rect  x="32" y="0"  width="4"  height="10" rx="2"  fill="#C07000" />
-      <circle cx="34" cy="1" r="5"   fill="#D98000" />
-      <circle cx="34" cy="1" r="3.2" fill="#FFE566" />
-      <circle cx="33" cy="0.2" r="1.2" fill="white" fillOpacity="0.55" />
+      {/* ── Antenna stem ── */}
+      <rect x="30" y="0" width="4" height="10" rx="2" fill="#B07000" />
 
-      {/* ── Round head ──────────────────────────────────── */}
-      <circle cx="34" cy="36" r="28" fill="url(#faceGrad)" />
-      {/* Top gloss */}
-      <ellipse cx="27" cy="22" rx="10" ry="6" fill="white" fillOpacity="0.18" />
+      {/* ── Antenna ball — glows amber ── */}
+      <circle cx="32" cy="1.5" r="5.5" fill="#CC8800" />
+      <circle cx="32" cy="1.5" r="3.5" fill="#FFD700" />
+      <circle cx="31" cy="0.8" r="1.4" fill="white" fillOpacity="0.55" />
 
-      {/* ── Left eye ────────────────────────────────────── */}
-      {/* Sclera */}
-      <circle cx="24" cy="34" r="9.5"  fill="white" />
-      {/* Iris */}
-      <circle cx="25" cy="35" r="6"    fill="#1A1A2E" />
-      {/* Colour ring */}
-      <circle cx="25" cy="35" r="4"    fill="#2266EE" />
-      {/* Pupil */}
-      <circle cx="25.5" cy="35.5" r="2.2" fill="#050A14" />
-      {/* Shine */}
-      <circle cx="23"   cy="32.5" r="1.8" fill="white" fillOpacity="0.9" />
-      <circle cx="27"   cy="37"   r="0.9" fill="white" fillOpacity="0.5" />
+      {/* ── Robot head — rounded-rect, NOT a circle ── */}
+      <rect x="4" y="10" width="56" height="56" rx="16"
+            fill="url(#body)" filter="url(#shadow)" />
 
-      {/* ── Right eye ───────────────────────────────────── */}
-      <circle cx="44" cy="34" r="9.5"  fill="white" />
-      <circle cx="45" cy="35" r="6"    fill="#1A1A2E" />
-      <circle cx="45" cy="35" r="4"    fill="#2266EE" />
-      <circle cx="45.5" cy="35.5" r="2.2" fill="#050A14" />
-      <circle cx="43"   cy="32.5" r="1.8" fill="white" fillOpacity="0.9" />
-      <circle cx="47"   cy="37"   r="0.9" fill="white" fillOpacity="0.5" />
+      {/* Top-edge gloss */}
+      <rect x="10" y="10" width="44" height="8" rx="6"
+            fill="white" fillOpacity="0.2" />
 
-      {/* ── Rosy cheeks ─────────────────────────────────── */}
-      <ellipse cx="16" cy="44" rx="6"  ry="3.5" fill="#FF9966" fillOpacity="0.4" />
-      <ellipse cx="52" cy="44" rx="6"  ry="3.5" fill="#FF9966" fillOpacity="0.4" />
+      {/* ── Side sensor rivets ── */}
+      <circle cx="4"  cy="36" r="4.5" fill="#C07800" />
+      <circle cx="4"  cy="36" r="2.5" fill="#DDA000" />
+      <circle cx="60" cy="36" r="4.5" fill="#C07800" />
+      <circle cx="60" cy="36" r="2.5" fill="#DDA000" />
 
-      {/* ── Mouth (tiny cute arc) ───────────────────────── */}
-      <path d="M27 48 Q34 54 41 48" stroke="#B05000" strokeWidth="2.2"
-            strokeLinecap="round" fill="none" />
+      {/* ── Dark visor panel ── */}
+      <rect x="9" y="20" width="46" height="24" rx="8"
+            fill="#0A1525" fillOpacity="0.9" />
 
-      {/* ═══════════════════════════════════════════════════
-          HANDS — mitten-style, sit right at the fold line.
-          y ≈ 62–80 → partially visible (PEEK = 64).
-          Looks like the bot is gripping the screen edge.
-      ═══════════════════════════════════════════════════ */}
+      {/* ── Left eye ── */}
+      <circle cx="24" cy="32" r="8"   fill="#040C1C" />
+      <circle cx="24" cy="32" r="6.5" fill="url(#elg)" />
+      <circle cx="24" cy="32" r="3.5" fill="#90F0FF" fillOpacity="0.55" />
+      {/* shine */}
+      <circle cx="21.5" cy="29.5" r="2"   fill="white" fillOpacity="0.85" />
+      <circle cx="26.5" cy="34.5" r="1"   fill="white" fillOpacity="0.35" />
 
-      {/* Left mitten */}
-      <rect x="1"  y="60" width="24" height="20" rx="10" fill="url(#handGrad)" />
-      {/* Left thumb nub */}
-      <ellipse cx="4"  cy="60" rx="5" ry="7" fill="#F0A020" />
-      {/* Left mitten highlight */}
-      <ellipse cx="10" cy="64" rx="5" ry="3" fill="white" fillOpacity="0.18" />
+      {/* ── Right eye ── */}
+      <circle cx="40" cy="32" r="8"   fill="#040C1C" />
+      <circle cx="40" cy="32" r="6.5" fill="url(#erg)" />
+      <circle cx="40" cy="32" r="3.5" fill="#90F0FF" fillOpacity="0.55" />
+      {/* shine */}
+      <circle cx="37.5" cy="29.5" r="2"   fill="white" fillOpacity="0.85" />
+      <circle cx="42.5" cy="34.5" r="1"   fill="white" fillOpacity="0.35" />
 
-      {/* Right mitten */}
-      <rect x="43" y="60" width="24" height="20" rx="10" fill="url(#handGrad)" />
-      {/* Right thumb nub */}
-      <ellipse cx="64" cy="60" rx="5" ry="7" fill="#F0A020" />
-      {/* Right mitten highlight */}
-      <ellipse cx="58" cy="64" rx="5" ry="3" fill="white" fillOpacity="0.18" />
+      {/* ── Cute pixel-smile (3 dots) ── */}
+      <circle cx="24" cy="51" r="2" fill="#0A1525" fillOpacity="0.55" />
+      <circle cx="32" cy="53" r="2" fill="#0A1525" fillOpacity="0.55" />
+      <circle cx="40" cy="51" r="2" fill="#0A1525" fillOpacity="0.55" />
 
-      {/* Body (below fold, mostly hidden) */}
-      <rect x="12" y="78" width="44" height="18" rx="10" fill="#D98000" />
+      {/* ── Bottom corner rivets ── */}
+      <circle cx="12" cy="60" r="2.2" fill="#C07800" />
+      <circle cx="52" cy="60" r="2.2" fill="#C07800" />
+      <circle cx="12" cy="16" r="2.2" fill="#C07800" />
+      <circle cx="52" cy="16" r="2.2" fill="#C07800" />
     </svg>
   );
 }
@@ -105,23 +111,16 @@ function BotCharacter() {
 /* ─────────────────────────────────────────────────────────────────── */
 
 function getSideProps(side: Side) {
-  const base = {
+  const shared = {
     peekOffset:   { y: HIDE },
     hiddenOffset: { y: BOT_H + 20 },
-    bobAnimate:   { y: [0, -10, 0] },
+    bobAnimate:   { y: [0, -8, 0] },
   };
-  if (side === "bottom-left") {
-    return {
-      ...base,
-      containerStyle: { bottom: 0, left: 20 } as React.CSSProperties,
-      bubbleClass: "absolute bottom-[calc(100%+10px)] left-0 w-52",
-    };
-  }
-  return {
-    ...base,
-    containerStyle: { bottom: 0, right: 20 } as React.CSSProperties,
-    bubbleClass: "absolute bottom-[calc(100%+10px)] right-0 w-52",
-  };
+  return side === "bottom-left"
+    ? { ...shared, containerStyle: { bottom: 0, left: 20 } as React.CSSProperties,
+                   bubbleClass: "absolute bottom-[calc(100%+10px)] left-0 w-52" }
+    : { ...shared, containerStyle: { bottom: 0, right: 20 } as React.CSSProperties,
+                   bubbleClass: "absolute bottom-[calc(100%+10px)] right-0 w-52" };
 }
 
 /* ─────────────────────────────────────────────────────────────────── */
@@ -140,15 +139,15 @@ export function FloatingTelegramButton() {
   });
 
   useEffect(() => {
-    const onScroll = () => { if (!dismissed) setScrolled(window.scrollY > 400); };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => { if (!dismissed) setScrolled(window.scrollY > 400); };
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, [dismissed]);
 
   useEffect(() => {
     if (!scrolled || dismissed) { setRevealed(false); setShowBubble(false); return; }
     const t1 = setTimeout(() => setRevealed(true),   1800);
-    const t2 = setTimeout(() => setShowBubble(true), 2500);
+    const t2 = setTimeout(() => setShowBubble(true), 2600);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [scrolled, dismissed]);
 
@@ -165,7 +164,7 @@ export function FloatingTelegramButton() {
           initial={{ y: hiddenOffset.y, opacity: 0 }}
           animate={{ y: revealed ? 0 : peekOffset.y, opacity: 1 }}
           exit={{ y: hiddenOffset.y, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 180, damping: 20 }}
+          transition={{ type: "spring", stiffness: 170, damping: 20 }}
         >
           <div className="relative">
             <motion.a
@@ -178,13 +177,13 @@ export function FloatingTelegramButton() {
               animate={!revealed ? bobAnimate : { y: 0 }}
               transition={
                 !revealed
-                  ? { duration: 1.8, repeat: Infinity, repeatDelay: 2.2, ease: "easeInOut" }
+                  ? { duration: 1.6, repeat: Infinity, repeatDelay: 2.8, ease: "easeInOut" }
                   : { duration: 0.2 }
               }
-              whileHover={{ scale: 1.06, y: -4 }}
-              whileTap={{ scale: 0.94 }}
+              whileHover={{ scale: 1.07, y: -3 }}
+              whileTap={{ scale: 0.93 }}
             >
-              <BotCharacter />
+              <BotFace />
             </motion.a>
 
             <AnimatePresence>
