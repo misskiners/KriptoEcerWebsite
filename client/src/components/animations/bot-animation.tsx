@@ -176,9 +176,16 @@ export function BotAnimation() {
   const [amountInput,  setAmountInput]  = useState("100.000");
   const [selectedAmount, setSelectedAmount] = useState(100_000);
   const [messageId, setMessageId] = useState(2);
-  const chatRef      = useRef<HTMLDivElement>(null);
-  const scrollEndRef = useRef<HTMLDivElement>(null);
-  const inputRef     = useRef<HTMLInputElement>(null);
+  const chatDesktopRef = useRef<HTMLDivElement>(null);
+  const chatMobileRef  = useRef<HTMLDivElement>(null);
+  const inputRef       = useRef<HTMLInputElement>(null);
+
+  const scrollChats = () => {
+    for (const ref of [chatDesktopRef, chatMobileRef]) {
+      const el = ref.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    }
+  };
 
   /* ── Fetch live prices ── */
   const fetchPrices = useCallback(async (showSpin = false) => {
@@ -202,11 +209,8 @@ export function BotAnimation() {
   }, [fetchPrices]);
 
   useEffect(() => {
-    const el = scrollEndRef.current;
-    if (!el) return;
-    requestAnimationFrame(() => {
-      el.scrollIntoView({ behavior: "smooth", block: "end" });
-    });
+    const id = setTimeout(scrollChats, 60);
+    return () => clearTimeout(id);
   }, [messages, isTyping]);
 
   /* ── Helpers ── */
@@ -233,7 +237,7 @@ export function BotAnimation() {
   const handlePreset = (amount: number) => {
     setSelectedAmount(amount);
     setAmountInput(amount.toLocaleString("id-ID"));
-    inputRef.current?.focus();
+    inputRef.current?.focus({ preventScroll: true });
   };
 
   /* ── Simulate transaction ── */
@@ -285,8 +289,8 @@ export function BotAnimation() {
     ? lastUpdated.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
     : null;
 
-  /* ─── Chat content (shared mobile/desktop) ─── */
-  const ChatContent = (
+  /* ─── Chat content — menerima ref terpisah untuk desktop vs mobile ─── */
+  const buildChat = (chatDivRef: React.RefObject<HTMLDivElement>) => (
     <>
       {/* Header */}
       <div className="bg-gradient-to-r from-[#005f94] to-[#0094c8] px-4 py-3 flex items-center gap-3">
@@ -323,7 +327,7 @@ export function BotAnimation() {
       </div>
 
       {/* Messages */}
-      <div ref={chatRef}
+      <div ref={chatDivRef}
         className="px-3 py-3 space-y-2.5 h-44 overflow-y-auto scrollbar-gold"
         style={{ background: "linear-gradient(180deg,rgba(12,17,35,0.95) 0%,rgba(8,12,28,0.97) 100%)" }}
         data-testid="chat-messages"
@@ -369,7 +373,6 @@ export function BotAnimation() {
             </motion.div>
           )}
         </AnimatePresence>
-        <div ref={scrollEndRef} className="h-px" />
       </div>
 
       {/* Controls */}
@@ -556,7 +559,7 @@ export function BotAnimation() {
                   </div>
                 </div>
               </div>
-              {ChatContent}
+              {buildChat(chatDesktopRef)}
               <div className="flex justify-center pb-2 pt-1">
                 <div className="w-24 h-1 bg-white/20 rounded-full" />
               </div>
@@ -566,7 +569,7 @@ export function BotAnimation() {
 
         {/* Mobile — plain card */}
         <div className="lg:hidden bg-[#0d1117] rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40">
-          {ChatContent}
+          {buildChat(chatMobileRef)}
         </div>
       </motion.div>
     </div>
