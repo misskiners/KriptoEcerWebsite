@@ -125,6 +125,8 @@ function getSideProps(side: Side) {
 
 /* ─────────────────────────────────────────────────────────────────── */
 
+const SNOOZE_MS = 45_000; // muncul lagi 45 detik setelah di-close
+
 export function FloatingTelegramButton() {
   const [scrolled,   setScrolled]   = useState(false);
   const [dismissed,  setDismissed]  = useState(false);
@@ -150,6 +152,14 @@ export function FloatingTelegramButton() {
     const t2 = setTimeout(() => setShowBubble(true), 2600);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [scrolled, dismissed]);
+
+  /* Auto-unsnooze: muncul lagi setelah SNOOZE_MS */
+  function handleDismiss() {
+    setDismissed(true);
+    setRevealed(false);
+    setShowBubble(false);
+    setTimeout(() => setDismissed(false), SNOOZE_MS);
+  }
 
   if (dismissed) return null;
 
@@ -212,7 +222,7 @@ export function FloatingTelegramButton() {
                     Buka Bot →
                   </a>
                   <button
-                    onClick={() => setDismissed(true)}
+                    onClick={handleDismiss}
                     className="absolute top-2 right-2 w-5 h-5 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
                     data-testid="button-floating-dismiss"
                     aria-label="Tutup"
