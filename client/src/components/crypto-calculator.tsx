@@ -33,8 +33,9 @@ function formatIDR(price: number): string {
 
 function formatCrypto(amount: number, decimals: number, symbol: string): string {
   if (amount === 0) return `0 ${symbol}`;
-  if (amount < 0.00001) return `${amount.toExponential(2)} ${symbol}`;
-  return `${amount.toFixed(decimals).replace(/\.?0+$/, "")} ${symbol}`;
+  const fixed = amount.toFixed(decimals);
+  const trimmed = fixed.replace(/\.?0+$/, "");
+  return `${trimmed} ${symbol}`;
 }
 
 function formatInputIDR(raw: string): string {
