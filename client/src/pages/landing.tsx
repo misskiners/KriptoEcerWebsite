@@ -114,6 +114,9 @@ function Header() {
           <span className="text-base font-bold tracking-tight">KriptoEcer</span>
         </a>
         <div className="flex items-center gap-2">
+          <a href="/blog" className="hidden sm:inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5 rounded-md hover:bg-muted" data-testid="link-header-blog">
+            Blog
+          </a>
           <ThemeToggle />
           <Button asChild data-testid="button-header-cta">
             <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
@@ -783,6 +786,9 @@ function Footer() {
               </li>
               <li>
                 <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
+              </li>
+              <li>
+                <a href="/blog" className="hover:text-foreground transition-colors">Blog & Artikel</a>
               </li>
               <li>
                 <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">

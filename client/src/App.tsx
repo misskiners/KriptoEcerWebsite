@@ -10,11 +10,15 @@ import Terms from "@/pages/terms";
 import Privacy from "@/pages/privacy";
 import Risk from "@/pages/risk";
 import Refund from "@/pages/refund";
+import BlogPage from "@/pages/blog";
+import ArticlePage from "@/pages/article";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Landing} />
+      <Route path="/blog" component={BlogPage} />
+      <Route path="/blog/:slug" component={ArticlePage} />
       <Route path="/terms" component={Terms} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/risk" component={Risk} />
