@@ -27,6 +27,8 @@ import {
 import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX } from "react-icons/si";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import type { Article } from "@shared/schema";
 import confetti from "canvas-confetti";
 const logoImage = "/favicon.png";
 import { FloatingCoins } from "@/components/animations/floating-coins";
@@ -760,6 +762,98 @@ function CTASection() {
   );
 }
 
+const categoryStyle: Record<string, string> = {
+  Panduan: "bg-primary/10 text-primary border-primary/20",
+  Edukasi: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+  Tips:    "bg-green-500/10 text-green-500 border-green-500/20",
+};
+
+function RecentArticlesSection() {
+  const { data: articles } = useQuery<Article[]>({ queryKey: ["/api/articles"] });
+  const preview = articles?.slice(0, 3) ?? [];
+
+  if (!articles || articles.length === 0) return null;
+
+  return (
+    <section className="py-20 bg-muted/20" id="blog">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex items-end justify-between mb-10 gap-4 flex-wrap"
+        >
+          <div>
+            <Badge variant="secondary" className="mb-3">Blog & Artikel</Badge>
+            <h2 className="text-3xl font-bold">Artikel Terbaru</h2>
+            <p className="text-muted-foreground mt-2 max-w-md">
+              Tips, panduan, dan edukasi crypto dalam bahasa Indonesia yang mudah dipahami.
+            </p>
+          </div>
+          <a
+            href="/blog"
+            className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline shrink-0"
+            data-testid="link-landing-blog-all"
+          >
+            Lihat Semua Artikel
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </motion.div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {preview.map((article, i) => (
+            <motion.a
+              key={article.id}
+              href={`/blog/${article.slug}`}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="group block rounded-2xl overflow-hidden border border-border bg-card
+                hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
+              data-testid={`card-landing-article-${article.id}`}
+            >
+              <div className="relative h-44 overflow-hidden bg-muted">
+                <img
+                  src={`/images/blog/${article.slug}.png`}
+                  alt={article.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => {
+                    const t = e.currentTarget;
+                    t.style.display = "none";
+                    if (t.parentElement) t.parentElement.className += ` bg-gradient-to-br ${article.coverGradient}`;
+                  }}
+                />
+                <div className="absolute top-3 left-3">
+                  <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border backdrop-blur-sm ${categoryStyle[article.category] ?? "bg-muted text-muted-foreground border-border"}`}>
+                    {article.category}
+                  </span>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+              </div>
+              <div className="p-5">
+                <h3 className="font-bold text-base leading-snug line-clamp-2 group-hover:text-primary transition-colors mb-2">
+                  {article.title}
+                </h3>
+                <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                  {article.excerpt}
+                </p>
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{article.author}</span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {article.readTime} menit
+                  </span>
+                </div>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   return (
     <footer className="py-12 bg-muted/30 border-t border-border">
@@ -876,6 +970,7 @@ export default function Landing() {
         <DepositSection />
         <HowItWorksSection />
         <FAQSection />
+        <RecentArticlesSection />
         <CTASection />
       </main>
       <Footer />

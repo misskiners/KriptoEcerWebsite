@@ -1,0 +1,32 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "I3kdAIgguQn1QpTcp5dTp"
+uri = "file://client/public/images/blog/cara-top-up-fee-gas-sol-trx-bnb.png"
+type = "image"
+title = "crypto fee gas illustration"
+
+[[generated]]
+id = "jIglPmDNR-27_cbT71xZL"
+uri = "file://client/public/images/blog/apa-itu-meme-coin-cara-beli-indonesia.png"
+type = "image"
+title = "meme coin illustration"
+
+[[generated]]
+id = "flm33vfzE_pfmGugS-z1p"
+uri = "file://client/public/images/blog/qris-untuk-beli-crypto-kriptoecer.png"
+type = "image"
+title = "QRIS payment crypto"
+
+[[generated]]
+id = "S-7TQBKaqLYr5rBhyz1OE"
+uri = "file://client/public/images/blog/kriptoecer-vs-exchange-besar-perbandingan.png"
+type = "image"
+title = "crypto exchange comparison"
+
+[[generated]]
+id = "7fhTGeKIh046vYu0EAGBi"
+uri = "file://client/public/images/blog/5-istilah-crypto-wajib-dipahami-pemula.png"
+type = "image"
+title = "blockchain learning crypto"

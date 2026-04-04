@@ -104,28 +104,34 @@ export default function ArticlePage() {
                 animate={{ opacity: 1, y: 0 }}
                 data-testid="article-content"
               >
-                <div className={`rounded-2xl bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"} p-8 mb-8 relative overflow-hidden`}>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-5">
-                    <BookOpen className="w-48 h-48" />
-                  </div>
-                  <div className="relative">
-                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border inline-block mb-4 ${categoryStyle[article.category] ?? "bg-muted text-muted-foreground border-border"}`}>
-                      {article.category}
-                    </span>
-                    <h1 className="text-2xl sm:text-3xl font-bold leading-snug" data-testid="text-article-title">
-                      {article.title}
-                    </h1>
-                    <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-foreground/70">
-                      <span className="flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5" />
-                        {formatDate(article.publishedAt!)}
+                <div className={`rounded-2xl overflow-hidden mb-8 relative bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"}`}>
+                  <div className="relative h-56 sm:h-72">
+                    <img
+                      src={`/images/blog/${article.slug}.png`}
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => { e.currentTarget.style.display = "none"; }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border backdrop-blur-sm inline-block mb-3 ${categoryStyle[article.category] ?? "bg-muted/80 text-muted-foreground border-border"}`}>
+                        {article.category}
                       </span>
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5" />
-                        {article.readTime} menit baca
-                      </span>
-                      <span className="font-medium">{article.author}</span>
+                      <h1 className="text-2xl sm:text-3xl font-bold leading-snug text-white drop-shadow-md" data-testid="text-article-title">
+                        {article.title}
+                      </h1>
                     </div>
+                  </div>
+                  <div className="px-6 py-4 bg-muted/30 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {formatDate(article.publishedAt!)}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      {article.readTime} menit baca
+                    </span>
+                    <span className="font-medium">{article.author}</span>
                   </div>
                 </div>
 

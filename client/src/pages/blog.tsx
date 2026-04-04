@@ -38,19 +38,23 @@ function ArticleCard({ article, index }: { article: Article; index: number }) {
             transition-all duration-300"
           data-testid={`card-article-${article.id}`}
         >
-          <div className={`h-40 bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"} relative overflow-hidden`}>
-            <div className="absolute inset-0 flex items-center justify-center opacity-10">
-              <BookOpen className="w-20 h-20" />
-            </div>
+          <div className={`h-44 bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"} relative overflow-hidden`}>
+            <img
+              src={`/images/blog/${article.slug}.png`}
+              alt={article.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onError={(e) => { e.currentTarget.style.display = "none"; }}
+            />
             <div className="absolute top-3 left-3">
-              <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${categoryStyle[article.category] ?? "bg-muted text-muted-foreground border-border"}`}>
+              <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border backdrop-blur-sm ${categoryStyle[article.category] ?? "bg-muted text-muted-foreground border-border"}`}>
                 {article.category}
               </span>
             </div>
-            <div className="absolute bottom-3 right-3 flex items-center gap-1 text-xs text-foreground/60 bg-background/60 backdrop-blur-sm px-2 py-1 rounded-full">
+            <div className="absolute bottom-3 right-3 flex items-center gap-1 text-xs text-foreground/80 bg-background/70 backdrop-blur-sm px-2 py-1 rounded-full">
               <Clock className="w-3 h-3" />
               {article.readTime} menit
             </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
           </div>
 
           <CardContent className="p-5">
