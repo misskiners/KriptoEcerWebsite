@@ -708,26 +708,47 @@ function FAQSection() {
             ))}
           </div>
 
-          {/* Panel jawaban di kanan — fixed height, hanya konten fade */}
-          <div className="col-span-3">
-            <div className="rounded-2xl border bg-card p-7 min-h-[220px] flex flex-col justify-start">
+          {/* Panel jawaban di kanan — stretch mengikuti tinggi kolom pertanyaan */}
+          <div className="col-span-3 flex">
+            <div className="rounded-2xl border bg-card p-7 w-full flex flex-col">
+              {/* Nomor pertanyaan — selalu tampil, tidak fade */}
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-4xl font-black text-primary/10 leading-none select-none">
+                  {String(selected + 1).padStart(2, "0")}
+                </span>
+                <div className="h-px flex-1 bg-border" />
+                <span className="text-xs text-muted-foreground tabular-nums">
+                  {selected + 1} / {faqs.length}
+                </span>
+              </div>
+
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={selected}
-                  initial={{ opacity: 0, y: 6 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
+                  exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.18, ease: "easeOut" }}
+                  className="flex flex-col flex-1"
                 >
-                  <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">
-                    Pertanyaan {selected + 1} dari {faqs.length}
-                  </p>
-                  <h3 className="font-semibold text-base mb-4 leading-snug" data-testid={`faq-question-${selected}`}>
+                  <h3 className="font-semibold text-base mb-3 leading-snug" data-testid={`faq-question-${selected}`}>
                     {faqs[selected].question}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed" data-testid={`faq-answer-${selected}`}>
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1" data-testid={`faq-answer-${selected}`}>
                     {faqs[selected].answer}
                   </p>
+                  <div className="mt-6 pt-5 border-t border-border">
+                    <a
+                      href="https://t.me/kriptoecerbot"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                    >
+                      <SiTelegram className="w-4 h-4" />
+                      Coba langsung di @kriptoecerbot
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>
