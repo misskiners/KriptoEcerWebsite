@@ -771,7 +771,9 @@ const categoryStyle: Record<string, string> = {
 };
 
 function RecentArticlesSection() {
-  const preview = allArticles.slice(0, 3);
+  const preview = [...allArticles]
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, 3);
 
   return (
     <section className="py-20 bg-muted/20" id="blog">
@@ -806,10 +808,11 @@ function RecentArticlesSection() {
               href={`/blog/${article.slug}`}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              viewport={{ once: true, margin: "0px 0px -80px 0px" }}
+              transition={{ delay: i * 0.1, duration: 0.4, ease: "easeOut" }}
               className="group block rounded-2xl overflow-hidden border border-border bg-card
-                hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
+                hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5
+                transition-[border-color,box-shadow] duration-300"
               data-testid={`card-landing-article-${article.id}`}
             >
               <div className="relative h-44 overflow-hidden bg-muted">
