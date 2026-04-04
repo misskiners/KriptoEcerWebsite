@@ -161,23 +161,25 @@ export function CryptoCalculator() {
                 />
                 <AnimatePresence>
                   {inputDisplay && (
-                    <motion.button
-                      initial={{ opacity: 0, scale: 0.7 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.7 }}
-                      transition={{ duration: 0.15 }}
-                      onClick={() => {
-                        setInputDisplay("");
-                        inputRef.current?.focus();
-                      }}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full
-                        bg-muted-foreground/15 hover:bg-muted-foreground/25
-                        flex items-center justify-center transition-colors"
-                      data-testid="button-calculator-clear"
-                      aria-label="Hapus nominal"
-                    >
-                      <X className="w-3.5 h-3.5 text-muted-foreground" />
-                    </motion.button>
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <motion.button
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.7 }}
+                        transition={{ duration: 0.15 }}
+                        onClick={() => {
+                          setInputDisplay("");
+                          inputRef.current?.focus();
+                        }}
+                        className="w-7 h-7 rounded-full
+                          bg-muted-foreground/15 hover:bg-muted-foreground/25
+                          flex items-center justify-center transition-colors"
+                        data-testid="button-calculator-clear"
+                        aria-label="Hapus nominal"
+                      >
+                        <X className="w-3.5 h-3.5 text-muted-foreground" />
+                      </motion.button>
+                    </div>
                   )}
                 </AnimatePresence>
               </div>
