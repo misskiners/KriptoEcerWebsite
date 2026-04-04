@@ -36,3 +36,33 @@ id = "C5LDEepYS7c4vj6iZ-01X"
 uri = "file://attached_assets/generated_images/generated_image.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "k7OFsIijVBnfN_VWoPf_w"
+uri = "file://client/public/images/blog/apa-itu-usdt-panduan-lengkap-stablecoin.png"
+type = "image"
+title = "usdt stablecoin cover"
+
+[[generated]]
+id = "fznbjg4-GfyR8YJJG3dL3"
+uri = "file://client/public/images/blog/cara-beli-dogecoin-indonesia.png"
+type = "image"
+title = "dogecoin doge cover"
+
+[[generated]]
+id = "uDoDBxXHs-OjQmzz8iyS0"
+uri = "file://client/public/images/blog/usdt-trc20-vs-erc20-perbedaan.png"
+type = "image"
+title = "trc20 vs erc20 cover"
+
+[[generated]]
+id = "s9iK5X8fKfqg0vxL3ojIS"
+uri = "file://client/public/images/blog/apa-itu-meme-coin-panduan-pemula.png"
+type = "image"
+title = "meme coin cover"
+
+[[generated]]
+id = "GN3gy3upvTPTgSI5rSjNW"
+uri = "file://client/public/images/blog/cara-jual-crypto-dapat-rupiah-indonesia.png"
+type = "image"
+title = "sell crypto rupiah cover"

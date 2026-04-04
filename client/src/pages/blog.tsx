@@ -42,6 +42,8 @@ function ArticleCard({ article, index }: { article: Article; index: number }) {
             <img
               src={`/images/blog/${article.slug}.png`}
               alt={article.title}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               onError={(e) => { e.currentTarget.style.display = "none"; }}
             />
@@ -164,9 +166,11 @@ export default function BlogPage() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article, i) => (
-              <ArticleCard key={article.id} article={article} index={i} />
-            ))}
+            {[...articles]
+              .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+              .map((article, i) => (
+                <ArticleCard key={article.id} article={article} index={i} />
+              ))}
           </div>
 
           <motion.div
