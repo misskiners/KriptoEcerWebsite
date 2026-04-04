@@ -202,10 +202,10 @@ export function TransactionFeed() {
               >
                 {/* Hash + timestamp */}
                 <div className="flex items-center justify-between px-3 pt-2 pb-0.5">
-                  <span className={`text-[10px] tabular-nums ${tx.isNew ? "text-amber-400/70" : "text-zinc-500"}`}>
+                  <span className={`text-[10px] tabular-nums ${tx.isNew ? "text-amber-400/70" : "text-zinc-500 dark:text-zinc-700"}`}>
                     {tx.hash}
                   </span>
-                  <span className={`text-[10px] ${tx.isNew ? "text-amber-400/60" : "text-zinc-500"}`}>
+                  <span className={`text-[10px] ${tx.isNew ? "text-amber-400/60" : "text-zinc-500 dark:text-zinc-700"}`}>
                     {tx.timestamp}
                   </span>
                 </div>
@@ -227,7 +227,7 @@ export function TransactionFeed() {
                   <span className={`text-[10px] font-medium flex-1 truncate ${tx.crypto.color}`}>
                     {tx.cryptoAmount}
                   </span>
-                  <span className="text-[10px] text-zinc-400 shrink-0">
+                  <span className="text-[10px] text-zinc-400 dark:text-zinc-600 shrink-0">
                     {formatRupiah(tx.rupiahVal)}
                   </span>
                 </div>
