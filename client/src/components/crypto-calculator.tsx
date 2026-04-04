@@ -273,16 +273,15 @@ export function CryptoCalculator() {
                 </motion.div>
               </AnimatePresence>
 
-              {isBelowMin && (
-                <motion.p
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  className="text-xs text-amber-600 dark:text-amber-400 mt-3 flex items-center gap-1"
-                >
-                  <AlertCircle className="w-3 h-3 shrink-0" />
-                  Nominal minimum pembelian adalah Rp10.000
-                </motion.p>
-              )}
+              {/* Fixed-height slot so the button below never shifts */}
+              <div className="mt-3 h-4">
+                {isBelowMin && (
+                  <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3 shrink-0" />
+                    Nominal minimum pembelian adalah Rp10.000
+                  </p>
+                )}
+              </div>
             </div>
 
             <div className="px-4 pb-5">

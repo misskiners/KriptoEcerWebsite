@@ -3,17 +3,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
   Zap,
   Shield,
   Wallet,
   Clock,
   ArrowRight,
+  ChevronRight,
   Bot,
   CreditCard,
   TrendingUp,
@@ -25,7 +20,7 @@ import {
   Globe,
 } from "lucide-react";
 import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX } from "react-icons/si";
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { articles as allArticles } from "@shared/articles";
 import confetti from "canvas-confetti";
@@ -640,6 +635,8 @@ const faqs = [
 ];
 
 function FAQSection() {
+  const [selected, setSelected] = useState(0);
+
   return (
     <section id="faq" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -662,23 +659,53 @@ function FAQSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto"
+          className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6"
         >
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger
-                  className="text-left"
-                  data-testid={`accordion-trigger-${index}`}
-                >
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+          {/* Daftar pertanyaan — tinggi selalu tetap, tidak pernah berubah */}
+          <div className="lg:col-span-2 space-y-1">
+            {faqs.map((faq, i) => (
+              <button
+                key={i}
+                onClick={() => setSelected(i)}
+                data-testid={`accordion-trigger-${i}`}
+                className={`w-full text-left flex items-start gap-2.5 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  selected === i
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+              >
+                <ChevronRight
+                  className={`w-4 h-4 mt-0.5 shrink-0 transition-transform duration-200 ${selected === i ? "rotate-90 opacity-100" : "opacity-40"}`}
+                />
+                <span className="leading-snug">{faq.question}</span>
+              </button>
             ))}
-          </Accordion>
+          </div>
+
+          {/* Panel jawaban — tinggi fixed, hanya konten yang fade */}
+          <div className="lg:col-span-3">
+            <div className="rounded-2xl border bg-card p-7 min-h-[220px] flex flex-col justify-start">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={selected}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                >
+                  <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">
+                    Pertanyaan {selected + 1} dari {faqs.length}
+                  </p>
+                  <h3 className="font-semibold text-base mb-4 leading-snug" data-testid={`faq-question-${selected}`}>
+                    {faqs[selected].question}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed" data-testid={`faq-answer-${selected}`}>
+                    {faqs[selected].answer}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

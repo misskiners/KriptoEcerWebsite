@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { SiBitcoin, SiEthereum, SiLitecoin, SiDogecoin, SiTether, SiSolana, SiBinance, SiTon } from "react-icons/si";
+import { SiBitcoin, SiEthereum, SiLitecoin, SiTether, SiSolana, SiBinance, SiTon } from "react-icons/si";
 
 function TrxIcon({ className }: { className?: string }) {
   return (
@@ -11,15 +11,15 @@ function TrxIcon({ className }: { className?: string }) {
 }
 
 const cryptoOptions = [
-  { name: "Solana",   symbol: "SOL",  Icon: SiSolana,   color: "text-purple-400", bg: "bg-purple-500/10", priceIdr: 1_380_000,  decimals: 4 },
-  { name: "BNB",      symbol: "BNB",  Icon: SiBinance,  color: "text-yellow-400", bg: "bg-yellow-500/10", priceIdr: 10_000_000, decimals: 5 },
-  { name: "USDC",     symbol: "USDC", Icon: SiTether,   color: "text-blue-400",   bg: "bg-blue-500/10",  priceIdr: 16_200,     decimals: 2 },
-  { name: "USDT",     symbol: "USDT", Icon: SiTether,   color: "text-emerald-400",bg: "bg-emerald-500/10",priceIdr: 16_200,     decimals: 2 },
-  { name: "Tron",     symbol: "TRX",  Icon: TrxIcon,    color: "text-red-400",    bg: "bg-red-500/10",   priceIdr: 5_400,      decimals: 1 },
-  { name: "Bitcoin",  symbol: "BTC",  Icon: SiBitcoin,  color: "text-orange-400", bg: "bg-orange-500/10",priceIdr: 1_140_000_000, decimals: 6 },
-  { name: "Ethereum", symbol: "ETH",  Icon: SiEthereum, color: "text-blue-300",   bg: "bg-blue-400/10",  priceIdr: 34_000_000, decimals: 5 },
-  { name: "Toncoin",  symbol: "TON",  Icon: SiTon,      color: "text-sky-400",    bg: "bg-sky-500/10",   priceIdr: 80_000,     decimals: 3 },
-  { name: "Litecoin", symbol: "LTC",  Icon: SiLitecoin, color: "text-zinc-400",   bg: "bg-zinc-400/10",  priceIdr: 1_300_000,  decimals: 4 },
+  { name: "Solana",   symbol: "SOL",  Icon: SiSolana,   color: "text-purple-400", bg: "bg-purple-500/10",  priceIdr: 1_380_000,     decimals: 4 },
+  { name: "BNB",      symbol: "BNB",  Icon: SiBinance,  color: "text-yellow-400", bg: "bg-yellow-500/10",  priceIdr: 10_000_000,    decimals: 5 },
+  { name: "USDC",     symbol: "USDC", Icon: SiTether,   color: "text-blue-400",   bg: "bg-blue-500/10",    priceIdr: 16_200,        decimals: 2 },
+  { name: "USDT",     symbol: "USDT", Icon: SiTether,   color: "text-emerald-400",bg: "bg-emerald-500/10", priceIdr: 16_200,        decimals: 2 },
+  { name: "Tron",     symbol: "TRX",  Icon: TrxIcon,    color: "text-red-400",    bg: "bg-red-500/10",     priceIdr: 5_400,         decimals: 1 },
+  { name: "Bitcoin",  symbol: "BTC",  Icon: SiBitcoin,  color: "text-orange-400", bg: "bg-orange-500/10",  priceIdr: 1_140_000_000, decimals: 6 },
+  { name: "Ethereum", symbol: "ETH",  Icon: SiEthereum, color: "text-blue-300",   bg: "bg-blue-400/10",    priceIdr: 34_000_000,    decimals: 5 },
+  { name: "Toncoin",  symbol: "TON",  Icon: SiTon,      color: "text-sky-400",    bg: "bg-sky-500/10",     priceIdr: 80_000,        decimals: 3 },
+  { name: "Litecoin", symbol: "LTC",  Icon: SiLitecoin, color: "text-zinc-400",   bg: "bg-zinc-400/10",    priceIdr: 1_300_000,     decimals: 4 },
 ] as const;
 
 const rupiahAmounts = [15_000, 25_000, 50_000, 75_000, 100_000, 150_000, 200_000, 250_000];
@@ -40,13 +40,13 @@ function generateHash(): string {
   return `0x${a}…${b}`;
 }
 
+function formatRupiah(val: number): string {
+  return "Rp " + val.toLocaleString("id-ID");
+}
+
 function formatCryptoAmount(rupiahVal: number, crypto: typeof cryptoOptions[number]): string {
   const amount = rupiahVal / crypto.priceIdr;
   return `+${amount.toFixed(crypto.decimals)} ${crypto.symbol}`;
-}
-
-function formatRupiah(val: number): string {
-  return "Rp " + val.toLocaleString("id-ID");
 }
 
 interface Transaction {
@@ -96,19 +96,20 @@ export function TransactionFeed() {
         return [generateTransaction(Date.now(), true), ...updated.slice(0, 4)];
       });
     }, 3200);
-
     const blinkInterval = setInterval(() => setBlink(b => !b), 530);
-
-    return () => { clearInterval(txInterval); clearInterval(blinkInterval); };
+    return () => {
+      clearInterval(txInterval);
+      clearInterval(blinkInterval);
+    };
   }, []);
 
   return (
     <div className="relative bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800 font-mono select-none">
 
-      {/* Scan-line sweep */}
+      {/* Scan-line sweep — uses transform only, no layout impact */}
       <motion.div
         className="absolute inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/20 to-transparent pointer-events-none z-10"
-        animate={{ y: [0, 360] }}
+        animate={{ y: [0, 420] }}
         transition={{ duration: 5, repeat: Infinity, ease: "linear", repeatDelay: 3 }}
       />
 
@@ -130,61 +131,63 @@ export function TransactionFeed() {
         </div>
       </div>
 
-      {/* Feed */}
-      <div className="p-3 space-y-2 min-h-[300px]">
-        <AnimatePresence initial={false}>
-          {transactions.map((tx, index) => (
-            <motion.div
-              key={tx.id}
-              initial={{ opacity: 0, y: -16, scaleY: 0.8 }}
-              animate={{
-                opacity: Math.max(0.25, 1 - index * 0.18),
-                y: 0,
-                scaleY: 1,
-              }}
-              exit={{ opacity: 0, height: 0, marginBottom: 0, scaleY: 0.8 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              className={`rounded-lg border overflow-hidden ${
-                tx.isNew
-                  ? "border-amber-500/30 bg-amber-500/5 shadow-[0_0_16px_rgba(245,158,11,0.08)]"
-                  : "border-zinc-800/50 bg-zinc-900/20"
-              }`}
-              data-testid={`transaction-item-${index}`}
-            >
-              {/* Hash + timestamp */}
-              <div className="flex items-center justify-between px-3 pt-2 pb-0.5">
-                <span className={`text-[10px] tabular-nums ${tx.isNew ? "text-amber-400/60" : "text-zinc-700"}`}>
-                  {tx.hash}
-                </span>
-                <span className={`text-[10px] ${tx.isNew ? "text-amber-400/50" : "text-zinc-700"}`}>
-                  {tx.timestamp}
-                </span>
-              </div>
-
-              {/* Action row */}
-              <div className="flex items-center gap-2 px-3 pb-2.5 pt-1">
-                <span className={`text-[11px] font-bold ${tx.action === "BELI" ? "text-green-400" : "text-red-400"}`}>
-                  {tx.action === "BELI" ? "▲" : "▼"}
-                </span>
-                <div className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 ${tx.crypto.bg} ${tx.crypto.color}`}>
-                  <tx.crypto.Icon className="w-3 h-3" />
+      {/*
+        Feed container: fixed height + overflow-hidden
+        This prevents ANY layout shift — exiting items are clipped inside,
+        not allowed to affect content outside this box.
+      */}
+      <div className="overflow-hidden" style={{ height: "370px" }}>
+        <div className="p-3 space-y-2">
+          <AnimatePresence initial={false}>
+            {transactions.map((tx, index) => (
+              <motion.div
+                key={tx.id}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: Math.max(0.22, 1 - index * 0.18), y: 0 }}
+                exit={{ opacity: 0, y: 6 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className={`rounded-lg border overflow-hidden ${
+                  tx.isNew
+                    ? "border-amber-500/30 bg-amber-500/5 shadow-[0_0_16px_rgba(245,158,11,0.08)]"
+                    : "border-zinc-800/50 bg-zinc-900/20"
+                }`}
+                data-testid={`transaction-item-${index}`}
+              >
+                {/* Hash + timestamp */}
+                <div className="flex items-center justify-between px-3 pt-2 pb-0.5">
+                  <span className={`text-[10px] tabular-nums ${tx.isNew ? "text-amber-400/60" : "text-zinc-700"}`}>
+                    {tx.hash}
+                  </span>
+                  <span className={`text-[10px] ${tx.isNew ? "text-amber-400/50" : "text-zinc-700"}`}>
+                    {tx.timestamp}
+                  </span>
                 </div>
-                <span className="text-[11px] text-zinc-200 font-semibold tracking-tight truncate max-w-[80px]">
-                  {tx.user}
-                </span>
-                <span className={`text-[10px] font-bold ${tx.action === "BELI" ? "text-green-400" : "text-red-400"}`}>
-                  {tx.action}
-                </span>
-                <span className={`text-[10px] font-medium flex-1 truncate ${tx.crypto.color}`}>
-                  {tx.cryptoAmount}
-                </span>
-                <span className="text-[10px] text-zinc-600 shrink-0">
-                  {formatRupiah(tx.rupiahVal)}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+
+                {/* Action row */}
+                <div className="flex items-center gap-2 px-3 pb-2.5 pt-1">
+                  <span className={`text-[11px] font-bold ${tx.action === "BELI" ? "text-green-400" : "text-red-400"}`}>
+                    {tx.action === "BELI" ? "▲" : "▼"}
+                  </span>
+                  <div className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 ${tx.crypto.bg} ${tx.crypto.color}`}>
+                    <tx.crypto.Icon className="w-3 h-3" />
+                  </div>
+                  <span className="text-[11px] text-zinc-200 font-semibold tracking-tight truncate max-w-[80px]">
+                    {tx.user}
+                  </span>
+                  <span className={`text-[10px] font-bold ${tx.action === "BELI" ? "text-green-400" : "text-red-400"}`}>
+                    {tx.action}
+                  </span>
+                  <span className={`text-[10px] font-medium flex-1 truncate ${tx.crypto.color}`}>
+                    {tx.cryptoAmount}
+                  </span>
+                  <span className="text-[10px] text-zinc-600 shrink-0">
+                    {formatRupiah(tx.rupiahVal)}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Bottom bar */}
