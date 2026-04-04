@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -124,14 +125,14 @@ function Header() {
       className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border"
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-        <a href="/" className="flex items-center gap-2" data-testid="link-header-logo">
+        <Link href="/" className="flex items-center gap-2" data-testid="link-header-logo">
           <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
           <span className="text-base font-bold tracking-tight">KriptoEcer</span>
-        </a>
+        </Link>
         <div className="flex items-center gap-2">
-          <a href="/blog" className="hidden sm:inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5 rounded-md hover:bg-muted" data-testid="link-header-blog">
+          <Link href="/blog" className="hidden sm:inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5 rounded-md hover:bg-muted" data-testid="link-header-blog">
             Blog
-          </a>
+          </Link>
           <ThemeToggle />
           <Button asChild data-testid="button-header-cta">
             <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
@@ -263,7 +264,7 @@ function HeroSection() {
               {([
                 { Icon: Zap,         label: "Respons Bot",       target: 100,   suffix: "ms", duration: 1.5, delay: 1.2, testId: "stat-speed",        accent: "text-amber-400", shimmer: "via-amber-400/30", hover: "hover:border-amber-400/25" },
                 { Icon: TrendingUp,  label: "Transaksi Sukses",  target: 50000, suffix: "+",  duration: 2.8, delay: 1.4, testId: "stat-transactions",  accent: "text-green-400",  shimmer: "via-green-400/30",  hover: "hover:border-green-400/25",  formatK: true },
-                { Icon: Users,       label: "Pengguna Aktif",    target: 18000, suffix: "+",  duration: 2.4, delay: 1.6, testId: "stat-users",         accent: "text-blue-400",   shimmer: "via-blue-400/30",   hover: "hover:border-blue-400/25",   formatK: true },
+                { Icon: Users,       label: "Pengguna Aktif",    target: 10000, suffix: "+",  duration: 2.4, delay: 1.6, testId: "stat-users",         accent: "text-blue-400",   shimmer: "via-blue-400/30",   hover: "hover:border-blue-400/25",   formatK: true },
               ] as const).map((stat) => (
                 <motion.div
                   key={stat.testId}
@@ -1083,10 +1084,10 @@ function Footer() {
 
           {/* Brand — full width on mobile */}
           <div className="col-span-2 md:col-span-1">
-            <a href="/" className="flex items-center gap-2 mb-3" data-testid="link-footer-logo">
+            <Link href="/" className="flex items-center gap-2 mb-3" data-testid="link-footer-logo">
               <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
               <span className="font-bold text-base text-white">KriptoEcer</span>
-            </a>
+            </Link>
             <p className="text-[13px] text-white/40 mb-5 leading-relaxed">
               Bot Telegram jual beli crypto otomatis. Mulai Rp10.000, tanpa KYC, deposit otomatis, aktif 24/7.
             </p>
@@ -1117,9 +1118,9 @@ function Footer() {
             <ul className="space-y-3">
               {NAV.map(({ href, label }) => (
                 <li key={label}>
-                  <a href={href} className="text-sm text-white/45 hover:text-white transition-colors">
+                  <Link href={href} className="text-sm text-white/45 hover:text-white transition-colors">
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -1131,9 +1132,9 @@ function Footer() {
             <ul className="space-y-3">
               {LEGAL.map(({ href, label }) => (
                 <li key={label}>
-                  <a href={href} className="text-sm text-white/45 hover:text-white transition-colors">
+                  <Link href={href} className="text-sm text-white/45 hover:text-white transition-colors">
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

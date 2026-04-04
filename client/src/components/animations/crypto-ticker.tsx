@@ -63,6 +63,8 @@ export function CryptoTicker() {
   });
 
   // Satu "strip" lengkap termasuk live indicator — harus identik agar -50% tepat
+  // Both strips must be IDENTICAL for the -50% marquee offset to be pixel-perfect.
+  // Loading indicator lives OUTSIDE the strips so width stays consistent.
   const renderStrip = (keyPrefix: string) => (
     <>
       {tickers.map((t, i) => {
@@ -77,9 +79,6 @@ export function CryptoTicker() {
                 {t.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                 {t.change}
               </span>
-            )}
-            {loading && i === 0 && keyPrefix === "a" && (
-              <Loader2 className="w-3 h-3 animate-spin text-muted-foreground ml-1" />
             )}
             <span className="text-border ml-2">·</span>
           </span>
@@ -96,6 +95,12 @@ export function CryptoTicker() {
 
   return (
     <div className="fixed top-16 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border/60 overflow-hidden h-9">
+      {/* Loading spinner lives outside strips so both strips stay identical width */}
+      {loading && (
+        <div className="absolute right-2 top-1/2 -translate-y-1/2 z-10">
+          <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
+        </div>
+      )}
       <div className="flex items-center h-full animate-marquee whitespace-nowrap">
         {renderStrip("a")}
         {renderStrip("b")}

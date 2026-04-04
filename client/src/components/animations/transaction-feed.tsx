@@ -3,12 +3,20 @@ import { useState, useEffect, useRef } from "react";
 import { SiBitcoin, SiEthereum, SiLitecoin, SiTether, SiSolana, SiBinance, SiTon } from "react-icons/si";
 import { TrxIcon } from "@/components/icons/trx-icon";
 
+// USDC — Circle's USD Coin (no simple-icons entry, use inline SVG)
+const UsdcIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2"/>
+    <text x="12" y="16" textAnchor="middle" fontSize="9" fontWeight="bold" fill="currentColor">$</text>
+  </svg>
+);
+
 // id CoinGecko yang akan difetch
 const CRYPTO_META = [
   { id: "solana",          symbol: "SOL",  name: "Solana",   Icon: SiSolana,   color: "text-purple-400", bg: "bg-purple-500/10",  decimals: 4, fallback: 1_800_000     },
   { id: "binancecoin",     symbol: "BNB",  name: "BNB",      Icon: SiBinance,  color: "text-yellow-400", bg: "bg-yellow-500/10",  decimals: 5, fallback: 10_000_000    },
   { id: "tether",          symbol: "USDT", name: "USDT",     Icon: SiTether,   color: "text-emerald-400",bg: "bg-emerald-500/10", decimals: 2, fallback: 16_300        },
-  { id: "usd-coin",        symbol: "USDC", name: "USDC",     Icon: SiTether,   color: "text-blue-400",   bg: "bg-blue-500/10",    decimals: 2, fallback: 16_280        },
+  { id: "usd-coin",        symbol: "USDC", name: "USDC",     Icon: UsdcIcon,   color: "text-blue-400",   bg: "bg-blue-500/10",    decimals: 2, fallback: 16_280        },
   { id: "tron",            symbol: "TRX",  name: "Tron",     Icon: TrxIcon,    color: "text-red-400",    bg: "bg-red-500/10",     decimals: 1, fallback: 5_800         },
   { id: "bitcoin",         symbol: "BTC",  name: "Bitcoin",  Icon: SiBitcoin,  color: "text-orange-400", bg: "bg-orange-500/10",  decimals: 8, fallback: 1_450_000_000 },
   { id: "ethereum",        symbol: "ETH",  name: "Ethereum", Icon: SiEthereum, color: "text-blue-300",   bg: "bg-blue-400/10",    decimals: 6, fallback: 38_000_000    },

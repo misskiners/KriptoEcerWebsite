@@ -17,6 +17,10 @@ interface PriceCache {
 const priceCache: PriceCache = { data: null, fetchedAt: 0 };
 const CACHE_TTL_MS = 60_000;
 
+// In-flight promise dedup: prevents multiple concurrent CoinGecko calls
+// when several components fetch /api/prices simultaneously on page load
+let inflight: Promise<PriceCache["data"]> | null = null;
+
 async function fetchFromCoinGecko(): Promise<PriceCache["data"]> {
   const url =
     `https://api.coingecko.com/api/v3/simple/price` +
@@ -34,14 +38,21 @@ async function getPrices(): Promise<PriceCache["data"]> {
   if (priceCache.data && now - priceCache.fetchedAt < CACHE_TTL_MS) {
     return priceCache.data;
   }
-  try {
-    const fresh = await fetchFromCoinGecko();
-    priceCache.data = fresh;
-    priceCache.fetchedAt = now;
-    return fresh;
-  } catch {
-    return priceCache.data;
-  }
+  // Reuse in-flight request if one is already running
+  if (inflight) return inflight;
+  inflight = (async () => {
+    try {
+      const fresh = await fetchFromCoinGecko();
+      priceCache.data = fresh;
+      priceCache.fetchedAt = Date.now();
+      return fresh;
+    } catch {
+      return priceCache.data;
+    } finally {
+      inflight = null;
+    }
+  })();
+  return inflight;
 }
 
 export async function registerRoutes(

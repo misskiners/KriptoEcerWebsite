@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -134,6 +134,7 @@ export function FloatingTelegramButton() {
   const [dismissed,  setDismissed]  = useState(false);
   const [revealed,   setRevealed]   = useState(false);
   const [showBubble, setShowBubble] = useState(false);
+  const snoozeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [side] = useState<Side>(() => {
     if (typeof window === "undefined") return "bottom-right";
@@ -155,12 +156,16 @@ export function FloatingTelegramButton() {
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [scrolled, dismissed]);
 
+  /* Cleanup snooze timer on unmount */
+  useEffect(() => () => { if (snoozeRef.current) clearTimeout(snoozeRef.current); }, []);
+
   /* Auto-unsnooze: muncul lagi setelah SNOOZE_MS */
   function handleDismiss() {
     setDismissed(true);
     setRevealed(false);
     setShowBubble(false);
-    setTimeout(() => setDismissed(false), SNOOZE_MS);
+    if (snoozeRef.current) clearTimeout(snoozeRef.current);
+    snoozeRef.current = setTimeout(() => setDismissed(false), SNOOZE_MS);
   }
 
   if (dismissed) return null;
