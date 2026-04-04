@@ -152,30 +152,33 @@ export function TransactionFeed() {
   }, []);
 
   return (
-    <div className="relative bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800 font-mono select-none">
+    <div className="relative bg-zinc-900 rounded-xl overflow-hidden border border-zinc-700/60 font-mono select-none shadow-xl shadow-black/20">
+
+      {/* Noise/vignette overlay — menambah kedalaman tanpa terlalu gelap */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none z-0" />
 
       {/* Scan-line sweep */}
       <motion.div
-        className="absolute inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/20 to-transparent pointer-events-none z-10"
+        className="absolute inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/30 to-transparent pointer-events-none z-10"
         animate={{ y: [0, 420] }}
         transition={{ duration: 5, repeat: Infinity, ease: "linear", repeatDelay: 3 }}
       />
 
       {/* Top bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-900/80 border-b border-zinc-800">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-800/70 border-b border-zinc-700/50">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute h-full w-full rounded-full bg-green-400 opacity-60" />
             <span className="relative rounded-full h-2 w-2 bg-green-500" />
           </span>
-          <span className="text-[11px] text-zinc-500">kriptoecerbot</span>
-          <span className="text-[11px] text-zinc-700">@</span>
-          <span className="text-[11px] text-amber-400/80">mainnet</span>
-          <span className="text-[11px] text-zinc-700 ml-1">--live</span>
+          <span className="text-[11px] text-zinc-400">kriptoecerbot</span>
+          <span className="text-[11px] text-zinc-600">@</span>
+          <span className="text-[11px] text-amber-400/90">mainnet</span>
+          <span className="text-[11px] text-zinc-600 ml-1">--live</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-zinc-700">BLOCK</span>
-          <span className="text-[10px] text-amber-400/50 tabular-nums">{blockNum.toLocaleString("id-ID")}</span>
+          <span className="text-[10px] text-zinc-600">BLOCK</span>
+          <span className="text-[10px] text-amber-400/60 tabular-nums">{blockNum.toLocaleString("id-ID")}</span>
         </div>
       </div>
 
@@ -193,7 +196,7 @@ export function TransactionFeed() {
                 className={`rounded-lg border overflow-hidden ${
                   tx.isNew
                     ? "border-amber-500/30 bg-amber-500/5 shadow-[0_0_16px_rgba(245,158,11,0.08)]"
-                    : "border-zinc-800/50 bg-zinc-900/20"
+                    : "border-zinc-700/35 bg-zinc-800/25"
                 }`}
                 data-testid={`transaction-item-${index}`}
               >
@@ -235,10 +238,10 @@ export function TransactionFeed() {
       </div>
 
       {/* Bottom bar */}
-      <div className="px-4 py-2.5 border-t border-zinc-800/60 bg-zinc-900/40">
+      <div className="px-4 py-2.5 border-t border-zinc-700/40 bg-zinc-800/40">
         <div className="flex items-center gap-1">
-          <span className="text-[10px] text-zinc-700">&gt;_</span>
-          <span className="text-[10px] text-zinc-600">bergabung dengan</span>
+          <span className="text-[10px] text-zinc-500">&gt;_</span>
+          <span className="text-[10px] text-zinc-500">bergabung dengan</span>
           <span className="text-[10px] text-amber-400/70 font-semibold">ribuan pengguna aktif</span>
           <motion.span
             className="text-[10px] text-amber-400/60 ml-0.5"
