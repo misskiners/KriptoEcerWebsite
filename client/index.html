@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
 
+    <!-- Anti-flash: apply theme class synchronously before first paint -->
+    <script>
+      (function(){
+        try{
+          var t=localStorage.getItem('kriptoecerbot-ui-theme')||'system';
+          var dark=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.add(dark?'dark':'light');
+        }catch(e){}
+      })();
+    </script>
+    <style>
+      html{background-color:hsl(222,47%,6%)}
+      html.light{background-color:#ffffff}
+    </style>
+
     <!-- Primary Meta -->
     <title>KriptoEcer - Beli & Jual Crypto Eceran Mulai Rp10.000 via Telegram</title>
     <meta name="description" content="KriptoEcer — bot Telegram jual beli crypto eceran mulai Rp10.000. Beli meme coin, top up fee gas TRX/SOL/BNB, atau beli USDT tanpa KYC. Deposit otomatis via QRIS, VA, PayPal. Langsung chat, tidak perlu daftar." />
