@@ -171,8 +171,8 @@ export function TransactionFeed() {
             <span className="animate-ping absolute h-full w-full rounded-full bg-green-400 opacity-60" />
             <span className="relative rounded-full h-2 w-2 bg-green-500" />
           </span>
-          <span className="text-[11px] text-zinc-400">kriptoecerbot</span>
           <span className="text-[11px] text-zinc-600">@</span>
+          <span className="text-[11px] text-zinc-400">kriptoecerbot</span>
           <span className="text-[11px] text-amber-400/90">mainnet</span>
           <span className="text-[11px] text-zinc-600 ml-1">--live</span>
         </div>
