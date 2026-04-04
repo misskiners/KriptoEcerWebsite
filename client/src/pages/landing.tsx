@@ -661,30 +661,14 @@ function FAQSection() {
           viewport={{ once: true }}
           className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6"
         >
-          {/* Daftar pertanyaan — tinggi selalu tetap, tidak pernah berubah */}
-          <div className="lg:col-span-2 space-y-1">
-            {faqs.map((faq, i) => (
-              <button
-                key={i}
-                onClick={() => setSelected(i)}
-                data-testid={`accordion-trigger-${i}`}
-                className={`w-full text-left flex items-start gap-2.5 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  selected === i
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`}
-              >
-                <ChevronRight
-                  className={`w-4 h-4 mt-0.5 shrink-0 transition-transform duration-200 ${selected === i ? "rotate-90 opacity-100" : "opacity-40"}`}
-                />
-                <span className="leading-snug">{faq.question}</span>
-              </button>
-            ))}
-          </div>
+          {/*
+            Mobile: panel jawaban muncul PERTAMA (order-1), daftar pertanyaan KEDUA (order-2)
+            Desktop: pertanyaan di kiri (col-span-2), jawaban di kanan (col-span-3) — order reset
+          */}
 
-          {/* Panel jawaban — tinggi fixed, hanya konten yang fade */}
-          <div className="lg:col-span-3">
-            <div className="rounded-2xl border bg-card p-7 min-h-[220px] flex flex-col justify-start">
+          {/* Panel jawaban: mobile=atas (order-1), desktop=kanan (order-2) */}
+          <div className="order-1 lg:order-2 lg:col-span-3">
+            <div className="rounded-2xl border bg-card p-5 lg:p-7 min-h-[150px] lg:min-h-[220px] flex flex-col justify-start">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={selected}
@@ -696,7 +680,7 @@ function FAQSection() {
                   <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">
                     Pertanyaan {selected + 1} dari {faqs.length}
                   </p>
-                  <h3 className="font-semibold text-base mb-4 leading-snug" data-testid={`faq-question-${selected}`}>
+                  <h3 className="font-semibold text-base mb-3 leading-snug" data-testid={`faq-question-${selected}`}>
                     {faqs[selected].question}
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed" data-testid={`faq-answer-${selected}`}>
@@ -705,6 +689,27 @@ function FAQSection() {
                 </motion.div>
               </AnimatePresence>
             </div>
+          </div>
+
+          {/* Daftar pertanyaan: mobile=bawah (order-2), desktop=kiri (order-1) */}
+          <div className="order-2 lg:order-1 lg:col-span-2 space-y-1">
+            {faqs.map((faq, i) => (
+              <button
+                key={i}
+                onClick={() => setSelected(i)}
+                data-testid={`accordion-trigger-${i}`}
+                className={`w-full text-left flex items-start gap-2.5 px-3.5 py-3 lg:px-4 lg:py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  selected === i
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+              >
+                <ChevronRight
+                  className={`w-4 h-4 mt-0.5 shrink-0 transition-transform duration-200 ${selected === i ? "rotate-90 opacity-100" : "opacity-40"}`}
+                />
+                <span className="leading-snug">{faq.question}</span>
+              </button>
+            ))}
           </div>
         </motion.div>
       </div>
