@@ -13,22 +13,79 @@ const MOBILE_SIDES: Side[] = ["bottom-right", "bottom-left", "left", "right"];
 function BotFace() {
   return (
     <svg width={BOT_SIZE} height={BOT_SIZE} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="32" cy="32" r="30" fill="#F5B80A" />
-      <ellipse cx="25" cy="20" rx="10" ry="6" fill="white" fillOpacity="0.18" />
-      <rect x="30" y="0" width="4" height="12" rx="2" fill="#C17A00" />
-      <circle cx="32" cy="0" r="4.5" fill="#C17A00" />
-      <circle cx="31" cy="0" r="1.8" fill="white" fillOpacity="0.45" />
-      <circle cx="5" cy="32" r="5.5" fill="#C17A00" />
-      <circle cx="59" cy="32" r="5.5" fill="#C17A00" />
-      <circle cx="21" cy="28" r="9" fill="white" />
-      <circle cx="43" cy="28" r="9" fill="white" />
-      <circle cx="23" cy="29.5" r="4.5" fill="#111" />
-      <circle cx="45" cy="29.5" r="4.5" fill="#111" />
-      <circle cx="24.5" cy="27.5" r="1.8" fill="white" />
-      <circle cx="46.5" cy="27.5" r="1.8" fill="white" />
-      <path d="M21 41 Q32 49 43 41" stroke="#111" strokeWidth="3" strokeLinecap="round" fill="none" />
-      <circle cx="15" cy="38" r="5" fill="#FF9800" fillOpacity="0.3" />
-      <circle cx="49" cy="38" r="5" fill="#FF9800" fillOpacity="0.3" />
+      <defs>
+        <radialGradient id="bodyGrad" cx="38%" cy="28%" r="70%">
+          <stop offset="0%" stopColor="#FFD84D" />
+          <stop offset="100%" stopColor="#E8960A" />
+        </radialGradient>
+        <radialGradient id="eyeGlowL" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#40E0FF" />
+          <stop offset="70%" stopColor="#00AAEE" />
+          <stop offset="100%" stopColor="#0077BB" />
+        </radialGradient>
+        <radialGradient id="eyeGlowR" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#40E0FF" />
+          <stop offset="70%" stopColor="#00AAEE" />
+          <stop offset="100%" stopColor="#0077BB" />
+        </radialGradient>
+        <filter id="eyeBloom">
+          <feGaussianBlur stdDeviation="1.2" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+
+      {/* Antenna pole */}
+      <rect x="30" y="1" width="4" height="11" rx="2" fill="#B86A00" />
+      {/* Antenna ball */}
+      <circle cx="32" cy="2" r="4.5" fill="#D47A00" />
+      {/* Antenna glow tip */}
+      <circle cx="32" cy="2" r="2.8" fill="#FFE566" />
+      <circle cx="31" cy="1.2" r="1" fill="white" fillOpacity="0.6" />
+
+      {/* Side ear/sensor bolts */}
+      <circle cx="5" cy="33" r="5" fill="#C17A00" />
+      <circle cx="5" cy="33" r="3" fill="#D98C00" />
+      <circle cx="59" cy="33" r="5" fill="#C17A00" />
+      <circle cx="59" cy="33" r="3" fill="#D98C00" />
+
+      {/* Main rounded-rect robot head */}
+      <rect x="8" y="12" width="48" height="46" rx="14" fill="url(#bodyGrad)" />
+
+      {/* Top edge highlight */}
+      <rect x="12" y="12" width="40" height="6" rx="6" fill="white" fillOpacity="0.18" />
+
+      {/* Dark visor panel for eyes */}
+      <rect x="11" y="22" width="42" height="22" rx="8" fill="#0d1520" fillOpacity="0.88" />
+
+      {/* Left eye socket */}
+      <rect x="14" y="25" width="17" height="15" rx="5" fill="#071020" />
+      {/* Left eye LED glow */}
+      <rect x="16" y="27" width="13" height="11" rx="4" fill="url(#eyeGlowL)" filter="url(#eyeBloom)" />
+      {/* Left eye inner bright */}
+      <rect x="18" y="29" width="9" height="7" rx="2.5" fill="#80EEFF" fillOpacity="0.6" />
+      {/* Left eye shine */}
+      <rect x="19" y="30" width="4" height="2" rx="1" fill="white" fillOpacity="0.75" />
+
+      {/* Right eye socket */}
+      <rect x="33" y="25" width="17" height="15" rx="5" fill="#071020" />
+      {/* Right eye LED glow */}
+      <rect x="35" y="27" width="13" height="11" rx="4" fill="url(#eyeGlowR)" filter="url(#eyeBloom)" />
+      {/* Right eye inner bright */}
+      <rect x="37" y="29" width="9" height="7" rx="2.5" fill="#80EEFF" fillOpacity="0.6" />
+      {/* Right eye shine */}
+      <rect x="38" y="30" width="4" height="2" rx="1" fill="white" fillOpacity="0.75" />
+
+      {/* Speaker grille / mouth */}
+      <rect x="19" y="47" width="26" height="7" rx="3.5" fill="#0d1520" fillOpacity="0.65" />
+      <circle cx="25" cy="50.5" r="1.6" fill="#F5B80A" fillOpacity="0.8" />
+      <circle cx="32" cy="50.5" r="1.6" fill="#F5B80A" fillOpacity="0.8" />
+      <circle cx="39" cy="50.5" r="1.6" fill="#F5B80A" fillOpacity="0.8" />
+
+      {/* Rivets / bolts at corners */}
+      <circle cx="14" cy="18" r="2" fill="#C17A00" />
+      <circle cx="50" cy="18" r="2" fill="#C17A00" />
+      <circle cx="14" cy="52" r="2" fill="#C17A00" />
+      <circle cx="50" cy="52" r="2" fill="#C17A00" />
     </svg>
   );
 }
