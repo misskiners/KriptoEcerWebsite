@@ -152,7 +152,7 @@ export function TransactionFeed() {
   }, []);
 
   return (
-    <div className="relative bg-zinc-900 rounded-xl overflow-hidden border border-zinc-700/60 font-mono select-none shadow-xl shadow-black/20">
+    <div className="relative bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800/80 font-mono select-none shadow-xl shadow-black/20">
 
       {/* Noise/vignette overlay — menambah kedalaman tanpa terlalu gelap */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none z-0" />
@@ -165,7 +165,7 @@ export function TransactionFeed() {
       />
 
       {/* Top bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-800/70 border-b border-zinc-700/50">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-900/80 border-b border-zinc-800/60">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute h-full w-full rounded-full bg-green-400 opacity-60" />
@@ -196,7 +196,7 @@ export function TransactionFeed() {
                 className={`rounded-lg border overflow-hidden ${
                   tx.isNew
                     ? "border-amber-500/30 bg-amber-500/5 shadow-[0_0_16px_rgba(245,158,11,0.08)]"
-                    : "border-zinc-700/35 bg-zinc-800/25"
+                    : "border-zinc-800/50 bg-zinc-900/40"
                 }`}
                 data-testid={`transaction-item-${index}`}
               >
@@ -238,7 +238,7 @@ export function TransactionFeed() {
       </div>
 
       {/* Bottom bar */}
-      <div className="px-4 py-2.5 border-t border-zinc-700/40 bg-zinc-800/40">
+      <div className="px-4 py-2.5 border-t border-zinc-800/50 bg-zinc-900/60">
         <div className="flex items-center gap-1">
           <span className="text-[10px] text-zinc-500">&gt;_</span>
           <span className="text-[10px] text-zinc-500">bergabung dengan</span>
