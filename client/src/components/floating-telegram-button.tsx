@@ -26,84 +26,86 @@ function BotFace() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        {/* Body gradient — amber brand colour */}
-        <radialGradient id="body" cx="38%" cy="22%" r="72%">
+        {/* Amber shell gradient — brand colour */}
+        <radialGradient id="shell" cx="35%" cy="20%" r="75%">
           <stop offset="0%"   stopColor="#FFE04D" />
-          <stop offset="100%" stopColor="#E89000" />
+          <stop offset="60%"  stopColor="#F5B80A" />
+          <stop offset="100%" stopColor="#CC8800" />
         </radialGradient>
 
-        {/* Left-eye glow */}
-        <radialGradient id="elg" cx="40%" cy="38%" r="60%">
-          <stop offset="0%"   stopColor="#60F4FF" />
-          <stop offset="55%"  stopColor="#18AAEE" />
-          <stop offset="100%" stopColor="#0066CC" />
+        {/* Amber-dark ear gradient */}
+        <radialGradient id="earG" cx="35%" cy="30%" r="70%">
+          <stop offset="0%"   stopColor="#E8A020" />
+          <stop offset="100%" stopColor="#A06000" />
         </radialGradient>
 
-        {/* Right-eye glow — same */}
-        <radialGradient id="erg" cx="40%" cy="38%" r="60%">
-          <stop offset="0%"   stopColor="#60F4FF" />
-          <stop offset="55%"  stopColor="#18AAEE" />
-          <stop offset="100%" stopColor="#0066CC" />
+        {/* Cyan eye glow */}
+        <radialGradient id="eyeG" cx="40%" cy="35%" r="60%">
+          <stop offset="0%"   stopColor="#88FFFF" />
+          <stop offset="55%"  stopColor="#00E0F0" />
+          <stop offset="100%" stopColor="#00A8CC" />
         </radialGradient>
 
-        {/* Soft shadow under the head */}
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
-          <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#0004" />
+        {/* Drop shadow */}
+        <filter id="sh" x="-25%" y="-20%" width="150%" height="170%">
+          <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#00000030" />
+        </filter>
+
+        {/* Cyan glow around eyes */}
+        <filter id="eyeGlow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="2" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
       </defs>
 
-      {/* ── Antenna stem ── */}
-      <rect x="30" y="0" width="4" height="10" rx="2" fill="#B07000" />
+      {/* ── Top purple bump (antenna area) ── */}
+      <ellipse cx="32" cy="10" rx="10" ry="9" fill="url(#earG)" />
+      {/* bump highlight */}
+      <ellipse cx="29" cy="7"  rx="4"  ry="3" fill="white" fillOpacity="0.25" />
 
-      {/* ── Antenna ball — glows amber ── */}
-      <circle cx="32" cy="1.5" r="5.5" fill="#CC8800" />
-      <circle cx="32" cy="1.5" r="3.5" fill="#FFD700" />
-      <circle cx="31" cy="0.8" r="1.4" fill="white" fillOpacity="0.55" />
+      {/* ── White outer shell ── */}
+      <rect x="5" y="14" width="54" height="54" rx="20"
+            fill="url(#shell)" filter="url(#sh)" />
 
-      {/* ── Robot head — rounded-rect, NOT a circle ── */}
-      <rect x="4" y="10" width="56" height="56" rx="16"
-            fill="url(#body)" filter="url(#shadow)" />
+      {/* Shell inner bevel / edge lighting */}
+      <rect x="6" y="15" width="52" height="52" rx="19"
+            fill="none" stroke="#FFF0A0" strokeOpacity="0.55" strokeWidth="1.5" />
+      {/* Top gloss highlight */}
+      <ellipse cx="28" cy="20" rx="14" ry="6" fill="white" fillOpacity="0.22" />
 
-      {/* Top-edge gloss */}
-      <rect x="10" y="10" width="44" height="8" rx="6"
-            fill="white" fillOpacity="0.2" />
+      {/* ── Left purple ear ── */}
+      <ellipse cx="5"  cy="41" rx="6.5" ry="9" fill="url(#earG)" />
+      <ellipse cx="3"  cy="38" rx="2.5" ry="3" fill="white" fillOpacity="0.22" />
 
-      {/* ── Side sensor rivets ── */}
-      <circle cx="4"  cy="36" r="4.5" fill="#C07800" />
-      <circle cx="4"  cy="36" r="2.5" fill="#DDA000" />
-      <circle cx="60" cy="36" r="4.5" fill="#C07800" />
-      <circle cx="60" cy="36" r="2.5" fill="#DDA000" />
+      {/* ── Right purple ear ── */}
+      <ellipse cx="59" cy="41" rx="6.5" ry="9" fill="url(#earG)" />
+      <ellipse cx="57" cy="38" rx="2.5" ry="3" fill="white" fillOpacity="0.22" />
 
-      {/* ── Dark visor panel ── */}
-      <rect x="9" y="20" width="46" height="24" rx="8"
-            fill="#0A1525" fillOpacity="0.9" />
+      {/* ── Dark visor / face screen ── */}
+      <rect x="12" y="22" width="40" height="38" rx="13" fill="#16182E" />
 
-      {/* ── Left eye ── */}
-      <circle cx="24" cy="32" r="8"   fill="#040C1C" />
-      <circle cx="24" cy="32" r="6.5" fill="url(#elg)" />
-      <circle cx="24" cy="32" r="3.5" fill="#90F0FF" fillOpacity="0.55" />
-      {/* shine */}
-      <circle cx="21.5" cy="29.5" r="2"   fill="white" fillOpacity="0.85" />
-      <circle cx="26.5" cy="34.5" r="1"   fill="white" fillOpacity="0.35" />
+      {/* Visor inner rim highlight */}
+      <rect x="13" y="23" width="38" height="36" rx="12"
+            fill="none" stroke="#2A2D50" strokeWidth="1" />
 
-      {/* ── Right eye ── */}
-      <circle cx="40" cy="32" r="8"   fill="#040C1C" />
-      <circle cx="40" cy="32" r="6.5" fill="url(#erg)" />
-      <circle cx="40" cy="32" r="3.5" fill="#90F0FF" fillOpacity="0.55" />
-      {/* shine */}
-      <circle cx="37.5" cy="29.5" r="2"   fill="white" fillOpacity="0.85" />
-      <circle cx="42.5" cy="34.5" r="1"   fill="white" fillOpacity="0.35" />
+      {/* ── Left cyan eye ── */}
+      <circle cx="25" cy="37" r="5.5" fill="url(#eyeG)" filter="url(#eyeGlow)" />
+      <circle cx="25" cy="37" r="3"   fill="#CCFFFE" fillOpacity="0.6" />
+      <circle cx="23" cy="35" r="1.5" fill="white"   fillOpacity="0.8" />
 
-      {/* ── Cute pixel-smile (3 dots) ── */}
-      <circle cx="24" cy="51" r="2" fill="#0A1525" fillOpacity="0.55" />
-      <circle cx="32" cy="53" r="2" fill="#0A1525" fillOpacity="0.55" />
-      <circle cx="40" cy="51" r="2" fill="#0A1525" fillOpacity="0.55" />
+      {/* ── Right cyan eye ── */}
+      <circle cx="39" cy="37" r="5.5" fill="url(#eyeG)" filter="url(#eyeGlow)" />
+      <circle cx="39" cy="37" r="3"   fill="#CCFFFE" fillOpacity="0.6" />
+      <circle cx="37" cy="35" r="1.5" fill="white"   fillOpacity="0.8" />
 
-      {/* ── Bottom corner rivets ── */}
-      <circle cx="12" cy="60" r="2.2" fill="#C07800" />
-      <circle cx="52" cy="60" r="2.2" fill="#C07800" />
-      <circle cx="12" cy="16" r="2.2" fill="#C07800" />
-      <circle cx="52" cy="16" r="2.2" fill="#C07800" />
+      {/* ── Cyan smile ── */}
+      <path d="M22 48 Q32 57 42 48"
+            stroke="#00E8F8" strokeWidth="2.5"
+            strokeLinecap="round" fill="none" />
+      {/* smile glow */}
+      <path d="M22 48 Q32 57 42 48"
+            stroke="#00E8F8" strokeWidth="5" strokeLinecap="round"
+            fill="none" opacity="0.18" />
     </svg>
   );
 }
