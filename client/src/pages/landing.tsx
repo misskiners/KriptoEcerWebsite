@@ -301,7 +301,7 @@ function HeroSection() {
 
 function LiveTransactionsSection() {
   return (
-    <section className="py-16 relative overflow-hidden">
+    <section id="aktivitas" className="py-16 relative overflow-hidden">
       <ParticleNetwork className="opacity-20" />
       <div className="container mx-auto px-4 relative">
         <div className="max-w-5xl mx-auto">
@@ -322,11 +322,9 @@ function LiveTransactionsSection() {
                 <h2 className="text-3xl sm:text-4xl font-bold" data-testid="text-live-title">Aktivitas Terbaru</h2>
               </div>
               
-              <Card className="bg-card/90 backdrop-blur border-border shadow-lg">
-                <CardContent className="p-4">
-                  <TransactionFeed />
-                </CardContent>
-              </Card>
+              <div className="shadow-2xl shadow-black/30 rounded-xl ring-1 ring-white/5">
+                <TransactionFeed />
+              </div>
             </motion.div>
 
             <motion.div

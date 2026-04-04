@@ -1,6 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { CheckCircle2, Clock, Terminal, Coins } from "lucide-react";
 import { SiBitcoin, SiEthereum, SiLitecoin, SiDogecoin, SiTether, SiSolana, SiBinance, SiTon } from "react-icons/si";
 
 function TrxIcon({ className }: { className?: string }) {
@@ -12,170 +11,197 @@ function TrxIcon({ className }: { className?: string }) {
 }
 
 const cryptoOptions = [
-  { name: "Solana", symbol: "SOL", Icon: SiSolana, color: "text-purple-500", bg: "bg-purple-500/10" },
-  { name: "BNB", symbol: "BNB", Icon: SiBinance, color: "text-yellow-500", bg: "bg-yellow-500/10" },
-  { name: "USDC", symbol: "USDC", Icon: SiTether, color: "text-blue-500", bg: "bg-blue-500/10" },
-  { name: "USDT", symbol: "USDT", Icon: SiTether, color: "text-green-500", bg: "bg-green-500/10" },
-  { name: "Tron", symbol: "TRX", Icon: TrxIcon, color: "text-red-500", bg: "bg-red-500/10" },
-  { name: "Bitcoin", symbol: "BTC", Icon: SiBitcoin, color: "text-orange-500", bg: "bg-orange-500/10" },
-  { name: "Ethereum", symbol: "ETH", Icon: SiEthereum, color: "text-blue-400", bg: "bg-blue-400/10" },
-  { name: "Toncoin", symbol: "TON", Icon: SiTon, color: "text-sky-500", bg: "bg-sky-500/10" },
-  { name: "Litecoin", symbol: "LTC", Icon: SiLitecoin, color: "text-gray-400", bg: "bg-gray-400/10" },
-];
+  { name: "Solana",   symbol: "SOL",  Icon: SiSolana,   color: "text-purple-400", bg: "bg-purple-500/10", priceIdr: 1_380_000,  decimals: 4 },
+  { name: "BNB",      symbol: "BNB",  Icon: SiBinance,  color: "text-yellow-400", bg: "bg-yellow-500/10", priceIdr: 10_000_000, decimals: 5 },
+  { name: "USDC",     symbol: "USDC", Icon: SiTether,   color: "text-blue-400",   bg: "bg-blue-500/10",  priceIdr: 16_200,     decimals: 2 },
+  { name: "USDT",     symbol: "USDT", Icon: SiTether,   color: "text-emerald-400",bg: "bg-emerald-500/10",priceIdr: 16_200,     decimals: 2 },
+  { name: "Tron",     symbol: "TRX",  Icon: TrxIcon,    color: "text-red-400",    bg: "bg-red-500/10",   priceIdr: 5_400,      decimals: 1 },
+  { name: "Bitcoin",  symbol: "BTC",  Icon: SiBitcoin,  color: "text-orange-400", bg: "bg-orange-500/10",priceIdr: 1_140_000_000, decimals: 6 },
+  { name: "Ethereum", symbol: "ETH",  Icon: SiEthereum, color: "text-blue-300",   bg: "bg-blue-400/10",  priceIdr: 34_000_000, decimals: 5 },
+  { name: "Toncoin",  symbol: "TON",  Icon: SiTon,      color: "text-sky-400",    bg: "bg-sky-500/10",   priceIdr: 80_000,     decimals: 3 },
+  { name: "Litecoin", symbol: "LTC",  Icon: SiLitecoin, color: "text-zinc-400",   bg: "bg-zinc-400/10",  priceIdr: 1_300_000,  decimals: 4 },
+] as const;
 
-const amounts = ["Rp 15.000", "Rp 25.000", "Rp 50.000", "Rp 75.000", "Rp 100.000", "Rp 150.000", "Rp 200.000", "Rp 250.000"];
+const rupiahAmounts = [15_000, 25_000, 50_000, 75_000, 100_000, 150_000, 200_000, 250_000];
 const userNames = [
-  "andiwijaya", "budisantoso", "citramaya", "dediptr", "ekorhmn", "fitrinadya", "galihkrsn", "hendrajy",
-  "irfan.a", "joko.t", "kevin.l", "lina.h", "mario.d", "nina.f", "oscar.b", "putri.a",
-  "reza88", "sinta21", "tommy99", "umi07", "vina22", "wawan08", "yudi77", "zara23",
-  "arif_jkt", "bayu_bdg", "cahya_sby", "dewi_mlg", "fajar_id", "gilang.ptr", "hani.krsn", "indra.w",
-  "jayakusuma", "kikirahma", "leonardi", "megaputri", "nandajr", "ogiprima", "prasetyo", "rinandr",
-  "suryaadi", "tikawidya", "udinmks", "veramega", "widiarto", "xenaptra", "yogaptr", "zakiid"
+  "arif_jkt", "bayu_bdg", "cahya_sby", "dewi_mlg", "fajar_id",
+  "gilang_ptr", "hani_krsn", "indra_w", "jayakusuma", "kiki_r",
+  "leon_di", "mega_putri", "nanda_jr", "ogi_prima", "prasetyo",
+  "rina_ndr", "surya_adi", "tika_w", "udin_mks", "vera_m",
+  "widi_arto", "yogi_ptr", "zaki_id", "andie_w", "budi_s",
+  "citra_m", "dedi_ptr", "eko_r", "fitri_n", "galih_k",
 ];
-const timestamps = ["baru", "1d lalu", "3d lalu", "5d lalu", "8d lalu"];
+const timestamps = ["baru saja", "12s lalu", "28s lalu", "1m lalu", "3m lalu"];
+
+function generateHash(): string {
+  const hex = "0123456789abcdef";
+  const a = Array.from({ length: 4 }, () => hex[Math.floor(Math.random() * 16)]).join("");
+  const b = Array.from({ length: 4 }, () => hex[Math.floor(Math.random() * 16)]).join("");
+  return `0x${a}…${b}`;
+}
+
+function formatCryptoAmount(rupiahVal: number, crypto: typeof cryptoOptions[number]): string {
+  const amount = rupiahVal / crypto.priceIdr;
+  return `+${amount.toFixed(crypto.decimals)} ${crypto.symbol}`;
+}
+
+function formatRupiah(val: number): string {
+  return "Rp " + val.toLocaleString("id-ID");
+}
 
 interface Transaction {
   id: number;
   user: string;
-  amount: string;
-  crypto: typeof cryptoOptions[0];
+  rupiahVal: number;
+  crypto: typeof cryptoOptions[number];
+  cryptoAmount: string;
   timestamp: string;
   isNew: boolean;
-  action: "beli" | "jual";
+  action: "BELI" | "JUAL";
+  hash: string;
 }
 
-function generateUser(): string {
-  return userNames[Math.floor(Math.random() * userNames.length)];
-}
-
-function generateTransaction(id: number, isNew: boolean = false): Transaction {
+function generateTransaction(id: number, isNew = false): Transaction {
+  const crypto = cryptoOptions[Math.floor(Math.random() * cryptoOptions.length)];
+  const rupiahVal = rupiahAmounts[Math.floor(Math.random() * rupiahAmounts.length)];
   return {
     id,
-    user: generateUser(),
-    amount: amounts[Math.floor(Math.random() * amounts.length)],
-    crypto: cryptoOptions[Math.floor(Math.random() * cryptoOptions.length)],
-    timestamp: isNew ? "baru" : timestamps[Math.floor(Math.random() * timestamps.length)],
+    user: userNames[Math.floor(Math.random() * userNames.length)],
+    rupiahVal,
+    crypto,
+    cryptoAmount: formatCryptoAmount(rupiahVal, crypto),
+    timestamp: isNew ? "baru saja" : timestamps[Math.floor(Math.random() * (timestamps.length - 1)) + 1],
     isNew,
-    action: Math.random() > 0.3 ? "beli" : "jual",
+    action: Math.random() > 0.28 ? "BELI" : "JUAL",
+    hash: generateHash(),
   };
 }
 
 export function TransactionFeed() {
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    generateTransaction(1),
-    generateTransaction(2),
-    generateTransaction(3),
-    generateTransaction(4),
-    generateTransaction(5),
-  ]);
+  const [transactions, setTransactions] = useState<Transaction[]>(() =>
+    Array.from({ length: 5 }, (_, i) => generateTransaction(i + 1))
+  );
+  const [blockNum, setBlockNum] = useState(() => Math.floor(Math.random() * 500_000) + 4_800_000);
+  const [blink, setBlink] = useState(true);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTransactions((prev) => {
-        const updatedPrev = prev.map((tx, idx) => ({
+    const txInterval = setInterval(() => {
+      setBlockNum(b => b + 1);
+      setTransactions(prev => {
+        const updated = prev.map((tx, idx) => ({
           ...tx,
           isNew: false,
           timestamp: timestamps[Math.min(idx + 1, timestamps.length - 1)],
         }));
-        const newTx = generateTransaction(Date.now(), true);
-        return [newTx, ...updatedPrev.slice(0, 4)];
+        return [generateTransaction(Date.now(), true), ...updated.slice(0, 4)];
       });
-    }, 3000);
+    }, 3200);
 
-    return () => clearInterval(interval);
+    const blinkInterval = setInterval(() => setBlink(b => !b), 530);
+
+    return () => { clearInterval(txInterval); clearInterval(blinkInterval); };
   }, []);
 
   return (
-    <div className="space-y-1.5 font-mono">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-border/50">
+    <div className="relative bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800 font-mono select-none">
+
+      {/* Scan-line sweep */}
+      <motion.div
+        className="absolute inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/20 to-transparent pointer-events-none z-10"
+        animate={{ y: [0, 360] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "linear", repeatDelay: 3 }}
+      />
+
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-900/80 border-b border-zinc-800">
         <div className="flex items-center gap-2">
-          <div className="relative">
-            <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-            <Terminal className="w-4 h-4 text-primary" />
-          </div>
-          <span className="text-sm font-medium">@kriptoecerbot</span>
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute h-full w-full rounded-full bg-green-400 opacity-60" />
+            <span className="relative rounded-full h-2 w-2 bg-green-500" />
+          </span>
+          <span className="text-[11px] text-zinc-500">kriptoecerbot</span>
+          <span className="text-[11px] text-zinc-700">@</span>
+          <span className="text-[11px] text-amber-400/80">mainnet</span>
+          <span className="text-[11px] text-zinc-700 ml-1">--live</span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Clock className="w-3 h-3" />
-          <span>langsung</span>
+        <div className="flex items-center gap-1.5">
+          <span className="text-[10px] text-zinc-700">BLOCK</span>
+          <span className="text-[10px] text-amber-400/50 tabular-nums">{blockNum.toLocaleString("id-ID")}</span>
         </div>
       </div>
-      
-      <div className="space-y-1.5">
+
+      {/* Feed */}
+      <div className="p-3 space-y-2 min-h-[300px]">
+        <AnimatePresence initial={false}>
           {transactions.map((tx, index) => (
             <motion.div
               key={tx.id}
-              initial={false}
-              animate={{ 
-                opacity: 1 - (index * 0.08),
+              initial={{ opacity: 0, y: -16, scaleY: 0.8 }}
+              animate={{
+                opacity: Math.max(0.25, 1 - index * 0.18),
+                y: 0,
+                scaleY: 1,
               }}
-              transition={{ 
-                duration: 0.4,
-                ease: "easeOut",
-              }}
-            className={`relative flex items-center gap-3 p-2.5 h-[52px] rounded-lg text-xs transition-colors duration-300 ${
-              tx.isNew 
-                ? "bg-primary/10 border border-primary/30" 
-                : "bg-muted/20 border border-transparent"
-            }`}
-            data-testid={`transaction-item-${index}`}
-          >
-            {tx.isNew && (
-              <motion.div
-                className="absolute -left-0.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              />
-            )}
-            
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${tx.crypto.bg} ${tx.crypto.color}`}>
-              <tx.crypto.Icon className="w-4 h-4" />
-            </div>
-            
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5">
-                <span className="font-medium text-foreground/90 truncate text-[11px]">
+              exit={{ opacity: 0, height: 0, marginBottom: 0, scaleY: 0.8 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className={`rounded-lg border overflow-hidden ${
+                tx.isNew
+                  ? "border-amber-500/30 bg-amber-500/5 shadow-[0_0_16px_rgba(245,158,11,0.08)]"
+                  : "border-zinc-800/50 bg-zinc-900/20"
+              }`}
+              data-testid={`transaction-item-${index}`}
+            >
+              {/* Hash + timestamp */}
+              <div className="flex items-center justify-between px-3 pt-2 pb-0.5">
+                <span className={`text-[10px] tabular-nums ${tx.isNew ? "text-amber-400/60" : "text-zinc-700"}`}>
+                  {tx.hash}
+                </span>
+                <span className={`text-[10px] ${tx.isNew ? "text-amber-400/50" : "text-zinc-700"}`}>
+                  {tx.timestamp}
+                </span>
+              </div>
+
+              {/* Action row */}
+              <div className="flex items-center gap-2 px-3 pb-2.5 pt-1">
+                <span className={`text-[11px] font-bold ${tx.action === "BELI" ? "text-green-400" : "text-red-400"}`}>
+                  {tx.action === "BELI" ? "▲" : "▼"}
+                </span>
+                <div className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 ${tx.crypto.bg} ${tx.crypto.color}`}>
+                  <tx.crypto.Icon className="w-3 h-3" />
+                </div>
+                <span className="text-[11px] text-zinc-200 font-semibold tracking-tight truncate max-w-[80px]">
                   {tx.user}
                 </span>
-                <span className="text-muted-foreground/70">→</span>
-                <span className="text-primary font-semibold">
-                  {tx.amount}
-                </span>
-              </div>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <span className={`text-[10px] ${tx.action === "jual" ? "text-red-400" : "text-green-400"}`}>
+                <span className={`text-[10px] font-bold ${tx.action === "BELI" ? "text-green-400" : "text-red-400"}`}>
                   {tx.action}
                 </span>
-                <span className="text-[10px] px-1 py-0.5 rounded bg-muted/50 text-foreground/80 font-medium">
-                  {tx.crypto.symbol}
+                <span className={`text-[10px] font-medium flex-1 truncate ${tx.crypto.color}`}>
+                  {tx.cryptoAmount}
+                </span>
+                <span className="text-[10px] text-zinc-600 shrink-0">
+                  {formatRupiah(tx.rupiahVal)}
                 </span>
               </div>
-            </div>
-            
-            <div className="flex flex-col items-end gap-0.5">
-              <CheckCircle2 className={`w-3.5 h-3.5 ${tx.isNew ? "text-primary" : "text-green-500/70"}`} />
-              <span className="text-[9px] text-muted-foreground/70 whitespace-nowrap">
-                {tx.timestamp}
-              </span>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
-      
-      <motion.div 
-        className="text-center pt-3 mt-2 border-t border-border/30"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        <p className="text-[10px] text-muted-foreground/60">
-          // gabung ribuan pengguna lainnya...
-        </p>
-      </motion.div>
+
+      {/* Bottom bar */}
+      <div className="px-4 py-2.5 border-t border-zinc-800/60 bg-zinc-900/40">
+        <div className="flex items-center gap-1">
+          <span className="text-[10px] text-zinc-700">&gt;_</span>
+          <span className="text-[10px] text-zinc-600">bergabung dengan</span>
+          <span className="text-[10px] text-amber-400/70 font-semibold">ribuan pengguna aktif</span>
+          <motion.span
+            className="text-[10px] text-amber-400/60 ml-0.5"
+            animate={{ opacity: blink ? 1 : 0 }}
+            transition={{ duration: 0 }}
+          >
+            █
+          </motion.span>
+        </div>
+      </div>
     </div>
   );
 }
