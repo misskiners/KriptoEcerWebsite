@@ -30,3 +30,9 @@ id = "7fhTGeKIh046vYu0EAGBi"
 uri = "file://client/public/images/blog/5-istilah-crypto-wajib-dipahami-pemula.png"
 type = "image"
 title = "blockchain learning crypto"
+
+[[generated]]
+id = "C5LDEepYS7c4vj6iZ-01X"
+uri = "file://attached_assets/generated_images/generated_image.png"
+type = "image"
+title = "generated_image"

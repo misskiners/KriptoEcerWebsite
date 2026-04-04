@@ -8,6 +8,7 @@ import { Clock, ArrowRight, Bot, BookOpen, ChevronLeft } from "lucide-react";
 import { SiTelegram } from "react-icons/si";
 import { articles } from "@shared/articles";
 import type { Article } from "@shared/schema";
+import { SEO, SITE_URL } from "@/components/seo";
 
 const logoImage = "/favicon.png";
 
@@ -74,9 +75,46 @@ function ArticleCard({ article, index }: { article: Article; index: number }) {
   );
 }
 
+const blogStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Beranda", "item": `${SITE_URL}/` },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE_URL}/blog` },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Blog Crypto Indonesia — KriptoEcer",
+    "description": "Panduan, tips, dan edukasi crypto dalam bahasa Indonesia. Baca artikel tentang cara beli crypto, top up fee gas, dan strategi investasi untuk pemula.",
+    "url": `${SITE_URL}/blog`,
+    "publisher": {
+      "@type": "Organization",
+      "name": "KriptoEcer",
+      "logo": { "@type": "ImageObject", "url": `${SITE_URL}/favicon.png` },
+    },
+    "hasPart": articles.map((a) => ({
+      "@type": "BlogPosting",
+      "headline": a.title,
+      "description": a.excerpt,
+      "url": `${SITE_URL}/blog/${a.slug}`,
+      "datePublished": a.publishedAt,
+      "author": { "@type": "Organization", "name": a.author },
+    })),
+  },
+];
+
 export default function BlogPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Blog Crypto Indonesia — Tips, Panduan & Edukasi"
+        description="Panduan lengkap crypto dalam bahasa Indonesia. Tips beli crypto, cara top up fee gas SOL/TRX/BNB, edukasi blockchain, dan panduan pemula dari KriptoEcer."
+        canonical="/blog"
+        structuredData={blogStructuredData}
+      />
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

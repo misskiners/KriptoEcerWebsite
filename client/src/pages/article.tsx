@@ -11,6 +11,7 @@ import { SiTelegram, SiWhatsapp } from "react-icons/si";
 import { useState, useEffect } from "react";
 import { articles } from "@shared/articles";
 import type { Article } from "@shared/schema";
+import { SEO, SITE_URL } from "@/components/seo";
 
 const logoImage = "/favicon.png";
 
@@ -155,6 +156,46 @@ function RelatedArticles({ current }: { current: Article }) {
   );
 }
 
+function buildArticleStructuredData(article: Article) {
+  const articleUrl = `${SITE_URL}/blog/${article.slug}`;
+  const imageUrl = `${SITE_URL}/images/blog/${article.slug}.png`;
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Beranda", "item": `${SITE_URL}/` },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE_URL}/blog` },
+        { "@type": "ListItem", "position": 3, "name": article.title, "item": articleUrl },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": article.title,
+      "description": article.excerpt,
+      "image": imageUrl,
+      "url": articleUrl,
+      "datePublished": article.publishedAt,
+      "dateModified": article.publishedAt,
+      "author": {
+        "@type": "Organization",
+        "name": article.author,
+        "url": SITE_URL,
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "KriptoEcer",
+        "logo": { "@type": "ImageObject", "url": `${SITE_URL}/favicon.png` },
+      },
+      "mainEntityOfPage": { "@type": "WebPage", "@id": articleUrl },
+      "articleSection": article.category,
+      "inLanguage": "id-ID",
+      "keywords": `crypto indonesia, ${article.category.toLowerCase()}, beli crypto, KriptoEcer`,
+    },
+  ];
+}
+
 export default function ArticlePage() {
   const { slug } = useParams<{ slug: string }>();
   const article = articles.find((a) => a.slug === slug);
@@ -166,6 +207,30 @@ export default function ArticlePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {article ? (
+        <SEO
+          title={article.title}
+          description={article.excerpt}
+          canonical={`/blog/${article.slug}`}
+          ogImage={`${SITE_URL}/images/blog/${article.slug}.png`}
+          ogType="article"
+          article={{
+            publishedAt: typeof article.publishedAt === "string"
+              ? article.publishedAt
+              : new Date(article.publishedAt).toISOString(),
+            author: article.author,
+            section: article.category,
+            tags: ["crypto", "indonesia", article.category.toLowerCase()],
+          }}
+          structuredData={buildArticleStructuredData(article)}
+        />
+      ) : (
+        <SEO
+          title="Artikel Tidak Ditemukan"
+          description="Artikel yang kamu cari tidak tersedia. Cek artikel lainnya di blog KriptoEcer."
+          noindex
+        />
+      )}
       {article && <ReadingProgressBar />}
 
       <motion.header

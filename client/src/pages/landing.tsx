@@ -31,6 +31,7 @@ import { articles as allArticles } from "@shared/articles";
 import confetti from "canvas-confetti";
 import { CryptoCalculator } from "@/components/crypto-calculator";
 import { FloatingTelegramButton } from "@/components/floating-telegram-button";
+import { SEO, SITE_URL } from "@/components/seo";
 const logoImage = "/favicon.png";
 import { FloatingCoins } from "@/components/animations/floating-coins";
 import { ParticleNetwork } from "@/components/animations/particle-network";
@@ -956,9 +957,79 @@ function Footer() {
   );
 }
 
+const LANDING_STRUCTURED_DATA = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "KriptoEcer",
+    "url": SITE_URL,
+    "logo": { "@type": "ImageObject", "url": `${SITE_URL}/favicon.png` },
+    "description": "Bot Telegram jual beli cryptocurrency eceran mulai Rp10.000 tanpa KYC, proses otomatis 24/7 di Indonesia.",
+    "contactPoint": { "@type": "ContactPoint", "contactType": "customer service", "url": "https://t.me/kriptoecerbot" },
+    "sameAs": [
+      "https://t.me/kriptoecerofficial",
+      "https://t.me/kriptoecerchannel",
+      "https://x.com/kriptoecer",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "KriptoEcer",
+    "url": SITE_URL,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": { "@type": "EntryPoint", "urlTemplate": `${SITE_URL}/blog?q={search_term_string}` },
+      "query-input": "required name=search_term_string",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Apa itu KriptoEcer dan siapa yang cocok pakainya?",
+        "acceptedAnswer": { "@type": "Answer", "text": "KriptoEcer adalah bot Telegram untuk jual beli crypto eceran mulai Rp10.000. Cocok untuk trader yang butuh top up fee gas (TRX, SOL, BNB), beli meme coin tanpa ribet, atau coba coin baru dengan modal kecil. Semua proses otomatis — cukup chat bot, tidak perlu tunggu admin." },
+      },
+      {
+        "@type": "Question",
+        "name": "Berapa minimal beli crypto di KriptoEcer?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Minimal pembelian mulai dari Rp10.000. Jauh lebih rendah dari exchange besar yang biasanya minta deposit ratusan ribu sampai jutaan rupiah." },
+      },
+      {
+        "@type": "Question",
+        "name": "Apakah perlu KYC atau verifikasi identitas?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Tidak perlu! KriptoEcer tidak meminta KTP, selfie, atau verifikasi identitas apapun. Cukup daftar via bot Telegram @kriptoecerbot dan langsung bisa transaksi." },
+      },
+      {
+        "@type": "Question",
+        "name": "Metode pembayaran apa saja yang diterima?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ada 4 metode deposit yang semuanya otomatis: QRIS semua bank, Virtual Account (VA), PayPal, dan CryptoBot Telegram. Tidak perlu konfirmasi manual ke admin." },
+      },
+      {
+        "@type": "Question",
+        "name": "Crypto dan meme coin apa saja yang tersedia?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Tersedia Bitcoin (BTC), Ethereum (ETH), USDT, BNB, Solana (SOL), TRX, Litecoin (LTC), Dogecoin (DOGE), dan berbagai altcoin serta meme coin populer lainnya." },
+      },
+      {
+        "@type": "Question",
+        "name": "Apa bedanya KriptoEcer dengan exchange seperti Indodax atau Tokocrypto?",
+        "acceptedAnswer": { "@type": "Answer", "text": "KriptoEcer bukan exchange — ini bot untuk beli eceran dengan cepat. Tanpa download app, tanpa KYC, minimal beli Rp10.000, dan semua berjalan otomatis via Telegram." },
+      },
+    ],
+  },
+];
+
 export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="KriptoEcer - Beli & Jual Crypto Eceran Mulai Rp10.000 via Telegram"
+        description="KriptoEcer — bot Telegram jual beli crypto eceran mulai Rp10.000. Beli meme coin, top up fee gas TRX/SOL/BNB, atau beli USDT tanpa KYC. Deposit otomatis via QRIS, VA, PayPal."
+        canonical="/"
+        structuredData={LANDING_STRUCTURED_DATA}
+      />
       <Header />
       <CryptoTicker />
       <main>
