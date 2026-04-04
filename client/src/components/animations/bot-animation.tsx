@@ -355,13 +355,14 @@ export function BotAnimation() {
           </p>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          {updatedStr && (
-            <button onClick={() => fetchPrices(true)}
-              className="text-white/50 hover:text-white/80 transition-colors"
-              title={`Diperbarui ${updatedStr}`}>
-              <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin" : ""}`} />
-            </button>
-          )}
+          {/* Always render — invisible saat belum ada data agar DOM stabil */}
+          <button
+            onClick={() => fetchPrices(true)}
+            className={`text-white/50 hover:text-white/80 transition-colors ${updatedStr ? "" : "invisible pointer-events-none"}`}
+            title={updatedStr ? `Diperbarui ${updatedStr}` : ""}
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin" : ""}`} />
+          </button>
           <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer"
             className="text-white/70 hover:text-white transition-colors">
             <SiTelegram className="w-5 h-5" />
@@ -428,10 +429,9 @@ export function BotAnimation() {
           <span className="text-[11px] font-mono text-white/50 flex-1 text-right">
             {loading ? "memuat..." : formatShort(price)}
           </span>
-          {loading && <span className="text-[10px] text-white/30 animate-pulse">…</span>}
-          {!loading && lastUpdated && (
-            <span className="text-[10px] text-green-400/70 flex-shrink-0 font-semibold">live</span>
-          )}
+          {/* Always render keduanya — toggle visibility bukan conditional render agar DOM stabil */}
+          <span className={`text-[10px] text-white/30 animate-pulse ${loading ? "" : "invisible"}`}>…</span>
+          <span className={`text-[10px] text-green-400/70 flex-shrink-0 font-semibold ${!loading && lastUpdated ? "" : "invisible"}`}>live</span>
         </div>
 
         {/* Coin selector — horizontally scrollable with fade hint */}

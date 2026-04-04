@@ -29,13 +29,56 @@ interface PriceData {
 type PricesMap = Record<string, PriceData>;
 
 const REFRESH_INTERVAL = 60_000;
+const DURATION_DESKTOP = 32_000; // ms untuk scroll satu putaran penuh
+const DURATION_MOBILE  = 18_000;
 
 export function CryptoTicker() {
-  const [prices, setPrices] = useState<PricesMap | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [prices, setPrices]           = useState<PricesMap | null>(null);
+  const [loading, setLoading]         = useState(true);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const retryRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const retryRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  /* ── Ref untuk DOM node yang dianimasikan — TIDAK masuk ke React state ── */
+  const trackRef    = useRef<HTMLDivElement>(null);
+  const rafRef      = useRef<number>(0);
+  const posRef      = useRef(0);        // posisi translateX saat ini (px, negatif)
+  const lastTimeRef = useRef<number | null>(null);
+
+  /* ─── rAF loop: berjalan terus-menerus, IMMUNE terhadap React re-render ─── */
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 640;
+    const duration = isMobile ? DURATION_MOBILE : DURATION_DESKTOP;
+
+    const loop = (now: number) => {
+      const el = trackRef.current;
+      if (!el) { rafRef.current = requestAnimationFrame(loop); return; }
+
+      const halfWidth = el.scrollWidth / 2; // lebar satu strip
+
+      if (lastTimeRef.current !== null && halfWidth > 10) {
+        const delta = now - lastTimeRef.current;               // ms
+        const speed = halfWidth / duration;                    // px/ms
+        posRef.current -= speed * delta;
+
+        if (posRef.current <= -halfWidth) {
+          posRef.current += halfWidth; // reset seamless ke strip kedua
+        }
+
+        el.style.transform = `translateX(${posRef.current}px)`;
+      }
+
+      lastTimeRef.current = now;
+      rafRef.current = requestAnimationFrame(loop);
+    };
+
+    rafRef.current = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      lastTimeRef.current = null;
+    };
+  }, []); // [KRITIS] KOSONG — loop hanya dimulai sekali saat mount, tidak restart
+
+  /* ── Price fetch ── */
   async function fetchPrices() {
     if (retryRef.current) { clearTimeout(retryRef.current); retryRef.current = null; }
     try {
@@ -61,27 +104,25 @@ export function CryptoTicker() {
   }, []);
 
   const tickers = COIN_CONFIG.map((coin) => {
-    const data = prices?.[coin.id];
+    const data    = prices?.[coin.id];
     const price   = data ? formatIDR(data.idr) : "—";
     const change  = data ? `${data.idr_24h_change >= 0 ? "+" : ""}${data.idr_24h_change.toFixed(2)}%` : "—";
     const up      = data ? data.idr_24h_change >= 0 : true;
     return { ...coin, price, change, up };
   });
 
-  // Satu "strip" lengkap termasuk live indicator — harus identik agar -50% tepat
-  // Both strips must be IDENTICAL for the -50% marquee offset to be pixel-perfect.
-  // Loading indicator lives OUTSIDE the strips so width stays consistent.
+  /* Strip selalu punya DOM node yang sama — hanya teks & class yang berubah.
+     Tidak ada conditional render di dalam strip agar width stabil. */
   const renderStrip = (keyPrefix: string) => (
     <>
       {tickers.map((t, i) => {
-        const Icon = t.Icon;
+        const Icon    = t.Icon;
         const hasData = t.price !== "—";
         return (
           <span key={`${keyPrefix}-${i}`} className="inline-flex items-center gap-1.5 px-5 text-xs font-medium shrink-0">
             <Icon className={`w-3.5 h-3.5 ${t.color}`} />
             <span className="font-semibold text-foreground/80">{t.symbol}</span>
             <span className="text-muted-foreground">{t.price}</span>
-            {/* Always render — invisible saat data belum ada agar DOM stabil & animasi tidak restart */}
             <span className={`flex items-center gap-0.5 ${t.up ? "text-green-500" : "text-red-500"} ${hasData ? "" : "invisible"}`}>
               {t.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
               <span>{t.change}</span>
@@ -90,7 +131,6 @@ export function CryptoTicker() {
           </span>
         );
       })}
-      {/* Always render live indicator — invisible saat belum ada data agar DOM stabil */}
       <span className={`inline-flex items-center gap-1 px-4 text-xs text-muted-foreground/50 shrink-0 ${lastUpdated ? "" : "invisible"}`}>
         <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
         Live · {lastUpdated
@@ -102,13 +142,13 @@ export function CryptoTicker() {
 
   return (
     <div className="fixed top-16 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border/60 overflow-hidden h-9">
-      {/* Loading spinner lives outside strips so both strips stay identical width */}
       {loading && (
-        <div className="absolute right-2 top-1/2 -translate-y-1/2 z-10">
+        <div className="absolute right-2 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
           <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
         </div>
       )}
-      <div className="flex items-center h-full animate-marquee whitespace-nowrap">
+      {/* trackRef — TIDAK diberi class CSS animation, dianimasikan via rAF */}
+      <div ref={trackRef} className="flex items-center h-full whitespace-nowrap will-change-transform">
         {renderStrip("a")}
         {renderStrip("b")}
       </div>
