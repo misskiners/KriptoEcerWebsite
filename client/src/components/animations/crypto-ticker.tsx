@@ -29,8 +29,8 @@ interface PriceData {
 type PricesMap = Record<string, PriceData>;
 
 const REFRESH_INTERVAL = 60_000;
-const DURATION_DESKTOP = 32_000; // ms untuk scroll satu putaran penuh
-const DURATION_MOBILE  = 18_000;
+const DURATION_DESKTOP = 60_000; // ms untuk scroll satu putaran penuh
+const DURATION_MOBILE  = 32_000;
 
 export function CryptoTicker() {
   const [prices, setPrices]           = useState<PricesMap | null>(null);
