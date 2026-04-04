@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
   Zap,
   Shield,
@@ -655,50 +656,45 @@ function FAQSection() {
           </p>
         </motion.div>
 
+        {/* MOBILE: accordion dropdown klasik */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6"
+          className="block lg:hidden max-w-3xl mx-auto"
         >
-          {/*
-            Mobile: panel jawaban muncul PERTAMA (order-1), daftar pertanyaan KEDUA (order-2)
-            Desktop: pertanyaan di kiri (col-span-2), jawaban di kanan (col-span-3) — order reset
-          */}
-
-          {/* Panel jawaban: mobile=atas (order-1), desktop=kanan (order-2) */}
-          <div className="order-1 lg:order-2 lg:col-span-3">
-            <div className="rounded-2xl border bg-card p-5 lg:p-7 min-h-[150px] lg:min-h-[220px] flex flex-col justify-start">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={selected}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.18, ease: "easeOut" }}
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} value={`item-${i}`}>
+                <AccordionTrigger
+                  className="text-left text-sm"
+                  data-testid={`accordion-trigger-${i}`}
                 >
-                  <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">
-                    Pertanyaan {selected + 1} dari {faqs.length}
-                  </p>
-                  <h3 className="font-semibold text-base mb-3 leading-snug" data-testid={`faq-question-${selected}`}>
-                    {faqs[selected].question}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed" data-testid={`faq-answer-${selected}`}>
-                    {faqs[selected].answer}
-                  </p>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground text-sm">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
 
-          {/* Daftar pertanyaan: mobile=bawah (order-2), desktop=kiri (order-1) */}
-          <div className="order-2 lg:order-1 lg:col-span-2 space-y-1">
+        {/* DESKTOP: 2 kolom — pertanyaan kiri, jawaban kanan */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="hidden lg:grid max-w-5xl mx-auto grid-cols-5 gap-6"
+        >
+          {/* Pertanyaan di kiri */}
+          <div className="col-span-2 space-y-1">
             {faqs.map((faq, i) => (
               <button
                 key={i}
                 onClick={() => setSelected(i)}
-                data-testid={`accordion-trigger-${i}`}
-                className={`w-full text-left flex items-start gap-2.5 px-3.5 py-3 lg:px-4 lg:py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                data-testid={`faq-btn-${i}`}
+                className={`w-full text-left flex items-start gap-2.5 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                   selected === i
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -710,6 +706,31 @@ function FAQSection() {
                 <span className="leading-snug">{faq.question}</span>
               </button>
             ))}
+          </div>
+
+          {/* Panel jawaban di kanan — fixed height, hanya konten fade */}
+          <div className="col-span-3">
+            <div className="rounded-2xl border bg-card p-7 min-h-[220px] flex flex-col justify-start">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={selected}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                >
+                  <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">
+                    Pertanyaan {selected + 1} dari {faqs.length}
+                  </p>
+                  <h3 className="font-semibold text-base mb-4 leading-snug" data-testid={`faq-question-${selected}`}>
+                    {faqs[selected].question}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed" data-testid={`faq-answer-${selected}`}>
+                    {faqs[selected].answer}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </motion.div>
       </div>
