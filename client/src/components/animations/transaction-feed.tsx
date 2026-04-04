@@ -107,11 +107,7 @@ export function TransactionFeed() {
   useEffect(() => {
     async function fetchPrices() {
       try {
-        const ids = CRYPTO_META.map(c => c.id).join(",");
-        const res = await fetch(
-          `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=idr`,
-          { cache: "no-store" }
-        );
+        const res = await fetch("/api/prices", { cache: "no-store" });
         if (!res.ok) return;
         const data: Record<string, { idr: number }> = await res.json();
         CRYPTO_META.forEach(c => {

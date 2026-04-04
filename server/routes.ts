@@ -4,10 +4,62 @@ import { articles } from "../shared/articles";
 
 const SITE_URL = "https://kriptoecer.com";
 
+/* ── CoinGecko price cache (server-side proxy to avoid CORS) ── */
+const ALL_COIN_IDS = [
+  "bitcoin", "ethereum", "solana", "binancecoin", "tether",
+  "usd-coin", "tron", "litecoin", "dogecoin", "the-open-network",
+].join(",");
+
+interface PriceCache {
+  data: Record<string, { idr: number; idr_24h_change: number }> | null;
+  fetchedAt: number;
+}
+const priceCache: PriceCache = { data: null, fetchedAt: 0 };
+const CACHE_TTL_MS = 60_000;
+
+async function fetchFromCoinGecko(): Promise<PriceCache["data"]> {
+  const url =
+    `https://api.coingecko.com/api/v3/simple/price` +
+    `?ids=${ALL_COIN_IDS}&vs_currencies=idr&include_24hr_change=true`;
+  const res = await fetch(url, {
+    headers: { Accept: "application/json" },
+    signal: AbortSignal.timeout(8_000),
+  });
+  if (!res.ok) throw new Error(`CoinGecko ${res.status}`);
+  return res.json() as Promise<PriceCache["data"]>;
+}
+
+async function getPrices(): Promise<PriceCache["data"]> {
+  const now = Date.now();
+  if (priceCache.data && now - priceCache.fetchedAt < CACHE_TTL_MS) {
+    return priceCache.data;
+  }
+  try {
+    const fresh = await fetchFromCoinGecko();
+    priceCache.data = fresh;
+    priceCache.fetchedAt = now;
+    return fresh;
+  } catch {
+    return priceCache.data;
+  }
+}
+
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  /* ── Price proxy — all components use this ── */
+  app.get("/api/prices", async (_req, res) => {
+    try {
+      const data = await getPrices();
+      if (!data) return res.status(503).json({ error: "prices unavailable" });
+      res.set("Cache-Control", "public, max-age=30");
+      res.json(data);
+    } catch {
+      res.status(503).json({ error: "prices unavailable" });
+    }
+  });
+
   app.get("/api/articles", (_req, res) => {
     res.json(articles);
   });

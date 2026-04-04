@@ -25,7 +25,6 @@ import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTrans
 import { useRef, useEffect, useState, useCallback } from "react";
 import { articles as allArticles } from "@shared/articles";
 import confetti from "canvas-confetti";
-import { CryptoCalculator } from "@/components/crypto-calculator";
 import { FloatingTelegramButton } from "@/components/floating-telegram-button";
 import { SEO, SITE_URL } from "@/components/seo";
 const logoImage = "/favicon.png";
@@ -1207,7 +1206,6 @@ export default function Landing() {
         <FeaturesSection />
         <DepositSection />
         <HowItWorksSection />
-        <CryptoCalculator />
         <FAQSection />
         <RecentArticlesSection />
         <CTASection />

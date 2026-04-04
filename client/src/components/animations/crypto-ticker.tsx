@@ -37,9 +37,7 @@ export function CryptoTicker() {
 
   async function fetchPrices() {
     try {
-      const ids = COIN_CONFIG.map((c) => c.id).join(",");
-      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=idr&include_24hr_change=true`;
-      const res = await fetch(url, { cache: "no-store" });
+      const res = await fetch("/api/prices", { cache: "no-store" });
       if (!res.ok) throw new Error("API error");
       const data: PricesMap = await res.json();
       setPrices(data);

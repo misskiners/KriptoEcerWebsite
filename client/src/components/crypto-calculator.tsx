@@ -59,11 +59,7 @@ export function CryptoCalculator() {
   async function fetchPrices(showRefreshing = false) {
     if (showRefreshing) setRefreshing(true);
     try {
-      const ids = COINS.map((c) => c.id).join(",");
-      const res = await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=idr`,
-        { cache: "no-store" }
-      );
+      const res = await fetch("/api/prices", { cache: "no-store" });
       if (!res.ok) throw new Error();
       const data = await res.json();
       const map: Record<string, number> = {};
