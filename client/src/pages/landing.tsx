@@ -180,7 +180,7 @@ function HeroSection() {
             <motion.div variants={fadeInUp}>
               <Badge variant="secondary" className="mb-6" data-testid="badge-hero">
                 <Zap className="w-3 h-3 mr-1" />
-                Jual Beli Crypto Eceran via Telegram
+                Jual Beli Crypto Eceran via Telegram No. 1 di Indonesia
               </Badge>
             </motion.div>
 
