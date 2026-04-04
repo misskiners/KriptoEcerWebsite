@@ -297,10 +297,10 @@ function HeroSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="hidden lg:block"
+            className="flex justify-center lg:justify-end mt-4 lg:mt-0"
           >
             <BotAnimation />
           </motion.div>
