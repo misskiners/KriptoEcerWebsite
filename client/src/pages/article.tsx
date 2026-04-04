@@ -1,10 +1,9 @@
 import { useParams, Link } from "wouter";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  Clock, Bot, ChevronLeft, Calendar, ArrowRight,
+  Clock, ChevronLeft, Calendar, ArrowRight,
   BookOpen, Copy, Check, Share2,
 } from "lucide-react";
 import { SiTelegram, SiWhatsapp } from "react-icons/si";
@@ -12,8 +11,8 @@ import { useState, useEffect, useRef } from "react";
 import { articles } from "@shared/articles";
 import type { Article } from "@shared/schema";
 import { SEO, SITE_URL } from "@/components/seo";
-
-const logoImage = "/favicon.png";
+import { PageHeader } from "@/components/page-header";
+import { PageFooter } from "@/components/page-footer";
 
 const categoryStyle: Record<string, string> = {
   Panduan: "bg-primary/10 text-primary border-primary/20",
@@ -210,7 +209,7 @@ export default function ArticlePage() {
     .filter(Boolean) ?? [];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {article ? (
         <SEO
           title={article.title}
@@ -237,36 +236,14 @@ export default function ArticlePage() {
       )}
       {article && <ReadingProgressBar />}
 
-      <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border"
-      >
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2" data-testid="link-article-logo">
-            <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
-            <span className="text-base font-bold tracking-tight">KriptoEcer</span>
-          </a>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <Button asChild data-testid="button-article-cta">
-              <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
-                <Bot className="w-4 h-4 mr-1.5" />
-                Start Bot
-              </a>
-            </Button>
-          </div>
-        </div>
-      </motion.header>
+      <PageHeader />
 
-      <main className="pt-24 pb-20">
+      <main className="pt-24 pb-20 flex-1">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            <Link href="/blog">
-              <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8" data-testid="link-back-blog">
-                <ChevronLeft className="w-4 h-4" />
-                Kembali ke Blog
-              </button>
+            <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8" data-testid="link-back-blog">
+              <ChevronLeft className="w-4 h-4" />
+              Kembali ke Blog
             </Link>
 
             {!article ? (
@@ -363,6 +340,8 @@ export default function ArticlePage() {
           </div>
         </div>
       </main>
+
+      <PageFooter />
     </div>
   );
 }

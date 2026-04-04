@@ -3,14 +3,13 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Clock, ArrowRight, Bot, BookOpen, ChevronLeft } from "lucide-react";
+import { Clock, ArrowRight, BookOpen, ChevronLeft } from "lucide-react";
 import { SiTelegram } from "react-icons/si";
 import { articles } from "@shared/articles";
 import type { Article } from "@shared/schema";
 import { SEO, SITE_URL } from "@/components/seo";
-
-const logoImage = "/favicon.png";
+import { PageHeader } from "@/components/page-header";
+import { PageFooter } from "@/components/page-footer";
 
 const categoryStyle: Record<string, string> = {
   Panduan: "bg-primary/10 text-primary border-primary/20",
@@ -110,48 +109,25 @@ const blogStructuredData = [
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <SEO
         title="Blog Crypto Indonesia — Tips, Panduan & Edukasi"
         description="Panduan lengkap crypto dalam bahasa Indonesia. Tips beli crypto, cara top up fee gas SOL/TRX/BNB, edukasi blockchain, dan panduan pemula dari KriptoEcer."
         canonical="/blog"
         structuredData={blogStructuredData}
       />
-      <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border"
-      >
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2" data-testid="link-blog-logo">
-            <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
-            <span className="text-base font-bold tracking-tight">KriptoEcer</span>
-            <span className="hidden sm:inline text-muted-foreground text-sm font-normal ml-1">/ Blog</span>
-          </a>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <Button asChild data-testid="button-blog-cta">
-              <a href="https://t.me/kriptoecerbot" target="_blank" rel="noopener noreferrer">
-                <Bot className="w-4 h-4 mr-1.5" />
-                Start Bot
-              </a>
-            </Button>
-          </div>
-        </div>
-      </motion.header>
+      <PageHeader breadcrumb="Blog" />
 
-      <main className="pt-24 pb-20">
+      <main className="pt-24 pb-20 flex-1">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-2xl mb-12"
           >
-            <Link href="/">
-              <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6" data-testid="link-back-home">
-                <ChevronLeft className="w-4 h-4" />
-                Kembali ke Beranda
-              </button>
+            <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6" data-testid="link-back-home">
+              <ChevronLeft className="w-4 h-4" />
+              Kembali ke Beranda
             </Link>
             <Badge variant="secondary" className="mb-4">
               <BookOpen className="w-3 h-3 mr-1" />
@@ -193,6 +169,8 @@ export default function BlogPage() {
           </motion.div>
         </div>
       </main>
+
+      <PageFooter />
     </div>
   );
 }

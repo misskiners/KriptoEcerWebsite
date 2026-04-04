@@ -1,6 +1,9 @@
 import { Link } from "wouter";
 import { useEffect } from "react";
-const logoImage = "/favicon.png";
+import { motion } from "framer-motion";
+import { ChevronLeft } from "lucide-react";
+import { PageHeader } from "@/components/page-header";
+import { PageFooter } from "@/components/page-footer";
 
 interface LegalLayoutProps {
   title: string;
@@ -29,30 +32,38 @@ export function LegalLayout({ title, description, lastUpdated = "Maret 2026", ic
   }, [title, description]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2">
-            <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
-            <span className="text-base font-bold tracking-tight">KriptoEcer</span>
+    <div className="min-h-screen bg-background flex flex-col">
+      <PageHeader />
+
+      <main className="container mx-auto px-4 pt-28 pb-16 max-w-3xl flex-1">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8" data-testid="link-back-home">
+            <ChevronLeft className="w-4 h-4" />
+            Kembali ke Beranda
           </Link>
-        </div>
-      </header>
 
-      <main className="container mx-auto px-4 pt-28 pb-16 max-w-3xl">
-        <div className="mb-10">
-          {icon && (
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-5">
-              {icon}
-            </div>
-          )}
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">{title}</h1>
-          <p className="text-sm text-muted-foreground">Terakhir diperbarui: {lastUpdated}</p>
-        </div>
+          <div className="mb-10">
+            {icon && (
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-5">
+                {icon}
+              </div>
+            )}
+            <h1 className="text-3xl sm:text-4xl font-bold mb-3">{title}</h1>
+            <p className="text-sm text-muted-foreground">Terakhir diperbarui: {lastUpdated}</p>
+          </div>
+        </motion.div>
 
-        <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="prose prose-neutral dark:prose-invert max-w-none space-y-8"
+        >
           {children}
-        </div>
+        </motion.div>
 
         <div className="mt-12 pt-8 border-t border-border">
           <p className="text-sm text-muted-foreground mb-4">Halaman Legal KriptoEcer:</p>
@@ -68,11 +79,7 @@ export function LegalLayout({ title, description, lastUpdated = "Maret 2026", ic
         </div>
       </main>
 
-      <footer className="py-8 border-t border-border">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} KriptoEcer. Semua hak dilindungi.</p>
-        </div>
-      </footer>
+      <PageFooter />
     </div>
   );
 }
