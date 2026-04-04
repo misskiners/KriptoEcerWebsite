@@ -123,13 +123,16 @@ function FloatingNotification({ prices }: { prices: Record<string, number> }) {
 }
 
 /* ── Scrollable row with right-fade hint ── */
-const EDGE_ZONE = 28; // px from edge that triggers auto-scroll
-const MAX_SPEED = 5;  // px per frame at the very edge
+const EDGE_ZONE = 36;   // px from edge that activates scroll
+const MAX_SPEED = 7;    // px/frame at full edge
+const LERP     = 0.12;  // smoothing factor (lower = smoother but slower response)
 
 function ScrollRow({ children }: { children: React.ReactNode }) {
-  const ref      = useRef<HTMLDivElement>(null);
-  const rafRef   = useRef<number | null>(null);
-  const dirRef   = useRef<number>(0); // -1 left, 0 none, 1 right
+  const ref       = useRef<HTMLDivElement>(null);
+  const rafRef    = useRef<number | null>(null);
+  const velRef    = useRef(0);    // current smooth velocity
+  const targetRef = useRef(0);   // desired velocity set by mouse position
+
   const [atStart, setAtStart] = useState(true);
   const [atEnd,   setAtEnd]   = useState(false);
 
@@ -142,27 +145,24 @@ function ScrollRow({ children }: { children: React.ReactNode }) {
 
   useEffect(() => { checkEdges(); }, [children]);
 
-  /* Auto-scroll loop */
-  const startLoop = () => {
-    if (rafRef.current !== null) return;
+  /* Continuous rAF loop — always running while mounted */
+  useEffect(() => {
     const loop = () => {
+      // Lerp velocity towards target for smooth acceleration/deceleration
+      velRef.current += (targetRef.current - velRef.current) * LERP;
+
       const el = ref.current;
-      if (el && dirRef.current !== 0) {
-        el.scrollLeft += dirRef.current;
+      if (el && Math.abs(velRef.current) > 0.15) {
+        el.scrollLeft += velRef.current;
         checkEdges();
       }
       rafRef.current = requestAnimationFrame(loop);
     };
     rafRef.current = requestAnimationFrame(loop);
-  };
-
-  const stopLoop = () => {
-    if (rafRef.current !== null) {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = null;
-    }
-    dirRef.current = 0;
-  };
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
@@ -172,21 +172,20 @@ function ScrollRow({ children }: { children: React.ReactNode }) {
     const w    = rect.width;
 
     if (x < EDGE_ZONE) {
-      const t = 1 - x / EDGE_ZONE;          // 0→1 as cursor approaches left edge
-      dirRef.current = -(t * MAX_SPEED);
-      startLoop();
+      // Ease: starts slow, gets faster toward edge — use easeIn curve
+      const t = 1 - x / EDGE_ZONE;
+      targetRef.current = -(t * t * MAX_SPEED);
     } else if (x > w - EDGE_ZONE) {
-      const t = 1 - (w - x) / EDGE_ZONE;   // 0→1 as cursor approaches right edge
-      dirRef.current = t * MAX_SPEED;
-      startLoop();
+      const t = 1 - (w - x) / EDGE_ZONE;
+      targetRef.current = t * t * MAX_SPEED;
     } else {
-      dirRef.current = 0;
+      targetRef.current = 0;
     }
   };
 
-  const onMouseLeave = () => stopLoop();
+  const onMouseLeave = () => { targetRef.current = 0; };
 
-  useEffect(() => () => stopLoop(), []);
+  useEffect(() => () => { targetRef.current = 0; }, []);
 
   return (
     <div className="relative">
