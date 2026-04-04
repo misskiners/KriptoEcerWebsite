@@ -790,7 +790,7 @@ function FAQSection() {
               <div className="relative p-7 flex flex-col h-full">
                 {/* Header — nomor + label kategori */}
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="text-5xl font-black text-primary/10 leading-none select-none tabular-nums">
+                  <span className="text-5xl font-black text-primary/[0.18] leading-none select-none tabular-nums">
                     {String(selected + 1).padStart(2, "0")}
                   </span>
                   <div className="flex flex-col gap-1">
