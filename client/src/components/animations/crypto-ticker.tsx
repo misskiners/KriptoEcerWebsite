@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin } from "react-icons/si";
-import { TrendingUp, TrendingDown } from "lucide-react";
+import { TrendingUp, TrendingDown, Loader2 } from "lucide-react";
 
 const TrxIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 64 64" fill="currentColor" className={className}>
@@ -7,20 +8,69 @@ const TrxIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const tickers = [
-  { Icon: SiBitcoin,  symbol: "BTC",  price: "Rp 1,64M",  change: "+2.4%", up: true,  color: "text-orange-500" },
-  { Icon: SiEthereum, symbol: "ETH",  price: "Rp 51,2Jt", change: "+1.8%", up: true,  color: "text-blue-400"  },
-  { Icon: SiSolana,   symbol: "SOL",  price: "Rp 2,43Jt", change: "-0.9%", up: false, color: "text-purple-500"},
-  { Icon: SiBinance,  symbol: "BNB",  price: "Rp 9,87Jt", change: "+0.6%", up: true,  color: "text-yellow-500"},
-  { Icon: SiTether,   symbol: "USDT", price: "Rp 16.220", change: "+0.1%", up: true,  color: "text-green-500" },
-  { Icon: TrxIcon,    symbol: "TRX",  price: "Rp 428",    change: "+3.1%", up: true,  color: "text-red-500"   },
-  { Icon: SiLitecoin, symbol: "LTC",  price: "Rp 1,42Jt", change: "-1.2%", up: false, color: "text-gray-400"  },
-  { Icon: SiDogecoin, symbol: "DOGE", price: "Rp 2.890",  change: "+5.7%", up: true,  color: "text-amber-400" },
+const COIN_CONFIG = [
+  { id: "bitcoin",      symbol: "BTC",  Icon: SiBitcoin,  color: "text-orange-500" },
+  { id: "ethereum",     symbol: "ETH",  Icon: SiEthereum, color: "text-blue-400"   },
+  { id: "solana",       symbol: "SOL",  Icon: SiSolana,   color: "text-purple-500" },
+  { id: "binancecoin",  symbol: "BNB",  Icon: SiBinance,  color: "text-yellow-500" },
+  { id: "tether",       symbol: "USDT", Icon: SiTether,   color: "text-green-500"  },
+  { id: "tron",         symbol: "TRX",  Icon: TrxIcon,    color: "text-red-500"    },
+  { id: "litecoin",     symbol: "LTC",  Icon: SiLitecoin, color: "text-gray-400"   },
+  { id: "dogecoin",     symbol: "DOGE", Icon: SiDogecoin, color: "text-amber-400"  },
 ];
 
-const items = [...tickers, ...tickers];
+function formatIDR(price: number): string {
+  if (price >= 1_000_000_000) return `Rp ${(price / 1_000_000_000).toFixed(2)}M`;
+  if (price >= 1_000_000)     return `Rp ${(price / 1_000_000).toFixed(2)}Jt`;
+  if (price >= 1_000)         return `Rp ${price.toLocaleString("id-ID", { maximumFractionDigits: 0 })}`;
+  return `Rp ${price.toLocaleString("id-ID", { maximumFractionDigits: 2 })}`;
+}
+
+interface PriceData {
+  idr: number;
+  idr_24h_change: number;
+}
+
+type PricesMap = Record<string, PriceData>;
+
+const REFRESH_INTERVAL = 60_000;
 
 export function CryptoTicker() {
+  const [prices, setPrices] = useState<PricesMap | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  async function fetchPrices() {
+    try {
+      const ids = COIN_CONFIG.map((c) => c.id).join(",");
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=idr&include_24hr_change=true`;
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error("API error");
+      const data: PricesMap = await res.json();
+      setPrices(data);
+      setLastUpdated(new Date());
+    } catch {
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchPrices();
+    const interval = setInterval(fetchPrices, REFRESH_INTERVAL);
+    return () => clearInterval(interval);
+  }, []);
+
+  const tickers = COIN_CONFIG.map((coin) => {
+    const data = prices?.[coin.id];
+    const price   = data ? formatIDR(data.idr) : "—";
+    const change  = data ? `${data.idr_24h_change >= 0 ? "+" : ""}${data.idr_24h_change.toFixed(2)}%` : "—";
+    const up      = data ? data.idr_24h_change >= 0 : true;
+    return { ...coin, price, change, up };
+  });
+
+  const items = [...tickers, ...tickers];
+
   return (
     <div className="fixed top-16 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border/60 overflow-hidden h-9">
       <div className="flex items-center h-full animate-marquee whitespace-nowrap">
@@ -31,14 +81,26 @@ export function CryptoTicker() {
               <Icon className={`w-3.5 h-3.5 ${t.color}`} />
               <span className="font-semibold text-foreground/80">{t.symbol}</span>
               <span className="text-muted-foreground">{t.price}</span>
-              <span className={`flex items-center gap-0.5 ${t.up ? "text-green-500" : "text-red-500"}`}>
-                {t.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                {t.change}
-              </span>
+              {t.price !== "—" && (
+                <span className={`flex items-center gap-0.5 ${t.up ? "text-green-500" : "text-red-500"}`}>
+                  {t.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                  {t.change}
+                </span>
+              )}
+              {loading && i === 0 && (
+                <Loader2 className="w-3 h-3 animate-spin text-muted-foreground ml-1" />
+              )}
               <span className="text-border ml-2">·</span>
             </span>
           );
         })}
+
+        {lastUpdated && (
+          <span className="inline-flex items-center gap-1 px-4 text-xs text-muted-foreground/50 shrink-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+            Live · {lastUpdated.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
+          </span>
+        )}
       </div>
     </div>
   );
