@@ -210,7 +210,7 @@ QRIS adalah revolusi kecil yang mengubah cara Indonesia bertransaksi — dan kin
   {
     id: 4,
     title: "10 Istilah Crypto yang Wajib Dipahami Pemula Indonesia",
-    slug: "5-istilah-crypto-wajib-dipahami-pemula",
+    slug: "10-istilah-crypto-wajib-dipahami-pemula",
     excerpt: "Bingung dengan istilah HODL, gas fee, wallet, on-chain, atau seed phrase? Panduan lengkap dan mudah untuk pemula yang baru pertama kali masuk ke dunia crypto.",
     category: "Edukasi",
     author: "KriptoEcer",

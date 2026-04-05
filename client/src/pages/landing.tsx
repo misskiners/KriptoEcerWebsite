@@ -76,6 +76,7 @@ function AnimatedCounter({
   useEffect(() => {
     if (!isInView) return;
     setDone(false);
+    let rafId = 0;
     const timeout = setTimeout(() => {
       const startTime = performance.now();
       const totalDuration = duration * 1000;
@@ -83,20 +84,19 @@ function AnimatedCounter({
       const step = (currentTime: number) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / totalDuration, 1);
-        // easeOutExpo — counting machine feel: fast start, decelerates dramatically
         const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
         setCount(Math.floor(eased * target));
         if (progress < 1) {
-          requestAnimationFrame(step);
+          rafId = requestAnimationFrame(step);
         } else {
           setDone(true);
         }
       };
 
-      requestAnimationFrame(step);
+      rafId = requestAnimationFrame(step);
     }, delay * 1000);
 
-    return () => clearTimeout(timeout);
+    return () => { clearTimeout(timeout); cancelAnimationFrame(rafId); };
   }, [isInView, target, duration, delay]);
 
   let display: string;
@@ -957,14 +957,14 @@ function RecentArticlesSection() {
               Tips, panduan, dan edukasi crypto dalam bahasa Indonesia yang mudah dipahami.
             </p>
           </div>
-          <a
+          <Link
             href="/blog"
             className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline shrink-0"
             data-testid="link-landing-blog-all"
           >
             Lihat Semua Artikel
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
