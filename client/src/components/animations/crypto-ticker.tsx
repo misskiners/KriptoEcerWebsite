@@ -29,60 +29,12 @@ interface PriceData {
 type PricesMap = Record<string, PriceData>;
 
 const REFRESH_INTERVAL = 60_000;
-const SPEED_PX_PER_SEC = 40;
 
 export function CryptoTicker() {
   const [prices, setPrices]           = useState<PricesMap | null>(null);
   const [loading, setLoading]         = useState(true);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const retryRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const trackRef    = useRef<HTMLDivElement>(null);
-  const rafRef      = useRef<number>(0);
-  const posRef      = useRef(0);
-  const lastTimeRef = useRef<number | null>(null);
-  const pausedRef   = useRef(false);
-
-  useEffect(() => {
-    const loop = (now: number) => {
-      const el = trackRef.current;
-      if (!el) { rafRef.current = requestAnimationFrame(loop); return; }
-
-      const halfWidth = el.scrollWidth / 2;
-
-      if (lastTimeRef.current !== null && halfWidth > 10 && !pausedRef.current) {
-        const delta = Math.min(now - lastTimeRef.current, 100);
-        posRef.current -= SPEED_PX_PER_SEC * (delta / 1000);
-
-        if (posRef.current <= -halfWidth) {
-          posRef.current += halfWidth;
-        }
-
-        el.style.transform = `translate3d(${posRef.current}px, 0, 0)`;
-      }
-
-      lastTimeRef.current = now;
-      rafRef.current = requestAnimationFrame(loop);
-    };
-
-    rafRef.current = requestAnimationFrame(loop);
-
-    const handleVisChange = () => {
-      if (document.hidden) {
-        pausedRef.current = true;
-        lastTimeRef.current = null;
-      } else {
-        pausedRef.current = false;
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisChange);
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      lastTimeRef.current = null;
-      document.removeEventListener("visibilitychange", handleVisChange);
-    };
-  }, []);
+  const retryRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const fetchPrices = useCallback(async () => {
     if (retryRef.current) { clearTimeout(retryRef.current); retryRef.current = null; }
@@ -153,7 +105,7 @@ export function CryptoTicker() {
           <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
         </div>
       )}
-      <div ref={trackRef} className="flex items-center h-full whitespace-nowrap will-change-transform">
+      <div className="flex items-center h-full whitespace-nowrap animate-marquee">
         {renderStrip("a")}
         {renderStrip("b")}
       </div>
