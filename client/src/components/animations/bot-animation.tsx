@@ -228,14 +228,12 @@ export function BotAnimation() {
   const inputRef        = useRef<HTMLInputElement>(null);
   const priceRetryRef   = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const scrollChats = useCallback(() => {
-    requestAnimationFrame(() => {
-      for (const ref of [chatDesktopRef, chatMobileRef]) {
-        const el = ref.current;
-        if (el) el.scrollTop = el.scrollHeight;
-      }
-    });
-  }, []);
+  const scrollChats = () => {
+    for (const ref of [chatDesktopRef, chatMobileRef]) {
+      const el = ref.current;
+      if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    }
+  };
 
   /* ── Fetch live prices ── */
   const fetchPrices = useCallback(async (showSpin = false) => {
@@ -265,9 +263,9 @@ export function BotAnimation() {
   }, [fetchPrices]);
 
   useEffect(() => {
-    const id = setTimeout(scrollChats, 50);
+    const id = setTimeout(scrollChats, 60);
     return () => clearTimeout(id);
-  }, [messages, isTyping, scrollChats]);
+  }, [messages, isTyping]);
 
   /* ── Helpers ── */
   const livePrice   = (coin: typeof COINS[number]) => prices[coin.id] ?? coin.fallback;
@@ -410,10 +408,10 @@ export function BotAnimation() {
         <AnimatePresence>
           {messages.map(msg => (
             <motion.div key={msg.id}
-              initial={{ opacity: 0, y: 6, scale: 0.97 }}
+              initial={{ opacity: 0, y: 10, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 200, damping: 26, mass: 0.8 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 180, damping: 22, mass: 0.9 }}
               className={`flex flex-col ${msg.type === "user" ? "items-end" : "items-start"}`}
               data-testid={`message-${msg.type}-${msg.id}`}
             >
@@ -442,10 +440,10 @@ export function BotAnimation() {
         <AnimatePresence>
           {isTyping && (
             <motion.div
-              initial={{ opacity: 0, y: 4, scale: 0.97 }}
+              initial={{ opacity: 0, y: 8, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 240, damping: 28, mass: 0.7 }}>
+              exit={{ opacity: 0, y: -6, scale: 0.94 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20, mass: 0.8 }}>
               <TypingIndicator />
             </motion.div>
           )}
