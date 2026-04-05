@@ -182,7 +182,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 48px;
+  width: 24px;
   z-index: 2;
   pointer-events: none;
 }
@@ -197,7 +197,7 @@
 }
 
 .animate-marquee {
-  animation: marquee 16s linear infinite;
+  animation: marquee 28s linear infinite;
   animation-play-state: running;
   will-change: transform;
 }
@@ -207,7 +207,7 @@
 
 @media (max-width: 640px) {
   .animate-marquee {
-    animation-duration: 10s;
+    animation-duration: 16s;
   }
 }
 
