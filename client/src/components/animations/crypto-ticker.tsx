@@ -29,10 +29,32 @@ interface PriceData {
 type PricesMap = Record<string, PriceData>;
 
 const REFRESH_INTERVAL = 60_000;
+const SPEED_PX_PER_SEC = 40;
 
 export function CryptoTicker() {
-  const trackRef  = useRef<HTMLDivElement>(null);
-  const retryRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const retryRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const measuredRef = useRef(false);
+
+  const measureAndAnimate = useCallback(() => {
+    const track = trackRef.current;
+    const strip = stripRef.current;
+    if (!track || !strip) return;
+
+    const stripWidth = strip.offsetWidth;
+    if (stripWidth <= 0) return;
+
+    const duration = stripWidth / SPEED_PX_PER_SEC;
+
+    track.style.setProperty("--strip-w", `${stripWidth}px`);
+    track.style.animationDuration = `${duration}s`;
+
+    if (!measuredRef.current) {
+      track.classList.add("animate-marquee");
+      measuredRef.current = true;
+    }
+  }, []);
 
   const writeToDOM = useCallback((data: PricesMap, updatedAt: Date) => {
     const root = trackRef.current;
@@ -42,9 +64,9 @@ export function CryptoTicker() {
       const entry = data[coin.id];
       if (!entry) return;
 
-      const price   = formatIDR(entry.idr);
-      const change  = `${entry.idr_24h_change >= 0 ? "+" : ""}${entry.idr_24h_change.toFixed(2)}%`;
-      const up      = entry.idr_24h_change >= 0;
+      const price  = formatIDR(entry.idr);
+      const change = `${entry.idr_24h_change >= 0 ? "+" : ""}${entry.idr_24h_change.toFixed(2)}%`;
+      const up     = entry.idr_24h_change >= 0;
 
       root.querySelectorAll<HTMLElement>(`[data-price="${coin.id}"]`).forEach((el) => {
         el.textContent = price;
@@ -75,7 +97,9 @@ export function CryptoTicker() {
     root.querySelectorAll<HTMLElement>("[data-live-label]").forEach((el) => {
       el.style.visibility = "visible";
     });
-  }, []);
+
+    requestAnimationFrame(measureAndAnimate);
+  }, [measureAndAnimate]);
 
   const fetchPrices = useCallback(async () => {
     if (retryRef.current) { clearTimeout(retryRef.current); retryRef.current = null; }
@@ -104,11 +128,16 @@ export function CryptoTicker() {
   useEffect(() => {
     fetchPrices();
     const interval = setInterval(fetchPrices, REFRESH_INTERVAL);
+
+    const onResize = () => requestAnimationFrame(measureAndAnimate);
+    window.addEventListener("resize", onResize);
+
     return () => {
       clearInterval(interval);
+      window.removeEventListener("resize", onResize);
       if (retryRef.current) clearTimeout(retryRef.current);
     };
-  }, [fetchPrices]);
+  }, [fetchPrices, measureAndAnimate]);
 
   const renderStrip = (keyPrefix: string) => (
     <>
@@ -119,7 +148,7 @@ export function CryptoTicker() {
           <span key={`${keyPrefix}-${i}`} className={`${vis} items-center gap-1.5 px-3 sm:px-5 text-xs font-medium shrink-0`}>
             <Icon className={`w-3.5 h-3.5 ${coin.color}`} />
             <span className="font-semibold text-foreground/80">{coin.symbol}</span>
-            <span data-price={coin.id} className="text-muted-foreground">—</span>
+            <span data-price={coin.id} className="text-muted-foreground whitespace-nowrap" style={{ minWidth: "4ch" }}>—</span>
             <span
               data-change-wrap={coin.id}
               className="flex items-center gap-0.5 text-green-500"
@@ -127,7 +156,7 @@ export function CryptoTicker() {
             >
               <span data-icon-up={coin.id}><TrendingUp className="w-3 h-3" /></span>
               <span data-icon-down={coin.id} style={{ display: "none" }}><TrendingDown className="w-3 h-3" /></span>
-              <span data-change={coin.id}>—</span>
+              <span data-change={coin.id} className="whitespace-nowrap">—</span>
             </span>
             <span className={`text-border ml-1 sm:ml-2 ${coin.mobile ? "" : "hidden sm:inline"}`}>·</span>
           </span>
@@ -135,11 +164,11 @@ export function CryptoTicker() {
       })}
       <span
         data-live-label
-        className="inline-flex items-center gap-1 px-4 text-xs text-muted-foreground/50 shrink-0"
+        className="inline-flex items-center gap-1 px-3 sm:px-4 text-xs text-muted-foreground/50 shrink-0"
         style={{ visibility: "hidden" }}
       >
         <span data-live-dot className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
-        <span data-live-time>Live · --:--</span>
+        <span data-live-time className="whitespace-nowrap">Live · --:--</span>
       </span>
     </>
   );
@@ -152,9 +181,17 @@ export function CryptoTicker() {
       <div className="ticker-fade-left" aria-hidden="true" />
       <div className="ticker-fade-right" aria-hidden="true" />
 
-      <div key="track" ref={trackRef} className="flex items-center h-full whitespace-nowrap w-max animate-marquee">
-        {renderStrip("a")}
-        {renderStrip("b")}
+      <div
+        key="track"
+        ref={trackRef}
+        className="flex items-center h-full whitespace-nowrap w-max"
+      >
+        <div ref={stripRef} className="flex items-center shrink-0">
+          {renderStrip("a")}
+        </div>
+        <div className="flex items-center shrink-0" aria-hidden="true">
+          {renderStrip("b")}
+        </div>
       </div>
     </div>
   );

@@ -193,22 +193,16 @@
 
 @keyframes marquee {
   from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  to   { transform: translateX(calc(var(--strip-w, 0px) * -1)); }
 }
 
 .animate-marquee {
-  animation: marquee 28s linear infinite;
+  animation: marquee 30s linear infinite;
   animation-play-state: running;
   will-change: transform;
 }
 .animate-marquee:hover {
   animation-play-state: paused;
-}
-
-@media (max-width: 640px) {
-  .animate-marquee {
-    animation-duration: 16s;
-  }
 }
 
 @keyframes shimmer-text {
