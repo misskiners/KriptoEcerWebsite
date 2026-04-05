@@ -920,7 +920,7 @@ function CTASection() {
   };
 
   return (
-    <section className="py-20">
+    <section className="py-12 md:py-16">
       <div className="container mx-auto px-4">
         <motion.div
           initial={noMotion ? false : { opacity: 0, y: 30 }}
@@ -933,9 +933,9 @@ function CTASection() {
 
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
 
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-white/10 blur-[100px] pointer-events-none" />
-          <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-amber-300/20 blur-[80px] pointer-events-none" />
-          <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-yellow-600/15 blur-[80px] pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-white/10 blur-[80px] pointer-events-none" />
+          <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-amber-300/20 blur-[60px] pointer-events-none" />
+          <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-yellow-600/15 blur-[60px] pointer-events-none" />
 
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {CTA_COINS.map(({ Icon, pos, size, delay }, i) => (
@@ -955,29 +955,29 @@ function CTASection() {
             ))}
           </div>
 
-          <div className="relative p-8 sm:p-12 md:p-16 lg:p-20 text-center">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-foreground/15 backdrop-blur-sm mb-6 ring-1 ring-primary-foreground/10">
-              <Send className="w-7 h-7 text-primary-foreground" />
+          <div className="relative px-6 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 text-center">
+            <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary-foreground/15 backdrop-blur-sm mb-4 ring-1 ring-primary-foreground/10">
+              <Send className="w-5 h-5 text-primary-foreground" />
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground mb-5 leading-tight" data-testid="text-cta-title">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-foreground mb-3 leading-tight" data-testid="text-cta-title">
               Mulai Beli Crypto Sekarang,
               <br className="hidden sm:block" />
               Langsung dari Telegram!
             </h2>
 
-            <p className="text-primary-foreground/75 max-w-2xl mx-auto mb-4 text-lg leading-relaxed">
+            <p className="text-primary-foreground/75 max-w-xl mx-auto mb-3 text-sm sm:text-base leading-relaxed">
               Mau top up fee gas, beli meme coin, atau sekadar coba crypto pertama kali —
             </p>
-            <p className="max-w-2xl mx-auto mb-8">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-foreground/15 backdrop-blur-sm ring-1 ring-primary-foreground/10">
-                <Zap className="w-4 h-4 text-primary-foreground" />
-                <span className="text-primary-foreground font-bold text-base">Mulai dari Rp10.000</span>
-                <span className="text-primary-foreground/70 text-sm">— tanpa KYC, tanpa ribet</span>
+            <p className="max-w-xl mx-auto mb-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-foreground/15 backdrop-blur-sm ring-1 ring-primary-foreground/10 text-sm">
+                <Zap className="w-3.5 h-3.5 text-primary-foreground" />
+                <span className="text-primary-foreground font-bold">Mulai dari Rp10.000</span>
+                <span className="text-primary-foreground/70 hidden sm:inline">— tanpa KYC, tanpa ribet</span>
               </span>
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+            <div className="flex items-center justify-center mb-5">
               <MagneticButton strength={0.25}>
                 <motion.a
                   href="https://t.me/kriptoecerbot"
@@ -986,21 +986,21 @@ function CTASection() {
                   onClick={fireConfetti}
                   whileHover={noMotion ? undefined : { scale: 1.05 }}
                   whileTap={noMotion ? undefined : { scale: 0.97 }}
-                  className="group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-xl
-                    bg-primary-foreground text-primary font-bold text-base
+                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl
+                    bg-primary-foreground text-primary font-bold text-sm sm:text-base
                     shadow-[0_4px_24px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)]
                     transition-shadow duration-300"
                   data-testid="button-cta-start"
                 >
-                  <SiTelegram className="w-5 h-5" />
+                  <SiTelegram className="w-4 h-4 sm:w-5 sm:h-5" />
                   Buka KriptoEcer Bot
                   <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                 </motion.a>
               </MagneticButton>
             </div>
 
-            <div className="flex items-center justify-center gap-2 text-primary-foreground/60 text-sm">
-              <Users className="w-4 h-4" />
+            <div className="flex items-center justify-center gap-1.5 text-primary-foreground/60 text-xs sm:text-sm">
+              <Users className="w-3.5 h-3.5" />
               <span>Ribuan trader Indonesia sudah pakai KriptoEcer</span>
             </div>
           </div>
