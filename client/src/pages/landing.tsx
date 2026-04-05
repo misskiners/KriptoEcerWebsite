@@ -21,7 +21,7 @@ import {
   Globe,
 } from "lucide-react";
 import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX, SiWhatsapp } from "react-icons/si";
-import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { articles as allArticles } from "@shared/articles";
 import confetti from "canvas-confetti";
@@ -887,7 +887,20 @@ function FAQSection() {
   );
 }
 
+const CTA_COINS = [
+  { Icon: SiBitcoin,  pos: "top-[10%] left-[6%]",   size: "w-8 md:w-11 h-8 md:h-11", delay: 0 },
+  { Icon: SiBinance,  pos: "top-[18%] left-[18%]",  size: "w-6 md:w-8 h-6 md:h-8",   delay: 1.2 },
+  { Icon: SiTether,   pos: "bottom-[18%] left-[10%]", size: "w-5 md:w-7 h-5 md:h-7", delay: 2.4 },
+  { Icon: SiEthereum, pos: "bottom-[28%] left-[24%]", size: "w-5 md:w-6 h-5 md:h-6", delay: 0.8 },
+  { Icon: SiSolana,   pos: "top-[12%] right-[7%]",  size: "w-7 md:w-10 h-7 md:h-10", delay: 1.8 },
+  { Icon: SiLitecoin, pos: "top-[30%] right-[18%]", size: "w-5 md:w-6 h-5 md:h-6",   delay: 3.0 },
+  { Icon: SiDogecoin, pos: "bottom-[14%] right-[12%]", size: "w-8 md:w-11 h-8 md:h-11", delay: 0.5 },
+  { Icon: SiTether,   pos: "bottom-[30%] right-[25%]", size: "w-4 md:w-5 h-4 md:h-5", delay: 2.0 },
+] as const;
+
 function CTASection() {
+  const noMotion = !!useReducedMotion();
+
   const fireConfetti = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const href = e.currentTarget.href;
@@ -910,52 +923,85 @@ function CTASection() {
     <section className="py-20">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={noMotion ? false : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-2xl"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative overflow-hidden rounded-3xl"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/80" />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-          
+          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-amber-500/90" />
+
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
+
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-white/10 blur-[100px] pointer-events-none" />
+          <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-amber-300/20 blur-[80px] pointer-events-none" />
+          <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-yellow-600/15 blur-[80px] pointer-events-none" />
+
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <SiSolana className="absolute top-4 left-[5%] w-5 md:w-6 h-5 md:h-6 text-black opacity-10" />
-            <SiBinance className="absolute top-8 left-[15%] w-7 md:w-10 h-7 md:h-10 text-black opacity-10" />
-            <SiBitcoin className="absolute bottom-6 left-[8%] w-10 md:w-14 h-10 md:h-14 text-black opacity-[0.06]" />
-            <SiTether className="absolute top-12 left-[28%] w-6 md:w-8 h-6 md:h-8 text-black opacity-10" />
-            <SiEthereum className="absolute bottom-10 left-[22%] w-4 md:w-5 h-4 md:h-5 text-black opacity-[0.12]" />
-            <SiSolana className="absolute top-6 right-[5%] w-9 md:w-12 h-9 md:h-12 text-black opacity-[0.08]" />
-            <SiLitecoin className="absolute top-16 right-[15%] w-5 md:w-7 h-5 md:h-7 text-black opacity-10" />
-            <SiBinance className="absolute bottom-4 right-[8%] w-12 md:w-16 h-12 md:h-16 text-black opacity-[0.05]" />
-            <SiDogecoin className="absolute bottom-12 right-[22%] w-7 md:w-9 h-7 md:h-9 text-black opacity-[0.08]" />
-            <SiTether className="absolute top-4 right-[30%] w-4 md:w-5 h-4 md:h-5 text-black opacity-[0.12]" />
+            {CTA_COINS.map(({ Icon, pos, size, delay }, i) => (
+              <motion.div
+                key={i}
+                className={`absolute ${pos}`}
+                animate={noMotion ? {} : { y: [0, -8, 0] }}
+                transition={noMotion ? undefined : {
+                  duration: 3.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay,
+                }}
+              >
+                <Icon className={`${size} text-black/[0.14]`} />
+              </motion.div>
+            ))}
           </div>
-          
-          <div className="relative p-8 sm:p-12 md:p-16 text-center">
-            <Clock className="w-12 h-12 text-primary-foreground/80 mx-auto mb-6" />
-            <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground mb-4" data-testid="text-cta-title">
-              Mulai Beli Crypto Sekarang, Langsung dari Telegram!
+
+          <div className="relative p-8 sm:p-12 md:p-16 lg:p-20 text-center">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-foreground/15 backdrop-blur-sm mb-6 ring-1 ring-primary-foreground/10">
+              <Send className="w-7 h-7 text-primary-foreground" />
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground mb-5 leading-tight" data-testid="text-cta-title">
+              Mulai Beli Crypto Sekarang,
+              <br className="hidden sm:block" />
+              Langsung dari Telegram!
             </h2>
-            <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8 text-lg">
-              Mau top up fee gas, beli meme coin, atau sekadar coba crypto pertama kali — mulai dari Rp10.000, tanpa KYC, tanpa ribet. Ribuan trader Indonesia sudah pakai KriptoEcer.
+
+            <p className="text-primary-foreground/75 max-w-2xl mx-auto mb-4 text-lg leading-relaxed">
+              Mau top up fee gas, beli meme coin, atau sekadar coba crypto pertama kali —
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <p className="max-w-2xl mx-auto mb-8">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-foreground/15 backdrop-blur-sm ring-1 ring-primary-foreground/10">
+                <Zap className="w-4 h-4 text-primary-foreground" />
+                <span className="text-primary-foreground font-bold text-base">Mulai dari Rp10.000</span>
+                <span className="text-primary-foreground/70 text-sm">— tanpa KYC, tanpa ribet</span>
+              </span>
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <MagneticButton strength={0.25}>
                 <motion.a
                   href="https://t.me/kriptoecerbot"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={fireConfetti}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary-foreground text-primary font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300"
+                  whileHover={noMotion ? undefined : { scale: 1.05 }}
+                  whileTap={noMotion ? undefined : { scale: 0.97 }}
+                  className="group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-xl
+                    bg-primary-foreground text-primary font-bold text-base
+                    shadow-[0_4px_24px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)]
+                    transition-shadow duration-300"
                   data-testid="button-cta-start"
                 >
                   <SiTelegram className="w-5 h-5" />
                   Buka KriptoEcer Bot
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                 </motion.a>
               </MagneticButton>
+            </div>
+
+            <div className="flex items-center justify-center gap-2 text-primary-foreground/60 text-sm">
+              <Users className="w-4 h-4" />
+              <span>Ribuan trader Indonesia sudah pakai KriptoEcer</span>
             </div>
           </div>
         </motion.div>
