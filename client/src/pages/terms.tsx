@@ -123,9 +123,9 @@ export default function Terms() {
           payment gateway kami. Kamu tidak perlu menghubungi admin untuk konfirmasi — semuanya berjalan sendiri.
         </p>
         <p>
-          Saldo yang sudah masuk tidak dapat ditarik kembali dalam bentuk Rupiah. Saldo hanya bisa digunakan 
-          untuk melakukan pembelian cryptocurrency melalui bot. Pastikan kamu hanya deposit nominal yang memang 
-          ingin kamu gunakan untuk transaksi.
+          Saldo Rupiah di akun bot bisa digunakan untuk membeli cryptocurrency atau ditarik (withdraw) ke 
+          rekening bank atau e-wallet kamu. Proses penarikan saldo dilakukan melalui menu di bot dan diproses 
+          secara otomatis. Pastikan data rekening atau e-wallet yang kamu masukkan sudah benar.
         </p>
         <p>
           Jika deposit sudah terbayar namun saldo tidak kunjung masuk dalam waktu yang wajar, segera hubungi 

@@ -51,7 +51,7 @@ Setelah itu, pilih menu "Beli Crypto" yang akan muncul di keyboard bot. Kamu aka
 
 Masukkan nominal dalam Rupiah — misalnya Rp15.000 untuk TRX atau Rp25.000 untuk SOL. Bot akan menghitung berapa token yang akan kamu terima berdasarkan harga pasar saat itu, termasuk spread yang transparan.
 
-Setelah mengkonfirmasi pesanan, masukkan alamat wallet tujuan. Pastikan alamat benar dan sesuai dengan jaringan yang dipilih — jangan kirim SOL ke alamat BNB, misalnya. Selanjutnya, lakukan pembayaran via QRIS atau Virtual Account. Konfirmasi berjalan otomatis dan token langsung dikirim ke wallet tujuan biasanya dalam hitungan menit.
+Sebelum beli, pastikan saldo Rupiah di akun bot sudah terisi. Deposit bisa dilakukan via QRIS, Virtual Account, PayPal, atau CryptoBot Telegram — konfirmasi otomatis. Setelah saldo masuk, pilih crypto yang ingin dibeli, masukkan nominal, dan masukkan alamat wallet tujuan. Pastikan alamat benar dan sesuai dengan jaringan yang dipilih — jangan kirim SOL ke alamat BNB, misalnya. Token langsung dikirim ke wallet tujuan biasanya dalam hitungan menit.
 
 Tips Penting yang Sering Diabaikan
 
@@ -183,7 +183,7 @@ Di menu utama, pilih opsi "Beli Crypto" atau "Deposit". Pilih aset crypto yang i
 
 Setelah konfirmasi pesanan, pilih QRIS sebagai metode pembayaran. Bot akan menampilkan QR code yang bisa langsung kamu scan dari aplikasi GoPay, OVO, Dana, ShopeePay, atau banking app apapun yang mendukung QRIS.
 
-Scan QR code tersebut, verifikasi nominal yang tertera sudah sesuai, lalu konfirmasi pembayaran. Dalam 3-15 detik setelah pembayaran berhasil, sistem KriptoEcer otomatis mendeteksi dan memproses pesananmu. Crypto langsung dikirim ke alamat wallet yang kamu daftarkan.
+Scan QR code tersebut, verifikasi nominal yang tertera sudah sesuai, lalu konfirmasi pembayaran. Dalam 3-15 detik setelah pembayaran berhasil, sistem KriptoEcer otomatis mendeteksi dan saldo langsung masuk ke akun bot kamu. Dari saldo ini, kamu bisa langsung beli crypto dan crypto akan dikirim ke alamat wallet yang kamu daftarkan.
 
 Tidak perlu screenshot bukti transfer, tidak perlu chat admin, tidak perlu tunggu jam kerja. Sistem aktif 24 jam termasuk Sabtu, Minggu, dan hari libur nasional.
 
@@ -443,7 +443,7 @@ Exchange konvensional seperti Indodax, Tokocrypto, atau Pintu memungkinkan kamu 
 
 Peer-to-peer (P2P) trading di platform seperti Binance P2P memungkinkan kamu beli langsung dari sesama pengguna. Lebih fleksibel, tapi perlu hati-hati memilih penjual yang terpercaya.
 
-Via bot Telegram seperti KriptoEcer adalah cara termudah untuk beli USDT dalam jumlah kecil tanpa KYC. Cukup buka Telegram, chat @kriptoecerbot, pilih USDT, tentukan nominal mulai dari Rp10.000, dan bayar via QRIS atau Virtual Account. Prosesnya otomatis dan USDT langsung dikirim ke wallet kamu.
+Via bot Telegram seperti KriptoEcer adalah cara termudah untuk beli USDT dalam jumlah kecil tanpa KYC. Cukup buka Telegram, chat @kriptoecerbot, deposit saldo via QRIS atau Virtual Account, lalu pilih USDT dan tentukan nominal mulai dari Rp10.000. Prosesnya otomatis dan USDT langsung dikirim ke wallet kamu.
 
 Tips Menyimpan USDT dengan Aman
 
@@ -505,7 +505,7 @@ Via exchange konvensional seperti Indodax, Tokocrypto, atau Pintu. Keuntungannya
 
 Via Binance atau exchange global. Prosesnya serupa dengan exchange lokal, tapi tersedia lebih banyak pasangan trading. Kamu perlu deposit via transfer bank atau QRIS, tergantung metode yang tersedia.
 
-Via KriptoEcer — cara tercepat untuk pembelian kecil tanpa KYC. Cukup buka Telegram, chat @kriptoecerbot, pilih menu Beli Crypto, dan pilih DOGE. Masukkan nominal rupiah (mulai Rp10.000), masukkan alamat wallet DOGE kamu, lakukan pembayaran via QRIS atau Virtual Account, dan DOGE langsung dikirim ke wallet dalam hitungan menit. Daftar instan via Telegram, tanpa KYC, tanpa tunggu verifikasi.
+Via KriptoEcer — cara tercepat untuk pembelian kecil tanpa KYC. Cukup buka Telegram, chat @kriptoecerbot, deposit saldo via QRIS atau Virtual Account, lalu pilih menu Beli Crypto dan pilih DOGE. Masukkan nominal rupiah (mulai Rp10.000), masukkan alamat wallet DOGE kamu, dan DOGE langsung dikirim ke wallet dalam hitungan menit. Daftar instan via Telegram, tanpa KYC, tanpa tunggu verifikasi.
 
 Cara Membuat Wallet Dogecoin
 
@@ -603,7 +603,7 @@ Jika ragu, tanyakan langsung ke customer support penerima sebelum mengirim. Atau
 
 Beli USDT TRC20 dengan Mudah di Indonesia
 
-Jika kamu ingin membeli USDT TRC20 dari Indonesia tanpa ribet, KriptoEcer adalah solusi termudah. Chat @kriptoecerbot di Telegram, pilih USDT (TRC20), masukkan nominal rupiah yang ingin kamu konversi, masukkan alamat TRC20 wallet kamu (pastikan diawali dengan "T"), bayar via QRIS atau Virtual Account, dan USDT TRC20 langsung masuk ke wallet dalam beberapa menit.
+Jika kamu ingin membeli USDT TRC20 dari Indonesia tanpa ribet, KriptoEcer adalah solusi termudah. Chat @kriptoecerbot di Telegram, deposit saldo via QRIS atau Virtual Account, lalu pilih USDT (TRC20), masukkan nominal rupiah yang ingin kamu konversi, dan masukkan alamat TRC20 wallet kamu (pastikan diawali dengan "T"). USDT TRC20 langsung masuk ke wallet dalam beberapa menit.
 
 Prosesnya tidak memerlukan KYC, tidak ada minimum pembelian yang tinggi, dan berlangsung 24 jam penuh. Ini pilihan ideal kalau kamu butuh USDT untuk bayar fee atau top up saldo di exchange dengan cepat.
 
@@ -746,7 +746,7 @@ Tips keamanan P2P: jangan pernah lepas crypto sebelum uang benar-benar masuk ke 
 
 Cara Jual USDT Kecil via KriptoEcer
 
-Untuk jumlah kecil atau jika kamu tidak ingin repot dengan proses exchange yang panjang, KriptoEcer menyediakan layanan jual crypto yang mudah. Chat @kriptoecerbot di Telegram, pilih menu "Jual Crypto", pilih aset yang ingin dijual (USDT, BTC, ETH, dll), ikuti instruksi untuk mengirim crypto ke alamat yang diberikan bot, dan masukkan nomor rekening bank tujuanmu. Rupiah akan ditransfer ke rekeningmu setelah crypto terkonfirmasi.
+Untuk jumlah kecil atau jika kamu tidak ingin repot dengan proses exchange yang panjang, KriptoEcer menyediakan layanan jual crypto yang mudah. Chat @kriptoecerbot di Telegram, pilih menu "Jual Crypto", pilih aset yang ingin dijual (USDT, BTC, ETH, dll), dan ikuti instruksi untuk mengirim crypto ke alamat yang diberikan bot. Setelah crypto terkonfirmasi, hasil penjualan masuk ke saldo Rupiah di akun bot kamu. Dari sana, kamu bisa langsung tarik ke rekening bank atau e-wallet kapan saja.
 
 Prosesnya tidak memerlukan KYC untuk jumlah kecil dan bisa dilakukan kapan saja, bahkan tengah malam sekalipun.
 
@@ -817,9 +817,9 @@ Ketiga, masukkan nominal dalam Rupiah. Misalnya, ketik "15000" untuk membeli SOL
 
 Keempat, masukkan alamat wallet Solana tujuan. Ini adalah alamat wallet dimana SOL akan dikirim. Pastikan alamat ini benar karena transaksi blockchain tidak bisa dibatalkan. Jika kamu belum punya wallet Solana, kamu bisa membuat gratis menggunakan Phantom, Solflare, atau Backpack.
 
-Kelima, lakukan pembayaran. KriptoEcer mendukung berbagai metode pembayaran: QRIS (scan dari semua e-wallet dan mobile banking), Virtual Account (transfer bank dari BCA, BRI, Mandiri, BNI, dan lainnya), serta metode lainnya. Pembayaran via QRIS bisa langsung menggunakan GoPay, OVO, Dana, ShopeePay, atau aplikasi mobile banking yang mendukung QRIS.
+Kelima, pastikan saldo di akun bot sudah cukup. Jika belum, deposit dulu via QRIS (scan dari semua e-wallet dan mobile banking), Virtual Account (transfer bank dari BCA, BRI, Mandiri, BNI, dan lainnya), atau metode lainnya. Deposit via QRIS bisa langsung menggunakan GoPay, OVO, Dana, ShopeePay, atau aplikasi mobile banking — saldo masuk otomatis dalam hitungan detik.
 
-Setelah pembayaran dikonfirmasi (otomatis dalam hitungan detik untuk QRIS), bot akan memproses pesanan dan mengirim SOL ke alamat wallet tujuan. Biasanya SOL sudah sampai di wallet kamu dalam 1-5 menit, tergantung kondisi jaringan.
+Setelah saldo tersedia, konfirmasi pembelian dan bot akan memproses pesanan serta mengirim SOL ke alamat wallet tujuan. Biasanya SOL sudah sampai di wallet kamu dalam 1-5 menit, tergantung kondisi jaringan.
 
 Cara Membuat Wallet Solana untuk Pemula
 
@@ -987,7 +987,7 @@ Langkah 6: Bot akan memberikan nomor Virtual Account beserta jumlah yang harus d
 
 Langkah 7: Buka aplikasi mobile banking atau internet banking kamu. Pilih menu "Transfer" lalu "Transfer ke Virtual Account" atau "Transfer ke Bank Lain" (tergantung bank kamu). Masukkan nomor VA yang diberikan bot, verifikasi nama dan jumlah, lalu konfirmasi transfer.
 
-Langkah 8: Setelah transfer berhasil, pembayaran akan terdeteksi otomatis dalam 1-5 menit (bisa lebih cepat untuk sesama bank). Bot akan mengirim konfirmasi dan memproses pengiriman crypto ke wallet tujuanmu.
+Langkah 8: Setelah transfer berhasil, pembayaran akan terdeteksi otomatis dalam 1-5 menit (bisa lebih cepat untuk sesama bank). Saldo Rupiah langsung masuk ke akun bot kamu. Dari saldo ini, kamu bisa langsung beli crypto dan bot akan memproses pengiriman ke wallet tujuanmu.
 
 Tips Transfer VA via Mobile Banking
 

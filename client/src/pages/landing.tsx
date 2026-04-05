@@ -533,7 +533,7 @@ const steps = [
     number: "04",
     icon: Coins,
     title: "Beli atau Jual Crypto",
-    description: "Pilih crypto, masukkan nominal, konfirmasi. Crypto langsung diproses dan dikirim ke wallet tujuan.",
+    description: "Beli crypto dari saldo, langsung dikirim ke wallet. Jual crypto, hasil masuk ke saldo Rupiah — bisa ditarik ke bank atau e-wallet.",
   },
 ];
 
