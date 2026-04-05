@@ -6,7 +6,7 @@ import { SiTelegram } from "react-icons/si";
 const MASCOT_W = 68;
 const MASCOT_H = 76;
 
-function CyberKancil({ blink }: { blink: boolean }) {
+function CyberOwl({ blink }: { blink: boolean }) {
   return (
     <svg
       width={MASCOT_W}
@@ -14,139 +14,132 @@ function CyberKancil({ blink }: { blink: boolean }) {
       viewBox="0 0 68 76"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="Si Kancil Cyber — maskot KriptoEcer"
+      aria-label="Crypto Owl — maskot KriptoEcer"
     >
       <defs>
-        <linearGradient id="ckBody" x1="34" y1="14" x2="34" y2="72" gradientUnits="userSpaceOnUse">
+        <linearGradient id="owBody" x1="34" y1="10" x2="34" y2="72" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#FFD84D" />
-          <stop offset="50%" stopColor="#E8A800" />
+          <stop offset="45%" stopColor="#E8A800" />
           <stop offset="100%" stopColor="#B07800" />
         </linearGradient>
-        <linearGradient id="ckVisor" x1="34" y1="26" x2="34" y2="50" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#1A1E35" />
-          <stop offset="100%" stopColor="#0A0D1E" />
+        <linearGradient id="owBelly" x1="34" y1="44" x2="34" y2="70" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#FFF3D0" />
+          <stop offset="100%" stopColor="#FFE09A" />
         </linearGradient>
-        <linearGradient id="ckRim" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#FFE870" stopOpacity="0.9" />
+        <linearGradient id="owRim" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FFE870" stopOpacity="0.8" />
           <stop offset="100%" stopColor="#CC8800" stopOpacity="0.3" />
         </linearGradient>
-        <linearGradient id="ckEar" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#D49500" />
-          <stop offset="100%" stopColor="#8B6200" />
-        </linearGradient>
-        <linearGradient id="ckAntler" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#00E0FF" />
-          <stop offset="100%" stopColor="#0088AA" />
-        </linearGradient>
-        <radialGradient id="ckIris" cx="38%" cy="30%" r="65%">
+        <radialGradient id="owIris" cx="38%" cy="30%" r="65%">
           <stop offset="0%" stopColor="#7DF9FF" />
           <stop offset="50%" stopColor="#00C8E8" />
           <stop offset="100%" stopColor="#006ECC" />
         </radialGradient>
-        <filter id="ckEyeGlow" x="-80%" y="-80%" width="260%" height="260%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+        <filter id="owEyeGlow" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
           <feColorMatrix in="blur" type="matrix"
-            values="0 0 0 0 0  0 0.8 0.9 0 0  0 0 1 0 0  0 0 0 1.2 0" result="glow" />
+            values="0 0 0 0 0  0 0.8 0.9 0 0  0 0 1 0 0  0 0 0 1.4 0" result="glow" />
           <feComposite in="SourceGraphic" in2="glow" operator="over" />
         </filter>
-        <filter id="ckShadow" x="-20%" y="-10%" width="140%" height="150%">
+        <filter id="owShadow" x="-20%" y="-10%" width="140%" height="150%">
           <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#000000" floodOpacity="0.3" />
         </filter>
-        <radialGradient id="ckAntGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#60EFFF" />
-          <stop offset="100%" stopColor="#00AADD" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="ckCircuit" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#00E0FF" stopOpacity="0.25" />
+        <linearGradient id="owCircuit" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#00E0FF" stopOpacity="0.3" />
           <stop offset="100%" stopColor="#00E0FF" stopOpacity="0.05" />
+        </linearGradient>
+        <linearGradient id="owWing" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#D49500" />
+          <stop offset="100%" stopColor="#8B6200" />
+        </linearGradient>
+        <linearGradient id="owEarTuft" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stopColor="#E8A800" />
+          <stop offset="100%" stopColor="#FFD84D" />
         </linearGradient>
       </defs>
 
-      {/* Tech antlers — glowing cyan antenna-style */}
-      <g>
-        <path d="M21 20 L17 8 L14 14" stroke="url(#ckAntler)" strokeWidth="2" strokeLinecap="round" fill="none" />
-        <path d="M17 8 L21 4" stroke="url(#ckAntler)" strokeWidth="2" strokeLinecap="round" fill="none" />
-        <circle cx="17" cy="8" r="3" fill="#00CCEE" opacity="0.15" />
-        <circle cx="17" cy="8" r="1.5" fill="#00DDFF" opacity="0.9" />
-        <circle cx="14" cy="14" r="1.2" fill="#00BBDD" opacity="0.7" />
-        <circle cx="21" cy="4" r="1.2" fill="#00BBDD" opacity="0.7" />
+      {/* Ear tufts — pointed owl horns with tech glow tips */}
+      <path d="M18 18 L10 2 L16 14" fill="url(#owEarTuft)" />
+      <path d="M50 18 L58 2 L52 14" fill="url(#owEarTuft)" />
+      <circle cx="10" cy="2" r="2.5" fill="#00CCEE" opacity="0.2" />
+      <circle cx="10" cy="2" r="1.2" fill="#00DDFF" opacity="0.9" />
+      <circle cx="58" cy="2" r="2.5" fill="#00CCEE" opacity="0.2" />
+      <circle cx="58" cy="2" r="1.2" fill="#00DDFF" opacity="0.9" />
 
-        <path d="M47 20 L51 8 L54 14" stroke="url(#ckAntler)" strokeWidth="2" strokeLinecap="round" fill="none" />
-        <path d="M51 8 L47 4" stroke="url(#ckAntler)" strokeWidth="2" strokeLinecap="round" fill="none" />
-        <circle cx="51" cy="8" r="3" fill="#00CCEE" opacity="0.15" />
-        <circle cx="51" cy="8" r="1.5" fill="#00DDFF" opacity="0.9" />
-        <circle cx="54" cy="14" r="1.2" fill="#00BBDD" opacity="0.7" />
-        <circle cx="47" cy="4" r="1.2" fill="#00BBDD" opacity="0.7" />
-      </g>
-
-      {/* Ears with tech inner */}
-      <ellipse cx="8" cy="30" rx="6" ry="9" transform="rotate(-15 8 30)" fill="url(#ckEar)" />
-      <ellipse cx="8" cy="30" rx="3.5" ry="6" transform="rotate(-15 8 30)" fill="#FFDDA0" fillOpacity="0.4" />
-      <ellipse cx="8" cy="30" rx="1.5" ry="3" transform="rotate(-15 8 30)" fill="#00E0FF" fillOpacity="0.15" />
-
-      <ellipse cx="60" cy="30" rx="6" ry="9" transform="rotate(15 60 30)" fill="url(#ckEar)" />
-      <ellipse cx="60" cy="30" rx="3.5" ry="6" transform="rotate(15 60 30)" fill="#FFDDA0" fillOpacity="0.4" />
-      <ellipse cx="60" cy="30" rx="1.5" ry="3" transform="rotate(15 60 30)" fill="#00E0FF" fillOpacity="0.15" />
-
-      {/* Main body */}
-      <rect x="7" y="16" width="54" height="56" rx="21"
-        fill="url(#ckBody)" filter="url(#ckShadow)" />
-      <rect x="7.75" y="16.75" width="52.5" height="54.5" rx="20.25"
-        fill="none" stroke="url(#ckRim)" strokeWidth="1.5" />
-
-      {/* Circuit lines on body */}
-      <path d="M18 58 L18 62 L24 62" stroke="url(#ckCircuit)" strokeWidth="1" strokeLinecap="round" />
-      <path d="M50 58 L50 62 L44 62" stroke="url(#ckCircuit)" strokeWidth="1" strokeLinecap="round" />
-      <path d="M14 42 L14 48" stroke="url(#ckCircuit)" strokeWidth="1" strokeLinecap="round" />
-      <path d="M54 42 L54 48" stroke="url(#ckCircuit)" strokeWidth="1" strokeLinecap="round" />
-      <circle cx="18" cy="58" r="1" fill="#00E0FF" fillOpacity="0.3" />
-      <circle cx="50" cy="58" r="1" fill="#00E0FF" fillOpacity="0.3" />
+      {/* Main body — round owl shape */}
+      <ellipse cx="34" cy="42" rx="27" ry="30"
+        fill="url(#owBody)" filter="url(#owShadow)" />
+      <ellipse cx="34" cy="42" rx="27" ry="30"
+        fill="none" stroke="url(#owRim)" strokeWidth="1.5" />
 
       {/* Head highlight */}
-      <ellipse cx="30" cy="23" rx="14" ry="5" fill="white" fillOpacity="0.2" />
+      <ellipse cx="30" cy="22" rx="14" ry="6" fill="white" fillOpacity="0.18" />
 
-      {/* Visor / face screen */}
-      <rect x="14" y="27" width="40" height="32" rx="13"
-        fill="url(#ckVisor)" />
-      <rect x="15" y="28" width="38" height="30" rx="12"
-        fill="none" stroke="#2A2E4A" strokeWidth="0.8" />
-      <ellipse cx="28" cy="31" rx="10" ry="3" fill="white" fillOpacity="0.06" />
+      {/* Wings — folded at sides */}
+      <path d="M7 38 Q4 50 10 60 Q12 55 9 42 Z" fill="url(#owWing)" opacity="0.7" />
+      <path d="M61 38 Q64 50 58 60 Q56 55 59 42 Z" fill="url(#owWing)" opacity="0.7" />
 
-      {/* Eyes — glowing cyan tech eyes */}
+      {/* Belly with chevron pattern */}
+      <ellipse cx="34" cy="52" rx="16" ry="16" fill="url(#owBelly)" />
+      <path d="M26 48 L34 52 L42 48" stroke="#D49500" strokeWidth="0.8" fill="none" opacity="0.4" />
+      <path d="M27 52 L34 56 L41 52" stroke="#D49500" strokeWidth="0.8" fill="none" opacity="0.3" />
+      <path d="M28 56 L34 60 L40 56" stroke="#D49500" strokeWidth="0.8" fill="none" opacity="0.2" />
+
+      {/* Circuit lines on body */}
+      <path d="M12 48 L12 54 L16 54" stroke="url(#owCircuit)" strokeWidth="1" strokeLinecap="round" />
+      <path d="M56 48 L56 54 L52 54" stroke="url(#owCircuit)" strokeWidth="1" strokeLinecap="round" />
+      <circle cx="12" cy="48" r="1" fill="#00E0FF" fillOpacity="0.35" />
+      <circle cx="56" cy="48" r="1" fill="#00E0FF" fillOpacity="0.35" />
+      <path d="M20 64 L26 64 L26 67" stroke="url(#owCircuit)" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M48 64 L42 64 L42 67" stroke="url(#owCircuit)" strokeWidth="0.8" strokeLinecap="round" />
+
+      {/* Eye rings — owl facial disc */}
+      <circle cx="24" cy="34" r="11" fill="#1A1E35" />
+      <circle cx="24" cy="34" r="11" fill="none" stroke="#2A2E4A" strokeWidth="0.8" />
+      <circle cx="44" cy="34" r="11" fill="#1A1E35" />
+      <circle cx="44" cy="34" r="11" fill="none" stroke="#2A2E4A" strokeWidth="0.8" />
+
+      {/* Eye ring rims — gold */}
+      <circle cx="24" cy="34" r="11.5" fill="none" stroke="#C48800" strokeWidth="1.2" />
+      <circle cx="44" cy="34" r="11.5" fill="none" stroke="#C48800" strokeWidth="1.2" />
+
+      {/* Eyes */}
       {blink ? (
         <>
-          <path d="M23 41 Q27 43 31 41" stroke="#00E0FF" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.9" />
-          <path d="M37 41 Q41 43 45 41" stroke="#00E0FF" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.9" />
+          <path d="M18 35 Q24 38 30 35" stroke="#00E0FF" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.9" />
+          <path d="M38 35 Q44 38 50 35" stroke="#00E0FF" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.9" />
         </>
       ) : (
         <>
-          <circle cx="27" cy="41" r="6" fill="url(#ckIris)" filter="url(#ckEyeGlow)" />
-          <circle cx="27" cy="41" r="3.2" fill="#CFFFFE" fillOpacity="0.5" />
-          <circle cx="25.5" cy="39.5" r="1.6" fill="white" fillOpacity="0.85" />
-          <circle cx="27" cy="41" r="0.9" fill="#001830" fillOpacity="0.4" />
+          <circle cx="24" cy="34" r="7.5" fill="url(#owIris)" filter="url(#owEyeGlow)" />
+          <circle cx="24" cy="34" r="4" fill="#CFFFFE" fillOpacity="0.5" />
+          <circle cx="22" cy="32" r="2" fill="white" fillOpacity="0.85" />
+          <circle cx="24" cy="34" r="1.2" fill="#001830" fillOpacity="0.45" />
 
-          <circle cx="41" cy="41" r="6" fill="url(#ckIris)" filter="url(#ckEyeGlow)" />
-          <circle cx="41" cy="41" r="3.2" fill="#CFFFFE" fillOpacity="0.5" />
-          <circle cx="39.5" cy="39.5" r="1.6" fill="white" fillOpacity="0.85" />
-          <circle cx="41" cy="41" r="0.9" fill="#001830" fillOpacity="0.4" />
+          <circle cx="44" cy="34" r="7.5" fill="url(#owIris)" filter="url(#owEyeGlow)" />
+          <circle cx="44" cy="34" r="4" fill="#CFFFFE" fillOpacity="0.5" />
+          <circle cx="42" cy="32" r="2" fill="white" fillOpacity="0.85" />
+          <circle cx="44" cy="34" r="1.2" fill="#001830" fillOpacity="0.45" />
         </>
       )}
 
-      {/* Nose — small triangle tech nose */}
-      <path d="M32 48 L34 51 L30 51 Z" fill="#C48800" />
-      <path d="M31 49.5 L31.5 50.5" stroke="white" strokeWidth="0.5" strokeLinecap="round" opacity="0.4" />
+      {/* Beak — small tech triangle */}
+      <path d="M31 44 L34 49 L37 44 Z" fill="#C48800" />
+      <path d="M31.5 44.5 L34 48 L36.5 44.5" fill="none" stroke="#FFE870" strokeWidth="0.5" opacity="0.5" />
 
-      {/* Mouth — gentle smile */}
-      <path d="M28 53 Q34 57 40 53" stroke="#00C8E8" strokeWidth="1.8" strokeLinecap="round" fill="none" />
-      <path d="M28 53 Q34 57 40 53" stroke="#00C8E8" strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.1" />
+      {/* Tiny feet */}
+      <g>
+        <path d="M26 70 L23 74 M26 70 L26 74 M26 70 L29 74" stroke="#C48800" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M42 70 L39 74 M42 70 L42 74 M42 70 L45 74" stroke="#C48800" strokeWidth="1.8" strokeLinecap="round" />
+      </g>
 
-      {/* Status LED on right side */}
-      <circle cx="58" cy="36" r="3.5" fill="#0F1020" />
-      <circle cx="58" cy="36" r="2.2" fill="#22DD66" />
+      {/* Status LED */}
+      <circle cx="58" cy="26" r="3.5" fill="#0F1020" />
+      <circle cx="58" cy="26" r="2.2" fill="#22DD66" />
 
-      {/* Crypto coin badge on chest */}
-      <circle cx="34" cy="66" r="5" fill="#1A1E35" stroke="#00C8E8" strokeWidth="1" />
-      <text x="34" y="69.5" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#00E0FF" fontFamily="monospace">₿</text>
+      {/* Crypto badge on belly */}
+      <circle cx="34" cy="62" r="4.5" fill="#1A1E35" stroke="#00C8E8" strokeWidth="0.8" />
+      <text x="34" y="65.5" textAnchor="middle" fontSize="6.5" fontWeight="bold" fill="#00E0FF" fontFamily="monospace">₿</text>
     </svg>
   );
 }
@@ -311,13 +304,13 @@ export function FloatingTelegramButton() {
               rel="noopener noreferrer"
               className="block cursor-pointer"
               data-testid="button-floating-telegram"
-              aria-label="Si Kancil — Buka KriptoEcer Bot"
+              aria-label="Crypto Owl — Buka KriptoEcer Bot"
               animate={noMotion ? {} : { scale: [1, 1.02, 1] }}
               transition={noMotion ? { duration: 0 } : BREATHE_TRANSITION}
               whileHover={noMotion ? undefined : { scale: 1.08, y: -4, transition: HOVER_TRANSITION }}
               whileTap={noMotion ? undefined : { scale: 0.92, transition: HOVER_TRANSITION }}
             >
-              <CyberKancil blink={blink} />
+              <CyberOwl blink={blink} />
             </motion.a>
           </div>
         </motion.div>
