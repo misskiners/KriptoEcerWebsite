@@ -12,6 +12,7 @@ KriptoEcer is a web application that serves as a landing page for a Telegram bot
 - **April 2026 (Blog Expansion)**: Added 5 new SEO-optimized articles (1000+ words each) with AI-generated cover images: Cara Beli Solana, Apa Itu Blockchain, Deposit via Virtual Account, Crypto Halal/Haram, 5 Kesalahan Pemula. Total articles now 15. Internal links between articles. Sitemap auto-updated.
 - **April 2026 (Particle Network Upgrade)**: Upgraded blockchain network animation with hub nodes (6 large glowing validators), data packets traveling along connections (3 colors), radial glow effects, and increased visibility.
 - **April 2026 (UI Consistency)**: Extracted shared `PageHeader` (`client/src/components/page-header.tsx`) and `PageFooter` (`client/src/components/page-footer.tsx`) components used across all non-landing pages (legal, blog, article, 404). All pages now share consistent header (logo, Blog link, ThemeToggle, "Start Bot" CTA), dark-theme footer (4-column: brand/nav/legal/kontak, social links, disclaimer, copyright), and motion entrance animations. LegalLayout upgraded with breadcrumb navigation. 404 page fully redesigned in Indonesian with branded styling and helpful navigation links.
+- **April 2026 (SEO Audit & Fixes)**: Removed duplicate JSON-LD Organization from `index.html` (Helmet in landing.tsx is authoritative); removed fake SearchAction from WebSite schema; added `<SEO noindex>` to 404 page; migrated legal pages from DOM manipulation to `<SEO>` component with canonical URLs and BreadcrumbList structured data; added server-side OG meta tag injection via `server/og.ts` (Express) and `api/render.ts` (Vercel serverless) for social sharing previews; centralized page metadata in `shared/seo-meta.ts`; Vercel conditional rewrites route bot user agents through `/api/render` for correct OG previews; trimmed font weights (10→5 files); added width/height to blog images to prevent CLS; added hreflang tags.
 - **April 2026 (SEO)**: Full SEO implementation — `react-helmet-async` installed, `SEO` component (`client/src/components/seo.tsx`) with dynamic title/description/OG/Twitter Card per page; landing adds Organization + WebSite + FAQPage JSON-LD; blog adds CollectionPage + BreadcrumbList; articles add BlogPosting + BreadcrumbList + per-article OG image; `robots.txt` at `client/public/robots.txt`; `sitemap.xml` endpoint in `server/routes.ts` covering all URLs; OG image at `client/public/og-image.png` (1200×630px branded image)
 - **April 2026 (Blog)**: Full blog system added — articles stored as static TypeScript data in `shared/articles.ts`, REST API (`GET /api/articles`, `GET /api/articles/:slug`), `/blog` listing page, `/blog/:slug` article detail page, Blog nav link in Header and Footer
 - **April 2026**: Major UI upgrade — mouse parallax hero orbs, glassmorphism feature cards, canvas-confetti CTA button, ParticleNetwork replacing BlockchainGrid everywhere, interactive 4-tab DepositSection (QRIS/VA/PayPal/CryptoBot), upgraded BotAnimation with typing indicator (bouncing dots), timestamps, read receipts, coin+amount selectors, and Reset Demo
@@ -71,12 +72,14 @@ Preferred communication style: Simple, everyday language (Indonesian).
 ├── api/              # Vercel serverless functions (uses shared modules)
 │   ├── prices.ts     # CoinGecko proxy
 │   ├── sitemap.ts    # Sitemap XML
+│   ├── render.ts     # OG meta tag renderer for social bots
 │   └── articles/     # Article endpoints
 ├── shared/           # Shared code between frontend/backend/api
 │   ├── schema.ts     # TypeScript interfaces
 │   ├── articles.ts   # Static article data
 │   ├── prices.ts     # Price fetching logic
-│   └── sitemap.ts    # Sitemap generation
+│   ├── sitemap.ts    # Sitemap generation
+│   └── seo-meta.ts   # Centralized page metadata for OG tags
 └── script/           # Build scripts
 ```
 

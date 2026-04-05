@@ -3,8 +3,24 @@
   "outputDirectory": "dist/public",
   "installCommand": "npm install",
   "framework": "vite",
+  "headers": [
+    {
+      "source": "/images/blog/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    {
+      "source": "/blog/:slug",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?i)(facebookexternalhit|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|Slackbot|Googlebot|bingbot|Discordbot|Embedly|Quora Link Preview|Showyoubot|outbrain|pinterest|vkShare|W3C_Validator)" }],
+      "destination": "/api/render?path=/blog/:slug"
+    },
+    {
+      "source": "/:page(terms|privacy|risk|refund|blog)",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?i)(facebookexternalhit|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|Slackbot|Googlebot|bingbot|Discordbot|Embedly|Quora Link Preview|Showyoubot|outbrain|pinterest|vkShare|W3C_Validator)" }],
+      "destination": "/api/render?path=/:page"
+    },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

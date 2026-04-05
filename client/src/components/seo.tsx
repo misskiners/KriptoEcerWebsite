@@ -71,6 +71,9 @@ export function SEO({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
 
+      <link rel="alternate" hreflang="id" href={canonicalUrl ?? `${SITE_URL}/`} />
+      <link rel="alternate" hreflang="x-default" href={canonicalUrl ?? `${SITE_URL}/`} />
+
       {schemas.map((schema, i) => (
         <script key={i} type="application/ld+json">
           {JSON.stringify(schema)}

@@ -1,9 +1,16 @@
 import { Link } from "wouter";
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { PageFooter } from "@/components/page-footer";
+import { SEO, SITE_URL } from "@/components/seo";
+
+const LEGAL_SLUG: Record<string, string> = {
+  "Syarat dan Ketentuan": "/terms",
+  "Kebijakan Privasi": "/privacy",
+  "Pengungkapan Risiko": "/risk",
+  "Kebijakan Refund": "/refund",
+};
 
 interface LegalLayoutProps {
   title: string;
@@ -14,25 +21,20 @@ interface LegalLayoutProps {
 }
 
 export function LegalLayout({ title, description, lastUpdated = "Maret 2026", icon, children }: LegalLayoutProps) {
-  useEffect(() => {
-    const pageTitle = `${title} | KriptoEcer`;
-    document.title = pageTitle;
-    const setMeta = (selector: string, attr: string, value: string) => {
-      const el = document.querySelector(selector);
-      if (el) el.setAttribute(attr, value);
-    };
-    setMeta('meta[name="description"]', "content", description);
-    setMeta('meta[property="og:title"]', "content", pageTitle);
-    setMeta('meta[property="og:description"]', "content", description);
-    setMeta('meta[name="twitter:title"]', "content", pageTitle);
-    setMeta('meta[name="twitter:description"]', "content", description);
-    return () => {
-      document.title = "KriptoEcer - Beli & Jual Crypto Eceran Mulai Rp10.000 via Telegram";
-    };
-  }, [title, description]);
+  const slug = LEGAL_SLUG[title] ?? "";
+  const breadcrumb = [
+    { "@type": "ListItem" as const, "position": 1, "name": "Beranda", "item": `${SITE_URL}/` },
+    { "@type": "ListItem" as const, "position": 2, "name": title, "item": `${SITE_URL}${slug}` },
+  ];
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEO
+        title={title}
+        description={description}
+        canonical={slug}
+        structuredData={{ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": breadcrumb }}
+      />
       <PageHeader />
 
       <main className="container mx-auto px-4 pt-28 pb-16 max-w-3xl flex-1">

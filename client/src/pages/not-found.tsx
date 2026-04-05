@@ -5,10 +5,16 @@ import { Home, BookOpen, Search } from "lucide-react";
 import { SiTelegram } from "react-icons/si";
 import { PageHeader } from "@/components/page-header";
 import { PageFooter } from "@/components/page-footer";
+import { SEO } from "@/components/seo";
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEO
+        title="Halaman Tidak Ditemukan"
+        description="Halaman yang kamu cari tidak tersedia atau sudah dipindahkan."
+        noindex
+      />
       <PageHeader />
 
       <main className="flex-1 flex items-center justify-center pt-16">

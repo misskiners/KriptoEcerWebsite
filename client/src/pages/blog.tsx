@@ -41,6 +41,8 @@ function ArticleCard({ article, index }: { article: Article; index: number }) {
             <img
               src={`/images/blog/${article.slug}.png`}
               alt={article.title}
+              width={1408}
+              height={768}
               loading={index === 0 ? "eager" : "lazy"}
               decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

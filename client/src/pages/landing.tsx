@@ -1067,6 +1067,10 @@ function RecentArticlesSection() {
                 <img
                   src={`/images/blog/${article.slug}.png`}
                   alt={article.title}
+                  width={1408}
+                  height={768}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   onError={(e) => {
                     const t = e.currentTarget;
@@ -1312,11 +1316,6 @@ const LANDING_STRUCTURED_DATA = [
     "@type": "WebSite",
     "name": "KriptoEcer",
     "url": SITE_URL,
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": { "@type": "EntryPoint", "urlTemplate": `${SITE_URL}/blog?q={search_term_string}` },
-      "query-input": "required name=search_term_string",
-    },
   },
   {
     "@context": "https://schema.org",

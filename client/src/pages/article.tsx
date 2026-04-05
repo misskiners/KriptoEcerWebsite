@@ -131,6 +131,8 @@ function RelatedArticles({ current }: { current: Article }) {
                   <img
                     src={`/images/blog/${article.slug}.png`}
                     alt={article.title}
+                    width={1408}
+                    height={768}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -264,6 +266,8 @@ export default function ArticlePage() {
                     <img
                       src={`/images/blog/${article.slug}.png`}
                       alt={article.title}
+                      width={1408}
+                      height={768}
                       loading="eager"
                       decoding="async"
                       className="w-full h-full object-cover"
