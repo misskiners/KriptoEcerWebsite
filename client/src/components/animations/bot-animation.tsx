@@ -474,20 +474,21 @@ export function BotAnimation() {
             className="flex-1 bg-transparent text-white text-sm font-bold outline-none
               placeholder-white/20 min-w-0 caret-primary"
           />
-          {/* Fixed-width right slot — prevents layout shift when estimate/X appear/disappear */}
-          <div className="flex items-center gap-1 flex-shrink-0 w-[88px] justify-end overflow-hidden">
-            {selectedAmount >= 10_000 && !loading && (
-              <span className="text-[10px] text-primary/80 font-semibold truncate">
-                ≈{calcCrypto(selectedCoin, selectedAmount)} {selectedCoin.symbol}
-              </span>
-            )}
-            {amountInput && (
-              <button
-                onClick={() => { setAmountInput(""); setSelectedAmount(0); }}
-                className="text-white/25 hover:text-white/60 transition-colors flex-shrink-0 leading-none w-4 h-4 flex items-center justify-center text-xs">
-                ✕
-              </button>
-            )}
+          <div className="flex items-center gap-1 flex-shrink-0 justify-end overflow-hidden">
+            <span className={`text-[10px] text-primary/80 font-semibold truncate max-w-[72px] transition-opacity duration-150 ${
+              selectedAmount >= 10_000 && !loading ? "opacity-100" : "opacity-0 w-0 max-w-0"
+            }`}>
+              ≈{calcCrypto(selectedCoin, selectedAmount || 100_000)} {selectedCoin.symbol}
+            </span>
+            <button
+              onClick={() => { setAmountInput(""); setSelectedAmount(0); }}
+              aria-hidden={!amountInput}
+              tabIndex={amountInput ? 0 : -1}
+              className={`flex-shrink-0 leading-none w-4 h-4 flex items-center justify-center text-xs transition-opacity duration-150 ${
+                amountInput ? "text-white/25 hover:text-white/60" : "opacity-0 pointer-events-none w-0"
+              }`}>
+              ✕
+            </button>
           </div>
         </div>
 
