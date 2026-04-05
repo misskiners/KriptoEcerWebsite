@@ -142,11 +142,33 @@ function getSideProps(side: Side) {
     hiddenOffset: { y: BOT_H + 24 },
     bobAnimate:   { y: [0, -9, 0] },
   };
+  // Bot on LEFT → bubble extends to the RIGHT, tail on bottom-left of bubble
+  // Bot on RIGHT → bubble extends to the LEFT, tail on bottom-right of bubble
   return side === "bottom-left"
-    ? { ...shared, containerStyle: { bottom: 0, left: 20 } as React.CSSProperties,
-                   bubbleClass: "absolute bottom-[calc(100%+12px)] left-0 w-56" }
-    : { ...shared, containerStyle: { bottom: 0, right: 20 } as React.CSSProperties,
-                   bubbleClass: "absolute bottom-[calc(100%+12px)] right-0 w-56" };
+    ? {
+        ...shared,
+        containerStyle: { bottom: 0, left: 20 } as React.CSSProperties,
+        bubbleClass:    "absolute bottom-[calc(100%+12px)] left-0 w-56",
+        tailClass:      "absolute -bottom-[7px] left-6",
+        tailStyle:      {
+          width: 0, height: 0,
+          borderLeft: "7px solid transparent",
+          borderRight: "7px solid transparent",
+          borderTop: "8px solid rgba(13,18,32,0.97)",
+        } as React.CSSProperties,
+      }
+    : {
+        ...shared,
+        containerStyle: { bottom: 0, right: 20 } as React.CSSProperties,
+        bubbleClass:    "absolute bottom-[calc(100%+12px)] right-0 w-56",
+        tailClass:      "absolute -bottom-[7px] right-6",
+        tailStyle:      {
+          width: 0, height: 0,
+          borderLeft: "7px solid transparent",
+          borderRight: "7px solid transparent",
+          borderTop: "8px solid rgba(13,18,32,0.97)",
+        } as React.CSSProperties,
+      };
 }
 
 /* ─────────────────────────────────────────────────────────────────── */
@@ -162,9 +184,7 @@ export function FloatingTelegramButton() {
 
   const [side] = useState<Side>(() => {
     if (typeof window === "undefined") return "bottom-right";
-    return window.innerWidth < 768
-      ? MOBILE_SIDES[Math.floor(Math.random() * MOBILE_SIDES.length)]
-      : "bottom-right";
+    return MOBILE_SIDES[Math.floor(Math.random() * MOBILE_SIDES.length)];
   });
 
   useEffect(() => {
@@ -192,7 +212,7 @@ export function FloatingTelegramButton() {
 
   if (dismissed) return null;
 
-  const { containerStyle, peekOffset, hiddenOffset, bobAnimate, bubbleClass } = getSideProps(side);
+  const { containerStyle, peekOffset, hiddenOffset, bobAnimate, bubbleClass, tailClass, tailStyle } = getSideProps(side);
 
   return (
     <AnimatePresence>
@@ -269,9 +289,8 @@ export function FloatingTelegramButton() {
                     </div>
                   </div>
 
-                  {/* Tail pointing to bot — positioned based on side */}
-                  <div className={`absolute -bottom-1.5 ${side === "bottom-right" ? "right-8" : "left-8"}
-                    w-3 h-3 bg-[#0d1220] border-b border-r border-white/10 rotate-45`} />
+                  {/* Tail — proper CSS triangle pointing down toward the bot */}
+                  <div className={tailClass} style={tailStyle} />
                 </motion.div>
               )}
             </AnimatePresence>
