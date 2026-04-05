@@ -19,7 +19,10 @@ async function fetchFromCoinGecko(attempt = 1): Promise<PriceCache["data"]> {
     `?ids=${ALL_COIN_IDS}&vs_currencies=idr&include_24hr_change=true`;
   try {
     const res = await fetch(url, {
-      headers: { Accept: "application/json" },
+      headers: {
+        Accept: "application/json",
+        "x-cg-demo-api-key": "CG-xgQhVXDYUW4FKzXgP8UfhTgC",
+      },
       signal: AbortSignal.timeout(8_000),
     });
     if (!res.ok) throw new Error(`CoinGecko ${res.status}`);
