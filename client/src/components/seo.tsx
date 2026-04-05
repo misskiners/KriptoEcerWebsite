@@ -1,9 +1,11 @@
 import { Helmet } from "react-helmet-async";
-import { SITE_URL, DEFAULT_OG_IMAGE } from "@shared/seo-meta";
-
-const SITE_NAME = "KriptoEcer";
-const DEFAULT_TITLE = "KriptoEcer - Beli & Jual Crypto Eceran Mulai Rp10.000 via Telegram";
-const DEFAULT_DESC = "KriptoEcer — bot Telegram jual beli crypto eceran mulai Rp10.000. Beli meme coin, top up fee gas TRX/SOL/BNB, atau beli USDT tanpa KYC. Deposit otomatis via QRIS, VA, PayPal.";
+import {
+  SITE_URL,
+  SITE_NAME,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_TITLE,
+  DEFAULT_DESC,
+} from "@shared/seo-meta";
 
 interface SEOProps {
   title?: string;

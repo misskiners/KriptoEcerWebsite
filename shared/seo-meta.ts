@@ -1,5 +1,9 @@
 export const SITE_URL = "https://kriptoecer.com";
+export const SITE_NAME = "KriptoEcer";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
+export const DEFAULT_TITLE = "KriptoEcer - Beli & Jual Crypto Eceran Mulai Rp10.000 via Telegram";
+export const DEFAULT_DESC =
+  "KriptoEcer — bot Telegram jual beli crypto eceran mulai Rp10.000. Beli meme coin, top up fee gas TRX/SOL/BNB, atau beli USDT tanpa KYC. Deposit otomatis via QRIS, VA, PayPal.";
 
 export interface PageMeta {
   title: string;
@@ -7,6 +11,53 @@ export interface PageMeta {
   ogImage: string;
   ogType: string;
   canonical: string;
+}
+
+export function escHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+}
+
+export function buildBotHtml(meta: PageMeta): string {
+  const t = escHtml(meta.title);
+  const d = escHtml(meta.description);
+  const img = escHtml(meta.ogImage);
+  const can = escHtml(meta.canonical);
+  const ogt = escHtml(meta.ogType);
+
+  return `<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>${t}</title>
+<meta name="description" content="${d}" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="${can}" />
+<meta property="og:type" content="${ogt}" />
+<meta property="og:url" content="${can}" />
+<meta property="og:site_name" content="${SITE_NAME}" />
+<meta property="og:locale" content="id_ID" />
+<meta property="og:title" content="${t}" />
+<meta property="og:description" content="${d}" />
+<meta property="og:image" content="${img}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@kriptoecer" />
+<meta name="twitter:title" content="${t}" />
+<meta name="twitter:description" content="${d}" />
+<meta name="twitter:image" content="${img}" />
+<meta name="theme-color" content="#f59e0b" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="alternate" hreflang="id" href="${can}" />
+<link rel="alternate" hreflang="x-default" href="${can}" />
+</head>
+<body>
+<h1>${t}</h1>
+<p>${d}</p>
+<a href="/">KriptoEcer</a>
+</body>
+</html>`;
 }
 
 export const STATIC_META: Record<string, PageMeta> = {
