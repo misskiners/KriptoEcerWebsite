@@ -17,129 +17,137 @@ function CyberOwl({ blink }: { blink: boolean }) {
       aria-label="Crypto Owl — maskot KriptoEcer"
     >
       <defs>
-        <linearGradient id="owBody" x1="34" y1="10" x2="34" y2="72" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#FFD84D" />
-          <stop offset="45%" stopColor="#E8A800" />
-          <stop offset="100%" stopColor="#B07800" />
+        <linearGradient id="owBody" x1="34" y1="8" x2="34" y2="72" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#FFE474" />
+          <stop offset="50%" stopColor="#FFD84D" />
+          <stop offset="100%" stopColor="#E8A800" />
         </linearGradient>
-        <linearGradient id="owBelly" x1="34" y1="44" x2="34" y2="70" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#FFF3D0" />
-          <stop offset="100%" stopColor="#FFE09A" />
+        <linearGradient id="owBelly" x1="34" y1="42" x2="34" y2="68" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#FFFDF0" />
+          <stop offset="100%" stopColor="#FFF0C8" />
         </linearGradient>
         <linearGradient id="owRim" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#FFE870" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#CC8800" stopOpacity="0.3" />
+          <stop offset="0%" stopColor="#FFF0A0" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="#D49500" stopOpacity="0.2" />
         </linearGradient>
-        <radialGradient id="owIris" cx="38%" cy="30%" r="65%">
-          <stop offset="0%" stopColor="#7DF9FF" />
-          <stop offset="50%" stopColor="#00C8E8" />
-          <stop offset="100%" stopColor="#006ECC" />
+        <radialGradient id="owIrisL" cx="45%" cy="40%" r="55%">
+          <stop offset="0%" stopColor="#90FCFF" />
+          <stop offset="40%" stopColor="#3DE8FF" />
+          <stop offset="100%" stopColor="#0090CC" />
         </radialGradient>
-        <filter id="owEyeGlow" x="-80%" y="-80%" width="260%" height="260%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
+        <radialGradient id="owIrisR" cx="45%" cy="40%" r="55%">
+          <stop offset="0%" stopColor="#90FCFF" />
+          <stop offset="40%" stopColor="#3DE8FF" />
+          <stop offset="100%" stopColor="#0090CC" />
+        </radialGradient>
+        <filter id="owGlow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="1.8" result="blur" />
           <feColorMatrix in="blur" type="matrix"
-            values="0 0 0 0 0  0 0.8 0.9 0 0  0 0 1 0 0  0 0 0 1.4 0" result="glow" />
+            values="0 0 0 0 0.2  0 0.8 0.9 0 0  0 0 1 0 0  0 0 0 0.8 0" result="glow" />
           <feComposite in="SourceGraphic" in2="glow" operator="over" />
         </filter>
-        <filter id="owShadow" x="-20%" y="-10%" width="140%" height="150%">
-          <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#000000" floodOpacity="0.3" />
+        <filter id="owShadow" x="-15%" y="-5%" width="130%" height="130%">
+          <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#000000" floodOpacity="0.2" />
         </filter>
+        <radialGradient id="owCheekL" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FFAA80" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#FFAA80" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="owCheekR" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FFAA80" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#FFAA80" stopOpacity="0" />
+        </radialGradient>
         <linearGradient id="owCircuit" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#00E0FF" stopOpacity="0.3" />
+          <stop offset="0%" stopColor="#00E0FF" stopOpacity="0.2" />
           <stop offset="100%" stopColor="#00E0FF" stopOpacity="0.05" />
-        </linearGradient>
-        <linearGradient id="owWing" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#D49500" />
-          <stop offset="100%" stopColor="#8B6200" />
-        </linearGradient>
-        <linearGradient id="owEarTuft" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor="#E8A800" />
-          <stop offset="100%" stopColor="#FFD84D" />
         </linearGradient>
       </defs>
 
-      {/* Ear tufts — pointed owl horns with tech glow tips */}
-      <path d="M18 18 L10 2 L16 14" fill="url(#owEarTuft)" />
-      <path d="M50 18 L58 2 L52 14" fill="url(#owEarTuft)" />
-      <circle cx="10" cy="2" r="2.5" fill="#00CCEE" opacity="0.2" />
-      <circle cx="10" cy="2" r="1.2" fill="#00DDFF" opacity="0.9" />
-      <circle cx="58" cy="2" r="2.5" fill="#00CCEE" opacity="0.2" />
-      <circle cx="58" cy="2" r="1.2" fill="#00DDFF" opacity="0.9" />
+      {/* Ear tufts — soft rounded with tiny glow tips */}
+      <ellipse cx="14" cy="12" rx="5" ry="10" transform="rotate(-20 14 12)" fill="#F0C030" />
+      <ellipse cx="14" cy="12" rx="3" ry="7" transform="rotate(-20 14 12)" fill="#FFE474" fillOpacity="0.6" />
+      <circle cx="11" cy="4" r="2" fill="#00DDFF" opacity="0.15" />
+      <circle cx="11" cy="4" r="0.9" fill="#00EEFF" opacity="0.85" />
 
-      {/* Main body — round owl shape */}
-      <ellipse cx="34" cy="42" rx="27" ry="30"
+      <ellipse cx="54" cy="12" rx="5" ry="10" transform="rotate(20 54 12)" fill="#F0C030" />
+      <ellipse cx="54" cy="12" rx="3" ry="7" transform="rotate(20 54 12)" fill="#FFE474" fillOpacity="0.6" />
+      <circle cx="57" cy="4" r="2" fill="#00DDFF" opacity="0.15" />
+      <circle cx="57" cy="4" r="0.9" fill="#00EEFF" opacity="0.85" />
+
+      {/* Main body — extra round & chubby */}
+      <ellipse cx="34" cy="42" rx="26" ry="28"
         fill="url(#owBody)" filter="url(#owShadow)" />
-      <ellipse cx="34" cy="42" rx="27" ry="30"
-        fill="none" stroke="url(#owRim)" strokeWidth="1.5" />
+      <ellipse cx="34" cy="42" rx="26" ry="28"
+        fill="none" stroke="url(#owRim)" strokeWidth="1.2" />
 
-      {/* Head highlight */}
-      <ellipse cx="30" cy="22" rx="14" ry="6" fill="white" fillOpacity="0.18" />
+      {/* Head sheen */}
+      <ellipse cx="28" cy="22" rx="13" ry="5.5" fill="white" fillOpacity="0.22" />
 
-      {/* Wings — folded at sides */}
-      <path d="M7 38 Q4 50 10 60 Q12 55 9 42 Z" fill="url(#owWing)" opacity="0.7" />
-      <path d="M61 38 Q64 50 58 60 Q56 55 59 42 Z" fill="url(#owWing)" opacity="0.7" />
+      {/* Tiny wings — tucked in, cute stubs */}
+      <ellipse cx="9" cy="44" rx="4" ry="10" transform="rotate(10 9 44)" fill="#E0A020" opacity="0.6" />
+      <ellipse cx="59" cy="44" rx="4" ry="10" transform="rotate(-10 59 44)" fill="#E0A020" opacity="0.6" />
 
-      {/* Belly with chevron pattern */}
-      <ellipse cx="34" cy="52" rx="16" ry="16" fill="url(#owBelly)" />
-      <path d="M26 48 L34 52 L42 48" stroke="#D49500" strokeWidth="0.8" fill="none" opacity="0.4" />
-      <path d="M27 52 L34 56 L41 52" stroke="#D49500" strokeWidth="0.8" fill="none" opacity="0.3" />
-      <path d="M28 56 L34 60 L40 56" stroke="#D49500" strokeWidth="0.8" fill="none" opacity="0.2" />
+      {/* Big soft belly */}
+      <ellipse cx="34" cy="50" rx="17" ry="16" fill="url(#owBelly)" />
+      <path d="M26 47 L34 50.5 L42 47" stroke="#E8C060" strokeWidth="0.7" fill="none" opacity="0.35" />
+      <path d="M27.5 51 L34 54.5 L40.5 51" stroke="#E8C060" strokeWidth="0.7" fill="none" opacity="0.25" />
+      <path d="M29 55 L34 58 L39 55" stroke="#E8C060" strokeWidth="0.7" fill="none" opacity="0.15" />
 
-      {/* Circuit lines on body */}
-      <path d="M12 48 L12 54 L16 54" stroke="url(#owCircuit)" strokeWidth="1" strokeLinecap="round" />
-      <path d="M56 48 L56 54 L52 54" stroke="url(#owCircuit)" strokeWidth="1" strokeLinecap="round" />
-      <circle cx="12" cy="48" r="1" fill="#00E0FF" fillOpacity="0.35" />
-      <circle cx="56" cy="48" r="1" fill="#00E0FF" fillOpacity="0.35" />
-      <path d="M20 64 L26 64 L26 67" stroke="url(#owCircuit)" strokeWidth="0.8" strokeLinecap="round" />
-      <path d="M48 64 L42 64 L42 67" stroke="url(#owCircuit)" strokeWidth="0.8" strokeLinecap="round" />
+      {/* Circuit accents — subtle tech hint */}
+      <path d="M13 52 L13 56 L17 56" stroke="url(#owCircuit)" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M55 52 L55 56 L51 56" stroke="url(#owCircuit)" strokeWidth="0.8" strokeLinecap="round" />
+      <circle cx="13" cy="52" r="0.8" fill="#00E0FF" fillOpacity="0.3" />
+      <circle cx="55" cy="52" r="0.8" fill="#00E0FF" fillOpacity="0.3" />
 
-      {/* Eye rings — owl facial disc */}
-      <circle cx="24" cy="34" r="11" fill="#1A1E35" />
-      <circle cx="24" cy="34" r="11" fill="none" stroke="#2A2E4A" strokeWidth="0.8" />
-      <circle cx="44" cy="34" r="11" fill="#1A1E35" />
-      <circle cx="44" cy="34" r="11" fill="none" stroke="#2A2E4A" strokeWidth="0.8" />
+      {/* Facial disc — soft cream ring around each eye */}
+      <circle cx="24" cy="34" r="11" fill="#FFF8E0" />
+      <circle cx="24" cy="34" r="11" fill="none" stroke="#E8C060" strokeWidth="0.8" />
+      <circle cx="44" cy="34" r="11" fill="#FFF8E0" />
+      <circle cx="44" cy="34" r="11" fill="none" stroke="#E8C060" strokeWidth="0.8" />
 
-      {/* Eye ring rims — gold */}
-      <circle cx="24" cy="34" r="11.5" fill="none" stroke="#C48800" strokeWidth="1.2" />
-      <circle cx="44" cy="34" r="11.5" fill="none" stroke="#C48800" strokeWidth="1.2" />
-
-      {/* Eyes */}
+      {/* Eyes — BIG kawaii style */}
       {blink ? (
         <>
-          <path d="M18 35 Q24 38 30 35" stroke="#00E0FF" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.9" />
-          <path d="M38 35 Q44 38 50 35" stroke="#00E0FF" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.9" />
+          <path d="M18 35 Q24 39 30 35" stroke="#0099BB" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+          <path d="M38 35 Q44 39 50 35" stroke="#0099BB" strokeWidth="2.5" strokeLinecap="round" fill="none" />
         </>
       ) : (
         <>
-          <circle cx="24" cy="34" r="7.5" fill="url(#owIris)" filter="url(#owEyeGlow)" />
-          <circle cx="24" cy="34" r="4" fill="#CFFFFE" fillOpacity="0.5" />
-          <circle cx="22" cy="32" r="2" fill="white" fillOpacity="0.85" />
-          <circle cx="24" cy="34" r="1.2" fill="#001830" fillOpacity="0.45" />
+          <circle cx="24" cy="33" r="8.5" fill="url(#owIrisL)" filter="url(#owGlow)" />
+          <circle cx="24" cy="33" r="5" fill="#D0FFFF" fillOpacity="0.4" />
+          <circle cx="21.5" cy="30.5" r="2.8" fill="white" fillOpacity="0.9" />
+          <circle cx="26" cy="35" r="1.2" fill="white" fillOpacity="0.45" />
+          <circle cx="24" cy="33" r="1.5" fill="#003355" fillOpacity="0.35" />
 
-          <circle cx="44" cy="34" r="7.5" fill="url(#owIris)" filter="url(#owEyeGlow)" />
-          <circle cx="44" cy="34" r="4" fill="#CFFFFE" fillOpacity="0.5" />
-          <circle cx="42" cy="32" r="2" fill="white" fillOpacity="0.85" />
-          <circle cx="44" cy="34" r="1.2" fill="#001830" fillOpacity="0.45" />
+          <circle cx="44" cy="33" r="8.5" fill="url(#owIrisR)" filter="url(#owGlow)" />
+          <circle cx="44" cy="33" r="5" fill="#D0FFFF" fillOpacity="0.4" />
+          <circle cx="41.5" cy="30.5" r="2.8" fill="white" fillOpacity="0.9" />
+          <circle cx="46" cy="35" r="1.2" fill="white" fillOpacity="0.45" />
+          <circle cx="44" cy="33" r="1.5" fill="#003355" fillOpacity="0.35" />
         </>
       )}
 
-      {/* Beak — small tech triangle */}
-      <path d="M31 44 L34 49 L37 44 Z" fill="#C48800" />
-      <path d="M31.5 44.5 L34 48 L36.5 44.5" fill="none" stroke="#FFE870" strokeWidth="0.5" opacity="0.5" />
+      {/* Blush cheeks */}
+      <ellipse cx="14" cy="42" rx="4.5" ry="3" fill="url(#owCheekL)" />
+      <ellipse cx="54" cy="42" rx="4.5" ry="3" fill="url(#owCheekR)" />
 
-      {/* Tiny feet */}
-      <g>
-        <path d="M26 70 L23 74 M26 70 L26 74 M26 70 L29 74" stroke="#C48800" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M42 70 L39 74 M42 70 L42 74 M42 70 L45 74" stroke="#C48800" strokeWidth="1.8" strokeLinecap="round" />
-      </g>
+      {/* Beak — small cute rounded triangle */}
+      <path d="M31 44 Q34 49 37 44 Q34 45.5 31 44 Z" fill="#F0A030" />
+      <ellipse cx="33" cy="44.5" rx="1" ry="0.6" fill="white" fillOpacity="0.35" />
 
-      {/* Status LED */}
-      <circle cx="58" cy="26" r="3.5" fill="#0F1020" />
-      <circle cx="58" cy="26" r="2.2" fill="#22DD66" />
+      {/* Happy little smile under beak */}
+      <path d="M31 49.5 Q34 51.5 37 49.5" stroke="#D49500" strokeWidth="0.9" strokeLinecap="round" fill="none" opacity="0.5" />
 
-      {/* Crypto badge on belly */}
-      <circle cx="34" cy="62" r="4.5" fill="#1A1E35" stroke="#00C8E8" strokeWidth="0.8" />
-      <text x="34" y="65.5" textAnchor="middle" fontSize="6.5" fontWeight="bold" fill="#00E0FF" fontFamily="monospace">₿</text>
+      {/* Tiny round feet */}
+      <ellipse cx="27" cy="69" rx="4.5" ry="2.5" fill="#E0A020" />
+      <ellipse cx="41" cy="69" rx="4.5" ry="2.5" fill="#E0A020" />
+      <path d="M24 70 L23 72.5 M27 70 L27 73 M30 70 L31 72.5" stroke="#D09020" strokeWidth="1.2" strokeLinecap="round" />
+      <path d="M38 70 L37 72.5 M41 70 L41 73 M44 70 L45 72.5" stroke="#D09020" strokeWidth="1.2" strokeLinecap="round" />
+
+      {/* Tiny antenna — subtle tech element on top of head */}
+      <line x1="34" y1="14" x2="34" y2="8" stroke="#D49500" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="34" cy="7" r="2.5" fill="#00DDFF" opacity="0.15" />
+      <circle cx="34" cy="7" r="1.2" fill="#00EEFF" opacity="0.9" />
     </svg>
   );
 }
