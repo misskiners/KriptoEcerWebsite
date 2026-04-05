@@ -342,7 +342,7 @@ export default function ArticlePage() {
           title={article.title}
           description={article.excerpt}
           canonical={`/blog/${article.slug}`}
-          ogImage={`${SITE_URL}/images/blog/${article.slug}.jpg`}
+          ogImage={`${SITE_URL}/images/blog/${article.slug}.jpg?v=2`}
           ogType="article"
           article={{
             publishedAt: typeof article.publishedAt === "string"
