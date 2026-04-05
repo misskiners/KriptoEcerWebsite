@@ -40,12 +40,12 @@ function getTime() {
 function TypingIndicator() {
   return (
     <div className="flex justify-start">
-      <div className="bg-white/10 px-4 py-3 rounded-2xl rounded-tl-sm flex items-center gap-1 border border-white/10">
+      <div className="bg-white/10 px-4 py-3 rounded-2xl rounded-tl-sm flex items-center gap-1.5 border border-white/10">
         {[0, 1, 2].map(i => (
           <motion.span key={i}
             className="w-1.5 h-1.5 rounded-full bg-white/50"
-            animate={{ y: [0, -4, 0] }}
-            transition={{ duration: 0.6, delay: i * 0.15, repeat: Infinity }}
+            animate={{ y: [0, -3, 0], opacity: [0.4, 0.9, 0.4] }}
+            transition={{ duration: 0.8, delay: i * 0.18, repeat: Infinity, ease: "easeInOut" }}
           />
         ))}
       </div>
@@ -231,7 +231,7 @@ export function BotAnimation() {
   const scrollChats = () => {
     for (const ref of [chatDesktopRef, chatMobileRef]) {
       const el = ref.current;
-      if (el) el.scrollTop = el.scrollHeight;
+      if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
     }
   };
 
@@ -299,6 +299,16 @@ export function BotAnimation() {
   };
 
   /* ── Simulate transaction ── */
+  const addBotMessage = (id: { current: number }, msg: Omit<Message, "id">) => {
+    return new Promise<void>(resolve => {
+      setIsTyping(false);
+      setTimeout(() => {
+        setMessages(prev => [...prev, { ...msg, id: id.current++ }]);
+        resolve();
+      }, 120);
+    });
+  };
+
   const simulateTransaction = async () => {
     if (isProcessing || selectedAmount < 10_000) return;
     setIsProcessing(true);
@@ -311,25 +321,28 @@ export function BotAnimation() {
       text: `Beli ${coin.symbol} Rp${formatIDR(amt)}`, time: getTime(),
     }]);
 
+    await new Promise(r => setTimeout(r, 500));
     setIsTyping(true);
-    await new Promise(r => setTimeout(r, 900));
-    setIsTyping(false);
-    setMessages(prev => [...prev, {
-      id: id.current++, type: "bot",
-      text: "Pesanan diterima, sedang memproses...", time: getTime(),
-    }]);
+    await new Promise(r => setTimeout(r, 1100));
+    await addBotMessage(id, {
+      type: "bot", text: "Pesanan diterima, sedang memproses...", time: getTime(),
+    });
 
+    await new Promise(r => setTimeout(r, 700));
+    setIsTyping(true);
+    await new Promise(r => setTimeout(r, 800));
+    await addBotMessage(id, {
+      type: "success", text: "Transaksi berhasil!", time: getTime(),
+    });
+
+    await new Promise(r => setTimeout(r, 500));
+    setIsTyping(true);
     await new Promise(r => setTimeout(r, 600));
-    setMessages(prev => [...prev, {
-      id: id.current++, type: "success", text: "Transaksi berhasil!", time: getTime(),
-    }]);
-
-    await new Promise(r => setTimeout(r, 400));
-    setMessages(prev => [...prev, {
-      id: id.current++, type: "crypto",
+    await addBotMessage(id, {
+      type: "crypto",
       text: `${calcCrypto(coin, amt)} ${coin.symbol} → wallet kamu`, time: getTime(),
       coinId: coin.id,
-    }]);
+    });
 
     setMessageId(id.current);
     setIsProcessing(false);
@@ -395,10 +408,10 @@ export function BotAnimation() {
         <AnimatePresence>
           {messages.map(msg => (
             <motion.div key={msg.id}
-              initial={{ opacity: 0, y: 12, scale: 0.95 }}
+              initial={{ opacity: 0, y: 10, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 260, damping: 24, mass: 0.8 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 180, damping: 22, mass: 0.9 }}
               className={`flex flex-col ${msg.type === "user" ? "items-end" : "items-start"}`}
               data-testid={`message-${msg.type}-${msg.id}`}
             >
@@ -427,10 +440,10 @@ export function BotAnimation() {
         <AnimatePresence>
           {isTyping && (
             <motion.div
-              initial={{ opacity: 0, y: 8, scale: 0.95 }}
+              initial={{ opacity: 0, y: 8, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -4, scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300, damping: 22 }}>
+              exit={{ opacity: 0, y: -6, scale: 0.94 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20, mass: 0.8 }}>
               <TypingIndicator />
             </motion.div>
           )}
