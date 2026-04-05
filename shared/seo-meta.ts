@@ -127,7 +127,7 @@ export function resolvePageMeta(
       return {
         title: `${article.title} | KriptoEcer`,
         description: article.excerpt,
-        ogImage: `${SITE_URL}/images/blog/${article.slug}.png`,
+        ogImage: `${SITE_URL}/images/blog/${article.slug}.jpg`,
         ogType: "article",
         canonical: `${SITE_URL}/blog/${article.slug}`,
       };

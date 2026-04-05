@@ -249,7 +249,7 @@ function RelatedArticles({ current }: { current: Article }) {
               <Card className="h-full overflow-hidden border border-border/60 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/[0.05] transition-all duration-300">
                 <div className={`h-32 bg-gradient-to-br ${article.coverGradient} relative overflow-hidden`}>
                   <img
-                    src={`/images/blog/${article.slug}.png`}
+                    src={`/images/blog/${article.slug}.jpg`}
                     alt={article.title}
                     width={1408}
                     height={768}
@@ -283,7 +283,7 @@ function RelatedArticles({ current }: { current: Article }) {
 
 function buildArticleStructuredData(article: Article) {
   const articleUrl = `${SITE_URL}/blog/${article.slug}`;
-  const imageUrl = `${SITE_URL}/images/blog/${article.slug}.png`;
+  const imageUrl = `${SITE_URL}/images/blog/${article.slug}.jpg`;
   return [
     {
       "@context": "https://schema.org",
@@ -342,7 +342,7 @@ export default function ArticlePage() {
           title={article.title}
           description={article.excerpt}
           canonical={`/blog/${article.slug}`}
-          ogImage={`${SITE_URL}/images/blog/${article.slug}.png`}
+          ogImage={`${SITE_URL}/images/blog/${article.slug}.jpg`}
           ogType="article"
           article={{
             publishedAt: typeof article.publishedAt === "string"
@@ -389,7 +389,7 @@ export default function ArticlePage() {
                 <div className={`rounded-2xl overflow-hidden mb-8 relative bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"}`}>
                   <div className="relative h-56 sm:h-72 md:h-80">
                     <img
-                      src={`/images/blog/${article.slug}.png`}
+                      src={`/images/blog/${article.slug}.jpg`}
                       alt={article.title}
                       width={1408}
                       height={768}

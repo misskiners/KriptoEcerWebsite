@@ -49,7 +49,7 @@ function FeaturedArticle({ article }: { article: Article }) {
         >
           <div className={`relative h-64 sm:h-80 md:h-96 bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"} overflow-hidden`}>
             <img
-              src={`/images/blog/${article.slug}.png`}
+              src={`/images/blog/${article.slug}.jpg`}
               alt={article.title}
               width={1408}
               height={768}
@@ -120,7 +120,7 @@ function ArticleCard({ article, index }: { article: Article; index: number }) {
         >
           <div className={`h-48 bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"} relative overflow-hidden`}>
             <img
-              src={`/images/blog/${article.slug}.png`}
+              src={`/images/blog/${article.slug}.jpg`}
               alt={article.title}
               width={1408}
               height={768}

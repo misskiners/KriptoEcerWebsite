@@ -164,7 +164,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         const meta: PageMeta = {
           title: `${article.title} | KriptoEcer`,
           description: article.excerpt,
-          ogImage: `${SITE_URL}/images/blog/${article.slug}.png`,
+          ogImage: `${SITE_URL}/images/blog/${article.slug}.jpg`,
           ogType: "article",
           canonical: `${SITE_URL}/blog/${article.slug}`,
         };
