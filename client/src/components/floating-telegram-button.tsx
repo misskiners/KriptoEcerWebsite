@@ -137,37 +137,39 @@ function BotFace() {
 /* ─────────────────────────────────────────────────────────────────── */
 
 function getSideProps(side: Side) {
-  const shared = {
-    peekOffset:   { y: HIDE },
-    hiddenOffset: { y: BOT_H + 24 },
-    bobAnimate:   { y: [0, -9, 0] },
+  const tailStyle: React.CSSProperties = {
+    width: 0, height: 0,
+    borderLeft: "7px solid transparent",
+    borderRight: "7px solid transparent",
+    borderTop: "8px solid rgba(13,18,32,0.97)",
   };
-  // Bot on LEFT → bubble extends to the RIGHT, tail on bottom-left of bubble
-  // Bot on RIGHT → bubble extends to the LEFT, tail on bottom-right of bubble
+
   return side === "bottom-left"
     ? {
-        ...shared,
+        peekOffset:     { y: HIDE },
+        hiddenOffset:   { y: BOT_H + 24 },
+        bobAnimate:     { y: [0, -9, 0] },
         containerStyle: { bottom: 0, left: 20 } as React.CSSProperties,
-        bubbleClass:    "absolute bottom-[calc(100%+12px)] left-0 w-56",
-        tailClass:      "absolute -bottom-[7px] left-6",
-        tailStyle:      {
-          width: 0, height: 0,
-          borderLeft: "7px solid transparent",
-          borderRight: "7px solid transparent",
-          borderTop: "8px solid rgba(13,18,32,0.97)",
+        // Bot on LEFT → bubble on RIGHT side of screen
+        bubbleFixedStyle: {
+          position: "fixed", bottom: BOT_H + 16,
+          right: 20, left: "auto", width: 224, zIndex: 50,
         } as React.CSSProperties,
+        tailClass: "absolute -bottom-[7px] right-6",
+        tailStyle,
       }
     : {
-        ...shared,
+        peekOffset:     { y: HIDE },
+        hiddenOffset:   { y: BOT_H + 24 },
+        bobAnimate:     { y: [0, -9, 0] },
         containerStyle: { bottom: 0, right: 20 } as React.CSSProperties,
-        bubbleClass:    "absolute bottom-[calc(100%+12px)] right-0 w-56",
-        tailClass:      "absolute -bottom-[7px] right-6",
-        tailStyle:      {
-          width: 0, height: 0,
-          borderLeft: "7px solid transparent",
-          borderRight: "7px solid transparent",
-          borderTop: "8px solid rgba(13,18,32,0.97)",
+        // Bot on RIGHT → bubble on LEFT side of screen
+        bubbleFixedStyle: {
+          position: "fixed", bottom: BOT_H + 16,
+          left: 20, right: "auto", width: 224, zIndex: 50,
         } as React.CSSProperties,
+        tailClass: "absolute -bottom-[7px] left-6",
+        tailStyle,
       };
 }
 
@@ -212,90 +214,91 @@ export function FloatingTelegramButton() {
 
   if (dismissed) return null;
 
-  const { containerStyle, peekOffset, hiddenOffset, bobAnimate, bubbleClass, tailClass, tailStyle } = getSideProps(side);
+  const { containerStyle, peekOffset, hiddenOffset, bobAnimate, bubbleFixedStyle, tailClass, tailStyle } = getSideProps(side);
 
   return (
-    <AnimatePresence>
-      {scrolled && (
-        <motion.div
-          className="fixed z-50"
-          style={containerStyle}
-          initial={{ y: hiddenOffset.y, opacity: 0 }}
-          animate={{ y: revealed ? 0 : peekOffset.y, opacity: 1 }}
-          exit={{ y: hiddenOffset.y, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 160, damping: 18 }}
-        >
-          <div className="relative">
-            {/* ── Chat bubble ── */}
-            <AnimatePresence>
-              {showBubble && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.85, y: 10 }}
-                  animate={{ opacity: 1, scale: 1,    y: 0  }}
-                  exit={{    opacity: 0, scale: 0.85, y: 10 }}
-                  transition={{ type: "spring", stiffness: 320, damping: 26 }}
-                  className={`${bubbleClass} relative`}
-                >
-                  {/* Card */}
-                  <div className="relative overflow-hidden rounded-2xl border border-white/10
-                    bg-[#0d1220]/95 backdrop-blur-md shadow-2xl shadow-black/40
-                    ring-1 ring-inset ring-white/5">
+    <>
+      {/* ── Chat bubble — fixed, opposite side from bot ── */}
+      <AnimatePresence>
+        {scrolled && showBubble && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, y: 10 }}
+            animate={{ opacity: 1, scale: 1,    y: 0  }}
+            exit={{    opacity: 0, scale: 0.85, y: 10 }}
+            transition={{ type: "spring", stiffness: 320, damping: 26 }}
+            style={bubbleFixedStyle}
+            className="relative"
+          >
+            {/* Card */}
+            <div className="relative overflow-hidden rounded-2xl border border-white/10
+              bg-[#0d1220]/95 backdrop-blur-md shadow-2xl shadow-black/40
+              ring-1 ring-inset ring-white/5">
 
-                    {/* Top accent bar */}
-                    <div className="h-[2px] w-full bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
+              {/* Top accent bar */}
+              <div className="h-[2px] w-full bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
 
-                    <div className="px-4 pt-3 pb-4">
-                      {/* Status row */}
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-1.5">
-                          <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
-                          </span>
-                          <span className="text-[11px] font-semibold text-green-400">Bot Online</span>
-                        </div>
-                        <button
-                          onClick={handleDismiss}
-                          className="w-5 h-5 rounded-full bg-white/8 hover:bg-white/15
-                            flex items-center justify-center transition-colors"
-                          data-testid="button-floating-dismiss"
-                          aria-label="Tutup"
-                        >
-                          <X className="w-3 h-3 text-white/50" />
-                        </button>
-                      </div>
-
-                      {/* Message */}
-                      <p className="text-sm font-bold text-white leading-snug mb-0.5">
-                        Beli crypto mulai
-                      </p>
-                      <p className="text-base font-extrabold text-primary leading-tight mb-3">
-                        Rp10.000 ⚡
-                      </p>
-
-                      {/* CTA button */}
-                      <a
-                        href="https://t.me/kriptoecerbot"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-testid="link-floating-cta"
-                        className="flex items-center justify-center gap-2 w-full py-2 rounded-xl
-                          bg-primary hover:bg-primary/90 transition-colors
-                          text-xs font-bold text-primary-foreground"
-                      >
-                        <SiTelegram className="w-3.5 h-3.5" />
-                        Coba Sekarang
-                      </a>
-                    </div>
+              <div className="px-4 pt-3 pb-4">
+                {/* Status row */}
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+                    </span>
+                    <span className="text-[11px] font-semibold text-green-400">Bot Online</span>
                   </div>
+                  <button
+                    onClick={handleDismiss}
+                    className="w-5 h-5 rounded-full bg-white/8 hover:bg-white/15
+                      flex items-center justify-center transition-colors"
+                    data-testid="button-floating-dismiss"
+                    aria-label="Tutup"
+                  >
+                    <X className="w-3 h-3 text-white/50" />
+                  </button>
+                </div>
 
-                  {/* Tail — proper CSS triangle pointing down toward the bot */}
-                  <div className={tailClass} style={tailStyle} />
-                </motion.div>
-              )}
-            </AnimatePresence>
+                {/* Message */}
+                <p className="text-sm font-bold text-white leading-snug mb-0.5">
+                  Beli crypto mulai
+                </p>
+                <p className="text-base font-extrabold text-primary leading-tight mb-3">
+                  Rp10.000 ⚡
+                </p>
 
-            {/* ── Bot face ── */}
+                {/* CTA button */}
+                <a
+                  href="https://t.me/kriptoecerbot"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="link-floating-cta"
+                  className="flex items-center justify-center gap-2 w-full py-2 rounded-xl
+                    bg-primary hover:bg-primary/90 transition-colors
+                    text-xs font-bold text-primary-foreground"
+                >
+                  <SiTelegram className="w-3.5 h-3.5" />
+                  Coba Sekarang
+                </a>
+              </div>
+            </div>
+
+            {/* Tail — CSS triangle pointing down toward the bot */}
+            <div className={tailClass} style={tailStyle} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Bot face — fixed, at its own corner ── */}
+      <AnimatePresence>
+        {scrolled && (
+          <motion.div
+            className="fixed z-50"
+            style={containerStyle}
+            initial={{ y: hiddenOffset.y, opacity: 0 }}
+            animate={{ y: revealed ? 0 : peekOffset.y, opacity: 1 }}
+            exit={{ y: hiddenOffset.y, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 160, damping: 18 }}
+          >
             <motion.a
               href="https://t.me/kriptoecerbot"
               target="_blank"
@@ -314,9 +317,9 @@ export function FloatingTelegramButton() {
             >
               <BotFace />
             </motion.a>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
