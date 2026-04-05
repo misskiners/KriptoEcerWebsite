@@ -539,13 +539,14 @@ const steps = [
 ];
 
 function StepNumber({ number, delay }: { number: string; delay: number }) {
+  const noMotion = !!useReducedMotion();
   return (
     <motion.div
       className="absolute -top-3 -right-3 w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg"
-      initial={{ scale: 0, rotate: -180 }}
+      initial={noMotion ? false : { scale: 0, rotate: -180 }}
       whileInView={{ scale: 1, rotate: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: delay + 0.2, type: "spring", stiffness: 200 }}
+      transition={{ delay: delay + 0.2, type: "tween", duration: 0.4, ease: "easeOut" }}
     >
       <span className="text-lg font-bold text-primary-foreground">{number}</span>
     </motion.div>
@@ -587,8 +588,7 @@ function HowItWorksSection() {
                     <StepNumber number={step.number} delay={index * 0.1} />
                     <motion.div
                       className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mx-auto mb-4 border border-primary/20"
-                      whileHover={{ scale: 1.05, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                      whileHover={{ scale: 1.05, rotate: 5, transition: { type: "tween", duration: 0.2, ease: "easeOut" } }}
                     >
                       <step.icon className="w-7 h-7 text-primary" />
                     </motion.div>
@@ -604,7 +604,7 @@ function HowItWorksSection() {
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 + 0.3 }}
+                    transition={{ delay: index * 0.1 + 0.3, type: "tween", duration: 0.3, ease: "easeOut" }}
                   >
                     <ArrowRight className="w-6 h-6 text-primary/50" />
                   </motion.div>
