@@ -12,13 +12,18 @@
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     {
+      "source": "/",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(facebookexternalhit|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|Slackbot|Googlebot|bingbot|Discordbot|Embedly|Quora Link Preview|Showyoubot|outbrain|pinterest|vkShare|W3C_Validator|Applebot|YandexBot|Baiduspider|DuckDuckBot|Pinterestbot|redditbot|Mediapartners-Google|AdsBot-Google|Storebot-Google|Chrome-Lighthouse).*" }],
+      "destination": "/api/render?path=/"
+    },
+    {
       "source": "/blog/:slug",
-      "has": [{ "type": "header", "key": "user-agent", "value": "(?i)(facebookexternalhit|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|Slackbot|Googlebot|bingbot|Discordbot|Embedly|Quora Link Preview|Showyoubot|outbrain|pinterest|vkShare|W3C_Validator)" }],
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(facebookexternalhit|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|Slackbot|Googlebot|bingbot|Discordbot|Embedly|Quora Link Preview|Showyoubot|outbrain|pinterest|vkShare|W3C_Validator|Applebot|YandexBot|Baiduspider|DuckDuckBot|Pinterestbot|redditbot|Mediapartners-Google|AdsBot-Google|Storebot-Google|Chrome-Lighthouse).*" }],
       "destination": "/api/render?path=/blog/:slug"
     },
     {
       "source": "/:page(terms|privacy|risk|refund|blog)",
-      "has": [{ "type": "header", "key": "user-agent", "value": "(?i)(facebookexternalhit|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|Slackbot|Googlebot|bingbot|Discordbot|Embedly|Quora Link Preview|Showyoubot|outbrain|pinterest|vkShare|W3C_Validator)" }],
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(facebookexternalhit|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|Slackbot|Googlebot|bingbot|Discordbot|Embedly|Quora Link Preview|Showyoubot|outbrain|pinterest|vkShare|W3C_Validator|Applebot|YandexBot|Baiduspider|DuckDuckBot|Pinterestbot|redditbot|Mediapartners-Google|AdsBot-Google|Storebot-Google|Chrome-Lighthouse).*" }],
       "destination": "/api/render?path=/:page"
     },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
