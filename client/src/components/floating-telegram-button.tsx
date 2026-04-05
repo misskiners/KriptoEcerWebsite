@@ -245,8 +245,8 @@ export function FloatingTelegramButton() {
                     <div className="h-[2px] w-full bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
 
                     <div className="px-4 pt-3 pb-4">
-                      {/* Status row — mirrored based on side */}
-                      <div className={`flex items-center justify-between mb-2 ${side === "bottom-right" ? "flex-row-reverse" : ""}`}>
+                      {/* Status row */}
+                      <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-1.5">
                           <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -265,11 +265,11 @@ export function FloatingTelegramButton() {
                         </button>
                       </div>
 
-                      {/* Message — mirrored based on side */}
-                      <p className={`text-sm font-bold text-white leading-snug mb-0.5 ${side === "bottom-right" ? "text-right" : ""}`}>
+                      {/* Message */}
+                      <p className="text-sm font-bold text-white leading-snug mb-0.5">
                         Beli crypto mulai
                       </p>
-                      <p className={`text-base font-extrabold text-primary leading-tight mb-3 ${side === "bottom-right" ? "text-right" : ""}`}>
+                      <p className="text-base font-extrabold text-primary leading-tight mb-3">
                         Rp10.000 ⚡
                       </p>
 
