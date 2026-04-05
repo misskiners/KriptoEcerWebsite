@@ -10,7 +10,7 @@ const BOT_H  = 76;
 const PEEK   = 48;
 const HIDE   = BOT_H - PEEK;
 
-const MOBILE_SIDES: Side[] = ["bottom-right", "bottom-left"];
+const MOBILE_SIDES: Side[] = ["bottom-left"];
 
 /* ─────────────────────────────────────────────────────────────────────
    BotFace — modern, clean, brand-aligned robot face
