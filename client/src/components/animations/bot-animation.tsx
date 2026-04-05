@@ -428,7 +428,9 @@ export function BotAnimation() {
 
         {/* Price ticker — live */}
         <div className="flex items-center gap-2 px-2.5 py-1.5 bg-white/5 rounded-xl border border-white/[0.07]">
-          <CoinIcon className="w-3.5 h-3.5 flex-shrink-0" style={{ color: selectedCoin.color }} />
+          <span style={{ color: selectedCoin.color }} className="flex items-center flex-shrink-0">
+            <CoinIcon className="w-3.5 h-3.5" />
+          </span>
           <span className="text-[11px] font-semibold text-white/80">{selectedCoin.symbol}</span>
           <span className="text-[11px] font-mono text-white/50 flex-1 text-right">
             {loading ? "memuat..." : formatShort(price)}
@@ -455,7 +457,9 @@ export function BotAnimation() {
                     : "bg-white/8 text-white/60 border border-white/10 hover:bg-white/12"
                 }`}
               >
-                <Icon className="w-3 h-3 transition-transform duration-200" style={{ color: active ? undefined : c.color }} />
+                <span style={{ color: active ? undefined : c.color }} className="flex items-center">
+                  <Icon className="w-3 h-3" />
+                </span>
                 {c.symbol}
               </button>
             );
