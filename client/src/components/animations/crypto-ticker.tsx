@@ -4,14 +4,14 @@ import { TrendingUp, TrendingDown } from "lucide-react";
 import { TrxIcon } from "@/components/icons/trx-icon";
 
 const COIN_CONFIG = [
-  { id: "bitcoin",      symbol: "BTC",  Icon: SiBitcoin,  color: "text-orange-500" },
-  { id: "ethereum",     symbol: "ETH",  Icon: SiEthereum, color: "text-blue-400"   },
-  { id: "solana",       symbol: "SOL",  Icon: SiSolana,   color: "text-purple-500" },
-  { id: "binancecoin",  symbol: "BNB",  Icon: SiBinance,  color: "text-yellow-500" },
-  { id: "tether",       symbol: "USDT", Icon: SiTether,   color: "text-green-500"  },
-  { id: "tron",         symbol: "TRX",  Icon: TrxIcon,    color: "text-red-500"    },
-  { id: "litecoin",     symbol: "LTC",  Icon: SiLitecoin, color: "text-gray-400"   },
-  { id: "dogecoin",     symbol: "DOGE", Icon: SiDogecoin, color: "text-amber-400"  },
+  { id: "bitcoin",      symbol: "BTC",  Icon: SiBitcoin,  color: "text-orange-500", mobile: true  },
+  { id: "ethereum",     symbol: "ETH",  Icon: SiEthereum, color: "text-blue-400",   mobile: true  },
+  { id: "solana",       symbol: "SOL",  Icon: SiSolana,   color: "text-purple-500", mobile: true  },
+  { id: "binancecoin",  symbol: "BNB",  Icon: SiBinance,  color: "text-yellow-500", mobile: true  },
+  { id: "tether",       symbol: "USDT", Icon: SiTether,   color: "text-green-500",  mobile: false },
+  { id: "tron",         symbol: "TRX",  Icon: TrxIcon,    color: "text-red-500",    mobile: false },
+  { id: "litecoin",     symbol: "LTC",  Icon: SiLitecoin, color: "text-gray-400",   mobile: false },
+  { id: "dogecoin",     symbol: "DOGE", Icon: SiDogecoin, color: "text-amber-400",  mobile: false },
 ];
 
 function formatIDR(price: number): string {
@@ -114,8 +114,9 @@ export function CryptoTicker() {
     <>
       {COIN_CONFIG.map((coin, i) => {
         const Icon = coin.Icon;
+        const vis = coin.mobile ? "inline-flex" : "hidden sm:inline-flex";
         return (
-          <span key={`${keyPrefix}-${i}`} className="inline-flex items-center gap-1.5 px-5 text-xs font-medium shrink-0">
+          <span key={`${keyPrefix}-${i}`} className={`${vis} items-center gap-1.5 px-3 sm:px-5 text-xs font-medium shrink-0`}>
             <Icon className={`w-3.5 h-3.5 ${coin.color}`} />
             <span className="font-semibold text-foreground/80">{coin.symbol}</span>
             <span data-price={coin.id} className="text-muted-foreground">—</span>
@@ -128,7 +129,7 @@ export function CryptoTicker() {
               <span data-icon-down={coin.id} style={{ display: "none" }}><TrendingDown className="w-3 h-3" /></span>
               <span data-change={coin.id}>—</span>
             </span>
-            <span className="text-border ml-2">·</span>
+            <span className={`text-border ml-1 sm:ml-2 ${coin.mobile ? "" : "hidden sm:inline"}`}>·</span>
           </span>
         );
       })}
