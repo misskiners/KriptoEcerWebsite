@@ -756,13 +756,13 @@ function FAQSection() {
                   key={i}
                   onClick={() => setSelected(i)}
                   data-testid={`faq-btn-${i}`}
-                  className={`w-full text-left flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] ${
+                  className={`w-full text-left flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium faq-btn-transition ${
                     isActive
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
                 >
-                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] ${
+                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 faq-btn-transition ${
                     isActive ? "bg-white/20" : "bg-muted-foreground/10"
                   }`}>
                     <Icon className="w-3.5 h-3.5" />

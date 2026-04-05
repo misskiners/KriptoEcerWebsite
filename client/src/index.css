@@ -161,6 +161,32 @@
   }
 }
 
+.accordion-grid-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.33, 1, 0.68, 1),
+              opacity 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  opacity: 0;
+}
+.accordion-grid-content[data-state="open"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.accordion-grid-content[data-state="closed"] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+.accordion-grid-content > div {
+  overflow: hidden;
+  min-height: 0;
+}
+.accordion-chevron {
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.faq-btn-transition {
+  transition: all 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
 .ticker-glass {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(16px) saturate(1.4);
