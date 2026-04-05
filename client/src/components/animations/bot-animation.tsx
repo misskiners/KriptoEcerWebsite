@@ -476,13 +476,13 @@ export function BotAnimation() {
           />
           {/* Live result */}
           {selectedAmount >= 10_000 && !loading && (
-            <span className="text-[10px] text-primary/80 font-semibold flex-shrink-0 max-w-[90px] truncate text-right">
+            <span className="text-[10px] text-primary/80 font-semibold min-w-0 shrink truncate text-right max-w-[80px]">
               ≈{calcCrypto(selectedCoin, selectedAmount)} {selectedCoin.symbol}
             </span>
           )}
           {amountInput && (
             <button onClick={() => { setAmountInput(""); setSelectedAmount(0); }}
-              className="text-white/25 hover:text-white/60 transition-colors text-xs flex-shrink-0 ml-0.5">
+              className="text-white/25 hover:text-white/60 transition-colors text-xs flex-shrink-0 leading-none w-4 h-4 flex items-center justify-center">
               ✕
             </button>
           )}
