@@ -13,7 +13,7 @@ export const articles: Article[] = [
     readTime: 8,
     content: `Fee gas adalah salah satu konsep yang paling sering bikin pemula bingung ketika pertama kali terjun ke dunia crypto. Banyak yang sudah beli aset kripto pertama mereka, tapi tiba-tiba tidak bisa melakukan transfer karena tidak punya token native jaringan tersebut. Padahal solusinya sangat mudah — kamu hanya butuh sedikit token untuk bayar fee gas, dan sekarang bisa dibeli mulai Rp10.000 saja.
 
-Artikel ini akan menjelaskan secara detail apa itu fee gas, kenapa setiap jaringan blockchain butuh token yang berbeda, berapa jumlah yang ideal untuk masing-masing jaringan populer, dan bagaimana cara membeli fee gas dengan mudah dari Indonesia tanpa harus daftar ke exchange besar.
+Artikel ini akan menjelaskan secara detail apa itu fee gas, kenapa setiap jaringan blockchain butuh token yang berbeda, berapa jumlah yang ideal untuk masing-masing jaringan populer, dan bagaimana cara membeli fee gas dengan mudah dari Indonesia tanpa proses panjang di exchange besar.
 
 Apa Itu Fee Gas dan Mengapa Harus Dibayar?
 
@@ -63,7 +63,7 @@ Ketiga, pantau kondisi jaringan sebelum transaksi besar. Di Ethereum misalnya, f
 
 Keempat, jangan simpan fee gas terlalu banyak di wallet hot. Cukup sisakan yang dibutuhkan untuk beberapa transaksi ke depan. Aset utama sebaiknya disimpan lebih aman.
 
-Dengan KriptoEcer, hambatan untuk top up fee gas kecil sudah tidak ada lagi. Kamu tidak perlu daftar exchange besar, tidak perlu upload KYC, dan tidak perlu beli lebih dari yang dibutuhkan. Cukup buka Telegram, beli sesuai kebutuhan, dan lanjutkan aktivitas crypto-mu.`,
+Dengan KriptoEcer, hambatan untuk top up fee gas kecil sudah tidak ada lagi. Cukup daftar instan via Telegram, tanpa upload KYC, dan tidak perlu beli lebih dari yang dibutuhkan. Cukup buka Telegram, beli sesuai kebutuhan, dan lanjutkan aktivitas crypto-mu.`,
   },
   {
     id: 2,
@@ -505,7 +505,7 @@ Via exchange konvensional seperti Indodax, Tokocrypto, atau Pintu. Keuntungannya
 
 Via Binance atau exchange global. Prosesnya serupa dengan exchange lokal, tapi tersedia lebih banyak pasangan trading. Kamu perlu deposit via transfer bank atau QRIS, tergantung metode yang tersedia.
 
-Via KriptoEcer — cara tercepat untuk pembelian kecil tanpa KYC. Cukup buka Telegram, chat @kriptoecerbot, pilih menu Beli Crypto, dan pilih DOGE. Masukkan nominal rupiah (mulai Rp10.000), masukkan alamat wallet DOGE kamu, lakukan pembayaran via QRIS atau Virtual Account, dan DOGE langsung dikirim ke wallet dalam hitungan menit. Tidak perlu daftar, tidak perlu KYC, tidak perlu tunggu verifikasi.
+Via KriptoEcer — cara tercepat untuk pembelian kecil tanpa KYC. Cukup buka Telegram, chat @kriptoecerbot, pilih menu Beli Crypto, dan pilih DOGE. Masukkan nominal rupiah (mulai Rp10.000), masukkan alamat wallet DOGE kamu, lakukan pembayaran via QRIS atau Virtual Account, dan DOGE langsung dikirim ke wallet dalam hitungan menit. Daftar instan via Telegram, tanpa KYC, tanpa tunggu verifikasi.
 
 Cara Membuat Wallet Dogecoin
 
@@ -807,7 +807,7 @@ Ada juga masalah biaya tersembunyi. Spread (selisih harga beli dan jual) di exch
 
 Cara Termudah Beli Solana Tanpa KYC
 
-KriptoEcer hadir sebagai solusi untuk semua hambatan di atas. Melalui bot Telegram @kriptoecerbot, kamu bisa membeli SOL mulai dari Rp10.000 tanpa perlu daftar akun, tanpa KYC, dan tanpa minimum pembelian yang tinggi. Prosesnya sepenuhnya otomatis dan bisa selesai dalam hitungan menit.
+KriptoEcer hadir sebagai solusi untuk semua hambatan di atas. Melalui bot Telegram @kriptoecerbot, kamu bisa membeli SOL mulai dari Rp10.000 dengan daftar instan via Telegram, tanpa KYC, dan tanpa minimum pembelian yang tinggi. Prosesnya sepenuhnya otomatis dan bisa selesai dalam hitungan menit.
 
 Berikut langkah-langkah lengkapnya. Pertama, buka aplikasi Telegram di smartphone atau desktop kamu. Cari username @kriptoecerbot atau klik langsung link yang tersedia di website KriptoEcer. Tekan tombol "Start" untuk memulai percakapan dengan bot.
 
@@ -851,7 +851,7 @@ Waspadai penipuan. Tidak ada investasi crypto yang menjamin keuntungan. Jika ses
 
 Simpan aset besar di cold wallet atau hardware wallet. Untuk jumlah kecil, hot wallet seperti Phantom sudah aman. Tapi untuk investasi yang lebih besar, pertimbangkan hardware wallet seperti Ledger atau Trezor untuk keamanan maksimal.
 
-Dengan KriptoEcer, membeli Solana di Indonesia menjadi semudah mengirim pesan di Telegram. Tidak perlu daftar akun panjang, tidak perlu upload dokumen, dan bisa dimulai dari nominal sekecil Rp10.000. Cocok untuk pemula yang ingin mulai menjelajahi dunia crypto tanpa hambatan.`,
+Dengan KriptoEcer, membeli Solana di Indonesia menjadi semudah mengirim pesan di Telegram. Daftar cepat via Telegram, tanpa upload dokumen, dan bisa dimulai dari nominal sekecil Rp10.000. Cocok untuk pemula yang ingin mulai menjelajahi dunia crypto tanpa hambatan.`,
   },
   {
     id: 12,
