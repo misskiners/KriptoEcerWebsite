@@ -145,8 +145,7 @@ export function CryptoTicker() {
 
   return (
     <div
-      className="fixed top-16 left-0 right-0 z-40 overflow-hidden h-9 border-b border-white/[0.06]"
-      style={{ background: "rgba(0, 0, 0, 0.65)", backdropFilter: "blur(16px) saturate(1.4)", WebkitBackdropFilter: "blur(16px) saturate(1.4)" }}
+      className="fixed top-16 left-0 right-0 z-40 overflow-hidden h-9 border-b border-black/[0.06] dark:border-white/[0.06] ticker-glass"
       data-testid="crypto-ticker"
     >
       {loading && (

@@ -333,7 +333,7 @@ function LiveTransactionsSection() {
                 <h2 className="text-3xl sm:text-4xl font-bold" data-testid="text-live-title">Aktivitas Terbaru</h2>
               </div>
               
-              <div className="shadow-2xl shadow-black/30 rounded-xl ring-1 ring-white/5">
+              <div className="shadow-2xl shadow-black/10 dark:shadow-black/30 rounded-xl ring-1 ring-black/5 dark:ring-white/5">
                 <TransactionFeed />
               </div>
             </motion.div>
