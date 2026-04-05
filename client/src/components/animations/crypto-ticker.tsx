@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin } from "react-icons/si";
-import { TrendingUp, TrendingDown, Loader2 } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 import { TrxIcon } from "@/components/icons/trx-icon";
 
 const COIN_CONFIG = [
@@ -31,7 +31,6 @@ type PricesMap = Record<string, PriceData>;
 const REFRESH_INTERVAL = 60_000;
 
 export function CryptoTicker() {
-  const [loading, setLoading] = useState(true);
   const trackRef  = useRef<HTMLDivElement>(null);
   const retryRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -70,8 +69,10 @@ export function CryptoTicker() {
     });
 
     const timeStr = updatedAt.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
-    root.querySelectorAll<HTMLElement>("[data-live-label]").forEach((el) => {
+    root.querySelectorAll<HTMLElement>("[data-live-time]").forEach((el) => {
       el.textContent = `Live · ${timeStr}`;
+    });
+    root.querySelectorAll<HTMLElement>("[data-live-label]").forEach((el) => {
       el.style.visibility = "visible";
     });
   }, []);
@@ -85,8 +86,6 @@ export function CryptoTicker() {
       writeToDOM(data, new Date());
     } catch {
       retryRef.current = setTimeout(fetchPrices, 5_000);
-    } finally {
-      setLoading(false);
     }
   }, [writeToDOM]);
 
@@ -127,7 +126,7 @@ export function CryptoTicker() {
         style={{ visibility: "hidden" }}
       >
         <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
-        Live · --:--
+        <span data-live-time>Live · --:--</span>
       </span>
     </>
   );
@@ -140,13 +139,7 @@ export function CryptoTicker() {
       <div className="ticker-fade-left" aria-hidden="true" />
       <div className="ticker-fade-right" aria-hidden="true" />
 
-      {loading && (
-        <div className="absolute right-10 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-          <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
-        </div>
-      )}
-
-      <div ref={trackRef} className="flex items-center h-full whitespace-nowrap animate-marquee">
+      <div key="track" ref={trackRef} className="flex items-center h-full whitespace-nowrap animate-marquee">
         {renderStrip("a")}
         {renderStrip("b")}
       </div>
