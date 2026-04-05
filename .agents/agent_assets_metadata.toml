@@ -5,25 +5,25 @@ outputs = []
 id = "I3kdAIgguQn1QpTcp5dTp"
 uri = "file://client/public/images/blog/cara-top-up-fee-gas-sol-trx-bnb.png"
 type = "image"
-title = "crypto fee gas illustration"
+title = "generated_image"
 
 [[generated]]
 id = "jIglPmDNR-27_cbT71xZL"
 uri = "file://client/public/images/blog/apa-itu-meme-coin-cara-beli-indonesia.png"
 type = "image"
-title = "meme coin illustration"
+title = "generated_image"
 
 [[generated]]
 id = "flm33vfzE_pfmGugS-z1p"
 uri = "file://client/public/images/blog/qris-untuk-beli-crypto-kriptoecer.png"
 type = "image"
-title = "QRIS payment crypto"
+title = "generated_image"
 
 [[generated]]
 id = "S-7TQBKaqLYr5rBhyz1OE"
 uri = "file://client/public/images/blog/kriptoecer-vs-exchange-besar-perbandingan.png"
 type = "image"
-title = "crypto exchange comparison"
+title = "generated_image"
 
 [[generated]]
 id = "7fhTGeKIh046vYu0EAGBi"
@@ -41,31 +41,31 @@ title = "generated_image"
 id = "k7OFsIijVBnfN_VWoPf_w"
 uri = "file://client/public/images/blog/apa-itu-usdt-panduan-lengkap-stablecoin.png"
 type = "image"
-title = "usdt stablecoin cover"
+title = "generated_image"
 
 [[generated]]
 id = "fznbjg4-GfyR8YJJG3dL3"
 uri = "file://client/public/images/blog/cara-beli-dogecoin-indonesia.png"
 type = "image"
-title = "dogecoin doge cover"
+title = "generated_image"
 
 [[generated]]
 id = "uDoDBxXHs-OjQmzz8iyS0"
 uri = "file://client/public/images/blog/usdt-trc20-vs-erc20-perbedaan.png"
 type = "image"
-title = "trc20 vs erc20 cover"
+title = "generated_image"
 
 [[generated]]
 id = "s9iK5X8fKfqg0vxL3ojIS"
 uri = "file://client/public/images/blog/apa-itu-meme-coin-panduan-pemula.png"
 type = "image"
-title = "meme coin cover"
+title = "generated_image"
 
 [[generated]]
 id = "GN3gy3upvTPTgSI5rSjNW"
 uri = "file://client/public/images/blog/cara-jual-crypto-dapat-rupiah-indonesia.png"
 type = "image"
-title = "sell crypto rupiah cover"
+title = "generated_image"
 
 [[generated]]
 id = "IrzcNztnArl_blHp-QWng"
@@ -106,5 +106,11 @@ title = "generated_image"
 [[generated]]
 id = "HyW-Nip-g4j3iTdbUq7-G"
 uri = "file://client/public/images/blog/keunggulan-kriptoecer-dibanding-bot-lain.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "gyTohHePX9fp64h5qerX6"
+uri = "file://client/public/images/blog/10-istilah-crypto-wajib-dipahami-pemula.png"
 type = "image"
 title = "generated_image"
