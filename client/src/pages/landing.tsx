@@ -20,6 +20,7 @@ import {
   Send,
   Users,
   Globe,
+  Bot,
 } from "lucide-react";
 import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX, SiWhatsapp } from "react-icons/si";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
@@ -1156,7 +1157,7 @@ function Footer() {
             <h4 className="text-[11px] font-semibold text-white/35 uppercase tracking-widest mb-4">Kontak & Channel</h4>
             <ul className="space-y-3">
               {[
-                { href: "https://t.me/kriptoecerbot",      icon: SiTelegram,  iconColor: "text-[#0088cc]", bg: "bg-[#0088cc]/10", label: "@kriptoecerbot",      sub: "Mulai Transaksi" },
+                { href: "https://t.me/kriptoecerbot",      icon: Bot,         iconColor: "text-primary",   bg: "bg-primary/10",    label: "@kriptoecerbot",      sub: "Mulai Transaksi" },
                 { href: "https://t.me/kriptoecerofficial", icon: SiTelegram,  iconColor: "text-[#0088cc]", bg: "bg-[#0088cc]/10", label: "@kriptoecerofficial", sub: "Channel Resmi" },
                 { href: "https://t.me/kriptoecerchannel",  icon: TrendingUp,  iconColor: "text-green-500", bg: "bg-green-500/10",  label: "Log Transaksi",       sub: "Live update" },
                 { href: "https://x.com/kriptoecer",        icon: SiX,         iconColor: "text-white/50",  bg: "bg-white/[0.07]",  label: "@kriptoecer",         sub: "Update & Promo" },
