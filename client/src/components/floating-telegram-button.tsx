@@ -1,111 +1,135 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Zap } from "lucide-react";
+import { SiTelegram } from "react-icons/si";
 
 type Side = "bottom-right" | "bottom-left";
 
-const BOT_W  = 64;
-const BOT_H  = 72;
-const PEEK   = 46;           // eyes + top of head visible
-const HIDE   = BOT_H - PEEK; // 26px below fold
+const BOT_W  = 68;
+const BOT_H  = 76;
+const PEEK   = 48;
+const HIDE   = BOT_H - PEEK;
 
 const MOBILE_SIDES: Side[] = ["bottom-right", "bottom-left"];
 
 /* ─────────────────────────────────────────────────────────────────────
-   BotFace — compact round-rect robot that peeks from the bottom.
-   Design language: flat, clean, tech-cute. No gimmicky hands.
-   Key: big glowing eyes carry all the personality.
+   BotFace — modern, clean, brand-aligned robot face
 ───────────────────────────────────────────────────────────────────── */
 function BotFace() {
   return (
     <svg
       width={BOT_W}
       height={BOT_H}
-      viewBox="0 0 64 72"
+      viewBox="0 0 68 76"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        {/* Amber shell gradient — brand colour */}
-        <radialGradient id="shell" cx="35%" cy="20%" r="75%">
-          <stop offset="0%"   stopColor="#FFE04D" />
-          <stop offset="60%"  stopColor="#F5B80A" />
-          <stop offset="100%" stopColor="#CC8800" />
+        {/* Main body gradient — brand amber */}
+        <linearGradient id="bodyG" x1="34" y1="14" x2="34" y2="72" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stopColor="#FFD84D" />
+          <stop offset="100%" stopColor="#E8A800" />
+        </linearGradient>
+
+        {/* Body rim highlight */}
+        <linearGradient id="rimG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stopColor="#FFE870" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#CC8800" stopOpacity="0.3" />
+        </linearGradient>
+
+        {/* Ear gradient */}
+        <linearGradient id="earG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stopColor="#D49500" />
+          <stop offset="100%" stopColor="#A06800" />
+        </linearGradient>
+
+        {/* Eye iris gradient — electric blue */}
+        <radialGradient id="irisG" cx="38%" cy="30%" r="65%">
+          <stop offset="0%"   stopColor="#7DF9FF" />
+          <stop offset="50%"  stopColor="#00C8E8" />
+          <stop offset="100%" stopColor="#006ECC" />
         </radialGradient>
 
-        {/* Amber-dark ear gradient */}
-        <radialGradient id="earG" cx="35%" cy="30%" r="70%">
-          <stop offset="0%"   stopColor="#E8A020" />
-          <stop offset="100%" stopColor="#A06000" />
-        </radialGradient>
-
-        {/* Cyan eye glow */}
-        <radialGradient id="eyeG" cx="40%" cy="35%" r="60%">
-          <stop offset="0%"   stopColor="#88FFFF" />
-          <stop offset="55%"  stopColor="#00E0F0" />
-          <stop offset="100%" stopColor="#00A8CC" />
-        </radialGradient>
-
-        {/* Drop shadow */}
-        <filter id="sh" x="-25%" y="-20%" width="150%" height="170%">
-          <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#00000030" />
+        {/* Eye outer glow */}
+        <filter id="eyeGlow" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
+          <feColorMatrix in="blur" type="matrix"
+            values="0 0 0 0 0  0 0.8 0.9 0 0  0 0 1 0 0  0 0 0 1.4 0" result="glow" />
+          <feComposite in="SourceGraphic" in2="glow" operator="over" />
         </filter>
 
-        {/* Cyan glow around eyes */}
-        <filter id="eyeGlow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="2" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        {/* Body shadow */}
+        <filter id="bodyShad" x="-20%" y="-10%" width="140%" height="150%">
+          <feDropShadow dx="0" dy="6" stdDeviation="6" floodColor="#000000" floodOpacity="0.3" />
         </filter>
+
+        {/* Visor inner glow */}
+        <radialGradient id="visorG" cx="50%" cy="30%" r="70%">
+          <stop offset="0%"   stopColor="#1E2240" />
+          <stop offset="100%" stopColor="#0A0D1E" />
+        </radialGradient>
+
+        {/* Antenna glow */}
+        <radialGradient id="antG" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stopColor="#60EFFF" />
+          <stop offset="100%" stopColor="#00AADD" stopOpacity="0" />
+        </radialGradient>
       </defs>
 
-      {/* ── Top purple bump (antenna area) ── */}
-      <ellipse cx="32" cy="10" rx="10" ry="9" fill="url(#earG)" />
-      {/* bump highlight */}
-      <ellipse cx="29" cy="7"  rx="4"  ry="3" fill="white" fillOpacity="0.25" />
+      {/* ── Antenna dot ── */}
+      <circle cx="34" cy="7" r="4" fill="#00CCEE" opacity="0.9" />
+      <circle cx="34" cy="7" r="7" fill="url(#antG)" opacity="0.5" />
+      {/* antenna stem */}
+      <rect x="32.5" y="7" width="3" height="8" rx="1.5" fill="#D49500" />
 
-      {/* ── White outer shell ── */}
-      <rect x="5" y="14" width="54" height="54" rx="20"
-            fill="url(#shell)" filter="url(#sh)" />
+      {/* ── Body — rounded rect ── */}
+      <rect x="5" y="15" width="58" height="57" rx="22"
+        fill="url(#bodyG)" filter="url(#bodyShad)" />
+      {/* rim stroke */}
+      <rect x="5.75" y="15.75" width="56.5" height="55.5" rx="21.25"
+        fill="none" stroke="url(#rimG)" strokeWidth="1.5" />
+      {/* gloss sheen */}
+      <ellipse cx="30" cy="22" rx="15" ry="5.5" fill="white" fillOpacity="0.28" />
 
-      {/* Shell inner bevel / edge lighting */}
-      <rect x="6" y="15" width="52" height="52" rx="19"
-            fill="none" stroke="#FFF0A0" strokeOpacity="0.55" strokeWidth="1.5" />
-      {/* Top gloss highlight */}
-      <ellipse cx="28" cy="20" rx="14" ry="6" fill="white" fillOpacity="0.22" />
+      {/* ── Ears ── */}
+      <rect x="0" y="34" width="8" height="18" rx="4"
+        fill="url(#earG)" />
+      <rect x="60" y="34" width="8" height="18" rx="4"
+        fill="url(#earG)" />
+      {/* ear highlights */}
+      <ellipse cx="3"  cy="38" rx="1.8" ry="3.5" fill="white" fillOpacity="0.2" />
+      <ellipse cx="65" cy="38" rx="1.8" ry="3.5" fill="white" fillOpacity="0.2" />
 
-      {/* ── Left purple ear ── */}
-      <ellipse cx="5"  cy="41" rx="6.5" ry="9" fill="url(#earG)" />
-      <ellipse cx="3"  cy="38" rx="2.5" ry="3" fill="white" fillOpacity="0.22" />
+      {/* ── Visor ── */}
+      <rect x="13" y="23" width="42" height="40" rx="15"
+        fill="url(#visorG)" />
+      {/* visor glass highlight */}
+      <rect x="14" y="24" width="40" height="38" rx="14"
+        fill="none" stroke="#2E335A" strokeWidth="1" />
+      <ellipse cx="27" cy="29" rx="9" ry="3.5" fill="white" fillOpacity="0.07" />
 
-      {/* ── Right purple ear ── */}
-      <ellipse cx="59" cy="41" rx="6.5" ry="9" fill="url(#earG)" />
-      <ellipse cx="57" cy="38" rx="2.5" ry="3" fill="white" fillOpacity="0.22" />
+      {/* ── Left eye ── */}
+      <circle cx="26" cy="39" r="6.5" fill="url(#irisG)" filter="url(#eyeGlow)" />
+      <circle cx="26" cy="39" r="3.5" fill="#CFFFFE" fillOpacity="0.55" />
+      <circle cx="24" cy="37" r="1.8" fill="white" fillOpacity="0.85" />
+      <circle cx="26" cy="39" r="1"   fill="#001830" fillOpacity="0.5" />
 
-      {/* ── Dark visor / face screen ── */}
-      <rect x="12" y="22" width="40" height="38" rx="13" fill="#16182E" />
+      {/* ── Right eye ── */}
+      <circle cx="42" cy="39" r="6.5" fill="url(#irisG)" filter="url(#eyeGlow)" />
+      <circle cx="42" cy="39" r="3.5" fill="#CFFFFE" fillOpacity="0.55" />
+      <circle cx="40" cy="37" r="1.8" fill="white" fillOpacity="0.85" />
+      <circle cx="42" cy="39" r="1"   fill="#001830" fillOpacity="0.5" />
 
-      {/* Visor inner rim highlight */}
-      <rect x="13" y="23" width="38" height="36" rx="12"
-            fill="none" stroke="#2A2D50" strokeWidth="1" />
+      {/* ── Smile ── */}
+      <path d="M23 52 Q34 62 45 52"
+        stroke="#00E0F8" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+      <path d="M23 52 Q34 62 45 52"
+        stroke="#00E0F8" strokeWidth="7" strokeLinecap="round"
+        fill="none" opacity="0.15" />
 
-      {/* ── Left cyan eye ── */}
-      <circle cx="25" cy="37" r="5.5" fill="url(#eyeG)" filter="url(#eyeGlow)" />
-      <circle cx="25" cy="37" r="3"   fill="#CCFFFE" fillOpacity="0.6" />
-      <circle cx="23" cy="35" r="1.5" fill="white"   fillOpacity="0.8" />
-
-      {/* ── Right cyan eye ── */}
-      <circle cx="39" cy="37" r="5.5" fill="url(#eyeG)" filter="url(#eyeGlow)" />
-      <circle cx="39" cy="37" r="3"   fill="#CCFFFE" fillOpacity="0.6" />
-      <circle cx="37" cy="35" r="1.5" fill="white"   fillOpacity="0.8" />
-
-      {/* ── Cyan smile ── */}
-      <path d="M22 48 Q32 57 42 48"
-            stroke="#00E8F8" strokeWidth="2.5"
-            strokeLinecap="round" fill="none" />
-      {/* smile glow */}
-      <path d="M22 48 Q32 57 42 48"
-            stroke="#00E8F8" strokeWidth="5" strokeLinecap="round"
-            fill="none" opacity="0.18" />
+      {/* ── Small status dot on ear ── */}
+      <circle cx="64" cy="34" r="4.5" fill="#0F1020" />
+      <circle cx="64" cy="34" r="3"   fill="#22DD66" />
     </svg>
   );
 }
@@ -115,19 +139,19 @@ function BotFace() {
 function getSideProps(side: Side) {
   const shared = {
     peekOffset:   { y: HIDE },
-    hiddenOffset: { y: BOT_H + 20 },
-    bobAnimate:   { y: [0, -8, 0] },
+    hiddenOffset: { y: BOT_H + 24 },
+    bobAnimate:   { y: [0, -9, 0] },
   };
   return side === "bottom-left"
     ? { ...shared, containerStyle: { bottom: 0, left: 20 } as React.CSSProperties,
-                   bubbleClass: "absolute bottom-[calc(100%+10px)] left-0 w-52" }
+                   bubbleClass: "absolute bottom-[calc(100%+12px)] left-0 w-56" }
     : { ...shared, containerStyle: { bottom: 0, right: 20 } as React.CSSProperties,
-                   bubbleClass: "absolute bottom-[calc(100%+10px)] right-0 w-52" };
+                   bubbleClass: "absolute bottom-[calc(100%+12px)] right-0 w-56" };
 }
 
 /* ─────────────────────────────────────────────────────────────────── */
 
-const SNOOZE_MS = 45_000; // muncul lagi 45 detik setelah di-close
+const SNOOZE_MS = 45_000;
 
 export function FloatingTelegramButton() {
   const [scrolled,   setScrolled]   = useState(false);
@@ -156,10 +180,8 @@ export function FloatingTelegramButton() {
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [scrolled, dismissed]);
 
-  /* Cleanup snooze timer on unmount */
   useEffect(() => () => { if (snoozeRef.current) clearTimeout(snoozeRef.current); }, []);
 
-  /* Auto-unsnooze: muncul lagi setelah SNOOZE_MS */
   function handleDismiss() {
     setDismissed(true);
     setRevealed(false);
@@ -181,9 +203,80 @@ export function FloatingTelegramButton() {
           initial={{ y: hiddenOffset.y, opacity: 0 }}
           animate={{ y: revealed ? 0 : peekOffset.y, opacity: 1 }}
           exit={{ y: hiddenOffset.y, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 170, damping: 20 }}
+          transition={{ type: "spring", stiffness: 160, damping: 18 }}
         >
           <div className="relative">
+            {/* ── Chat bubble ── */}
+            <AnimatePresence>
+              {showBubble && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.85, y: 10 }}
+                  animate={{ opacity: 1, scale: 1,    y: 0  }}
+                  exit={{    opacity: 0, scale: 0.85, y: 10 }}
+                  transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                  className={`${bubbleClass} relative`}
+                >
+                  {/* Card */}
+                  <div className="relative overflow-hidden rounded-2xl border border-white/10
+                    bg-[#0d1220]/95 backdrop-blur-md shadow-2xl shadow-black/40
+                    ring-1 ring-inset ring-white/5">
+
+                    {/* Top accent bar */}
+                    <div className="h-[2px] w-full bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
+
+                    <div className="px-4 pt-3 pb-4">
+                      {/* Status row */}
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-1.5">
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+                          </span>
+                          <span className="text-[11px] font-semibold text-green-400">Bot Online</span>
+                        </div>
+                        <button
+                          onClick={handleDismiss}
+                          className="w-5 h-5 rounded-full bg-white/8 hover:bg-white/15
+                            flex items-center justify-center transition-colors"
+                          data-testid="button-floating-dismiss"
+                          aria-label="Tutup"
+                        >
+                          <X className="w-3 h-3 text-white/50" />
+                        </button>
+                      </div>
+
+                      {/* Message */}
+                      <p className="text-sm font-bold text-white leading-snug mb-0.5">
+                        Beli crypto mulai
+                      </p>
+                      <p className="text-base font-extrabold text-primary leading-tight mb-3">
+                        Rp10.000 ⚡
+                      </p>
+
+                      {/* CTA button */}
+                      <a
+                        href="https://t.me/kriptoecerbot"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-testid="link-floating-cta"
+                        className="flex items-center justify-center gap-2 w-full py-2 rounded-xl
+                          bg-primary hover:bg-primary/90 transition-colors
+                          text-xs font-bold text-primary-foreground"
+                      >
+                        <SiTelegram className="w-3.5 h-3.5" />
+                        Coba Sekarang
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Tail pointing to bot — positioned based on side */}
+                  <div className={`absolute -bottom-1.5 ${side === "bottom-right" ? "right-8" : "left-8"}
+                    w-3 h-3 bg-[#0d1220] border-b border-r border-white/10 rotate-45`} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* ── Bot face ── */}
             <motion.a
               href="https://t.me/kriptoecerbot"
               target="_blank"
@@ -194,51 +287,14 @@ export function FloatingTelegramButton() {
               animate={!revealed ? bobAnimate : { y: 0 }}
               transition={
                 !revealed
-                  ? { duration: 1.6, repeat: Infinity, repeatDelay: 2.8, ease: "easeInOut" }
+                  ? { duration: 1.8, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }
                   : { duration: 0.2 }
               }
-              whileHover={{ scale: 1.07, y: -3 }}
-              whileTap={{ scale: 0.93 }}
+              whileHover={{ scale: 1.08, y: -4 }}
+              whileTap={{ scale: 0.92 }}
             >
               <BotFace />
             </motion.a>
-
-            <AnimatePresence>
-              {showBubble && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.82, y: 6 }}
-                  animate={{ opacity: 1, scale: 1,    y: 0 }}
-                  exit={{    opacity: 0, scale: 0.82, y: 6 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 26 }}
-                  className={`${bubbleClass} bg-card border border-border rounded-2xl shadow-xl shadow-black/10 px-4 py-3`}
-                >
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-                    </span>
-                    <span className="text-xs font-semibold text-green-500">Bot Online</span>
-                  </div>
-                  <p className="text-sm font-bold leading-snug mb-2">Beli crypto mulai Rp10.000!</p>
-                  <a
-                    href="https://t.me/kriptoecerbot"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-semibold text-primary hover:underline"
-                  >
-                    Buka Bot →
-                  </a>
-                  <button
-                    onClick={handleDismiss}
-                    className="absolute top-2 right-2 w-5 h-5 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
-                    data-testid="button-floating-dismiss"
-                    aria-label="Tutup"
-                  >
-                    <X className="w-3 h-3 text-muted-foreground" />
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
         </motion.div>
       )}
