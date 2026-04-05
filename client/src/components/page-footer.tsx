@@ -1,8 +1,15 @@
 import { Link } from "wouter";
-import { Shield, ArrowRight, TrendingUp, Bot } from "lucide-react";
+import { Shield, ArrowRight, TrendingUp, Bot, Users, Zap, Clock } from "lucide-react";
 import { SiTelegram, SiWhatsapp, SiX, SiBitcoin, SiEthereum, SiSolana, SiTether, SiBinance } from "react-icons/si";
 
 const logoImage = "/favicon.png";
+
+const STATS = [
+  { icon: Users,      label: "10rb+ Pengguna Aktif" },
+  { icon: TrendingUp, label: "Rp500Jt+ Total Transaksi" },
+  { icon: Zap,        label: "Proses < 5 Menit" },
+  { icon: Clock,      label: "Aktif 24/7" },
+] as const;
 
 const NAV = [
   { href: "/#fitur", label: "Fitur" },
@@ -37,21 +44,35 @@ const COINS = [
 
 export function PageFooter() {
   return (
-    <footer className="relative bg-zinc-950 border-t border-white/[0.07] overflow-hidden">
+    <footer className="relative bg-zinc-950 border-t border-white/[0.07] overflow-hidden" data-testid="page-footer">
       <div
         className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
         style={{
           backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
         }}
       />
-      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none" aria-hidden="true" />
+
+      <div className="relative border-b border-white/[0.06]">
+        <div className="container mx-auto px-4 py-3.5">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {STATS.map(({ icon: Icon, label }) => (
+              <div key={label} className="flex items-center gap-1.5">
+                <Icon className="w-3 h-3 text-primary/60 flex-shrink-0" />
+                <span className="text-[11px] text-white/40">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <div className="relative container mx-auto px-4 pt-12 pb-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 mb-10">
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-3" data-testid="link-footer-logo">
-              <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" />
+              <img src={logoImage} alt="KriptoEcer" className="w-8 h-8 rounded-md" width={32} height={32} loading="lazy" />
               <span className="font-bold text-base text-white">KriptoEcer</span>
             </Link>
             <p className="text-[13px] text-white/40 mb-5 leading-relaxed">
@@ -59,16 +80,19 @@ export function PageFooter() {
             </p>
             <div className="flex items-center gap-2 mb-4">
               <a href="https://t.me/kriptoecerofficial" target="_blank" rel="noopener noreferrer"
+                aria-label="Telegram Channel"
                 data-testid="link-footer-telegram"
                 className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.07] hover:bg-[#0088cc]/20 text-white/40 hover:text-[#0088cc] transition-colors">
                 <SiTelegram className="w-3.5 h-3.5" />
               </a>
               <a href="https://wa.me/message/TROCGBTMIGOKB1" target="_blank" rel="noopener noreferrer"
+                aria-label="WhatsApp"
                 data-testid="link-footer-whatsapp"
                 className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.07] hover:bg-[#25D366]/20 text-white/40 hover:text-[#25D366] transition-colors">
                 <SiWhatsapp className="w-3.5 h-3.5" />
               </a>
               <a href="https://x.com/kriptoecer" target="_blank" rel="noopener noreferrer"
+                aria-label="X (Twitter)"
                 data-testid="link-footer-x"
                 className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.07] hover:bg-white/[0.14] text-white/40 hover:text-white transition-colors">
                 <SiX className="w-3 h-3" />
