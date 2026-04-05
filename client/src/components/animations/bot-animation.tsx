@@ -408,10 +408,10 @@ export function BotAnimation() {
         <AnimatePresence>
           {messages.map(msg => (
             <motion.div key={msg.id}
-              initial={{ opacity: 0, y: 10, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ type: "spring", stiffness: 180, damping: 22, mass: 0.9 }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
               className={`flex flex-col ${msg.type === "user" ? "items-end" : "items-start"}`}
               data-testid={`message-${msg.type}-${msg.id}`}
             >
@@ -440,10 +440,10 @@ export function BotAnimation() {
         <AnimatePresence>
           {isTyping && (
             <motion.div
-              initial={{ opacity: 0, y: 8, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -6, scale: 0.94 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20, mass: 0.8 }}>
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}>
               <TypingIndicator />
             </motion.div>
           )}
@@ -512,10 +512,10 @@ export function BotAnimation() {
           <AnimatePresence>
             {amountInput && (
               <motion.button
-                initial={{ opacity: 0, scale: 0.5 }}
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
                 onClick={() => { setAmountInput(""); setSelectedAmount(0); }}
                 className="text-white/30 hover:text-white/60 flex-shrink-0 w-5 h-5 flex items-center justify-center text-xs"
                 data-testid="button-clear-amount">
@@ -588,10 +588,10 @@ export function BotAnimation() {
             <motion.button
               onClick={resetSimulation}
               data-testid="button-reset"
-              initial={{ opacity: 0, y: 8, height: 0 }}
-              animate={{ opacity: 1, y: 0, height: "auto" }}
-              exit={{ opacity: 0, y: -4, height: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 26 }}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               className="w-full text-[11px] text-white/30 hover:text-white/50 py-0.5 transition-colors overflow-hidden">
               Reset Demo
             </motion.button>
