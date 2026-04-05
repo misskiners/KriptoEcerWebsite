@@ -756,13 +756,13 @@ function FAQSection() {
                   key={i}
                   onClick={() => setSelected(i)}
                   data-testid={`faq-btn-${i}`}
-                  className={`w-full text-left flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`w-full text-left flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] ${
                     isActive
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
                 >
-                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-200 ${
+                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] ${
                     isActive ? "bg-white/20" : "bg-muted-foreground/10"
                   }`}>
                     <Icon className="w-3.5 h-3.5" />
@@ -789,10 +789,10 @@ function FAQSection() {
                   return (
                     <motion.div
                       key={`icon-${i}`}
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.85 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.25 }}
+                      exit={{ opacity: 0, scale: 0.85 }}
+                      transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
                       className="absolute bottom-5 right-5 pointer-events-none"
                     >
                       <WatermarkIcon className="w-36 h-36 text-primary/6" />
@@ -815,7 +815,7 @@ function FAQSection() {
                           initial={{ opacity: 0, y: -8 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 8 }}
-                          transition={{ duration: 0.15 }}
+                          transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
                           className="text-5xl font-black text-primary/[0.18] leading-none select-none tabular-nums"
                         >
                           {String(i + 1).padStart(2, "0")}
@@ -835,7 +835,7 @@ function FAQSection() {
                             initial={{ opacity: 0, x: -6 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: 6 }}
-                            transition={{ duration: 0.15 }}
+                            transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
                             className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full w-fit"
                           >
                             <LabelIcon className="w-3 h-3" />
@@ -856,7 +856,7 @@ function FAQSection() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
                     className="flex flex-col flex-1"
                   >
                     <h3 className="font-semibold text-base mb-3 leading-snug" data-testid={`faq-question-${selected}`}>
