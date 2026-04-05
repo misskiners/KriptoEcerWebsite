@@ -215,7 +215,7 @@ export function BotAnimation() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, type: "bot", text: "Selamat datang di KriptoEcer! 👋", time: getTime() },
+    { id: 1, type: "bot", text: "Selamat datang di KriptoEcer! 👋\nCoba simulasi beli crypto di bawah ini.", time: getTime() },
   ]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isTyping,     setIsTyping]     = useState(false);
@@ -349,7 +349,7 @@ export function BotAnimation() {
   };
 
   const resetSimulation = () => {
-    setMessages([{ id: 1, type: "bot", text: "Selamat datang di KriptoEcer! 👋", time: getTime() }]);
+    setMessages([{ id: 1, type: "bot", text: "Selamat datang di KriptoEcer! 👋\nCoba simulasi beli crypto di bawah ini.", time: getTime() }]);
     setMessageId(2);
     setIsTyping(false);
   };
@@ -422,7 +422,7 @@ export function BotAnimation() {
               ) : msg.type === "crypto" ? (
                 <CryptoResultBubble coinId={msg.coinId} text={msg.text} />
               ) : (
-                <div className={`max-w-[82%] px-3 py-2 text-xs leading-relaxed ${
+                <div className={`max-w-[82%] px-3 py-2 text-xs leading-relaxed whitespace-pre-line ${
                   msg.type === "user"
                     ? "bg-[#0088cc] text-white rounded-2xl rounded-tr-sm"
                     : "bg-white/10 text-white/90 border border-white/10 rounded-2xl rounded-tl-sm"
