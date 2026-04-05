@@ -6,12 +6,14 @@ KriptoEcer is a web application that serves as a landing page for a Telegram bot
 
 ## Recent Changes
 
+- **April 2026 (Root Codebase Cleanup)**: Extracted shared modules `shared/prices.ts` (CoinGecko proxy + cache + retry) and `shared/sitemap.ts` (sitemap XML generation) — eliminating code duplication between `server/routes.ts` and `api/` (Vercel serverless). Fixed `api/sitemap.ts` that was missing 4 legal pages (terms, privacy, risk, refund) and XML escaping. Replaced `nanoid` import (not an explicit dependency) with `crypto.randomUUID()` in `server/vite.ts`. Removed dead code: `server/storage.ts` (unused MemStorage), unused Drizzle/user-auth definitions from `shared/schema.ts`. Removed 6 unused shadcn component files (command, chart, resizable, drawer, calendar, input-otp).
+- **April 2026 (Animation Fixes)**: Fixed hero section `fadeInUp` transition placement (moved inside `animate` key), removed redundant double entry animation on BotAnimation phone mockup, capped FloatingCoins delays from 13s to 6.5s max with `prefers-reduced-motion` support. Fixed TransactionFeed: replaced React state cursor blink (530ms re-renders) with CSS animation, added unique IDs for regenerated transactions, added explicit `transition` to `whileInView` wrappers.
 - **April 2026 (Bug Audit & Fixes)**: Comprehensive codebase audit. Fixed: AnimatedCounter memory leak (RAF not cancelled on unmount), article 4 slug inconsistency ("5-istilah" → "10-istilah"), added React Error Boundary in App.tsx, added try-catch to sitemap route, removed unused `createServer` import, fixed "Lihat Semua Artikel" link to use wouter Link, masked error messages in production.
 - **April 2026 (Blog Expansion)**: Added 5 new SEO-optimized articles (1000+ words each) with AI-generated cover images: Cara Beli Solana, Apa Itu Blockchain, Deposit via Virtual Account, Crypto Halal/Haram, 5 Kesalahan Pemula. Total articles now 15. Internal links between articles. Sitemap auto-updated.
 - **April 2026 (Particle Network Upgrade)**: Upgraded blockchain network animation with hub nodes (6 large glowing validators), data packets traveling along connections (3 colors), radial glow effects, and increased visibility.
 - **April 2026 (UI Consistency)**: Extracted shared `PageHeader` (`client/src/components/page-header.tsx`) and `PageFooter` (`client/src/components/page-footer.tsx`) components used across all non-landing pages (legal, blog, article, 404). All pages now share consistent header (logo, Blog link, ThemeToggle, "Start Bot" CTA), dark-theme footer (4-column: brand/nav/legal/kontak, social links, disclaimer, copyright), and motion entrance animations. LegalLayout upgraded with breadcrumb navigation. 404 page fully redesigned in Indonesian with branded styling and helpful navigation links.
 - **April 2026 (SEO)**: Full SEO implementation — `react-helmet-async` installed, `SEO` component (`client/src/components/seo.tsx`) with dynamic title/description/OG/Twitter Card per page; landing adds Organization + WebSite + FAQPage JSON-LD; blog adds CollectionPage + BreadcrumbList; articles add BlogPosting + BreadcrumbList + per-article OG image; `robots.txt` at `client/public/robots.txt`; `sitemap.xml` endpoint in `server/routes.ts` covering all URLs; OG image at `client/public/og-image.png` (1200×630px branded image)
-- **April 2026 (Blog)**: Full blog system added — `articles` PostgreSQL table (Drizzle schema), `server/db.ts` drizzle connection, REST API (`GET /api/articles`, `GET /api/articles/:slug`, `POST /api/articles`), auto-seed with 5 Indonesian crypto articles on startup, `/blog` listing page, `/blog/:slug` article detail page, Blog nav link in Header and Footer
+- **April 2026 (Blog)**: Full blog system added — articles stored as static TypeScript data in `shared/articles.ts`, REST API (`GET /api/articles`, `GET /api/articles/:slug`), `/blog` listing page, `/blog/:slug` article detail page, Blog nav link in Header and Footer
 - **April 2026**: Major UI upgrade — mouse parallax hero orbs, glassmorphism feature cards, canvas-confetti CTA button, ParticleNetwork replacing BlockchainGrid everywhere, interactive 4-tab DepositSection (QRIS/VA/PayPal/CryptoBot), upgraded BotAnimation with typing indicator (bouncing dots), timestamps, read receipts, coin+amount selectors, and Reset Demo
 - **March 2026**: Legal pages audit — removed Instagram from all contact sections, added Lucide icons per legal page, per-page OG meta tags via LegalLayout, corrected "tanpa daftar" → "daftar cepat via Telegram" messaging
 - **February 2026**: Added legal pages (Terms of Service, Privacy Policy, Risk Disclosure, Refund Policy) with footer links
@@ -42,55 +44,62 @@ Preferred communication style: Simple, everyday language (Indonesian).
 - **Build**: Custom esbuild configuration for production bundling
 
 ### Data Layer
-- **ORM**: Drizzle ORM with PostgreSQL dialect
-- **Schema Location**: `shared/schema.ts` (shared between frontend and backend)
-- **Validation**: Zod schemas generated from Drizzle schemas via drizzle-zod
-- **Migrations**: Drizzle Kit for database migrations (`migrations/` directory)
+- **Articles**: Static TypeScript data in `shared/articles.ts` (not database-driven)
+- **Prices**: CoinGecko API proxy with 60s cache in `shared/prices.ts`
+- **Schema**: `shared/schema.ts` contains `Article` interface (shared between frontend and backend)
+
+### Shared Modules
+- `shared/prices.ts` — CoinGecko price proxy with cache, retry, and in-flight dedup
+- `shared/sitemap.ts` — XML sitemap generation with all static + article URLs
+- `shared/articles.ts` — Static article data (15 articles)
+- `shared/schema.ts` — TypeScript interfaces (Article)
 
 ### Project Structure
 ```
 ├── client/           # React frontend
 │   ├── src/
 │   │   ├── components/ui/  # shadcn/ui components
+│   │   ├── components/animations/  # Framer Motion animations
 │   │   ├── pages/          # Route components
 │   │   ├── hooks/          # Custom React hooks
 │   │   └── lib/            # Utilities and query client
 ├── server/           # Express backend
 │   ├── index.ts      # Server entry point
-│   ├── routes.ts     # API route definitions
-│   ├── storage.ts    # Data access layer
+│   ├── routes.ts     # API route definitions (uses shared modules)
+│   ├── static.ts     # Production static file serving
 │   └── vite.ts       # Vite dev server integration
-├── shared/           # Shared code between frontend/backend
-│   └── schema.ts     # Drizzle database schemas
+├── api/              # Vercel serverless functions (uses shared modules)
+│   ├── prices.ts     # CoinGecko proxy
+│   ├── sitemap.ts    # Sitemap XML
+│   └── articles/     # Article endpoints
+├── shared/           # Shared code between frontend/backend/api
+│   ├── schema.ts     # TypeScript interfaces
+│   ├── articles.ts   # Static article data
+│   ├── prices.ts     # Price fetching logic
+│   └── sitemap.ts    # Sitemap generation
 └── script/           # Build scripts
 ```
+
+### Dual Deployment
+- **Replit**: Express server (`server/`) serves both API and static frontend
+- **Vercel**: Serverless functions (`api/`) + static frontend (`vercel.json`)
+- Both paths share business logic via `shared/` modules
 
 ### Development vs Production
 - **Development**: Vite dev server with HMR, served through Express middleware
 - **Production**: Static files served from `dist/public`, server bundled to `dist/index.cjs`
 
-### Storage Pattern
-The application uses a storage interface pattern (`IStorage`) allowing for different implementations:
-- Currently uses `MemStorage` (in-memory) for development
-- Database schema ready for PostgreSQL persistence
-
 ## External Dependencies
 
-### Database
-- **PostgreSQL**: Primary database (requires `DATABASE_URL` environment variable)
-- **connect-pg-simple**: Session storage for PostgreSQL
-
 ### UI/Frontend Libraries
-- **Radix UI**: Extensive set of accessible UI primitives
+- **Radix UI**: Accessible UI primitives
 - **Tailwind CSS**: Utility-first CSS framework
 - **Framer Motion**: Animation library
 - **Lucide React**: Icon library
-- **react-icons**: Additional icons (Telegram, Bitcoin, Ethereum)
+- **react-icons**: Additional icons (Telegram, crypto logos)
 
 ### Backend Libraries
 - **Express 5**: Web framework
-- **Drizzle ORM**: Type-safe database toolkit
-- **Zod**: Schema validation
 
 ### Replit-Specific Plugins
 - `@replit/vite-plugin-runtime-error-modal`: Error overlay in development
