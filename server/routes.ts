@@ -93,9 +93,15 @@ export async function registerRoutes(
     try {
       const now = new Date().toISOString().split("T")[0];
 
+      const escXml = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
       const staticUrls = [
-        { loc: `${SITE_URL}/`,    lastmod: now, changefreq: "weekly",  priority: "1.0" },
-        { loc: `${SITE_URL}/blog`, lastmod: now, changefreq: "weekly",  priority: "0.9" },
+        { loc: `${SITE_URL}/`,        lastmod: now, changefreq: "weekly",  priority: "1.0" },
+        { loc: `${SITE_URL}/blog`,    lastmod: now, changefreq: "weekly",  priority: "0.9" },
+        { loc: `${SITE_URL}/terms`,   lastmod: now, changefreq: "yearly",  priority: "0.3" },
+        { loc: `${SITE_URL}/privacy`, lastmod: now, changefreq: "yearly",  priority: "0.3" },
+        { loc: `${SITE_URL}/risk`,    lastmod: now, changefreq: "yearly",  priority: "0.3" },
+        { loc: `${SITE_URL}/refund`,  lastmod: now, changefreq: "yearly",  priority: "0.3" },
       ];
 
       const articleUrls = articles.map((a) => ({
@@ -115,7 +121,7 @@ export async function registerRoutes(
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
           http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 ${allUrls.map((u) => `  <url>
-    <loc>${u.loc}</loc>
+    <loc>${escXml(u.loc)}</loc>
     <lastmod>${u.lastmod}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>
