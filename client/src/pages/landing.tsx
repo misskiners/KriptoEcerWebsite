@@ -1065,7 +1065,7 @@ function RecentArticlesSection() {
             >
               <div className="relative h-44 overflow-hidden bg-muted">
                 <img
-                  src={`/images/blog/${article.slug}.jpg`}
+                  src={`/images/blog/${article.slug}.jpg?v=2`}
                   alt={article.title}
                   width={1408}
                   height={768}
