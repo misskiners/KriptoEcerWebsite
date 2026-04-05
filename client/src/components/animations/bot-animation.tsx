@@ -474,18 +474,21 @@ export function BotAnimation() {
             className="flex-1 bg-transparent text-white text-sm font-bold outline-none
               placeholder-white/20 min-w-0 caret-primary"
           />
-          {/* Live result */}
-          {selectedAmount >= 10_000 && !loading && (
-            <span className="text-[10px] text-primary/80 font-semibold min-w-0 shrink truncate text-right max-w-[80px]">
-              ≈{calcCrypto(selectedCoin, selectedAmount)} {selectedCoin.symbol}
-            </span>
-          )}
-          {amountInput && (
-            <button onClick={() => { setAmountInput(""); setSelectedAmount(0); }}
-              className="text-white/25 hover:text-white/60 transition-colors text-xs flex-shrink-0 leading-none w-4 h-4 flex items-center justify-center">
-              ✕
-            </button>
-          )}
+          {/* Fixed-width right slot — prevents layout shift when estimate/X appear/disappear */}
+          <div className="flex items-center gap-1 flex-shrink-0 w-[88px] justify-end overflow-hidden">
+            {selectedAmount >= 10_000 && !loading && (
+              <span className="text-[10px] text-primary/80 font-semibold truncate">
+                ≈{calcCrypto(selectedCoin, selectedAmount)} {selectedCoin.symbol}
+              </span>
+            )}
+            {amountInput && (
+              <button
+                onClick={() => { setAmountInput(""); setSelectedAmount(0); }}
+                className="text-white/25 hover:text-white/60 transition-colors flex-shrink-0 leading-none w-4 h-4 flex items-center justify-center text-xs">
+                ✕
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Preset amounts — scrollable */}
