@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle2, Coins, Check, ArrowUpRight, ArrowDownRight, RefreshCw } from "lucide-react";
+import { Send, CheckCircle2, Check, RefreshCw } from "lucide-react";
 import { SiTelegram, SiSolana, SiBinance, SiTether, SiBitcoin, SiEthereum } from "react-icons/si";
 import { TrxIcon } from "@/components/icons/trx-icon";
 
@@ -25,10 +25,11 @@ const COINS = [
 type CoinId = typeof COINS[number]["id"];
 
 interface Message {
-  id:   number;
-  type: "bot" | "user" | "success" | "crypto";
-  text: string;
-  time: string;
+  id:     number;
+  type:   "bot" | "user" | "success" | "crypto";
+  text:   string;
+  time:   string;
+  coinId?: string;
 }
 
 function getTime() {
@@ -192,6 +193,20 @@ function ScrollRow({ children }: { children: React.ReactNode }) {
   );
 }
 
+/* ── Crypto result bubble — shows actual coin icon with its brand color ── */
+function CryptoResultBubble({ coinId, text }: { coinId?: string; text: string }) {
+  const coin = COINS.find(c => c.id === coinId) ?? COINS[0];
+  const Icon = coin.Icon;
+  return (
+    <div className="flex items-center gap-1.5 bg-primary/15 text-primary px-3 py-1.5 rounded-2xl border border-primary/25">
+      <span style={{ color: coin.color }} className="flex items-center flex-shrink-0">
+        <Icon className="w-3.5 h-3.5" />
+      </span>
+      <span className="text-xs font-semibold">{text}</span>
+    </div>
+  );
+}
+
 /* ══════════════════════════════════════════════════════════════════ */
 export function BotAnimation() {
   const [prices,   setPrices]   = useState<Record<string, number>>({});
@@ -313,6 +328,7 @@ export function BotAnimation() {
     setMessages(prev => [...prev, {
       id: id.current++, type: "crypto",
       text: `${calcCrypto(coin, amt)} ${coin.symbol} → wallet kamu`, time: getTime(),
+      coinId: coin.id,
     }]);
 
     setMessageId(id.current);
@@ -391,9 +407,7 @@ export function BotAnimation() {
                   <CheckCircle2 className="w-3.5 h-3.5" /><span className="text-xs font-semibold">{msg.text}</span>
                 </div>
               ) : msg.type === "crypto" ? (
-                <div className="flex items-center gap-1.5 bg-primary/15 text-primary px-3 py-1.5 rounded-2xl border border-primary/25">
-                  <Coins className="w-3.5 h-3.5" /><span className="text-xs font-semibold">{msg.text}</span>
-                </div>
+                <CryptoResultBubble coinId={msg.coinId} text={msg.text} />
               ) : (
                 <div className={`max-w-[82%] px-3 py-2 text-xs leading-relaxed ${
                   msg.type === "user"
