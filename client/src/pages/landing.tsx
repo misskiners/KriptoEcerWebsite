@@ -171,7 +171,7 @@ function HeroSection() {
       onMouseMove={handleMouseMove}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-      <ParticleNetwork className="opacity-40" />
+      <ParticleNetwork className="opacity-50" />
       <FloatingCoins />
       
       <motion.div
@@ -313,7 +313,7 @@ function HeroSection() {
 function LiveTransactionsSection() {
   return (
     <section id="aktivitas" className="py-16 relative overflow-hidden">
-      <ParticleNetwork className="opacity-20" />
+      <ParticleNetwork className="opacity-30" />
       <div className="container mx-auto px-4 relative">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
