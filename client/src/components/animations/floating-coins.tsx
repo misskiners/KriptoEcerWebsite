@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { SiBitcoin, SiEthereum, SiLitecoin, SiDogecoin, SiTether, SiSolana, SiBinance } from "react-icons/si";
 import { TrxIcon } from "@/components/icons/trx-icon";
 
@@ -16,23 +16,27 @@ const UsdcIcon = ({ className }: { className?: string }) => (
 );
 
 const coins = [
-  { Icon: SiSolana, color: "text-purple-500", delay: 0, x: "8%", duration: 14 },
-  { Icon: SiBinance, color: "text-yellow-500", delay: 1, x: "18%", duration: 17 },
-  { Icon: SiBitcoin, color: "text-orange-500", delay: 2, x: "28%", duration: 15 },
-  { Icon: SiEthereum, color: "text-blue-400", delay: 3, x: "38%", duration: 18 },
-  { Icon: TrxIcon, color: "text-red-500", delay: 4, x: "48%", duration: 13 },
-  { Icon: SiTether, color: "text-green-500", delay: 5, x: "58%", duration: 16 },
-  { Icon: UsdcIcon, color: "text-blue-500", delay: 6, x: "68%", duration: 19 },
-  { Icon: TonIcon, color: "text-sky-400", delay: 7, x: "78%", duration: 15 },
-  { Icon: SiLitecoin, color: "text-gray-400", delay: 8, x: "88%", duration: 12 },
-  { Icon: SiDogecoin, color: "text-amber-400", delay: 9, x: "5%", duration: 20 },
-  { Icon: SiSolana, color: "text-purple-400/60", delay: 10, x: "35%", duration: 22 },
-  { Icon: SiBinance, color: "text-yellow-400/60", delay: 11, x: "65%", duration: 21 },
-  { Icon: TrxIcon, color: "text-red-400/60", delay: 12, x: "92%", duration: 18 },
-  { Icon: SiTether, color: "text-green-400/60", delay: 13, x: "22%", duration: 20 },
+  { Icon: SiSolana,   color: "text-purple-500",      delay: 0,   x: "8%",  duration: 14 },
+  { Icon: SiBinance,  color: "text-yellow-500",      delay: 1,   x: "18%", duration: 17 },
+  { Icon: SiBitcoin,  color: "text-orange-500",      delay: 2,   x: "28%", duration: 15 },
+  { Icon: SiEthereum, color: "text-blue-400",        delay: 3,   x: "38%", duration: 18 },
+  { Icon: TrxIcon,    color: "text-red-500",         delay: 4,   x: "48%", duration: 13 },
+  { Icon: SiTether,   color: "text-green-500",       delay: 5,   x: "58%", duration: 16 },
+  { Icon: UsdcIcon,   color: "text-blue-500",        delay: 0.5, x: "68%", duration: 19 },
+  { Icon: TonIcon,    color: "text-sky-400",         delay: 1.5, x: "78%", duration: 15 },
+  { Icon: SiLitecoin, color: "text-gray-400",        delay: 2.5, x: "88%", duration: 12 },
+  { Icon: SiDogecoin, color: "text-amber-400",       delay: 3.5, x: "5%",  duration: 20 },
+  { Icon: SiSolana,   color: "text-purple-400/60",   delay: 4.5, x: "35%", duration: 22 },
+  { Icon: SiBinance,  color: "text-yellow-400/60",   delay: 5.5, x: "65%", duration: 21 },
+  { Icon: TrxIcon,    color: "text-red-400/60",      delay: 6,   x: "92%", duration: 18 },
+  { Icon: SiTether,   color: "text-green-400/60",    delay: 6.5, x: "22%", duration: 20 },
 ];
 
 export function FloatingCoins() {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) return null;
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {coins.map((coin, index) => (

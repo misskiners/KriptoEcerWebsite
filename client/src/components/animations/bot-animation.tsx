@@ -599,11 +599,7 @@ export function BotAnimation() {
         animate={{ scale: [1, 1.35, 1], opacity: [0.25, 0.55, 0.25] }}
         transition={{ duration: 4.5, repeat: Infinity }} />
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
+      <div>
         {/* Desktop — phone frame */}
         <div className="hidden lg:block">
           <div className="relative bg-gradient-to-b from-zinc-700 to-zinc-900
@@ -654,7 +650,7 @@ export function BotAnimation() {
         <div className="lg:hidden bg-[#0d1117] rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40">
           {buildChat(chatMobileRef)}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
