@@ -15,10 +15,10 @@ const COIN_CONFIG = [
 ];
 
 function formatIDR(price: number): string {
-  if (price >= 1_000_000_000) return `Rp ${(price / 1_000_000_000).toFixed(2)}M`;
-  if (price >= 1_000_000)     return `Rp ${(price / 1_000_000).toFixed(2)}Jt`;
-  if (price >= 1_000)         return `Rp ${price.toLocaleString("id-ID", { maximumFractionDigits: 0 })}`;
-  return `Rp ${price.toLocaleString("id-ID", { maximumFractionDigits: 2 })}`;
+  if (price >= 1_000_000_000) return `Rp${(price / 1_000_000_000).toLocaleString("id-ID", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}M`;
+  if (price >= 1_000_000)     return `Rp${(price / 1_000_000).toLocaleString("id-ID", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}Jt`;
+  if (price >= 1_000)         return `Rp${price.toLocaleString("id-ID", { maximumFractionDigits: 0 })}`;
+  return `Rp${price.toLocaleString("id-ID", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 interface PriceData {
@@ -80,11 +80,23 @@ export function CryptoTicker() {
   const fetchPrices = useCallback(async () => {
     if (retryRef.current) { clearTimeout(retryRef.current); retryRef.current = null; }
     try {
-      const res = await fetch("/api/prices", { cache: "no-store" });
+      const res = await fetch("/api/prices");
       if (!res.ok) throw new Error("API error");
       const data: PricesMap = await res.json();
       writeToDOM(data, new Date());
+      const root = trackRef.current;
+      if (root) {
+        root.querySelectorAll<HTMLElement>("[data-live-dot]").forEach((el) => {
+          el.className = el.className.replace(/bg-(red|green)-500/, "bg-green-500");
+        });
+      }
     } catch {
+      const root = trackRef.current;
+      if (root) {
+        root.querySelectorAll<HTMLElement>("[data-live-dot]").forEach((el) => {
+          el.className = el.className.replace(/bg-(red|green)-500/, "bg-red-500");
+        });
+      }
       retryRef.current = setTimeout(fetchPrices, 5_000);
     }
   }, [writeToDOM]);
@@ -125,7 +137,7 @@ export function CryptoTicker() {
         className="inline-flex items-center gap-1 px-4 text-xs text-muted-foreground/50 shrink-0"
         style={{ visibility: "hidden" }}
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+        <span data-live-dot className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
         <span data-live-time>Live · --:--</span>
       </span>
     </>

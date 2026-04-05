@@ -186,10 +186,10 @@
   z-index: 2;
   pointer-events: none;
 }
-.ticker-fade-left  { left: 0;  background: linear-gradient(to right, rgba(255,255,255,0.85), transparent); }
-.ticker-fade-right { right: 0; background: linear-gradient(to left,  rgba(255,255,255,0.85), transparent); }
-.dark .ticker-fade-left  { background: linear-gradient(to right, rgba(10,10,10,0.85), transparent); }
-.dark .ticker-fade-right { background: linear-gradient(to left,  rgba(10,10,10,0.85), transparent); }
+.ticker-fade-left  { left: 0;  background: linear-gradient(to right, rgba(255,255,255,0.7), transparent); }
+.ticker-fade-right { right: 0; background: linear-gradient(to left,  rgba(255,255,255,0.7), transparent); }
+.dark .ticker-fade-left  { background: linear-gradient(to right, rgba(0,0,0,0.65), transparent); }
+.dark .ticker-fade-right { background: linear-gradient(to left,  rgba(0,0,0,0.65), transparent); }
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -200,6 +200,9 @@
   animation: marquee 16s linear infinite;
   animation-play-state: running;
   will-change: transform;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 @media (max-width: 640px) {
