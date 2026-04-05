@@ -679,6 +679,8 @@ function FAQSection() {
       <div className="absolute inset-0 bg-muted/30 dark:bg-muted/20" />
       {/* Gradient seam atas — meleleh dari bg-background */}
       <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
+      {/* Gradient seam bawah — meleleh ke section berikutnya */}
+      <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
       <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-primary/6 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-[360px] h-[360px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
 
@@ -1024,7 +1026,9 @@ function RecentArticlesSection() {
 
   return (
     <section className="py-20 bg-muted/20 relative overflow-hidden" id="blog">
-      {/* Gradient seam bawah — meleleh ke bg-background (CTA menyusul dengan white) */}
+      {/* Gradient seam atas — meleleh dari section sebelumnya */}
+      <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
+      {/* Gradient seam bawah — meleleh ke bg-background (CTA menyusul) */}
       <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
       <div className="container mx-auto px-4 relative z-20">
         <motion.div
