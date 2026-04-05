@@ -159,8 +159,8 @@ function getSideProps(side: Side) {
         hiddenOffset:   { y: BOT_H + 24 },
         bobAnimate:     { y: [0, -9, 0] },
         containerStyle: { bottom: 0, right: 20 } as React.CSSProperties,
-        bubbleClass:    "absolute bottom-[calc(100%+12px)] right-0 w-56",
-        tailClass:      "absolute -bottom-[7px] right-6",
+        bubbleClass:    "absolute bottom-[calc(100%+12px)] right-[-10px] w-56",
+        tailClass:      "absolute -bottom-[7px] right-4",
         tailStyle,
       };
 }

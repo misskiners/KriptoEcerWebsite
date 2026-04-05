@@ -780,7 +780,7 @@ Dengan panduan ini, proses menjual crypto di Indonesia seharusnya terasa lebih m
     excerpt: "Panduan lengkap cara beli Solana (SOL) di Indonesia mulai dari Rp10.000 tanpa KYC. Pelajari apa itu SOL, kenapa populer, dan cara termudah membelinya via Telegram.",
     category: "Panduan",
     author: "KriptoEcer",
-    publishedAt: "2026-04-05T07:00:00.000Z",
+    publishedAt: "2026-04-14T07:00:00.000Z",
     coverGradient: "from-violet-500/20 to-purple-500/5",
     readTime: 10,
     content: `Solana (SOL) telah menjadi salah satu aset kripto paling populer di Indonesia dan dunia sepanjang 2025-2026. Dengan kecepatan transaksi yang sangat tinggi, biaya yang hampir nol, dan ekosistem DeFi serta NFT yang berkembang pesat, tidak heran banyak investor pemula maupun berpengalaman mulai melirik SOL sebagai bagian portofolio mereka.
@@ -860,7 +860,7 @@ Dengan KriptoEcer, membeli Solana di Indonesia menjadi semudah mengirim pesan di
     excerpt: "Blockchain adalah teknologi di balik Bitcoin dan ribuan crypto lainnya. Pelajari cara kerjanya, kenapa aman, dan bagaimana pengaruhnya di kehidupan sehari-hari — dijelaskan dengan bahasa sederhana.",
     category: "Edukasi",
     author: "KriptoEcer",
-    publishedAt: "2026-04-05T09:00:00.000Z",
+    publishedAt: "2026-04-13T07:00:00.000Z",
     coverGradient: "from-blue-500/20 to-cyan-500/5",
     readTime: 11,
     content: `Jika kamu pernah mendengar tentang Bitcoin, Ethereum, atau crypto lainnya, pasti kamu juga pernah mendengar kata "blockchain". Teknologi ini sering disebut sebagai revolusi terbesar sejak internet — tapi apa sebenarnya blockchain itu? Dan kenapa begitu banyak orang antusias tentangnya?
@@ -948,7 +948,7 @@ Blockchain bukan sekadar buzzword teknologi. Ini adalah perubahan fundamental da
     excerpt: "Panduan step-by-step deposit dan beli crypto menggunakan Virtual Account (VA) transfer bank. Tersedia untuk BCA, BRI, Mandiri, BNI, dan bank lainnya tanpa ribet.",
     category: "Panduan",
     author: "KriptoEcer",
-    publishedAt: "2026-04-05T11:00:00.000Z",
+    publishedAt: "2026-04-12T07:00:00.000Z",
     coverGradient: "from-emerald-500/20 to-teal-500/5",
     readTime: 9,
     content: `Salah satu pertanyaan paling sering dari pengguna baru KriptoEcer adalah: "Selain QRIS, bisa bayar pakai apa?" Jawabannya adalah Virtual Account (VA) — metode pembayaran yang memungkinkan kamu membeli crypto langsung dari rekening bank manapun melalui transfer biasa.
@@ -1032,7 +1032,7 @@ Dengan Virtual Account, membeli crypto di Indonesia menjadi semudah transfer ban
     excerpt: "Apakah crypto halal atau haram menurut Islam? Simak pandangan MUI, ulama internasional, dan fakta-fakta penting yang perlu diketahui umat Muslim di Indonesia sebelum berinvestasi crypto.",
     category: "Edukasi",
     author: "KriptoEcer",
-    publishedAt: "2026-04-05T13:00:00.000Z",
+    publishedAt: "2026-04-11T07:00:00.000Z",
     coverGradient: "from-emerald-600/20 to-green-500/5",
     readTime: 12,
     content: `Sebagai negara dengan populasi Muslim terbesar di dunia, pertanyaan "apakah crypto halal atau haram?" menjadi sangat relevan di Indonesia. Banyak masyarakat yang tertarik berinvestasi crypto tapi ragu karena belum yakin dengan status hukum syariahnya. Artikel ini akan membahas berbagai pandangan dari MUI, ulama internasional, dan fakta-fakta yang perlu diketahui agar kamu bisa membuat keputusan yang informed.
@@ -1126,7 +1126,7 @@ Kesimpulannya, status halal-haram crypto tidak bisa dijawab dengan satu kata sed
     excerpt: "Jangan ulangi kesalahan yang sama! Pelajari 5 kesalahan paling umum yang dilakukan pemula saat pertama kali beli crypto di Indonesia, dan bagaimana cara menghindarinya.",
     category: "Tips",
     author: "KriptoEcer",
-    publishedAt: "2026-04-05T15:00:00.000Z",
+    publishedAt: "2026-04-10T07:00:00.000Z",
     coverGradient: "from-red-500/20 to-orange-500/5",
     readTime: 9,
     content: `Setiap orang yang terjun ke dunia crypto pasti pernah melakukan kesalahan — termasuk para investor berpengalaman sekalipun. Bedanya, pemula sering melakukan kesalahan yang sebenarnya bisa dihindari jika mereka tahu lebih awal. Artikel ini membahas 5 kesalahan paling umum dan paling mahal yang dilakukan pemula saat membeli crypto di Indonesia, beserta cara menghindarinya agar perjalanan crypto-mu lebih lancar dari awal.
