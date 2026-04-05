@@ -474,22 +474,14 @@ export function BotAnimation() {
             className="flex-1 bg-transparent text-white text-sm font-bold outline-none
               placeholder-white/20 min-w-0 caret-primary"
           />
-          <div className="flex items-center gap-1 flex-shrink-0 justify-end overflow-hidden">
-            <span className={`text-[10px] text-primary/80 font-semibold truncate max-w-[72px] transition-opacity duration-150 ${
-              selectedAmount >= 10_000 && !loading ? "opacity-100" : "opacity-0 w-0 max-w-0"
-            }`}>
-              ≈{calcCrypto(selectedCoin, selectedAmount || 100_000)} {selectedCoin.symbol}
-            </span>
+          {amountInput && (
             <button
               onClick={() => { setAmountInput(""); setSelectedAmount(0); }}
-              aria-hidden={!amountInput}
-              tabIndex={amountInput ? 0 : -1}
-              className={`flex-shrink-0 leading-none w-4 h-4 flex items-center justify-center text-xs transition-opacity duration-150 ${
-                amountInput ? "text-white/25 hover:text-white/60" : "opacity-0 pointer-events-none w-0"
-              }`}>
+              className="text-white/30 hover:text-white/60 flex-shrink-0 w-5 h-5 flex items-center justify-center text-xs"
+              data-testid="button-clear-amount">
               ✕
             </button>
-          </div>
+          )}
         </div>
 
         {/* Preset amounts — scrollable */}
@@ -521,13 +513,20 @@ export function BotAnimation() {
           data-testid="button-send"
           className="w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl
             bg-primary hover:bg-primary/90 disabled:opacity-40
-            transition-all active:scale-[0.98] shadow-md"
+            transition-all active:scale-[0.98] shadow-md overflow-hidden"
         >
-          <span className="text-sm font-semibold text-primary-foreground truncate">
-            {isProcessing ? "Memproses..." : selectedAmount < 10_000
-              ? "Min. Rp10.000"
-              : `Beli ${selectedCoin.symbol} Rp${formatIDR(selectedAmount)}`}
-          </span>
+          <div className="flex flex-col items-start min-w-0">
+            <span className="text-sm font-semibold text-primary-foreground whitespace-nowrap">
+              {isProcessing ? "Memproses..." : selectedAmount < 10_000
+                ? "Min. Rp10.000"
+                : `Beli ${selectedCoin.symbol} Rp${formatIDR(selectedAmount)}`}
+            </span>
+            {selectedAmount >= 10_000 && !loading && !isProcessing && (
+              <span className="text-[10px] text-primary-foreground/60 whitespace-nowrap">
+                ≈{calcCrypto(selectedCoin, selectedAmount)} {selectedCoin.symbol}
+              </span>
+            )}
+          </div>
           <Send className="w-4 h-4 text-primary-foreground flex-shrink-0" />
         </button>
 
