@@ -58,10 +58,34 @@ const userNames = [
 
 const timestamps = ["baru saja", "12s lalu", "28s lalu", "45s lalu", "1m lalu", "2m lalu", "3m lalu"];
 
-function generateHash(): string {
-  const hex = "0123456789abcdef";
-  const seg = (len: number) => Array.from({ length: len }, () => hex[Math.floor(Math.random() * 16)]).join("");
-  return `0x${seg(4)}…${seg(4)}`;
+const HEX  = "0123456789abcdef";
+const B58  = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+const TRON = "ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";
+
+function rndStr(chars: string, len: number): string {
+  return Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+}
+
+// Pilih format alamat berdasarkan coin — lebih realistis
+function generateAddress(coinId: string): string {
+  if (coinId === "tron") {
+    // Tron: T + 33 karakter base58 → tampilkan T + 5 … 4
+    const full = "T" + rndStr(TRON, 33);
+    return `${full.slice(0, 6)}…${full.slice(-4)}`;
+  }
+  if (coinId === "solana") {
+    // Solana: base58 44 karakter → tampilkan 5 … 4
+    const full = rndStr(B58, 44);
+    return `${full.slice(0, 5)}…${full.slice(-4)}`;
+  }
+  if (coinId === "the-open-network") {
+    // TON: UQ + base64-like string → tampilkan UQ + 4 … 4
+    const full = "UQ" + rndStr(B58, 46);
+    return `${full.slice(0, 6)}…${full.slice(-4)}`;
+  }
+  // Ethereum-family (ETH, BNB, USDT ERC20, USDC, BTC, LTC, dll): 0x + 40 hex
+  const full = "0x" + rndStr(HEX, 40);
+  return `${full.slice(0, 8)}…${full.slice(-6)}`;
 }
 
 function formatRupiah(val: number): string {
@@ -105,7 +129,7 @@ function generateTransaction(id: number, isNew = false): Transaction {
     timestamp: isNew ? "baru saja" : timestamps[Math.floor(Math.random() * (timestamps.length - 1)) + 1],
     isNew,
     action: Math.random() > 0.28 ? "BELI" : "JUAL",
-    hash: generateHash(),
+    hash: generateAddress(crypto.id),
   };
 }
 
