@@ -35,19 +35,25 @@ const rupiahAmounts = [
 
 // Username lebih bervariasi — mix gaya sosmed Indonesia
 const userNames = [
-  "arif_jkt", "bayu_bdg", "cahya_sby", "dewi_mlg", "fajar_id",
-  "gilang_ptr", "hani_krsn", "indra_w", "jayakusuma", "kiki_r",
-  "leon_di", "mega_putri", "nanda_jr", "ogi_prima", "prasetyo",
-  "rina_ndr", "surya_adi", "tika_w", "udin_mks", "vera_m",
-  "widi_arto", "yogi_ptr", "zaki_id", "andie_w", "budi_s",
-  "citra_m", "dedi_ptr", "eko_r", "fitri_n", "galih_k",
-  "reza_mdn", "santi_btw", "hendra_solo", "nindy_jkt", "andri88",
-  "fulan_id", "rafi_trade", "lina_btc", "pak_harto77", "mira_sol",
-  "angga_trade", "bg_crypto", "krisna_bali", "dinda_klmtn", "fauzan_sby",
-  "habib_jr", "irfan_krs", "jasmine_id", "kevin_bali", "lutfi_ptr",
-  "maulana_jkt", "novita_s", "oscar_wld", "purnama_id", "queenie_m",
-  "ridwan_id", "sela_bdg", "tomy_jkt", "ulfa_id", "vino_ptr",
-  "wahyu_s", "xander_id", "yuni_tr", "zelda_crypto", "abdi_sby",
+  // tanpa separator
+  "jayakusuma", "prasetyo", "hendriawan", "nuraisyah", "budiman",
+  "cakrabirawa", "rahmadi", "susanto", "fatimah", "kurniawan",
+  // angka di belakang
+  "andri88", "pak_harto77", "budi123", "kevin99", "rizky21",
+  "aldi007", "nando2k", "tommy1995", "rama03", "dika17",
+  // gaya telegram pendek
+  "bg_crypto", "lina_btc", "mira_sol", "rafi_trade", "zelda_crypto",
+  "thereal_reza", "notbayu", "iamgalih", "justdewi", "onlysolana",
+  // titik sebagai pemisah
+  "reza.jkt", "santi.bdg", "hendra.solo", "nindy.mlg", "dinda.sby",
+  "angga.trade", "krisna.bali", "fauzan.ptr", "nova.id", "vino.crypto",
+  // campuran huruf + angka tanpa pemisah
+  "arif2025", "cahya99x", "gilang_7", "indra.w", "tika88",
+  "udin3k", "widiarto", "yogi_4", "zaki01", "ekopras",
+  // gaya akun biasa
+  "lutfipurnama", "maulana_jkt", "ridwan.id", "sela_bdg", "tomy_jkt",
+  "ulfa.id", "wahyusaputra", "xander_id", "yunitri", "abdi_sby",
+  "habibullah", "irfan.krs", "jasmineid", "queenie_m", "oscar_wld",
 ];
 
 const timestamps = ["baru saja", "12s lalu", "28s lalu", "45s lalu", "1m lalu", "2m lalu", "3m lalu"];
