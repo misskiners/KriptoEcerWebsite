@@ -228,7 +228,7 @@ function HeroSection() {
               className="text-lg sm:text-xl text-muted-foreground max-w-xl mb-8"
             >
               Top up fee gas, beli meme coin, atau diversifikasi crypto mulai Rp10.000 — tanpa KYC, tanpa download app.
-              Deposit otomatis via QRIS, VA, PayPal & CryptoBot. Daftar cepat via Telegram, langsung transaksi.
+              Daftar via Telegram, deposit saldo otomatis via QRIS/VA/PayPal/CryptoBot, lalu langsung beli crypto.
             </motion.p>
 
             <motion.div
@@ -520,8 +520,8 @@ const steps = [
   {
     number: "02",
     icon: Send,
-    title: "Tekan /start",
-    description: "Ketik /start, bot langsung merespons dengan menu pilihan. Pilih beli atau jual, ikuti instruksinya.",
+    title: "Daftar & /start",
+    description: "Ketik /start, bot langsung merespons dan panduan registrasi akun tampil otomatis. Proses daftar selesai dalam hitungan detik.",
   },
   {
     number: "03",
@@ -638,7 +638,7 @@ const faqs = [
   },
   {
     question: "Apakah perlu KYC atau verifikasi identitas?",
-    answer: "Tidak perlu! KriptoEcer tidak meminta KTP, selfie, atau verifikasi identitas apapun. Cukup daftar via bot Telegram @kriptoecerbot dan langsung bisa transaksi.",
+    answer: "Tidak perlu! KriptoEcer tidak meminta KTP, selfie, atau verifikasi identitas apapun. Cukup daftar via bot Telegram @kriptoecerbot, deposit saldo, dan langsung bisa transaksi.",
     icon: Shield,
     label: "KYC & Privasi",
   },
@@ -1252,7 +1252,7 @@ const LANDING_STRUCTURED_DATA = [
       {
         "@type": "Question",
         "name": "Apakah perlu KYC atau verifikasi identitas?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Tidak perlu! KriptoEcer tidak meminta KTP, selfie, atau verifikasi identitas apapun. Cukup daftar via bot Telegram @kriptoecerbot dan langsung bisa transaksi." },
+        "acceptedAnswer": { "@type": "Answer", "text": "Tidak perlu! KriptoEcer tidak meminta KTP, selfie, atau verifikasi identitas apapun. Cukup daftar via bot Telegram @kriptoecerbot, deposit saldo, dan langsung bisa transaksi." },
       },
       {
         "@type": "Question",

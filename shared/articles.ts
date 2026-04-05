@@ -45,13 +45,13 @@ Di sinilah KriptoEcer menjadi solusi. Tidak ada minimum yang tinggi, tidak ada K
 
 Langkah-Langkah Top Up Fee Gas via KriptoEcer
 
-Prosesnya sangat mudah dan bisa selesai dalam 2-3 menit. Pertama, buka Telegram dan cari @kriptoecerbot atau klik langsung dari link yang tersedia di website ini. Tekan tombol Start untuk memulai percakapan dengan bot.
+Prosesnya sangat mudah dan bisa selesai dalam 2-3 menit. Pertama, buka Telegram dan cari @kriptoecerbot atau klik langsung dari link yang tersedia di website ini. Tekan tombol Start untuk mendaftar — bot langsung merespons dan registrasi akun selesai dalam hitungan detik.
 
-Setelah itu, pilih menu "Beli Crypto" yang akan muncul di keyboard bot. Kamu akan diminta memilih jaringan atau aset yang ingin dibeli. Pilih SOL untuk Solana, TRX untuk Tron, BNB untuk BNB Smart Chain, dan seterusnya.
+Setelah daftar, lakukan deposit saldo terlebih dahulu. Pilih menu "Deposit" di bot, lalu pilih metode pembayaran yang paling nyaman: QRIS, Virtual Account, PayPal, atau CryptoBot Telegram. Konfirmasi masuk otomatis — tidak perlu chat admin. Minimal deposit mulai Rp10.000.
 
-Masukkan nominal dalam Rupiah — misalnya Rp15.000 untuk TRX atau Rp25.000 untuk SOL. Bot akan menghitung berapa token yang akan kamu terima berdasarkan harga pasar saat itu, termasuk spread yang transparan.
+Setelah saldo masuk, pilih menu "Beli Crypto". Kamu akan diminta memilih jaringan atau aset yang ingin dibeli. Pilih SOL untuk Solana, TRX untuk Tron, BNB untuk BNB Smart Chain, dan seterusnya. Masukkan nominal dalam Rupiah — misalnya Rp15.000 untuk TRX atau Rp25.000 untuk SOL. Bot akan menghitung berapa token yang akan kamu terima berdasarkan harga pasar saat itu, termasuk spread yang transparan.
 
-Sebelum beli, pastikan saldo Rupiah di akun bot sudah terisi. Deposit bisa dilakukan via QRIS, Virtual Account, PayPal, atau CryptoBot Telegram — konfirmasi otomatis. Setelah saldo masuk, pilih crypto yang ingin dibeli, masukkan nominal, dan masukkan alamat wallet tujuan. Pastikan alamat benar dan sesuai dengan jaringan yang dipilih — jangan kirim SOL ke alamat BNB, misalnya. Token langsung dikirim ke wallet tujuan biasanya dalam hitungan menit.
+Terakhir, masukkan alamat wallet tujuan. Pastikan alamat benar dan sesuai dengan jaringan yang dipilih — jangan kirim SOL ke alamat BNB, misalnya. Token langsung dikirim ke wallet tujuan biasanya dalam hitungan menit.
 
 Tips Penting yang Sering Diabaikan
 
@@ -63,7 +63,7 @@ Ketiga, pantau kondisi jaringan sebelum transaksi besar. Di Ethereum misalnya, f
 
 Keempat, jangan simpan fee gas terlalu banyak di wallet hot. Cukup sisakan yang dibutuhkan untuk beberapa transaksi ke depan. Aset utama sebaiknya disimpan lebih aman.
 
-Dengan KriptoEcer, hambatan untuk top up fee gas kecil sudah tidak ada lagi. Cukup daftar instan via Telegram, tanpa upload KYC, dan tidak perlu beli lebih dari yang dibutuhkan. Cukup buka Telegram, beli sesuai kebutuhan, dan lanjutkan aktivitas crypto-mu.`,
+Dengan KriptoEcer, hambatan untuk top up fee gas kecil sudah tidak ada lagi. Cukup daftar instan via Telegram, deposit saldo, dan beli sesuai kebutuhan — tanpa upload KYC, tanpa minimum yang tinggi. Lanjutkan aktivitas crypto-mu tanpa gangguan.`,
   },
   {
     id: 2,
@@ -127,7 +127,7 @@ Ambil profit secara bertahap. Jika meme coin yang kamu beli naik signifikan, per
 
 Bagaimana Cara Beli Meme Coin di Indonesia?
 
-Cara paling mudah dan terjangkau adalah via KriptoEcer. Buka @kriptoecerbot di Telegram, pilih menu beli, dan pilih meme coin yang tersedia. Kamu bisa mulai dari Rp10.000 saja — cukup untuk mencoba tanpa risiko besar.
+Cara paling mudah dan terjangkau adalah via KriptoEcer. Buka @kriptoecerbot di Telegram, tekan /start untuk daftar, deposit saldo via QRIS atau Virtual Account, lalu pilih menu beli dan pilih meme coin yang tersedia. Kamu bisa mulai dari Rp10.000 saja — cukup untuk mencoba tanpa risiko besar.
 
 Keuntungan menggunakan KriptoEcer dibanding exchange konvensional: tidak ada KYC yang memakan waktu berhari-hari, minimum transaksi sangat kecil, proses otomatis 24 jam, dan bisa langsung mengirim ke wallet external milikmu.
 
@@ -177,13 +177,13 @@ Untuk kecepatan dan kemudahan sehari-hari, QRIS jelas pemenangnya — terutama u
 
 Langkah-Langkah Deposit via QRIS di KriptoEcer
 
-Prosesnya dirancang semudah mungkin. Pertama, buka Telegram dan akses @kriptoecerbot. Jika belum pernah, tekan Start untuk memulai.
+Prosesnya dirancang semudah mungkin. Pertama, buka Telegram dan akses @kriptoecerbot. Jika belum pernah, tekan Start untuk mendaftar akun — selesai dalam hitungan detik.
 
-Di menu utama, pilih opsi "Beli Crypto" atau "Deposit". Pilih aset crypto yang ingin kamu beli atau masukkan jumlah Rupiah yang ingin kamu depositkan. Bot akan menampilkan ringkasan transaksi beserta harga crypto saat itu.
+Setelah daftar, pilih menu "Deposit" di bot. Masukkan jumlah Rupiah yang ingin kamu depositkan, lalu pilih QRIS sebagai metode pembayaran. Bot akan menampilkan QR code yang bisa langsung kamu scan dari aplikasi GoPay, OVO, Dana, ShopeePay, atau banking app apapun yang mendukung QRIS.
 
-Setelah konfirmasi pesanan, pilih QRIS sebagai metode pembayaran. Bot akan menampilkan QR code yang bisa langsung kamu scan dari aplikasi GoPay, OVO, Dana, ShopeePay, atau banking app apapun yang mendukung QRIS.
+Scan QR code tersebut, verifikasi nominal yang tertera sudah sesuai, lalu konfirmasi pembayaran. Dalam 3-15 detik setelah pembayaran berhasil, sistem KriptoEcer otomatis mendeteksi dan saldo langsung masuk ke akun bot kamu.
 
-Scan QR code tersebut, verifikasi nominal yang tertera sudah sesuai, lalu konfirmasi pembayaran. Dalam 3-15 detik setelah pembayaran berhasil, sistem KriptoEcer otomatis mendeteksi dan saldo langsung masuk ke akun bot kamu. Dari saldo ini, kamu bisa langsung beli crypto dan crypto akan dikirim ke alamat wallet yang kamu daftarkan.
+Setelah saldo aktif, kamu bisa pilih menu "Beli Crypto", pilih aset yang diinginkan, dan crypto akan dikirim ke alamat wallet yang kamu daftarkan.
 
 Tidak perlu screenshot bukti transfer, tidak perlu chat admin, tidak perlu tunggu jam kerja. Sistem aktif 24 jam termasuk Sabtu, Minggu, dan hari libur nasional.
 
@@ -327,7 +327,7 @@ Perbandingan Syarat dan Proses Registrasi
 
 Exchange besar memerlukan KYC (Know Your Customer) yang cukup panjang: upload foto KTP, foto selfie dengan KTP, sometimes video call verifikasi, dan proses review yang bisa memakan 1-3 hari kerja. Ini persyaratan regulasi dari OJK yang tidak bisa dihindari oleh exchange yang terdaftar.
 
-KriptoEcer menggunakan model yang berbeda — cukup buka Telegram, ketik /start, dan kamu sudah bisa bertransaksi. Tidak ada upload dokumen, tidak ada antrian verifikasi, tidak ada penolakan karena foto buram atau data tidak sesuai. Cocok untuk situasi mendesak atau mereka yang tidak ingin menyerahkan data pribadi ke platform.
+KriptoEcer menggunakan model yang berbeda — cukup buka Telegram, ketik /start untuk daftar, deposit saldo, dan kamu sudah bisa bertransaksi. Tidak ada upload dokumen, tidak ada antrian verifikasi, tidak ada penolakan karena foto buram atau data tidak sesuai. Cocok untuk situasi mendesak atau mereka yang tidak ingin menyerahkan data pribadi ke platform.
 
 Perbandingan Minimum Transaksi
 
@@ -676,7 +676,7 @@ Untuk meme coin yang lebih baru atau tidak listed di exchange besar, biasanya pe
 
 Untuk menggunakan DEX, kamu perlu punya token native jaringan tersebut untuk bayar fee gas. Di sinilah KriptoEcer berguna — kamu bisa top up SOL, ETH, atau BNB dengan cepat mulai Rp10.000 via bot Telegram @kriptoecerbot. Setelah punya fee gas, kamu bisa swap ke meme coin pilihan di DEX terkait.
 
-Untuk DOGE sendiri, kamu bisa langsung beli via KriptoEcer tanpa perlu DEX — pilih menu Beli Crypto, pilih DOGE, dan bayar langsung.
+Untuk DOGE sendiri, kamu bisa langsung beli via KriptoEcer tanpa perlu DEX — daftar via /start, deposit saldo terlebih dahulu, lalu pilih menu Beli Crypto dan pilih DOGE.
 
 Prinsip Dasar Bermain Meme Coin dengan Bijak
 
@@ -809,17 +809,15 @@ Cara Termudah Beli Solana Tanpa KYC
 
 KriptoEcer hadir sebagai solusi untuk semua hambatan di atas. Melalui bot Telegram @kriptoecerbot, kamu bisa membeli SOL mulai dari Rp10.000 dengan daftar instan via Telegram, tanpa KYC, dan tanpa minimum pembelian yang tinggi. Prosesnya sepenuhnya otomatis dan bisa selesai dalam hitungan menit.
 
-Berikut langkah-langkah lengkapnya. Pertama, buka aplikasi Telegram di smartphone atau desktop kamu. Cari username @kriptoecerbot atau klik langsung link yang tersedia di website KriptoEcer. Tekan tombol "Start" untuk memulai percakapan dengan bot.
+Berikut langkah-langkah lengkapnya. Pertama, buka aplikasi Telegram di smartphone atau desktop kamu. Cari username @kriptoecerbot atau klik langsung link yang tersedia di website KriptoEcer. Tekan tombol "Start" untuk mendaftar akun — registrasi selesai dalam hitungan detik, tanpa upload dokumen.
 
-Kedua, pilih menu "Beli Crypto" yang akan muncul di keyboard bot. Kamu akan melihat daftar aset yang tersedia — pilih SOL (Solana). Bot akan menampilkan harga SOL terkini dalam Rupiah sehingga kamu bisa memutuskan berapa yang ingin dibeli.
+Kedua, deposit saldo terlebih dahulu. Pilih menu "Deposit" di bot, lalu pilih metode pembayaran: QRIS (scan dari semua e-wallet dan mobile banking), Virtual Account (transfer bank dari BCA, BRI, Mandiri, BNI, dan lainnya), PayPal, atau CryptoBot. Saldo masuk otomatis dalam hitungan detik setelah pembayaran berhasil.
 
-Ketiga, masukkan nominal dalam Rupiah. Misalnya, ketik "15000" untuk membeli SOL senilai Rp15.000. Bot akan menghitung berapa SOL yang akan kamu terima berdasarkan harga pasar saat itu, termasuk informasi spread yang transparan. Tidak ada biaya tersembunyi.
+Ketiga, setelah saldo aktif, pilih menu "Beli Crypto". Kamu akan melihat daftar aset yang tersedia — pilih SOL (Solana). Bot akan menampilkan harga SOL terkini dalam Rupiah sehingga kamu bisa memutuskan berapa yang ingin dibeli. Masukkan nominal dalam Rupiah — misalnya "15000" untuk membeli SOL senilai Rp15.000. Bot akan menghitung berapa SOL yang akan kamu terima berdasarkan harga pasar saat itu, termasuk informasi spread yang transparan.
 
 Keempat, masukkan alamat wallet Solana tujuan. Ini adalah alamat wallet dimana SOL akan dikirim. Pastikan alamat ini benar karena transaksi blockchain tidak bisa dibatalkan. Jika kamu belum punya wallet Solana, kamu bisa membuat gratis menggunakan Phantom, Solflare, atau Backpack.
 
-Kelima, pastikan saldo di akun bot sudah cukup. Jika belum, deposit dulu via QRIS (scan dari semua e-wallet dan mobile banking), Virtual Account (transfer bank dari BCA, BRI, Mandiri, BNI, dan lainnya), atau metode lainnya. Deposit via QRIS bisa langsung menggunakan GoPay, OVO, Dana, ShopeePay, atau aplikasi mobile banking — saldo masuk otomatis dalam hitungan detik.
-
-Setelah saldo tersedia, konfirmasi pembelian dan bot akan memproses pesanan serta mengirim SOL ke alamat wallet tujuan. Biasanya SOL sudah sampai di wallet kamu dalam 1-5 menit, tergantung kondisi jaringan.
+Konfirmasi pembelian dan bot akan memproses pesanan serta mengirim SOL ke alamat wallet tujuan. Biasanya SOL sudah sampai di wallet kamu dalam 1-5 menit, tergantung kondisi jaringan.
 
 Cara Membuat Wallet Solana untuk Pemula
 
@@ -973,21 +971,17 @@ Panduan Langkah demi Langkah Beli Crypto via VA
 
 Berikut proses lengkap pembelian crypto menggunakan Virtual Account di KriptoEcer.
 
-Langkah 1: Buka Telegram dan mulai percakapan dengan @kriptoecerbot. Tekan "Start" jika ini pertama kalinya kamu menggunakan bot. Pilih menu "Beli Crypto" dari keyboard yang muncul.
+Langkah 1: Buka Telegram dan mulai percakapan dengan @kriptoecerbot. Tekan "Start" jika ini pertama kalinya kamu menggunakan bot untuk mendaftar akun — proses registrasi selesai dalam hitungan detik.
 
-Langkah 2: Pilih aset crypto yang ingin dibeli. Misalnya SOL (Solana), USDT (Tether), BNB, atau TRX. Bot akan menampilkan harga terkini dalam Rupiah.
+Langkah 2: Pilih menu "Deposit" dari keyboard bot. Masukkan jumlah Rupiah yang ingin kamu depositkan, lalu pilih metode pembayaran "Virtual Account". Pilih bank yang kamu inginkan — sebaiknya pilih bank yang sama dengan rekeningmu untuk menghindari biaya transfer antar bank.
 
-Langkah 3: Masukkan nominal pembelian dalam Rupiah. Misalnya "50000" untuk membeli crypto senilai Rp50.000. Bot akan menghitung jumlah crypto yang akan kamu terima.
+Langkah 3: Bot akan memberikan nomor Virtual Account beserta jumlah yang harus ditransfer. Catat atau salin nomor VA ini. Perhatikan bahwa jumlah transfer harus tepat (biasanya ada angka unik di belakang, misalnya Rp50.123) agar sistem bisa mencocokkan pembayaran secara otomatis.
 
-Langkah 4: Masukkan alamat wallet tujuan. Pastikan alamat sesuai dengan jaringan crypto yang dipilih. Misalnya, alamat Solana untuk SOL, alamat Tron untuk TRX atau USDT TRC-20.
+Langkah 4: Buka aplikasi mobile banking atau internet banking kamu. Pilih menu "Transfer" lalu "Transfer ke Virtual Account" atau "Transfer ke Bank Lain" (tergantung bank kamu). Masukkan nomor VA yang diberikan bot, verifikasi nama dan jumlah, lalu konfirmasi transfer.
 
-Langkah 5: Pilih metode pembayaran "Virtual Account". Kemudian pilih bank yang kamu inginkan — sebaiknya pilih bank yang sama dengan rekeningmu untuk menghindari biaya transfer antar bank.
+Langkah 5: Setelah transfer berhasil, pembayaran akan terdeteksi otomatis dalam 1-5 menit (bisa lebih cepat untuk sesama bank). Saldo Rupiah langsung masuk ke akun bot kamu.
 
-Langkah 6: Bot akan memberikan nomor Virtual Account beserta jumlah yang harus ditransfer. Catat atau salin nomor VA ini. Perhatikan bahwa jumlah transfer harus tepat (biasanya ada angka unik di belakang, misalnya Rp50.123) agar sistem bisa mencocokkan pembayaran secara otomatis.
-
-Langkah 7: Buka aplikasi mobile banking atau internet banking kamu. Pilih menu "Transfer" lalu "Transfer ke Virtual Account" atau "Transfer ke Bank Lain" (tergantung bank kamu). Masukkan nomor VA yang diberikan bot, verifikasi nama dan jumlah, lalu konfirmasi transfer.
-
-Langkah 8: Setelah transfer berhasil, pembayaran akan terdeteksi otomatis dalam 1-5 menit (bisa lebih cepat untuk sesama bank). Saldo Rupiah langsung masuk ke akun bot kamu. Dari saldo ini, kamu bisa langsung beli crypto dan bot akan memproses pengiriman ke wallet tujuanmu.
+Langkah 6: Setelah saldo aktif, pilih menu "Beli Crypto". Pilih aset yang diinginkan (SOL, USDT, BNB, TRX, dll), masukkan nominal, dan masukkan alamat wallet tujuan yang sesuai dengan jaringan crypto yang dipilih. Bot akan memproses pengiriman ke wallet tujuanmu.
 
 Tips Transfer VA via Mobile Banking
 
