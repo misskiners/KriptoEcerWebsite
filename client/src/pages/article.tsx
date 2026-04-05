@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Clock, ChevronLeft, Calendar, ArrowRight,
-  BookOpen, Copy, Check, Share2,
+  BookOpen, Copy, Check, Share2, List, User,
 } from "lucide-react";
-import { SiTelegram, SiWhatsapp } from "react-icons/si";
-import { useState, useEffect, useRef } from "react";
+import { SiTelegram, SiWhatsapp, SiX } from "react-icons/si";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { articles } from "@shared/articles";
 import type { Article } from "@shared/schema";
 import { SEO, SITE_URL } from "@/components/seo";
@@ -32,6 +32,25 @@ function formatDate(d: string | Date) {
   });
 }
 
+interface ContentBlock {
+  type: "heading" | "paragraph";
+  text: string;
+  id?: string;
+}
+
+function parseContent(content: string): ContentBlock[] {
+  const paragraphs = content.split(/\n\n+/).map(p => p.trim()).filter(Boolean);
+  let headingIdx = 0;
+  return paragraphs.map((para) => {
+    const isHeading = para.length < 80 && !para.endsWith(".") && !para.endsWith(",") && !para.endsWith("!");
+    if (isHeading) {
+      headingIdx++;
+      return { type: "heading", text: para, id: `section-${headingIdx}` };
+    }
+    return { type: "paragraph", text: para };
+  });
+}
+
 function ReadingProgressBar() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
@@ -41,6 +60,72 @@ function ReadingProgressBar() {
       style={{ scaleX, transformOrigin: "0%" }}
       className="fixed top-0 left-0 right-0 h-[3px] bg-primary z-[60] rounded-full"
     />
+  );
+}
+
+function TableOfContents({ headings }: { headings: ContentBlock[] }) {
+  const [activeId, setActiveId] = useState<string>("");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-80px 0px -60% 0px", threshold: 0.1 },
+    );
+
+    headings.forEach((h) => {
+      if (h.id) {
+        const el = document.getElementById(h.id);
+        if (el) observer.observe(el);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, [headings]);
+
+  if (headings.length < 2) return null;
+
+  const handleClick = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+      className="my-8 rounded-xl border border-border/60 bg-muted/30 p-5"
+    >
+      <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-foreground">
+        <List className="w-4 h-4 text-primary" />
+        Daftar Isi
+      </div>
+      <nav className="space-y-1">
+        {headings.map((h) => (
+          <button
+            key={h.id}
+            onClick={() => handleClick(h.id!)}
+            className={`block w-full text-left text-sm py-1.5 px-3 rounded-lg transition-all duration-200
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-background ${
+              activeId === h.id
+                ? "text-primary bg-primary/10 font-medium"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            }`}
+            data-testid={`toc-${h.id}`}
+          >
+            {h.text}
+          </button>
+        ))}
+      </nav>
+    </motion.div>
   );
 }
 
@@ -69,8 +154,19 @@ function ShareBar({ title }: { title: string }) {
     window.open(`https://wa.me/?text=${text}`, "_blank", "noopener,noreferrer");
   };
 
+  const handleTelegram = () => {
+    const text = encodeURIComponent(title);
+    const link = encodeURIComponent(url);
+    window.open(`https://t.me/share/url?url=${link}&text=${text}`, "_blank", "noopener,noreferrer");
+  };
+
+  const handleX = () => {
+    const text = encodeURIComponent(`${title}\n${url}`);
+    window.open(`https://x.com/intent/tweet?text=${text}`, "_blank", "noopener,noreferrer");
+  };
+
   return (
-    <div className="flex items-center gap-2 flex-wrap mt-4 pt-4 border-t border-border">
+    <div className="flex items-center gap-2 flex-wrap py-4 border-y border-border/50">
       <span className="text-sm text-muted-foreground flex items-center gap-1.5 mr-1">
         <Share2 className="w-3.5 h-3.5" />
         Bagikan:
@@ -79,17 +175,41 @@ function ShareBar({ title }: { title: string }) {
         onClick={handleWhatsApp}
         className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full
           bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20
-          hover:bg-green-500/20 transition-colors"
+          hover:bg-green-500/20 transition-colors
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         data-testid="button-share-whatsapp"
       >
         <SiWhatsapp className="w-3.5 h-3.5" />
         WhatsApp
       </button>
       <button
+        onClick={handleTelegram}
+        className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full
+          bg-blue-500/10 text-blue-400 border border-blue-500/20
+          hover:bg-blue-500/20 transition-colors
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        data-testid="button-share-telegram"
+      >
+        <SiTelegram className="w-3.5 h-3.5" />
+        Telegram
+      </button>
+      <button
+        onClick={handleX}
+        className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full
+          bg-muted text-muted-foreground border border-border
+          hover:bg-muted/80 transition-colors
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        data-testid="button-share-x"
+      >
+        <SiX className="w-3 h-3" />
+        Post
+      </button>
+      <button
         onClick={handleCopy}
         className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full
           bg-muted text-muted-foreground border border-border
-          hover:bg-muted/80 transition-colors"
+          hover:bg-muted/80 transition-colors
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         data-testid="button-share-copy"
       >
         {copied
@@ -113,7 +233,7 @@ function RelatedArticles({ current }: { current: Article }) {
   if (related.length === 0) return null;
 
   return (
-    <div className="mt-12 pt-8 border-t border-border">
+    <div className="mt-14 pt-8 border-t border-border/50">
       <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
         <BookOpen className="w-5 h-5 text-primary" />
         Artikel Terkait
@@ -126,8 +246,8 @@ function RelatedArticles({ current }: { current: Article }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
             >
-              <Card className="h-full overflow-hidden border border-border hover:border-primary/30 hover:shadow-md transition-all duration-300">
-                <div className={`h-28 bg-gradient-to-br ${article.coverGradient} relative overflow-hidden`}>
+              <Card className="h-full overflow-hidden border border-border/60 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/[0.05] transition-all duration-300">
+                <div className={`h-32 bg-gradient-to-br ${article.coverGradient} relative overflow-hidden`}>
                   <img
                     src={`/images/blog/${article.slug}.png`}
                     alt={article.title}
@@ -138,16 +258,16 @@ function RelatedArticles({ current }: { current: Article }) {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => { e.currentTarget.style.display = "none"; }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
                 </div>
-                <CardContent className="p-3">
+                <CardContent className="p-4">
                   <span className={`text-[10px] font-semibold uppercase tracking-wide ${categoryCardStyle[article.category] ?? "text-muted-foreground"}`}>
                     {article.category}
                   </span>
-                  <p className="text-sm font-semibold leading-snug mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+                  <p className="text-sm font-semibold leading-snug mt-1.5 line-clamp-2 group-hover:text-primary transition-colors">
                     {article.title}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1.5 flex items-center gap-1">
+                  <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
                     <Clock className="w-3 h-3" />
                     {article.readTime} menit
                   </p>
@@ -205,10 +325,15 @@ export default function ArticlePage() {
   const { slug } = useParams<{ slug: string }>();
   const article = articles.find((a) => a.slug === slug);
 
-  const paragraphs = article?.content
-    .split(/\n\n+/)
-    .map(p => p.trim())
-    .filter(Boolean) ?? [];
+  const blocks = useMemo(
+    () => (article ? parseContent(article.content) : []),
+    [article],
+  );
+
+  const headings = useMemo(
+    () => blocks.filter((b) => b.type === "heading"),
+    [blocks],
+  );
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -261,8 +386,8 @@ export default function ArticlePage() {
                 animate={{ opacity: 1, y: 0 }}
                 data-testid="article-content"
               >
-                <div className={`rounded-2xl overflow-hidden mb-6 relative bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"}`}>
-                  <div className="relative h-56 sm:h-72">
+                <div className={`rounded-2xl overflow-hidden mb-8 relative bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"}`}>
+                  <div className="relative h-56 sm:h-72 md:h-80">
                     <img
                       src={`/images/blog/${article.slug}.png`}
                       alt={article.title}
@@ -273,48 +398,58 @@ export default function ArticlePage() {
                       className="w-full h-full object-cover"
                       onError={(e) => { e.currentTarget.style.display = "none"; }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                       <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border backdrop-blur-sm inline-block mb-3 ${categoryStyle[article.category] ?? "bg-muted/80 text-muted-foreground border-border"}`}>
                         {article.category}
                       </span>
-                      <h1 className="text-2xl sm:text-3xl font-bold leading-snug text-white drop-shadow-md" data-testid="text-article-title">
+                      <h1 className="text-2xl sm:text-3xl font-bold leading-tight text-white drop-shadow-md" data-testid="text-article-title">
                         {article.title}
                       </h1>
                     </div>
                   </div>
-                  <div className="px-6 py-4 bg-muted/30 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {formatDate(article.publishedAt)}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5" />
-                      {article.readTime} menit baca
-                    </span>
-                    <span className="font-medium">{article.author}</span>
-                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+                  <span className="flex items-center gap-1.5">
+                    <Calendar className="w-4 h-4 text-primary/70" />
+                    {formatDate(article.publishedAt)}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-primary/70" />
+                    {article.readTime} menit baca
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <User className="w-4 h-4 text-primary/70" />
+                    {article.author}
+                  </span>
                 </div>
 
                 <ShareBar title={article.title} />
 
-                <p className="text-muted-foreground text-lg leading-relaxed my-8 italic border-l-2 border-primary/40 pl-4">
+                <blockquote className="text-muted-foreground text-lg leading-relaxed my-8 italic border-l-[3px] border-primary/40 pl-5 py-1">
                   {article.excerpt}
-                </p>
+                </blockquote>
 
-                <div className="space-y-5 text-base leading-relaxed">
-                  {paragraphs.map((para, i) => {
-                    const isHeading = para.length < 80 && !para.endsWith(".") && !para.endsWith(",");
+                {headings.length >= 2 && <TableOfContents headings={headings} />}
+
+                <div className="space-y-6 text-[15px] sm:text-base leading-[1.8]">
+                  {blocks.map((block, i) => {
+                    if (block.type === "heading") {
+                      return (
+                        <h2
+                          key={i}
+                          id={block.id}
+                          className="font-bold text-lg sm:text-xl text-foreground mt-12 mb-2 scroll-mt-24 flex items-center gap-2"
+                        >
+                          <span className="w-1 h-6 bg-primary rounded-full inline-block flex-shrink-0" />
+                          {block.text}
+                        </h2>
+                      );
+                    }
                     return (
-                      <p
-                        key={i}
-                        className={
-                          isHeading
-                            ? "font-bold text-lg text-foreground mt-10 mb-1"
-                            : "text-foreground/90"
-                        }
-                      >
-                        {para}
+                      <p key={i} className="text-foreground/85 leading-[1.85]">
+                        {block.text}
                       </p>
                     );
                   })}
@@ -324,9 +459,9 @@ export default function ArticlePage() {
                   <ShareBar title={article.title} />
                 </div>
 
-                <div className="mt-10 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-6 text-center">
+                <div className="mt-10 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-6 sm:p-8 text-center">
                   <h3 className="text-xl font-bold mb-2">Langsung Praktik Sekarang</h3>
-                  <p className="text-muted-foreground text-sm mb-5">
+                  <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">
                     Mulai beli crypto mulai Rp10.000 via bot Telegram. Tanpa KYC, tanpa ribet, proses otomatis 24 jam.
                   </p>
                   <Button asChild data-testid="button-article-bot">

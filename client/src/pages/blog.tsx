@@ -1,9 +1,10 @@
+import { useState, useMemo } from "react";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Clock, ArrowRight, BookOpen, ChevronLeft } from "lucide-react";
+import { Clock, ArrowRight, BookOpen, ChevronLeft, Calendar, Sparkles } from "lucide-react";
 import { SiTelegram } from "react-icons/si";
 import { articles } from "@shared/articles";
 import type { Article } from "@shared/schema";
@@ -17,10 +18,88 @@ const categoryStyle: Record<string, string> = {
   Tips:    "bg-green-500/10 text-green-500 border-green-500/20",
 };
 
+const categories = ["Semua", "Panduan", "Edukasi", "Tips"] as const;
+
+const filterStyle: Record<string, { active: string; inactive: string }> = {
+  Semua:   { active: "bg-primary text-primary-foreground", inactive: "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground" },
+  Panduan: { active: "bg-primary text-primary-foreground", inactive: "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground" },
+  Edukasi: { active: "bg-blue-500 text-white", inactive: "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground" },
+  Tips:    { active: "bg-green-500 text-white", inactive: "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground" },
+};
+
 function formatDate(d: string | Date) {
   return new Date(d).toLocaleDateString("id-ID", {
     day: "numeric", month: "long", year: "numeric",
   });
+}
+
+function FeaturedArticle({ article }: { article: Article }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="mb-10"
+    >
+      <Link href={`/blog/${article.slug}`}>
+        <div
+          className="group relative cursor-pointer rounded-2xl overflow-hidden border border-border
+            hover:border-primary/40 transition-all duration-500"
+          data-testid={`card-featured-${article.id}`}
+        >
+          <div className={`relative h-64 sm:h-80 md:h-96 bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"} overflow-hidden`}>
+            <img
+              src={`/images/blog/${article.slug}.png`}
+              alt={article.title}
+              width={1408}
+              height={768}
+              loading="eager"
+              decoding="async"
+              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+              onError={(e) => { e.currentTarget.style.display = "none"; }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+          </div>
+
+          <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10">
+            <div className="flex items-center gap-3 mb-4">
+              <span className={`text-xs font-semibold px-3 py-1 rounded-full border backdrop-blur-sm ${categoryStyle[article.category] ?? "bg-muted/80 text-muted-foreground border-border"}`}>
+                {article.category}
+              </span>
+              <span className="flex items-center gap-1 text-xs text-white/70">
+                <Clock className="w-3 h-3" />
+                {article.readTime} menit baca
+              </span>
+              <span className="flex items-center gap-1 text-xs text-white/70">
+                <Calendar className="w-3 h-3" />
+                {formatDate(article.publishedAt)}
+              </span>
+            </div>
+
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight mb-3 group-hover:text-primary transition-colors duration-300 max-w-2xl drop-shadow-md">
+              {article.title}
+            </h2>
+            <p className="text-sm sm:text-base text-white/70 leading-relaxed line-clamp-2 max-w-xl">
+              {article.excerpt}
+            </p>
+
+            <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all duration-300">
+              Baca Selengkapnya
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </div>
+
+          <div className="absolute top-4 right-4">
+            <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-primary/90 text-primary-foreground backdrop-blur-sm">
+              <Sparkles className="w-3 h-3" />
+              Terbaru
+            </span>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
 }
 
 function ArticleCard({ article, index }: { article: Article; index: number }) {
@@ -28,47 +107,49 @@ function ArticleCard({ article, index }: { article: Article; index: number }) {
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.08 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ delay: index * 0.06, duration: 0.4 }}
+      layout
     >
       <Link href={`/blog/${article.slug}`}>
         <Card
-          className="group h-full cursor-pointer overflow-hidden border border-border
-            hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5
-            transition-all duration-300"
+          className="group h-full cursor-pointer overflow-hidden border border-border/60
+            hover:border-primary/40 hover:shadow-xl hover:shadow-primary/[0.07]
+            transition-all duration-300 bg-card/50 backdrop-blur-sm"
           data-testid={`card-article-${article.id}`}
         >
-          <div className={`h-44 bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"} relative overflow-hidden`}>
+          <div className={`h-48 bg-gradient-to-br ${article.coverGradient ?? "from-primary/20 to-primary/5"} relative overflow-hidden`}>
             <img
               src={`/images/blog/${article.slug}.png`}
               alt={article.title}
               width={1408}
               height={768}
-              loading={index === 0 ? "eager" : "lazy"}
+              loading="lazy"
               decoding="async"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               onError={(e) => { e.currentTarget.style.display = "none"; }}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
             <div className="absolute top-3 left-3">
               <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border backdrop-blur-sm ${categoryStyle[article.category] ?? "bg-muted text-muted-foreground border-border"}`}>
                 {article.category}
               </span>
             </div>
-            <div className="absolute bottom-3 right-3 flex items-center gap-1 text-xs text-foreground/80 bg-background/70 backdrop-blur-sm px-2 py-1 rounded-full">
+            <div className="absolute bottom-3 right-3 flex items-center gap-1 text-xs text-white/90 bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">
               <Clock className="w-3 h-3" />
               {article.readTime} menit
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
           </div>
 
           <CardContent className="p-5">
-            <h3 className="font-bold text-base leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-2">
+            <h3 className="font-bold text-base leading-snug mb-2.5 group-hover:text-primary transition-colors duration-300 line-clamp-2">
               {article.title}
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4">
+            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-4">
               {article.excerpt}
             </p>
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>{article.author}</span>
+            <div className="flex items-center justify-between text-xs text-muted-foreground pt-3 border-t border-border/50">
+              <span className="font-medium">{article.author}</span>
               <span>{formatDate(article.publishedAt)}</span>
             </div>
           </CardContent>
@@ -110,6 +191,21 @@ const blogStructuredData = [
 ];
 
 export default function BlogPage() {
+  const [activeCategory, setActiveCategory] = useState<string>("Semua");
+
+  const sortedArticles = useMemo(
+    () => [...articles].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()),
+    [],
+  );
+
+  const featured = sortedArticles[0];
+
+  const filteredArticles = useMemo(() => {
+    const rest = sortedArticles.slice(1);
+    if (activeCategory === "Semua") return rest;
+    return rest.filter((a) => a.category === activeCategory);
+  }, [sortedArticles, activeCategory]);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEO
@@ -125,7 +221,7 @@ export default function BlogPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="max-w-2xl mb-12"
+            className="max-w-2xl mb-10"
           >
             <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6" data-testid="link-back-home">
               <ChevronLeft className="w-4 h-4" />
@@ -138,18 +234,62 @@ export default function BlogPage() {
             <h1 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="text-blog-title">
               Tips, Panduan & Edukasi Crypto
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-lg leading-relaxed">
               Dari cara beli crypto pertama kali sampai strategi lanjutan — semua dalam bahasa Indonesia yang mudah dipahami.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...articles]
-              .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-              .map((article, i) => (
-                <ArticleCard key={article.id} article={article} index={i} />
-              ))}
-          </div>
+          {featured && <FeaturedArticle article={featured} />}
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="flex items-center gap-2 mb-8 flex-wrap"
+          >
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`text-sm font-medium px-4 py-2 rounded-full border border-transparent transition-all duration-200
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                  activeCategory === cat
+                    ? filterStyle[cat].active
+                    : filterStyle[cat].inactive
+                }`}
+                data-testid={`filter-${cat.toLowerCase()}`}
+              >
+                {cat}
+                {cat !== "Semua" && (
+                  <span className="ml-1.5 text-xs opacity-70">
+                    ({sortedArticles.slice(1).filter((a) => a.category === cat).length})
+                  </span>
+                )}
+              </button>
+            ))}
+          </motion.div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {filteredArticles.length === 0 ? (
+                <div className="text-center py-16">
+                  <p className="text-muted-foreground">Belum ada artikel di kategori ini.</p>
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredArticles.map((article, i) => (
+                    <ArticleCard key={article.id} article={article} index={i} />
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
