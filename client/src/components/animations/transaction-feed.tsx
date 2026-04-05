@@ -69,7 +69,7 @@ function rndStr(chars: string, len: number): string {
 // Pilih format alamat berdasarkan coin — lebih realistis
 function generateAddress(coinId: string): string {
   if (coinId === "tron") {
-    // Tron: T + 33 karakter base58 → tampilkan T + 5 … 4
+    // Tron: T + 33 karakter → tampilkan 6 … 4
     const full = "T" + rndStr(TRON, 33);
     return `${full.slice(0, 6)}…${full.slice(-4)}`;
   }
@@ -79,11 +79,31 @@ function generateAddress(coinId: string): string {
     return `${full.slice(0, 5)}…${full.slice(-4)}`;
   }
   if (coinId === "the-open-network") {
-    // TON: UQ + base64-like string → tampilkan UQ + 4 … 4
+    // TON: UQ + base58 → tampilkan 6 … 4
     const full = "UQ" + rndStr(B58, 46);
     return `${full.slice(0, 6)}…${full.slice(-4)}`;
   }
-  // Ethereum-family (ETH, BNB, USDT ERC20, USDC, BTC, LTC, dll): 0x + 40 hex
+  if (coinId === "bitcoin") {
+    // Bitcoin: acak antara Legacy (1…), P2SH (3…), atau SegWit (bc1q…)
+    const type = Math.floor(Math.random() * 3);
+    if (type === 0) {
+      const full = "1" + rndStr(B58, 33);
+      return `${full.slice(0, 6)}…${full.slice(-4)}`;
+    } else if (type === 1) {
+      const full = "3" + rndStr(B58, 33);
+      return `${full.slice(0, 6)}…${full.slice(-4)}`;
+    } else {
+      const full = "bc1q" + rndStr(HEX, 38);
+      return `${full.slice(0, 8)}…${full.slice(-6)}`;
+    }
+  }
+  if (coinId === "litecoin") {
+    // Litecoin: Legacy (L…) atau P2SH (M…)
+    const prefix = Math.random() > 0.5 ? "L" : "M";
+    const full = prefix + rndStr(B58, 33);
+    return `${full.slice(0, 6)}…${full.slice(-4)}`;
+  }
+  // Ethereum-family (ETH, BNB, USDT, USDC): 0x + 40 hex
   const full = "0x" + rndStr(HEX, 40);
   return `${full.slice(0, 8)}…${full.slice(-6)}`;
 }
