@@ -135,7 +135,7 @@ const tailStyle: React.CSSProperties = {
   width: 0, height: 0,
   borderLeft: "7px solid transparent",
   borderRight: "7px solid transparent",
-  borderTop: "8px solid rgba(13,18,32,0.97)",
+  borderTop: "8px solid rgba(0,0,0,0.60)",
 };
 
 const SNOOZE_MS = 45_000;
@@ -230,9 +230,9 @@ export function FloatingTelegramButton() {
                   transition={noMotion ? { duration: 0 } : BUBBLE_ENTER}
                   className="absolute bottom-[calc(100%+12px)] left-0 w-44 relative"
                 >
-                  <div className="relative overflow-hidden rounded-2xl border border-white/10
-                    bg-[#0d1220]/95 backdrop-blur-md shadow-2xl shadow-black/40
-                    ring-1 ring-inset ring-white/5">
+                  <div className="relative overflow-hidden rounded-2xl border border-white/[0.12]
+                    bg-black/60 backdrop-blur-xl backdrop-saturate-150 shadow-2xl shadow-black/50
+                    ring-1 ring-inset ring-white/[0.08]">
 
                     <div className="h-[2px] w-full bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
 
