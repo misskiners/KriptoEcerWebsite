@@ -15,9 +15,9 @@ const UsdcIcon = ({ className }: { className?: string }) => (
 const COINS = [
   { id: "solana",      symbol: "SOL",  Icon: SiSolana,   color: "#9945FF", fallback: 2_800_000     },
   { id: "binancecoin", symbol: "BNB",  Icon: SiBinance,  color: "#F3BA2F", fallback: 10_500_000    },
-  { id: "usd-coin",    symbol: "USDC", Icon: UsdcIcon,   color: "#2775CA", fallback: 16_300         },
-  { id: "tether",      symbol: "USDT", Icon: SiTether,   color: "#26A17B", fallback: 16_280         },
-  { id: "tron",        symbol: "TRX",  Icon: TrxIcon,    color: "#EF0027", fallback: 5_800          },
+  { id: "usd-coin",    symbol: "USDC", Icon: UsdcIcon,   color: "#4B91E2", fallback: 16_300         },
+  { id: "tether",      symbol: "USDT", Icon: SiTether,   color: "#50D9A2", fallback: 16_280         },
+  { id: "tron",        symbol: "TRX",  Icon: TrxIcon,    color: "#FF3B4A", fallback: 5_800          },
   { id: "bitcoin",     symbol: "BTC",  Icon: SiBitcoin,  color: "#F7931A", fallback: 1_650_000_000  },
   { id: "ethereum",    symbol: "ETH",  Icon: SiEthereum, color: "#627EEA", fallback: 54_000_000     },
 ] as const;
@@ -379,10 +379,10 @@ export function BotAnimation() {
         <AnimatePresence>
           {messages.map(msg => (
             <motion.div key={msg.id}
-              initial={{ opacity: 0, y: 8, scale: 0.96 }}
+              initial={{ opacity: 0, y: 12, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+              transition={{ type: "spring", stiffness: 260, damping: 24, mass: 0.8 }}
               className={`flex flex-col ${msg.type === "user" ? "items-end" : "items-start"}`}
               data-testid={`message-${msg.type}-${msg.id}`}
             >
@@ -412,7 +412,11 @@ export function BotAnimation() {
         </AnimatePresence>
         <AnimatePresence>
           {isTyping && (
-            <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 8, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -4, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}>
               <TypingIndicator />
             </motion.div>
           )}
@@ -445,13 +449,13 @@ export function BotAnimation() {
                 disabled={isProcessing}
                 data-testid={`button-coin-${c.symbol.toLowerCase()}`}
                 className={`flex-shrink-0 flex items-center gap-1 px-2.5 h-7 rounded-lg
-                  text-[11px] font-semibold transition-all active:scale-95 ${
+                  text-[11px] font-semibold transition-all duration-200 ease-out active:scale-95 ${
                   active
-                    ? "bg-primary text-primary-foreground shadow-md"
+                    ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
                     : "bg-white/8 text-white/60 border border-white/10 hover:bg-white/12"
                 }`}
               >
-                <Icon className="w-3 h-3" style={{ color: active ? undefined : c.color }} />
+                <Icon className="w-3 h-3 transition-transform duration-200" style={{ color: active ? undefined : c.color }} />
                 {c.symbol}
               </button>
             );
@@ -474,14 +478,20 @@ export function BotAnimation() {
             className="flex-1 bg-transparent text-white text-sm font-bold outline-none
               placeholder-white/20 min-w-0 caret-primary"
           />
-          {amountInput && (
-            <button
-              onClick={() => { setAmountInput(""); setSelectedAmount(0); }}
-              className="text-white/30 hover:text-white/60 flex-shrink-0 w-5 h-5 flex items-center justify-center text-xs"
-              data-testid="button-clear-amount">
-              ✕
-            </button>
-          )}
+          <AnimatePresence>
+            {amountInput && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5 }}
+                transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                onClick={() => { setAmountInput(""); setSelectedAmount(0); }}
+                className="text-white/30 hover:text-white/60 flex-shrink-0 w-5 h-5 flex items-center justify-center text-xs"
+                data-testid="button-clear-amount">
+                ✕
+              </motion.button>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Preset amounts — scrollable */}
@@ -494,9 +504,9 @@ export function BotAnimation() {
                 disabled={isProcessing}
                 data-testid={`button-amount-${amount}`}
                 className={`flex-shrink-0 px-2.5 h-7 rounded-lg text-[11px] font-semibold
-                  transition-all active:scale-95 ${
+                  transition-all duration-200 ease-out active:scale-95 ${
                   active
-                    ? "bg-white/15 text-white border border-white/30"
+                    ? "bg-white/15 text-white border border-white/30 scale-[1.02]"
                     : "bg-white/5 text-white/50 border border-white/8 hover:bg-white/10"
                 }`}
               >
@@ -516,26 +526,46 @@ export function BotAnimation() {
             transition-all active:scale-[0.98] shadow-md overflow-hidden"
         >
           <div className="flex flex-col items-start min-w-0">
-            <span className="text-sm font-semibold text-primary-foreground whitespace-nowrap">
+            <motion.span
+              key={isProcessing ? "processing" : selectedAmount < 10_000 ? "min" : `buy-${selectedCoin.symbol}-${selectedAmount}`}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="text-sm font-semibold text-primary-foreground whitespace-nowrap">
               {isProcessing ? "Memproses..." : selectedAmount < 10_000
                 ? "Min. Rp10.000"
                 : `Beli ${selectedCoin.symbol} Rp${formatIDR(selectedAmount)}`}
-            </span>
-            {selectedAmount >= 10_000 && !loading && !isProcessing && (
-              <span className="text-[10px] text-primary-foreground/60 whitespace-nowrap">
-                ≈{calcCrypto(selectedCoin, selectedAmount)} {selectedCoin.symbol}
-              </span>
-            )}
+            </motion.span>
+            <AnimatePresence>
+              {selectedAmount >= 10_000 && !loading && !isProcessing && (
+                <motion.span
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="text-[10px] text-primary-foreground/60 whitespace-nowrap">
+                  ≈{calcCrypto(selectedCoin, selectedAmount)} {selectedCoin.symbol}
+                </motion.span>
+              )}
+            </AnimatePresence>
           </div>
           <Send className="w-4 h-4 text-primary-foreground flex-shrink-0" />
         </button>
 
-        {messages.length > 3 && (
-          <button onClick={resetSimulation} data-testid="button-reset"
-            className="w-full text-[11px] text-white/30 hover:text-white/50 py-0.5 transition-colors">
-            Reset Demo
-          </button>
-        )}
+        <AnimatePresence>
+          {messages.length > 3 && (
+            <motion.button
+              onClick={resetSimulation}
+              data-testid="button-reset"
+              initial={{ opacity: 0, y: 8, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: "auto" }}
+              exit={{ opacity: 0, y: -4, height: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 26 }}
+              className="w-full text-[11px] text-white/30 hover:text-white/50 py-0.5 transition-colors overflow-hidden">
+              Reset Demo
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
 
     </>
