@@ -552,35 +552,25 @@ export function BotAnimation() {
           onClick={simulateTransaction}
           disabled={isProcessing || selectedAmount < 10_000}
           data-testid="button-send"
-          className="w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl
-            bg-primary hover:bg-primary/90 disabled:opacity-40
-            transition-all active:scale-[0.98] shadow-md overflow-hidden"
+          className="group w-full flex items-center justify-between gap-2 px-4 py-3 rounded-xl
+            bg-gradient-to-r from-primary to-primary/85 hover:from-primary/95 hover:to-primary/80
+            disabled:opacity-40 disabled:saturate-50
+            transition-all active:scale-[0.98] shadow-lg shadow-primary/20 overflow-hidden relative"
         >
-          <div className="flex flex-col items-start min-w-0">
-            <motion.span
-              key={isProcessing ? "processing" : selectedAmount < 10_000 ? "min" : `buy-${selectedCoin.symbol}-${selectedAmount}`}
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="text-sm font-semibold text-primary-foreground whitespace-nowrap">
-              {isProcessing ? "Memproses..." : selectedAmount < 10_000
-                ? "Min. Rp10.000"
-                : `Beli ${selectedCoin.symbol} Rp${formatIDR(selectedAmount)}`}
-            </motion.span>
-            <AnimatePresence>
-              {selectedAmount >= 10_000 && !loading && !isProcessing && (
-                <motion.span
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="text-[10px] text-primary-foreground/60 whitespace-nowrap">
-                  ≈{calcCrypto(selectedCoin, selectedAmount)} {selectedCoin.symbol}
-                </motion.span>
-              )}
-            </AnimatePresence>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 pointer-events-none" />
+          <motion.span
+            key={isProcessing ? "processing" : selectedAmount < 10_000 ? "min" : `buy-${selectedCoin.symbol}-${selectedAmount}`}
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="text-sm font-semibold text-primary-foreground whitespace-nowrap relative">
+            {isProcessing ? "Memproses..." : selectedAmount < 10_000
+              ? "Min. Rp10.000"
+              : `Beli ${selectedCoin.symbol} Rp${formatIDR(selectedAmount)}`}
+          </motion.span>
+          <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0 relative">
+            <Send className="w-4 h-4 text-primary-foreground" />
           </div>
-          <Send className="w-4 h-4 text-primary-foreground flex-shrink-0" />
         </button>
 
         <AnimatePresence>
