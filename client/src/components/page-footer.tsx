@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Shield, ArrowRight, TrendingUp } from "lucide-react";
+import { Shield, ArrowRight, TrendingUp, Bot } from "lucide-react";
 import { SiTelegram, SiWhatsapp, SiX, SiBitcoin, SiEthereum, SiSolana, SiTether, SiBinance } from "react-icons/si";
 
 const logoImage = "/favicon.png";
@@ -20,7 +20,7 @@ const LEGAL = [
 ] as const;
 
 const SOCIALS = [
-  { href: "https://t.me/kriptoecerbot", icon: SiTelegram, iconColor: "text-[#0088cc]", bg: "bg-[#0088cc]/10", label: "@kriptoecerbot", sub: "Mulai Transaksi" },
+  { href: "https://t.me/kriptoecerbot", icon: Bot, iconColor: "text-primary", bg: "bg-primary/10", label: "@kriptoecerbot", sub: "Mulai Transaksi" },
   { href: "https://t.me/kriptoecerofficial", icon: SiTelegram, iconColor: "text-[#0088cc]", bg: "bg-[#0088cc]/10", label: "@kriptoecerofficial", sub: "Channel Resmi" },
   { href: "https://t.me/kriptoecerchannel", icon: TrendingUp, iconColor: "text-green-500", bg: "bg-green-500/10", label: "Log Transaksi", sub: "Live update" },
   { href: "https://x.com/kriptoecer", icon: SiX, iconColor: "text-white/50", bg: "bg-white/[0.07]", label: "@kriptoecer", sub: "Update & Promo" },
