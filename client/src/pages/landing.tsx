@@ -20,7 +20,6 @@ import {
   Send,
   Users,
   Globe,
-  Bot,
 } from "lucide-react";
 import { SiTelegram, SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin, SiX, SiWhatsapp } from "react-icons/si";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
