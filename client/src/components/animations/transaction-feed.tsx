@@ -111,10 +111,9 @@ function generateTransaction(id: number, isNew = false): Transaction {
 
 export function TransactionFeed() {
   const [transactions, setTransactions] = useState<Transaction[]>(() =>
-    Array.from({ length: 5 }, (_, i) => generateTransaction(i + 1))
+    Array.from({ length: 5 }, (_, i) => generateTransaction(-(i + 1)))
   );
   const [blockNum, setBlockNum] = useState(() => Math.floor(Math.random() * 500_000) + 4_800_000);
-  const [blink, setBlink] = useState(true);
   const pricesReady = useRef(false);
 
   // Fetch harga live dari CoinGecko — sama dengan ticker di atas
@@ -130,7 +129,7 @@ export function TransactionFeed() {
         // Regenerasi transaksi awal setelah harga diketahui
         if (!pricesReady.current) {
           pricesReady.current = true;
-          setTransactions(Array.from({ length: 5 }, (_, i) => generateTransaction(i + 1)));
+          setTransactions(Array.from({ length: 5 }, (_, i) => generateTransaction(Date.now() + i)));
         }
       } catch {
         // Gunakan fallback — tidak perlu error UI
@@ -154,10 +153,8 @@ export function TransactionFeed() {
         return [generateTransaction(Date.now(), true), ...updated.slice(0, 4)];
       });
     }, 3200);
-    const blinkInterval = setInterval(() => setBlink(b => !b), 530);
     return () => {
       clearInterval(txInterval);
-      clearInterval(blinkInterval);
     };
   }, []);
 
@@ -253,13 +250,9 @@ export function TransactionFeed() {
           <span className="text-[10px] text-zinc-500">&gt;_</span>
           <span className="text-[10px] text-zinc-500">bergabung dengan</span>
           <span className="text-[10px] text-amber-400/70 font-semibold">ribuan pengguna aktif</span>
-          <motion.span
-            className="text-[10px] text-amber-400/60 ml-0.5"
-            animate={{ opacity: blink ? 1 : 0 }}
-            transition={{ duration: 0 }}
-          >
+          <span className="text-[10px] text-amber-400/60 ml-0.5 blink-cursor">
             █
-          </motion.span>
+          </span>
         </div>
       </div>
     </div>

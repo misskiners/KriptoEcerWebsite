@@ -208,6 +208,15 @@
   animation: glow-pulse 2.2s ease-in-out infinite;
 }
 
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.blink-cursor {
+  animation: blink-cursor 1.06s step-end infinite;
+}
+
 /**
  * Using the elevate system.
  * Automatic contrast adjustment.

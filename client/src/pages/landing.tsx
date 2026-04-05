@@ -319,6 +319,7 @@ function LiveTransactionsSection() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <div className="mb-6">
                 <Badge variant="secondary" className="mb-4" data-testid="badge-live">
@@ -340,6 +341,7 @@ function LiveTransactionsSection() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="space-y-8"
             >
               <div>
