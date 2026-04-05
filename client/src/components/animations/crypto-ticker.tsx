@@ -139,7 +139,7 @@ export function CryptoTicker() {
       <div className="ticker-fade-left" aria-hidden="true" />
       <div className="ticker-fade-right" aria-hidden="true" />
 
-      <div key="track" ref={trackRef} className="flex items-center h-full whitespace-nowrap animate-marquee">
+      <div key="track" ref={trackRef} className="flex items-center h-full whitespace-nowrap w-max animate-marquee">
         {renderStrip("a")}
         {renderStrip("b")}
       </div>
