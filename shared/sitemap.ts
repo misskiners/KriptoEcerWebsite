@@ -1,6 +1,5 @@
 import { articles } from "./articles";
-
-const SITE_URL = "https://kriptoecer.com";
+import { SITE_URL } from "./seo-meta";
 
 function escXml(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");

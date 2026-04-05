@@ -1,8 +1,7 @@
 import { Helmet } from "react-helmet-async";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@shared/seo-meta";
 
-const SITE_URL = "https://kriptoecer.com";
 const SITE_NAME = "KriptoEcer";
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 const DEFAULT_TITLE = "KriptoEcer - Beli & Jual Crypto Eceran Mulai Rp10.000 via Telegram";
 const DEFAULT_DESC = "KriptoEcer — bot Telegram jual beli crypto eceran mulai Rp10.000. Beli meme coin, top up fee gas TRX/SOL/BNB, atau beli USDT tanpa KYC. Deposit otomatis via QRIS, VA, PayPal.";
 

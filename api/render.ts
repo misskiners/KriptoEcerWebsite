@@ -1,8 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { PageMeta } from "../shared/seo-meta";
 
-const SITE_URL = "https://kriptoecer.com";
-
 function escHtml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 }
