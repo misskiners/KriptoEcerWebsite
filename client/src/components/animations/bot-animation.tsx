@@ -552,7 +552,7 @@ export function BotAnimation() {
           onClick={simulateTransaction}
           disabled={isProcessing || selectedAmount < 10_000}
           data-testid="button-send"
-          className="group w-full flex items-center justify-between gap-2 px-4 py-3 rounded-xl
+          className="group w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl
             bg-gradient-to-r from-primary to-primary/85 hover:from-primary/95 hover:to-primary/80
             disabled:opacity-40 disabled:saturate-50
             transition-all active:scale-[0.98] shadow-lg shadow-primary/20 overflow-hidden relative"
@@ -563,13 +563,13 @@ export function BotAnimation() {
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="text-sm font-semibold text-primary-foreground whitespace-nowrap relative">
+            className="text-xs font-semibold text-primary-foreground whitespace-nowrap relative">
             {isProcessing ? "Memproses..." : selectedAmount < 10_000
               ? "Min. Rp10.000"
               : `Beli ${selectedCoin.symbol} Rp${formatIDR(selectedAmount)}`}
           </motion.span>
-          <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0 relative">
-            <Send className="w-4 h-4 text-primary-foreground" />
+          <div className="w-6 h-6 rounded-md bg-white/15 flex items-center justify-center flex-shrink-0 relative">
+            <Send className="w-3 h-3 text-primary-foreground" />
           </div>
         </button>
 
