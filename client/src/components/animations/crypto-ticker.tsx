@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { SiBitcoin, SiEthereum, SiSolana, SiBinance, SiTether, SiLitecoin, SiDogecoin } from "react-icons/si";
 import { TrendingUp, TrendingDown, Loader2 } from "lucide-react";
 import { TrxIcon } from "@/components/icons/trx-icon";
@@ -29,8 +29,7 @@ interface PriceData {
 type PricesMap = Record<string, PriceData>;
 
 const REFRESH_INTERVAL = 60_000;
-const DURATION_DESKTOP = 80_000; // ms untuk scroll satu putaran penuh
-const DURATION_MOBILE  = 45_000;
+const SPEED_PX_PER_SEC = 40;
 
 export function CryptoTicker() {
   const [prices, setPrices]           = useState<PricesMap | null>(null);
@@ -38,33 +37,28 @@ export function CryptoTicker() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const retryRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /* ── Ref untuk DOM node yang dianimasikan — TIDAK masuk ke React state ── */
   const trackRef    = useRef<HTMLDivElement>(null);
   const rafRef      = useRef<number>(0);
-  const posRef      = useRef(0);        // posisi translateX saat ini (px, negatif)
+  const posRef      = useRef(0);
   const lastTimeRef = useRef<number | null>(null);
+  const pausedRef   = useRef(false);
 
-  /* ─── rAF loop: berjalan terus-menerus, IMMUNE terhadap React re-render ─── */
   useEffect(() => {
-    const isMobile = window.innerWidth <= 640;
-    const duration = isMobile ? DURATION_MOBILE : DURATION_DESKTOP;
-
     const loop = (now: number) => {
       const el = trackRef.current;
       if (!el) { rafRef.current = requestAnimationFrame(loop); return; }
 
-      const halfWidth = el.scrollWidth / 2; // lebar satu strip
+      const halfWidth = el.scrollWidth / 2;
 
-      if (lastTimeRef.current !== null && halfWidth > 10) {
-        const delta = now - lastTimeRef.current;               // ms
-        const speed = halfWidth / duration;                    // px/ms
-        posRef.current -= speed * delta;
+      if (lastTimeRef.current !== null && halfWidth > 10 && !pausedRef.current) {
+        const delta = Math.min(now - lastTimeRef.current, 100);
+        posRef.current -= SPEED_PX_PER_SEC * (delta / 1000);
 
         if (posRef.current <= -halfWidth) {
-          posRef.current += halfWidth; // reset seamless ke strip kedua
+          posRef.current += halfWidth;
         }
 
-        el.style.transform = `translateX(${posRef.current}px)`;
+        el.style.transform = `translate3d(${posRef.current}px, 0, 0)`;
       }
 
       lastTimeRef.current = now;
@@ -72,14 +66,25 @@ export function CryptoTicker() {
     };
 
     rafRef.current = requestAnimationFrame(loop);
+
+    const handleVisChange = () => {
+      if (document.hidden) {
+        pausedRef.current = true;
+        lastTimeRef.current = null;
+      } else {
+        pausedRef.current = false;
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisChange);
+
     return () => {
       cancelAnimationFrame(rafRef.current);
       lastTimeRef.current = null;
+      document.removeEventListener("visibilitychange", handleVisChange);
     };
-  }, []); // [KRITIS] KOSONG — loop hanya dimulai sekali saat mount, tidak restart
+  }, []);
 
-  /* ── Price fetch ── */
-  async function fetchPrices() {
+  const fetchPrices = useCallback(async () => {
     if (retryRef.current) { clearTimeout(retryRef.current); retryRef.current = null; }
     try {
       const res = await fetch("/api/prices", { cache: "no-store" });
@@ -92,7 +97,7 @@ export function CryptoTicker() {
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
   useEffect(() => {
     fetchPrices();
@@ -101,7 +106,7 @@ export function CryptoTicker() {
       clearInterval(interval);
       if (retryRef.current) clearTimeout(retryRef.current);
     };
-  }, []);
+  }, [fetchPrices]);
 
   const tickers = COIN_CONFIG.map((coin) => {
     const data    = prices?.[coin.id];
@@ -111,8 +116,6 @@ export function CryptoTicker() {
     return { ...coin, price, change, up };
   });
 
-  /* Strip selalu punya DOM node yang sama — hanya teks & class yang berubah.
-     Tidak ada conditional render di dalam strip agar width stabil. */
   const renderStrip = (keyPrefix: string) => (
     <>
       {tickers.map((t, i) => {
@@ -141,13 +144,16 @@ export function CryptoTicker() {
   );
 
   return (
-    <div className="fixed top-16 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border/60 overflow-hidden h-9">
+    <div
+      className="fixed top-16 left-0 right-0 z-40 overflow-hidden h-9 border-b border-white/[0.06]"
+      style={{ background: "rgba(0, 0, 0, 0.65)", backdropFilter: "blur(16px) saturate(1.4)", WebkitBackdropFilter: "blur(16px) saturate(1.4)" }}
+      data-testid="crypto-ticker"
+    >
       {loading && (
         <div className="absolute right-2 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
           <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
         </div>
       )}
-      {/* trackRef — TIDAK diberi class CSS animation, dianimasikan via rAF */}
       <div ref={trackRef} className="flex items-center h-full whitespace-nowrap will-change-transform">
         {renderStrip("a")}
         {renderStrip("b")}
