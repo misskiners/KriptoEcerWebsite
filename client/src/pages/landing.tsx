@@ -670,7 +670,6 @@ const faqs = [
 
 function FAQSection() {
   const [selected, setSelected] = useState(0);
-  const ActiveIcon = faqs[selected].icon;
 
   return (
     <section id="faq" className="py-20 relative overflow-hidden">
@@ -697,33 +696,42 @@ function FAQSection() {
           </p>
         </motion.div>
 
-        {/* MOBILE: accordion dropdown klasik dengan icon */}
+        {/* MOBILE: accordion dropdown klasik dengan icon + stagger per item */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07 } } }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
           className="block lg:hidden max-w-3xl mx-auto"
         >
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, i) => {
               const Icon = faq.icon;
               return (
-                <AccordionItem key={i} value={`item-${i}`}>
-                  <AccordionTrigger
-                    className="text-left text-sm gap-3"
-                    data-testid={`accordion-trigger-${i}`}
-                  >
-                    <span className="flex items-center gap-3 flex-1">
-                      <span className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                        <Icon className="w-3.5 h-3.5 text-primary" />
+                <motion.div
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 14 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
+                  }}
+                >
+                  <AccordionItem value={`item-${i}`}>
+                    <AccordionTrigger
+                      className="text-left text-sm gap-3"
+                      data-testid={`accordion-trigger-${i}`}
+                    >
+                      <span className="flex items-center gap-3 flex-1">
+                        <span className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                          <Icon className="w-3.5 h-3.5 text-primary" />
+                        </span>
+                        {faq.question}
                       </span>
-                      {faq.question}
-                    </span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground text-sm pl-10">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground text-sm pl-10">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                </motion.div>
               );
             })}
           </Accordion>
@@ -773,38 +781,66 @@ function FAQSection() {
 
               {/* Watermark icon — fade saat ganti */}
               <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={`icon-${selected}`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.25 }}
-                  className="absolute bottom-5 right-5 pointer-events-none"
-                >
-                  <ActiveIcon className="w-36 h-36 text-primary/6" />
-                </motion.div>
+                {faqs.map((faq, i) => {
+                  if (i !== selected) return null;
+                  const WatermarkIcon = faq.icon;
+                  return (
+                    <motion.div
+                      key={`icon-${i}`}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.25 }}
+                      className="absolute bottom-5 right-5 pointer-events-none"
+                    >
+                      <WatermarkIcon className="w-36 h-36 text-primary/6" />
+                    </motion.div>
+                  );
+                })}
               </AnimatePresence>
 
               {/* Konten */}
               <div className="relative p-7 flex flex-col h-full">
                 {/* Header — nomor + label kategori */}
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="text-5xl font-black text-primary/[0.18] leading-none select-none tabular-nums">
-                    {String(selected + 1).padStart(2, "0")}
-                  </span>
+                  {/* Bug #2 fix: nomor counter kini beranimasi */}
+                  <AnimatePresence mode="wait" initial={false}>
+                    {faqs.map((_, i) => {
+                      if (i !== selected) return null;
+                      return (
+                        <motion.span
+                          key={`num-${i}`}
+                          initial={{ opacity: 0, y: -8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.15 }}
+                          className="text-5xl font-black text-primary/[0.18] leading-none select-none tabular-nums"
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </motion.span>
+                      );
+                    })}
+                  </AnimatePresence>
                   <div className="flex flex-col gap-1">
+                    {/* Bug #1 fix: icon di-capture dari closure faq, bukan dari ActiveIcon */}
                     <AnimatePresence mode="wait" initial={false}>
-                      <motion.span
-                        key={`label-${selected}`}
-                        initial={{ opacity: 0, x: -6 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 6 }}
-                        transition={{ duration: 0.15 }}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full w-fit"
-                      >
-                        <ActiveIcon className="w-3 h-3" />
-                        {faqs[selected].label}
-                      </motion.span>
+                      {faqs.map((faq, i) => {
+                        if (i !== selected) return null;
+                        const LabelIcon = faq.icon;
+                        return (
+                          <motion.span
+                            key={`label-${i}`}
+                            initial={{ opacity: 0, x: -6 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 6 }}
+                            transition={{ duration: 0.15 }}
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full w-fit"
+                          >
+                            <LabelIcon className="w-3 h-3" />
+                            {faq.label}
+                          </motion.span>
+                        );
+                      })}
                     </AnimatePresence>
                     <span className="text-xs text-muted-foreground">{selected + 1} dari {faqs.length} pertanyaan</span>
                   </div>
